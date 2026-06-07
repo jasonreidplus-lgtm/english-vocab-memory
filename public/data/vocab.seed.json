@@ -1,0 +1,495 @@
+[
+  {
+    "id": 1,
+    "group": 1,
+    "word": "abandon",
+    "phonetic": "/əˈbændən/",
+    "base_meaning": "放弃，抛弃；放纵",
+    "pos": "v.",
+    "roots": "a-(去) + band(捆绑/乐队) → 解开束缚 → 抛弃",
+    "examples": [
+      { "en": "They had to abandon the project due to lack of funds.", "cn": "由于资金短缺，他们不得不放弃这个项目。" }
+    ],
+    "confusions": "abandon vs. desert：abandon 侧重彻底放弃；desert 多指擅离(职守/岗位)。",
+    "exam_tip": "固定搭配 abandon oneself to sth. 表示“沉湎于、纵情于”。",
+    "mnemonic": "a + band + on：把乐队(band)丢在一边 → 抛弃。",
+    "status": "done"
+  },
+  {
+    "id": 2,
+    "group": 1,
+    "word": "abstract",
+    "phonetic": "/ˈæbstrækt/",
+    "base_meaning": "抽象的；摘要",
+    "pos": "adj./n.",
+    "roots": "abs-(离开) + tract(拉) → 抽离出来 → 抽象",
+    "examples": [
+      { "en": "This is an abstract concept that is hard to grasp.", "cn": "这是一个难以把握的抽象概念。" }
+    ],
+    "confusions": "abstract(抽象的) vs. concrete(具体的) 常成对考查。",
+    "exam_tip": "作名词时常指论文的“摘要”，阅读中高频。",
+    "mnemonic": "abs(腹肌) + tract(拉) → 把概念从实物里“拉”出来 → 抽象。",
+    "status": "done"
+  },
+  {
+    "id": 3,
+    "group": 1,
+    "word": "abundant",
+    "phonetic": "/əˈbʌndənt/",
+    "base_meaning": "丰富的，大量的",
+    "pos": "adj.",
+    "roots": "ab-(强调) + und(水波涌) → 如水涌来 → 丰富",
+    "examples": [
+      { "en": "The region is abundant in natural resources.", "cn": "该地区自然资源丰富。" }
+    ],
+    "confusions": "be abundant in = be rich in，意为“富含”。",
+    "exam_tip": "常用结构 be abundant in sth.，注意介词为 in。",
+    "mnemonic": "a + bund(满) + ant → 满满的 → 丰富。",
+    "status": "done"
+  },
+  {
+    "id": 4,
+    "group": 1,
+    "word": "accelerate",
+    "phonetic": "/əkˈseləreɪt/",
+    "base_meaning": "(使)加速，加快",
+    "pos": "v.",
+    "roots": "ac-(加强) + celer(快) + ate → 使变快 → 加速",
+    "examples": [
+      { "en": "The government took measures to accelerate economic growth.", "cn": "政府采取措施加快经济增长。" }
+    ],
+    "confusions": "accelerate(加速) vs. exaggerate(夸大) 形近勿混。",
+    "exam_tip": "反义词 decelerate 减速；名词 acceleration。",
+    "mnemonic": "celer 联想 celerity(敏捷) → 加速。",
+    "status": "done"
+  },
+  {
+    "id": 5,
+    "group": 1,
+    "word": "accommodate",
+    "phonetic": "/əˈkɒmədeɪt/",
+    "base_meaning": "容纳；提供住宿；适应",
+    "pos": "v.",
+    "roots": "ac-(朝) + com(共同) + mod(尺寸) → 使合宜 → 容纳/适应",
+    "examples": [
+      { "en": "The hotel can accommodate up to 500 guests.", "cn": "这家酒店最多可容纳 500 位客人。" }
+    ],
+    "confusions": "注意拼写：两个 c、两个 m，是考研高频易错词。",
+    "exam_tip": "accommodate oneself to sth. 使自己适应于。",
+    "mnemonic": "ac + com + mod + ate → 两人(cc)两被子(mm)同住 → 提供住宿。",
+    "status": "done"
+  },
+  {
+    "id": 6,
+    "group": 1,
+    "word": "accumulate",
+    "phonetic": "/əˈkjuːmjəleɪt/",
+    "base_meaning": "积累，积聚",
+    "pos": "v.",
+    "roots": "ac-(加强) + cumul(堆) + ate → 堆积起来 → 积累",
+    "examples": [
+      { "en": "Over the years he accumulated a vast fortune.", "cn": "多年来他积累了巨额财富。" }
+    ],
+    "confusions": "accumulate(逐渐积累) vs. gather(聚集) 语气不同。",
+    "exam_tip": "名词 accumulation；写作高频词。",
+    "mnemonic": "cumul 联想 cumulus(积云) → 一层层堆 → 积累。",
+    "status": "done"
+  },
+  {
+    "id": 7,
+    "group": 1,
+    "word": "acquire",
+    "phonetic": "/əˈkwaɪə/",
+    "base_meaning": "获得，取得；学到",
+    "pos": "v.",
+    "roots": "ac-(朝) + quire(寻求) → 求而得之 → 获得",
+    "examples": [
+      { "en": "Children acquire language skills remarkably fast.", "cn": "儿童学习语言技能的速度快得惊人。" }
+    ],
+    "confusions": "acquire / require(需要) / inquire(询问) 词根 quir 同源，勿混。",
+    "exam_tip": "acquired 后天习得的(↔ innate 天生的)。",
+    "mnemonic": "ac + quire(找) → 一路找来 → 获得。",
+    "status": "done"
+  },
+  {
+    "id": 8,
+    "group": 1,
+    "word": "adequate",
+    "phonetic": "/ˈædɪkwət/",
+    "base_meaning": "足够的，适当的",
+    "pos": "adj.",
+    "roots": "ad-(朝) + equ(相等) + ate → 与需求相称 → 足够",
+    "examples": [
+      { "en": "Her salary is adequate to support the family.", "cn": "她的薪水足以养家。" }
+    ],
+    "confusions": "adequate(够用) 程度低于 abundant(充裕)。",
+    "exam_tip": "be adequate for / to do 足以…；反义 inadequate。",
+    "mnemonic": "ad + equ(equal) → 与需要相等 → 足够。",
+    "status": "done"
+  },
+  {
+    "id": 9,
+    "group": 1,
+    "word": "advocate",
+    "phonetic": "/ˈædvəkeɪt/",
+    "base_meaning": "提倡，主张；拥护者",
+    "pos": "v./n.",
+    "roots": "ad-(朝) + voc(声音) + ate → 为…发声 → 提倡",
+    "examples": [
+      { "en": "Many experts advocate a balanced diet.", "cn": "许多专家提倡均衡饮食。" }
+    ],
+    "confusions": "advocate(提倡) vs. allocate(分配) 形近。",
+    "exam_tip": "advocate doing sth.(不接 to do)；作名词读 /-kət/。",
+    "mnemonic": "voc(声) → 大声疾呼 → 提倡/拥护者。",
+    "status": "done"
+  },
+  {
+    "id": 10,
+    "group": 1,
+    "word": "aesthetic",
+    "phonetic": "/iːsˈθetɪk/",
+    "base_meaning": "美学的，审美的；美感",
+    "pos": "adj./n.",
+    "roots": "aesthe(感觉) + tic → 关于美感 → 审美的",
+    "examples": [
+      { "en": "The building has great aesthetic appeal.", "cn": "这栋建筑极具美感。" }
+    ],
+    "confusions": "aesthetic(审美的) vs. ascetic(禁欲的) 形近义远，必考。",
+    "exam_tip": "名词 aesthetics 美学；拼写注意 ae 开头。",
+    "mnemonic": "联想 anaesthetic(麻醉=失去感觉)，aesthetic = 有感觉 → 审美。",
+    "status": "done"
+  },
+
+  {
+    "id": 11,
+    "group": 2,
+    "word": "ambiguous",
+    "phonetic": "/æmˈbɪɡjuəs/",
+    "base_meaning": "模糊的，模棱两可的",
+    "pos": "adj.",
+    "roots": "ambi-(两边) + ig(驱动) + ous → 两边走 → 模棱两可",
+    "examples": [
+      { "en": "His ambiguous reply confused everyone.", "cn": "他模棱两可的回答让大家很困惑。" }
+    ],
+    "confusions": "ambiguous(语义含糊) vs. ambivalent(态度矛盾)。",
+    "exam_tip": "名词 ambiguity；反义 clear / explicit。",
+    "mnemonic": "ambi(两) + guous → 两种意思 → 含糊。",
+    "status": "done"
+  },
+  {
+    "id": 12,
+    "group": 2,
+    "word": "analogy",
+    "phonetic": "/əˈnælədʒi/",
+    "base_meaning": "类比，相似",
+    "pos": "n.",
+    "roots": "ana-(按照) + log(说/比) + y → 按比例对照 → 类比",
+    "examples": [
+      { "en": "She drew an analogy between the heart and a pump.", "cn": "她把心脏比作水泵。" }
+    ],
+    "confusions": "analogy(类比) vs. analysis(分析) 词形勿混。",
+    "exam_tip": "by analogy with 与…类推；形容词 analogous。",
+    "mnemonic": "ana + log(逻辑) → 用相似逻辑比 → 类比。",
+    "status": "done"
+  },
+  {
+    "id": 13,
+    "group": 2,
+    "word": "anonymous",
+    "phonetic": "/əˈnɒnɪməs/",
+    "base_meaning": "匿名的，无名的",
+    "pos": "adj.",
+    "roots": "an-(无) + onym(名字) + ous → 没有名字 → 匿名",
+    "examples": [
+      { "en": "The donation was made by an anonymous benefactor.", "cn": "这笔捐款来自一位匿名捐助者。" }
+    ],
+    "confusions": "-onym 家族：synonym 近义词, antonym 反义词。",
+    "exam_tip": "名词 anonymity 匿名(性)。",
+    "mnemonic": "an(无) + onym(名) → 无名 → 匿名。",
+    "status": "done"
+  },
+  {
+    "id": 14,
+    "group": 2,
+    "word": "anticipate",
+    "phonetic": "/ænˈtɪsɪpeɪt/",
+    "base_meaning": "预料，预期；期望",
+    "pos": "v.",
+    "roots": "ante-(之前) + cip(拿) + ate → 提前拿到 → 预料",
+    "examples": [
+      { "en": "We anticipate a rise in prices next year.", "cn": "我们预计明年物价会上涨。" }
+    ],
+    "confusions": "anticipate(预料并准备) vs. expect(单纯期待)。",
+    "exam_tip": "anticipate doing sth.；名词 anticipation。",
+    "mnemonic": "ante(前) + cip(取) → 先取一步 → 预料。",
+    "status": "done"
+  },
+  {
+    "id": 15,
+    "group": 2,
+    "word": "apparent",
+    "phonetic": "/əˈpærənt/",
+    "base_meaning": "显然的；表面上的",
+    "pos": "adj.",
+    "roots": "ap-(朝) + par(显现) + ent → 显现出来 → 明显",
+    "examples": [
+      { "en": "It was apparent that she was unhappy.", "cn": "显然她不开心。" }
+    ],
+    "confusions": "apparent 还有“表面的(未必真实)”含义，注意语境。",
+    "exam_tip": "apparently 副词，阅读中常表“看上去、似乎”。",
+    "mnemonic": "appear(出现) + ent → 出现的 → 显然的。",
+    "status": "done"
+  },
+  {
+    "id": 16,
+    "group": 2,
+    "word": "arbitrary",
+    "phonetic": "/ˈɑːbɪtrəri/",
+    "base_meaning": "任意的，武断的",
+    "pos": "adj.",
+    "roots": "arbit(裁决者) + ary → 全凭裁决者意志 → 武断",
+    "examples": [
+      { "en": "The decision seemed completely arbitrary.", "cn": "这个决定看起来完全是武断的。" }
+    ],
+    "confusions": "arbitrary(随意武断) 与 arbitrate(仲裁) 同根。",
+    "exam_tip": "常含贬义，指缺乏依据的随意。",
+    "mnemonic": "arbiter(裁判)随心判 → 武断/任意。",
+    "status": "done"
+  },
+  {
+    "id": 17,
+    "group": 2,
+    "word": "articulate",
+    "phonetic": "/ɑːˈtɪkjuleɪt/",
+    "base_meaning": "清晰表达；口齿清楚的",
+    "pos": "v./adj.",
+    "roots": "art(关节) + icul + ate → 像关节般分节清楚 → 清晰表达",
+    "examples": [
+      { "en": "She struggled to articulate her feelings.", "cn": "她努力想把感受清楚表达出来。" }
+    ],
+    "confusions": "动词读 /-leɪt/、形容词读 /-lət/，读音不同。",
+    "exam_tip": "articulate one's views 清楚阐明观点。",
+    "mnemonic": "art(关节)分节 → 一字一句 → 表达清楚。",
+    "status": "done"
+  },
+  {
+    "id": 18,
+    "group": 2,
+    "word": "assess",
+    "phonetic": "/əˈses/",
+    "base_meaning": "评估，估价",
+    "pos": "v.",
+    "roots": "as-(朝) + sess(坐) → 坐下来审议 → 评估",
+    "examples": [
+      { "en": "The teacher assessed the students' progress.", "cn": "老师评估了学生们的进步。" }
+    ],
+    "confusions": "assess(评估) vs. access(进入/通道) 形近，必考。",
+    "exam_tip": "名词 assessment 评估；常考拼写。",
+    "mnemonic": "as + sess(坐) → 法官坐定 → 评定。",
+    "status": "done"
+  },
+  {
+    "id": 19,
+    "group": 2,
+    "word": "assume",
+    "phonetic": "/əˈsjuːm/",
+    "base_meaning": "假定，认为；承担",
+    "pos": "v.",
+    "roots": "as-(朝) + sum(拿) → 拿过来 → 假定/承担",
+    "examples": [
+      { "en": "Let's assume that the data is correct.", "cn": "我们假设数据是正确的。" }
+    ],
+    "confusions": "assume(假定) vs. presume(基于证据推定) 语气不同。",
+    "exam_tip": "assume responsibility 承担责任；名词 assumption。",
+    "mnemonic": "sum(拿) → 拿来当真 → 假定。",
+    "status": "done"
+  },
+  {
+    "id": 20,
+    "group": 2,
+    "word": "attribute",
+    "phonetic": "/əˈtrɪbjuːt/",
+    "base_meaning": "把…归因于；属性",
+    "pos": "v./n.",
+    "roots": "at-(朝) + tribute(给予) → 把功劳给予 → 归因",
+    "examples": [
+      { "en": "He attributes his success to hard work.", "cn": "他把成功归因于努力工作。" }
+    ],
+    "confusions": "attribute A to B 把 A 归因于 B；contribute to 有助于。",
+    "exam_tip": "动词读 /-bjuːt/、名词读 /ˈætrɪbjuːt/，重音不同。",
+    "mnemonic": "tribute(致敬/贡献) → 把原因贡献给某物 → 归因。",
+    "status": "done"
+  },
+
+  {
+    "id": 21,
+    "group": 3,
+    "word": "coherent",
+    "phonetic": "/kəʊˈhɪərənt/",
+    "base_meaning": "连贯的，条理清楚的",
+    "pos": "adj.",
+    "roots": "co-(共同) + her(粘) + ent → 粘在一起 → 连贯",
+    "examples": [
+      { "en": "She gave a coherent account of the accident.", "cn": "她条理清楚地讲述了事故经过。" }
+    ],
+    "confusions": "coherent 与 cohesive(有凝聚力的) 同根；反义 incoherent。",
+    "exam_tip": "名词 coherence 连贯性，是写作评分点。",
+    "mnemonic": "co(共) + here(这里) + nt → 都粘在一处 → 连贯。",
+    "status": "done"
+  },
+  {
+    "id": 22,
+    "group": 3,
+    "word": "collaborate",
+    "phonetic": "/kəˈlæbəreɪt/",
+    "base_meaning": "合作，协作",
+    "pos": "v.",
+    "roots": "col-(共同) + labor(劳动) + ate → 一起劳动 → 合作",
+    "examples": [
+      { "en": "The two companies collaborated on the project.", "cn": "两家公司合作完成了这个项目。" }
+    ],
+    "confusions": "collaborate(协作) vs. cooperate(配合) 近义可替换。",
+    "exam_tip": "collaborate with sb. on sth.；名词 collaboration。",
+    "mnemonic": "col + labor(劳动) → 共同劳动 → 合作。",
+    "status": "done"
+  },
+  {
+    "id": 23,
+    "group": 3,
+    "word": "commit",
+    "phonetic": "/kəˈmɪt/",
+    "base_meaning": "承诺；犯(罪)；投入",
+    "pos": "v.",
+    "roots": "com-(共同) + mit(送) → 把自己送进去 → 投入",
+    "examples": [
+      { "en": "She committed herself to helping the poor.", "cn": "她致力于帮助穷人。" }
+    ],
+    "confusions": "commit a crime 犯罪；be committed to doing 致力于(to 为介词)。",
+    "exam_tip": "名词 commitment 承诺/投入，高频。",
+    "mnemonic": "com + mit(送) → 把心送出去 → 承诺/投入。",
+    "status": "done"
+  },
+  {
+    "id": 24,
+    "group": 3,
+    "word": "compel",
+    "phonetic": "/kəmˈpel/",
+    "base_meaning": "强迫，迫使",
+    "pos": "v.",
+    "roots": "com-(加强) + pel(推) → 用力推 → 强迫",
+    "examples": [
+      { "en": "Illness compelled him to give up his job.", "cn": "疾病迫使他放弃了工作。" }
+    ],
+    "confusions": "pel(推) 家族：expel 驱逐, repel 击退, propel 推进。",
+    "exam_tip": "compel sb. to do sth.；形容词 compelling 引人入胜的。",
+    "mnemonic": "pel(推) → 推着你做 → 强迫。",
+    "status": "done"
+  },
+  {
+    "id": 25,
+    "group": 3,
+    "word": "compensate",
+    "phonetic": "/ˈkɒmpenseɪt/",
+    "base_meaning": "补偿，弥补",
+    "pos": "v.",
+    "roots": "com-(共同) + pens(称量) + ate → 重新称平 → 补偿",
+    "examples": [
+      { "en": "The company compensated him for his losses.", "cn": "公司赔偿了他的损失。" }
+    ],
+    "confusions": "compensate for 弥补；pens(称/挂)同 pension 养老金。",
+    "exam_tip": "名词 compensation 补偿(金)。",
+    "mnemonic": "pens(称重) → 把天平称平 → 补偿。",
+    "status": "done"
+  },
+  {
+    "id": 26,
+    "group": 3,
+    "word": "complement",
+    "phonetic": "/ˈkɒmplɪment/",
+    "base_meaning": "补充，补足(物)",
+    "pos": "v./n.",
+    "roots": "com-(完全) + ple(填满) + ment → 填满使完整 → 补足",
+    "examples": [
+      { "en": "The wine complements the meal perfectly.", "cn": "这款酒与这餐饭完美相配。" }
+    ],
+    "confusions": "complement(补足) vs. compliment(赞美) 一字之差，必考！",
+    "exam_tip": "形容词 complementary 互补的(≠ complimentary 免费的/赞美的)。",
+    "mnemonic": "com + ple(满) → 填满 → 补充(与 complete 同根)。",
+    "status": "done"
+  },
+  {
+    "id": 27,
+    "group": 3,
+    "word": "comply",
+    "phonetic": "/kəmˈplaɪ/",
+    "base_meaning": "遵从，服从",
+    "pos": "v.",
+    "roots": "com-(完全) + ply(折/弯) → 弯下身 → 顺从",
+    "examples": [
+      { "en": "All staff must comply with the safety rules.", "cn": "全体员工必须遵守安全规定。" }
+    ],
+    "confusions": "comply with 遵从(后接规则)；与 apply / imply / reply 同尾。",
+    "exam_tip": "名词 compliance；介词固定为 with。",
+    "mnemonic": "ply(弯) → 弯腰顺从 → 遵从。",
+    "status": "done"
+  },
+  {
+    "id": 28,
+    "group": 3,
+    "word": "conceive",
+    "phonetic": "/kənˈsiːv/",
+    "base_meaning": "构想，想出；怀孕",
+    "pos": "v.",
+    "roots": "con-(共同) + ceive(拿) → 心里抓住想法 → 构想",
+    "examples": [
+      { "en": "He conceived the idea of a new app.", "cn": "他构想出一个新应用的点子。" }
+    ],
+    "confusions": "ceive 家族：receive 接收, perceive 察觉, deceive 欺骗。",
+    "exam_tip": "conceive of sth. 构想；名词 concept / conception。",
+    "mnemonic": "con + ceive(拿) → 把想法拿在脑中 → 构想。",
+    "status": "done"
+  },
+  {
+    "id": 29,
+    "group": 3,
+    "word": "confront",
+    "phonetic": "/kənˈfrʌnt/",
+    "base_meaning": "面对，对抗；使面对",
+    "pos": "v.",
+    "roots": "con-(一起) + front(前面) → 正面相对 → 对抗",
+    "examples": [
+      { "en": "She had to confront her fears.", "cn": "她不得不直面自己的恐惧。" }
+    ],
+    "confusions": "confront(直面/对峙) vs. confound(使困惑) 形近。",
+    "exam_tip": "be confronted with 面临(困难)。",
+    "mnemonic": "front(前线) → 站到前线 → 直面/对抗。",
+    "status": "done"
+  },
+  {
+    "id": 30,
+    "group": 3,
+    "word": "consequence",
+    "phonetic": "/ˈkɒnsɪkwəns/",
+    "base_meaning": "结果，后果；重要性",
+    "pos": "n.",
+    "roots": "con-(共同) + sequ(跟随) + ence → 随之而来 → 后果",
+    "examples": [
+      { "en": "He didn't consider the consequences of his actions.", "cn": "他没有考虑自己行为的后果。" }
+    ],
+    "confusions": "sequ(跟随) 家族：sequence 顺序, consecutive 连续的。",
+    "exam_tip": "in consequence(=as a result)；of consequence 重要的。",
+    "mnemonic": "con + sequ(跟随) → 跟着来的 → 后果。",
+    "status": "done"
+  },
+
+  { "id": 31, "group": 4, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 32, "group": 4, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 33, "group": 5, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 34, "group": 5, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 35, "group": 6, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 36, "group": 6, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 37, "group": 7, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 38, "group": 7, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 39, "group": 8, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" },
+  { "id": 40, "group": 8, "word": "", "phonetic": "", "base_meaning": "", "pos": "", "roots": "", "examples": [], "confusions": "", "exam_tip": "", "mnemonic": "", "status": "pending" }
+]

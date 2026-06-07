@@ -1,0 +1,19 @@
+{
+  "name": "考研词关 · WordQuest",
+  "short_name": "考研词关",
+  "description": "考研 5500 词闯关学习 —— 翻卡、闯关、三星、错词复习",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c0c12",
+  "theme_color": "#0c0c12",
+  "lang": "zh-CN",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

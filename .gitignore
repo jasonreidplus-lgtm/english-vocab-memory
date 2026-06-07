@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+npm-debug.log*
+
+# vocab 重建临时文件
+tmp_dict/
+*.zip
+KaoYan_*.json
+
+scripts/targets/
+scripts/out/
+
+# 由 vocab.json 生成的懒加载拆分文件(prebuild/predev 自动生成)
+public/data/vocab-index.json
+public/data/groups/
