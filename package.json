@@ -1,7 +1,7 @@
 {
   "name": "wordquest-kaoyan",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "考研5500词闯关学习 — 数据驱动 / 纯主题层画风 / 离线本地进度",
   "scripts": {
