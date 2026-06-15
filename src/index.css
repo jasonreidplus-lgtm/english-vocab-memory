@@ -333,47 +333,6 @@ body {
 .opt.wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
 .opt.dim { opacity: 0.45; }
 
-/* ---------- 拼写题 ---------- */
-.spell-input {
-  width: 100%;
-  font-family: var(--display);
-  font-size: 26px;
-  letter-spacing: 0.14em;
-  text-align: center;
-  padding: 14px 12px;
-  border-radius: var(--btn-radius);
-  border: var(--line-strong);
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  box-shadow: var(--shadow);
-}
-.spell-input:focus { border-color: var(--accent); }
-.spell-input.correct { border-color: var(--good); color: var(--good); }
-.spell-input.wrong { border-color: var(--bad); color: var(--bad); }
-.spell-reveal {
-  text-align: center;
-  font-family: var(--display);
-  font-size: 22px;
-  color: var(--good);
-  letter-spacing: 0.12em;
-  margin-top: 12px;
-}
-.spell-slots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
-}
-.slot {
-  width: 14px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--muted);
-  opacity: 0.5;
-}
-
 /* ---------- 每日目标卡 ---------- */
 .daily-card {
   display: flex;
@@ -596,7 +555,7 @@ body {
 /* 继续学习 CTA */
 .continue-btn { letter-spacing: 0.02em; }
 
-/* 选择题：选项序号 + 拼写提示 */
+/* 选择题：选项序号 */
 .opt-left { display: inline-flex; align-items: center; gap: 11px; min-width: 0; }
 .opt-key {
   flex-shrink: 0;
@@ -611,16 +570,6 @@ body {
   font-size: 13px;
   color: var(--muted);
 }
-.spell-hint {
-  text-align: center;
-  font-family: var(--display);
-  font-size: 22px;
-  letter-spacing: 0.18em;
-  color: var(--accent);
-  margin-bottom: 8px;
-  word-break: break-all;
-}
-
 /* 设置弹窗 */
 .modal-backdrop {
   position: absolute;
@@ -726,6 +675,161 @@ body {
   0%, 100% { box-shadow: var(--shadow); }
   30%, 60% { box-shadow: 0 0 0 3px var(--accent); }
 }
+
+/* ---------- 真题精读 ---------- */
+.read-input {
+  width: 100%;
+  margin-top: 6px;
+  border: var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--btn-radius);
+  padding: 12px 13px;
+  font-size: 15px;
+  line-height: 1.6;
+  font-family: var(--body);
+  resize: vertical;
+  outline: none;
+  box-shadow: var(--shadow);
+}
+.read-input:focus { border-color: var(--accent); }
+.read-passage {
+  margin-top: 14px;
+  padding: 14px 15px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: var(--line);
+  box-shadow: var(--shadow);
+  font-size: 17px;
+  line-height: 2.05;
+  font-family: var(--body);
+  word-break: break-word;
+}
+.read-passage .hl,
+.cloze-sent .hl {
+  display: inline;
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  border-radius: 4px 4px 0 0;
+  padding: 1px 2px;
+}
+.read-passage .hl:active,
+.cloze-sent .hl:active { opacity: 0.7; }
+.read-passage .hl-added,
+.cloze-sent .hl-added {
+  background: var(--good-soft);
+  color: var(--good);
+  border-bottom-color: var(--good);
+}
+
+/* 句子猜词：挖空 */
+.cloze-sent {
+  margin-top: 14px;
+  padding: 18px 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: var(--line-strong);
+  box-shadow: var(--shadow);
+  font-size: 19px;
+  line-height: 2.2;
+  font-family: var(--body);
+  word-break: break-word;
+}
+.cloze-sent .cloze-blank {
+  display: inline;
+  font-family: var(--display);
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-bottom: 2px dashed var(--accent);
+  border-radius: 4px 4px 0 0;
+  padding: 1px 3px;
+}
+.cloze-sent .cloze-blank:active { opacity: 0.7; }
+.cloze-cn {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--btn-radius);
+  background: var(--accent-soft);
+  border: var(--line);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+/* 真题阅读关卡卡片 */
+.passage-card {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: var(--line);
+  border-radius: var(--btn-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.passage-card.is-done { border-color: var(--accent); }
+.passage-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 13px 14px;
+  text-align: left;
+  min-width: 0;
+}
+.passage-main:active { transform: translateY(1px); }
+.passage-del {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0 13px;
+  align-self: stretch;
+}
+.passage-del:active { color: var(--bad); }
+
+/* 翻译后的词义清单 */
+.gloss { display: flex; flex-direction: column; gap: 6px; }
+.gloss-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border: var(--line);
+  background: var(--surface);
+  border-radius: var(--btn-radius);
+  padding: 9px 12px;
+  color: var(--ink);
+}
+.gloss-item:active { transform: translateY(1px); }
+.gloss-w { font-family: var(--display); font-weight: 700; font-size: 16px; }
+.gloss-pos { color: var(--muted); font-size: 12px; font-weight: 400; }
+.gloss-m { color: var(--muted); font-size: 13px; text-align: right; }
+.word-pop { text-align: left; }
+.word-pop .pop-sec {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: var(--btn-radius);
+  background: var(--accent-soft);
+  border: var(--line);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.word-pop .pop-sec .en { font-family: var(--display); }
+.word-pop .pop-sec .cnex { color: var(--muted); margin-top: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
   .card3d, .bar > i, .fade, .pop, .shake, .cell.just-unlocked, .burst, .combo-pop, .cell.flash {

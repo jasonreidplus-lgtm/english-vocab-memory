@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Zap, Flame, Trophy, Brain, Puzzle, ChevronRight, Play, CornerDownLeft, Settings, BookOpen } from 'lucide-react';
+import { Zap, Flame, Trophy, Brain, Puzzle, ChevronRight, Play, CornerDownLeft, Settings, BookOpen, ScrollText, Lightbulb, Newspaper } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import DailyCard from '../components/DailyCard.jsx';
 
@@ -56,6 +56,9 @@ export default function LevelSelect({
   onReview,
   onBrowseWrong,
   onMatch,
+  onRead,
+  onCloze,
+  onPassages,
   onSetGoal,
   onOpenSettings,
   justUnlocked,
@@ -153,6 +156,30 @@ export default function LevelSelect({
             title="词根连连看"
             sub="单词 ↔ 释义 配对挑战"
             onClick={onMatch}
+          />
+        )}
+        {onPassages && (
+          <ReviewEntry
+            icon={<Newspaper size={20} color="var(--accent)" />}
+            title="真题阅读 · 闯关"
+            sub="导入真题文章，每篇拆成句子、标出考研词、点译看讲解"
+            onClick={onPassages}
+          />
+        )}
+        {onRead && (
+          <ReviewEntry
+            icon={<ScrollText size={20} color="var(--accent)" />}
+            title="真题精读"
+            sub="粘贴真题原文，自动高亮考研词、点词看卡"
+            onClick={onRead}
+          />
+        )}
+        {onCloze && (
+          <ReviewEntry
+            icon={<Lightbulb size={20} color="var(--accent)" />}
+            title="句子精读"
+            sub="整句英文、考研词标出，点「翻译」看句义 + 词义讲解"
+            onClick={onCloze}
           />
         )}
       </div>

@@ -52,12 +52,13 @@ public/
 src/
   config/themes.jsx        ★ 画风配置（唯一的视觉差异来源）+ decos.jsx 背景装饰
   data/loadVocab.js        加载（先索引、进关懒加载详情，缺拆分则回退整包）
-  game/quiz.js             出题（英选中/中选英/拼写）、判分、长释义取首义
+  game/quiz.js             出题（英选中/中选英）、判分、长释义取首义
   state/progress.js        进度模型 + 选择器（解锁/星级/XP/打卡/偏好）
   state/useProgress.js     localStorage 持久化 hook
-  lib/                     speech(发音) / shuffle 小工具
-  components/              HeaderBar / ThemeSwitcher / Stars / DailyCard / SettingsPanel / ErrorBoundary
-  screens/                 LevelSelect / Learn / Quiz / Result / Match 五屏
+  lib/                     speech / shuffle / annotate(词形还原标注) / passages(真题阅读关卡库,本机存储)
+  components/              HeaderBar / ThemeSwitcher / Stars / DailyCard / SettingsPanel / ErrorBoundary / WordPopup
+  screens/                 LevelSelect / Learn / Quiz / Result / Match / Read(真题精读) / Cloze(句子猜词) / Passage(真题阅读闯关) 八屏
+  ../public/data/sentences.json  内置句子猜词句库（自写，带翻译）
   App.jsx                  串起数据、进度、画风、流程（含懒加载 hydrate）
   index.css                全局样式（只用变量，不出现画风名）
 scripts/
@@ -116,17 +117,22 @@ scripts/
 ## 功能一览
 
 - **P0**：关卡选择 → 学习翻卡（信息分层展开）→ 闯关（即时反馈）→ 三星结算 + 错词入池；持久化。
-- **P1**：错词复习模式 · 三题型（英选中/中选英/拼写）随机混合 + 词根连连看配对 · SpeechSynthesis 发音 · 每日目标 + 连续打卡 · 进关单词随机打乱。
+- **P1**：错词复习模式 · 两种选择题（英选中/中选英）随机混合 + 词根连连看配对 · SpeechSynthesis 发音 · 每日目标 + 连续打卡 · 进关单词随机打乱。
 - **P2**：5 种画风（水墨/像素/霓虹/羊皮纸RPG/极简墨白）· 解锁脉冲 / 连击 / 三星+奖杯爆裂动画（全走通用类/变量）。
 - **优化升级**：
   - **PWA**：可安装、离线可用、状态栏颜色随画风变。
   - **懒加载**：首屏 3.3MB → 736KB，进关秒开。
   - **关卡跳转**：「继续学习·第 N 关」直达进度前沿、跳转到任意关、进页自动滚到当前位置。
-  - **拼写题**：首字母提示、答错可听音、判定忽略首尾标点/多余空格。
   - **选择题**：长释义只显首义，避免选项过挤。
   - **浏览模式**：结算页/错词本可「只翻卡不测验」。
   - **桌面键盘**：选择题 `1-4` 选、`Enter` 下一题。
   - **设置面板**：音效开关 / 美英音切换 / 每日目标 / 重置进度。
-  - **健壮性**：ErrorBoundary 防白屏；`npm test` 16 条纯函数自测全绿。
+  - **健壮性**：ErrorBoundary 防白屏；`npm test` 纯函数自测全绿。
+- **真题语境背词**：在阅读原文里背单词，三种玩法：
+  - **真题阅读 · 闯关**（[`PassageScreen.jsx`](src/screens/PassageScreen.jsx) + [`passages.js`](src/lib/passages.js)）：**每篇文章 = 一关**，自动拆成句子。每句**整句英文直接显示、考研词高亮**；点「翻译 · 看词义」一次给出**整句中文 + 这些词的词义清单**，点具体词再看完整词卡（词根/例句/助记）、可加错词本。过完通关（计 XP/打卡，库内显示「已通 N/M」）。文章由你**自己导入**：单篇（标题+原文+可选译文），或**批量**（一次粘多篇、用 `# 标题` 行分隔，自动切成 N 关）。只存本机 localStorage、不上传；十几年真题一次导进去就是几十关。内置 2 篇**自写示例文章**开箱即用。
+  - **句子精读**（[`ClozeScreen.jsx`](src/screens/ClozeScreen.jsx)）：同上的逐句精读体验，跑在内置自写句库或你粘贴的真题上。
+  - **真题精读**（[`ReadScreen.jsx`](src/screens/ReadScreen.jsx)）：粘贴段落 → 自动高亮考研词 → 点词弹卡（释义/词根/例句/助记）。
+  - 三者共用词形还原引擎 [`src/lib/annotate.js`](src/lib/annotate.js)（纯规则去屈折+小不规则表，命中词库即标注，**离线毫秒级、不用 NLP 库、只读词库**）与点词弹层 [`WordPopup.jsx`](src/components/WordPopup.jsx)。
+  - **版权**：内置文章/句子均为自写；**绝不内置任何真题原文**（公开部署=公开复制版权文章），真题由你用自己合法持有的材料导入、仅存本机。
 
-> 全部功能已在浏览器端到端验证；`npm run build` 通过，`npm test` 16/16。
+> 全部功能已在浏览器端到端验证；`npm run build` 通过，`npm test` 全绿。

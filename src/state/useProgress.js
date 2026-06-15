@@ -96,6 +96,17 @@ function reducer(state, action) {
     case 'setPref':
       return { ...state, [action.key]: action.value };
 
+    case 'markWrong': {
+      // 把若干词 id 加入错词池(如真题精读里「加入错词本」)
+      const wrong = { ...state.wrong };
+      const ts = Date.now();
+      for (const id of action.ids || []) {
+        const w = wrong[id] || { miss: 0 };
+        wrong[id] = { miss: w.miss + 1, lastTs: ts };
+      }
+      return { ...state, wrong };
+    }
+
     case 'resetAll':
       return { ...defaultProgress(), themeKey: state.themeKey };
 
@@ -119,6 +130,10 @@ export function useProgress() {
   const recordStudy = useCallback((words) => dispatch({ type: 'studyActivity', words }), []);
   const setGoal = useCallback((goal) => dispatch({ type: 'setGoal', goal }), []);
   const setPref = useCallback((key, value) => dispatch({ type: 'setPref', key, value }), []);
+  const markWrong = useCallback(
+    (ids) => dispatch({ type: 'markWrong', ids: Array.isArray(ids) ? ids : [ids] }),
+    []
+  );
   const resetAll = useCallback(() => dispatch({ type: 'resetAll' }), []);
 
   return {
@@ -130,6 +145,7 @@ export function useProgress() {
     recordStudy,
     setGoal,
     setPref,
+    markWrong,
     resetAll,
   };
 }

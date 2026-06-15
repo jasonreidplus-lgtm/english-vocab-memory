@@ -18,10 +18,14 @@ import LearnScreen from './screens/LearnScreen.jsx';
 import QuizScreen from './screens/QuizScreen.jsx';
 import ResultScreen from './screens/ResultScreen.jsx';
 import MatchScreen from './screens/MatchScreen.jsx';
+import ReadScreen from './screens/ReadScreen.jsx';
+import ClozeScreen from './screens/ClozeScreen.jsx';
+import PassageScreen from './screens/PassageScreen.jsx';
+import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
 import SettingsPanel from './components/SettingsPanel.jsx';
 
 export default function App() {
-  const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, resetAll } =
+  const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -64,6 +68,9 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [justUnlocked, setJustUnlocked] = useState(null); // 刚解锁的关卡(用于高亮动画)
   const [browseCtx, setBrowseCtx] = useState(null); // 浏览模式 { words, title, ret }
+  const [passages, setPassages] = useState([]); // 真题阅读关卡库(本机)
+  const [activePassage, setActivePassage] = useState(null); // 正在精读的篇目
+  useEffect(() => { setPassages(loadPassages()); }, []);
 
   const levels = vocab.status === 'ready' ? vocab.levels : [];
   const byId = vocab.status === 'ready' ? vocab.byId : new Map();
@@ -101,6 +108,12 @@ export default function App() {
   };
   const enterTok = useRef(0); // 防止快速切关时旧的 hydrate 覆盖新会话
   const browseTok = useRef(0);
+  // 单词补齐富字段(真题精读点词弹卡用)
+  const hydrateWord = async (entry) => {
+    if (!entry) return entry;
+    const [h] = await hydrate([entry]);
+    return h || entry;
+  };
 
   // —— 流程处理 ——
   const onSpeak = (text) => {
@@ -198,6 +211,23 @@ export default function App() {
   };
 
   const startMatch = () => setView('match');
+  const startRead = () => setView('read');
+  const startCloze = () => { setActivePassage(null); setView('cloze'); };
+
+  // —— 真题阅读关卡库 ——
+  const openPassages = () => setView('passages');
+  const backToPassages = () => { setActivePassage(null); setView('passages'); };
+  const openPassage = (p) => { setActivePassage(p); setView('cloze'); };
+  const importPassage = (title, en, cn) => { addPassage(title, en, cn); setPassages(loadPassages()); };
+  const bulkImportPassages = (text) => { addPassagesBulk(parseBulk(text)); setPassages(loadPassages()); };
+  const deletePassage = (id) => { removePassage(id); setPassages(loadPassages()); };
+  const finishPassage = (p) => {
+    markStudied(p.id);
+    setPassages(loadPassages());
+    addXp(20);
+    recordStudy(p.sents.length);
+    backToPassages();
+  };
 
   // 浏览模式：只翻词卡，不测验。先显示轻量卡，再懒加载富字段补齐分层。
   const startBrowse = (words, title, ret) => {
@@ -273,6 +303,47 @@ export default function App() {
         onStudied={recordStudy}
       />
     );
+  } else if (view === 'read') {
+    screen = (
+      <ReadScreen
+        pool={allReady}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={goHome}
+        onSpeak={onSpeak}
+        onMarkWrong={markWrong}
+        hydrateWord={hydrateWord}
+      />
+    );
+  } else if (view === 'cloze') {
+    screen = (
+      <ClozeScreen
+        pool={allReady}
+        sentences={activePassage ? activePassage.sents : undefined}
+        title={activePassage ? activePassage.title : undefined}
+        onDone={activePassage ? () => finishPassage(activePassage) : undefined}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={activePassage ? backToPassages : goHome}
+        onSpeak={onSpeak}
+        onMarkWrong={markWrong}
+        hydrateWord={hydrateWord}
+      />
+    );
+  } else if (view === 'passages') {
+    screen = (
+      <PassageScreen
+        passages={passages}
+        pool={allReady}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={goHome}
+        onOpen={openPassage}
+        onImport={importPassage}
+        onBulkImport={bulkImportPassages}
+        onDelete={deletePassage}
+      />
+    );
   } else if (view === 'browse' && browseCtx) {
     screen = (
       <LearnScreen
@@ -318,6 +389,9 @@ export default function App() {
         onReview={startReview}
         onBrowseWrong={browseWrong}
         onMatch={startMatch}
+        onRead={startRead}
+        onCloze={startCloze}
+        onPassages={openPassages}
         onSetGoal={setGoal}
         onOpenSettings={() => setSettingsOpen(true)}
         justUnlocked={justUnlocked}
