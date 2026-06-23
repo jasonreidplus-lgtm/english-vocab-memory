@@ -70,7 +70,7 @@ export default function App() {
   const [browseCtx, setBrowseCtx] = useState(null); // 浏览模式 { words, title, ret }
   const [passages, setPassages] = useState([]); // 真题阅读关卡库(本机)
   const [activePassage, setActivePassage] = useState(null); // 正在精读的篇目
-  useEffect(() => { setPassages(loadPassages()); }, []);
+  useEffect(() => { let alive = true; loadPassages().then((p) => alive && setPassages(p)); return () => { alive = false; }; }, []);
 
   const levels = vocab.status === 'ready' ? vocab.levels : [];
   const byId = vocab.status === 'ready' ? vocab.byId : new Map();
@@ -218,12 +218,12 @@ export default function App() {
   const openPassages = () => setView('passages');
   const backToPassages = () => { setActivePassage(null); setView('passages'); };
   const openPassage = (p) => { setActivePassage(p); setView('cloze'); };
-  const importPassage = (title, en, cn) => { addPassage(title, en, cn); setPassages(loadPassages()); };
-  const bulkImportPassages = (text) => { addPassagesBulk(parseBulk(text)); setPassages(loadPassages()); };
-  const deletePassage = (id) => { removePassage(id); setPassages(loadPassages()); };
+  const importPassage = (title, en, cn) => { addPassage(title, en, cn); loadPassages().then(setPassages); };
+  const bulkImportPassages = (text) => { addPassagesBulk(parseBulk(text)); loadPassages().then(setPassages); };
+  const deletePassage = (id) => { removePassage(id); loadPassages().then(setPassages); };
   const finishPassage = (p) => {
     markStudied(p.id);
-    setPassages(loadPassages());
+    loadPassages().then(setPassages);
     addXp(20);
     recordStudy(p.sents.length);
     backToPassages();

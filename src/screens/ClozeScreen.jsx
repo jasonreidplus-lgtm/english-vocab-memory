@@ -33,9 +33,19 @@ export default function ClozeScreen({
   useEffect(() => {
     if (passageMode) return;
     let alive = true;
-    fetch(`${import.meta.env.BASE_URL}data/sentences.json`, { cache: 'no-cache' })
-      .then((r) => r.json())
-      .then((d) => alive && (setBank(d), setOrder(shuffle(d.map((_, i) => i)))))
+    const base = import.meta.env.BASE_URL;
+    Promise.all([
+      fetch(`${base}data/sentences.json`, { cache: 'no-cache' }).then((r) => r.json()),
+      // 复用真题关卡库：把每篇的 sents 摊平当作句库（无内置译文，点「翻译」时会优雅降级）
+      fetch(`${base}data/passages.json`, { cache: 'no-cache' }).then((r) => r.json()).catch(() => []),
+    ])
+      .then(([self, passages]) => {
+        if (!alive) return;
+        const real = Array.isArray(passages) ? passages.flatMap((p) => p.sents || []) : [];
+        const all = [...(Array.isArray(self) ? self : []), ...real];
+        setBank(all);
+        setOrder(shuffle(all.map((_, i) => i)));
+      })
       .catch(() => alive && setBank([]));
     return () => { alive = false; };
   }, [passageMode]);

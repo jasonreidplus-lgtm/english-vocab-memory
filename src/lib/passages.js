@@ -65,17 +65,42 @@ function makeSents(en, cn) {
   return enS.map((e, i) => ({ en: e, cn: aligned ? cnS[i] : undefined }));
 }
 
-// 读取全部关卡：用户导入(新→旧) + 示例；附 studied 标记
-export function loadPassages() {
+// —— 内置真题关卡(由 scripts/build-passages.mjs 生成 → public/data/passages.json) ——
+//    与 vocab.json / sentences.json 同样从 public/data 取，仅取一次并缓存。
+let _builtin = null;
+async function fetchBuiltin() {
+  if (_builtin) return _builtin;
+  try {
+    const r = await fetch(`${import.meta.env.BASE_URL}data/passages.json`, { cache: 'no-cache' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    _builtin = Array.isArray(data) ? data : [];
+    return _builtin;
+  } catch {
+    return []; // 不缓存失败，下次(如导入后刷新)仍可重试
+  }
+}
+
+// 读取全部关卡：用户导入(新→旧) + 内置真题 + 自写示例；附 studied 标记
+export async function loadPassages() {
   const { imported = [], studied = {} } = read();
+  const builtin = await fetchBuiltin();
   const userP = imported.map((p) => ({
     id: p.id,
     title: p.title,
     sents: makeSents(p.en, p.cn),
     studied: !!studied[p.id],
   }));
+  // 内置真题标 demo:true → 不可误删，复用现有「内置篇目」逻辑
+  const builtinP = builtin.map((p) => ({
+    id: p.id,
+    title: p.title,
+    sents: p.sents,
+    demo: true,
+    studied: !!studied[p.id],
+  }));
   const demoP = DEMO.map((p) => ({ ...p, studied: !!studied[p.id] }));
-  return [...userP, ...demoP];
+  return [...userP, ...builtinP, ...demoP];
 }
 
 export function addPassage(title, en, cn) {
