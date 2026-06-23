@@ -1,9 +1,11 @@
 /* 把 data-src/拆句_JSONL/*.jsonl(真题逐句拆分语料) 合并成 public/data/passages.json。
-   - 每个 YYYY-TextN 文件 → 一篇「真题阅读·闯关」关卡：{ id, title, year, text, sents:[{en}] }
+   - 每个 YYYY-TextN 文件 → 一篇「真题阅读·闯关」关卡：{ id, title, year, text, sents:[{en,cn?}] }
    - 句子按 paragraph、sentence 升序；篇目按 year、text 升序。
    - 弯引号(""'')规范化为直引号，改善点词匹配与显示。
+   - 译文：从 data-src/translations/*.json({ "<句子id>": "<中文译文>" }) 按 id 并入 cn。
    - 该 passages.json 同时被「句子精读·句库」复用(flatten 取 sents)。
-   覆盖/新增 data-src/拆句_JSONL/*.jsonl 后，重跑 `node scripts/build-passages.mjs` 即可。 */
+   覆盖/新增 data-src/拆句_JSONL/*.jsonl 或 data-src/translations/*.json 后，
+   重跑 `node scripts/build-passages.mjs` 即可。 */
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -11,6 +13,7 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'data-src', '拆句_JSONL');
+const TRANS_DIR = path.join(ROOT, 'data-src', 'translations');
 const OUT_DIR = path.join(ROOT, 'public', 'data');
 const OUT = path.join(OUT_DIR, 'passages.json');
 
@@ -24,6 +27,16 @@ const files = readdirSync(SRC_DIR).filter((f) => f.toLowerCase().endsWith('.json
 if (!files.length) {
   console.error(`没有找到 .jsonl：${SRC_DIR}`);
   process.exit(1);
+}
+
+// 合并独立译文源(data-src/translations/*.json：{ "<句子id>": "<中文译文>" })
+const trans = {};
+try {
+  for (const f of readdirSync(TRANS_DIR).filter((f) => f.toLowerCase().endsWith('.json'))) {
+    Object.assign(trans, JSON.parse(readFileSync(path.join(TRANS_DIR, f), 'utf8')));
+  }
+} catch {
+  /* 无 translations 目录则全部英文 */
 }
 
 const groups = new Map(); // "year-text" -> { year, text, records:[] }
@@ -55,6 +68,7 @@ for (const file of files) {
     const key = `${year}-${text}`;
     if (!groups.has(key)) groups.set(key, { year, text, records: [] });
     groups.get(key).records.push({
+      id: rec.id,
       paragraph: Number(rec.paragraph) || 0,
       sentence: Number(rec.sentence) || 0,
       en: normalizeQuotes(rec.en).trim(),
@@ -71,17 +85,21 @@ const passages = [...groups.values()]
       title: `${year} 真题 Text ${text}`,
       year,
       text,
-      sents: records.map((r) => ({ en: r.en })),
+      sents: records.map((r) => {
+        const cn = trans[r.id];
+        return cn ? { en: r.en, cn } : { en: r.en };
+      }),
     };
   });
 
 const sentTotal = passages.reduce((n, p) => n + p.sents.length, 0);
+const cnTotal = passages.reduce((n, p) => n + p.sents.filter((s) => s.cn).length, 0);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(OUT, JSON.stringify(passages));
 
 console.log(
-  `passages.json：${passages.length} 篇 / ${sentTotal} 句` +
+  `passages.json：${passages.length} 篇 / ${sentTotal} 句 / ${cnTotal} 句有译文` +
     `（读取 ${files.length} 文件 / ${lineCount} 行${badLines ? `，跳过 ${badLines} 行异常` : ''}）`
 );
 console.log(`→ ${path.relative(ROOT, OUT)}`);
