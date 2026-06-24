@@ -1,8 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Plus, Trash2, Check, ChevronRight, X, BookMarked } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
+import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import { buildLookup, annotate } from '../lib/annotate.js';
 import { parseBulk } from '../lib/passages.js';
+import { useModalA11y } from '../lib/useModalA11y.js';
 
 function ImportModal({ onClose, onSave, onBulk }) {
   const [mode, setMode] = useState('one'); // one | bulk
@@ -12,10 +14,19 @@ function ImportModal({ onClose, onSave, onBulk }) {
   const [bulk, setBulk] = useState('');
   const bulkCount = useMemo(() => parseBulk(bulk).length, [bulk]);
   const canSaveOne = en.replace(/[^a-z]/gi, '').length >= 15;
+  const ref = useModalA11y(onClose);
 
   return (
     <div className="modal-backdrop fade" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal"
+        ref={ref}
+        role="dialog"
+        aria-modal="true"
+        aria-label="导入真题"
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="row between" style={{ marginBottom: 8 }}>
           <div className="result-title" style={{ fontSize: 20 }}>导入真题</div>
           <button className="pill" onClick={onClose} aria-label="关闭" style={{ padding: '6px 8px' }}><X size={18} /></button>
@@ -82,6 +93,7 @@ function ImportModal({ onClose, onSave, onBulk }) {
 
 export default function PassageScreen({ passages, pool, themeKey, onTheme, onBack, onOpen, onImport, onBulkImport, onDelete }) {
   const [importing, setImporting] = useState(false);
+  const [delTarget, setDelTarget] = useState(null);
   const lookup = useMemo(() => buildLookup(pool), [pool]);
 
   const stats = useMemo(() => {
@@ -127,11 +139,7 @@ export default function PassageScreen({ passages, pool, themeKey, onTheme, onBac
                 <ChevronRight size={18} className="muted" />
               </button>
               {!p.demo && (
-                <button
-                  className="passage-del"
-                  aria-label="删除"
-                  onClick={() => window.confirm(`删除「${p.title}」？`) && onDelete(p.id)}
-                >
+                <button className="passage-del" aria-label="删除" onClick={() => setDelTarget(p)}>
                   <Trash2 size={15} />
                 </button>
               )}
@@ -156,6 +164,21 @@ export default function PassageScreen({ passages, pool, themeKey, onTheme, onBac
             onBulkImport(text);
             setImporting(false);
           }}
+        />
+      )}
+
+      {delTarget && (
+        <ConfirmDialog
+          danger
+          title="删除这篇真题？"
+          message={`「${delTarget.title}」将从本机移除（内置真题不受影响）。`}
+          confirmText="删除"
+          cancelText="取消"
+          onConfirm={() => {
+            onDelete(delTarget.id);
+            setDelTarget(null);
+          }}
+          onCancel={() => setDelTarget(null)}
         />
       )}
     </>

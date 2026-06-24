@@ -1,13 +1,36 @@
 import React from 'react';
 import { Volume2, BookmarkPlus, Check, X } from 'lucide-react';
+import { useModalA11y } from '../lib/useModalA11y.js';
 
-// 点词弹层（真题精读 / 句子猜词共用）。entry=轻量词条，rich=懒加载补齐后的词条。
+// 点词弹层（真题精读 / 句子精读 / 查词共用）。entry=轻量词条，rich=懒加载补齐后的词条。
 export default function WordPopup({ entry, rich, added, onSpeak, onAddWrong, onClose }) {
   if (!entry) return null;
+  return (
+    <WordPopupModal
+      entry={entry}
+      rich={rich}
+      added={added}
+      onSpeak={onSpeak}
+      onAddWrong={onAddWrong}
+      onClose={onClose}
+    />
+  );
+}
+
+function WordPopupModal({ entry, rich, added, onSpeak, onAddWrong, onClose }) {
+  const ref = useModalA11y(onClose);
   const card = rich || entry;
   return (
     <div className="modal-backdrop fade" onClick={onClose}>
-      <div className="modal word-pop" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal word-pop"
+        ref={ref}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`单词 ${card.word}`}
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="row between">
           <div className="row" style={{ gap: 8, alignItems: 'baseline' }}>
             <span className="word" style={{ fontSize: 30 }}>{card.word}</span>

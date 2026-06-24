@@ -97,7 +97,7 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onBa
           </div>
         </div>
         <div className="hm-foot">
-          <span>近 {WEEKS} 周 · 学习 {studyDays} 天 · 累计 {totalWords} 词</span>
+          <span>近 {WEEKS} 周 · 学习 {studyDays} 天 · 累计练习 {totalWords} 词次</span>
           <span className="hm-legend">
             少
             {[0, 1, 2, 3, 4].map((l) => (
@@ -107,6 +107,12 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onBa
           </span>
         </div>
       </div>
+
+      {studyDays === 0 && (
+        <div className="label center" style={{ marginTop: 14, fontSize: 12, opacity: 0.8 }}>
+          开始学习后，这里会逐渐亮起来 ✨
+        </div>
+      )}
     </>
   );
 }

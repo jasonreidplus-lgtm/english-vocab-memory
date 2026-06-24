@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Check, X, ArrowRight, Volume2, Zap } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import { shortMeaning, spellHint } from '../game/quiz.js';
@@ -31,9 +31,11 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     record(opt === q.answer);
   };
 
+  // 判分前归一：去首尾空格、折叠中间空格、忽略大小写(词组/连字符更宽容)
+  const norm = (s) => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
   const submitSpell = () => {
     if (answered || !spellInput.trim()) return;
-    record(spellInput.trim().toLowerCase() === String(q.answer).toLowerCase());
+    record(norm(spellInput) === norm(q.answer));
   };
 
   const next = () => {
@@ -46,6 +48,12 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     setPicked(null);
     setSpellInput('');
   };
+
+  // 切到拼写题时把焦点放进输入框(key 变化重建 DOM 后 autoFocus 不一定生效)
+  const spellRef = useRef(null);
+  useEffect(() => {
+    if (q.type === 'spell' && !answered) spellRef.current?.focus();
+  }, [qi, q.type]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const onKey = (e) => {
@@ -125,7 +133,9 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
           <div className="spell-wrap">
             <div className="spell-hint" aria-hidden>{spellHint(q.answer)}</div>
             <input
+              ref={spellRef}
               className={`spell-input${answered ? (flags[qi] ? ' correct' : ' wrong') : ''}`}
+              aria-label="拼出这个单词"
               value={spellInput}
               onChange={(e) => setSpellInput(e.target.value)}
               onKeyDown={(e) => {
@@ -145,7 +155,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
                 提交 <ArrowRight size={17} />
               </button>
             ) : (
-              <div className={`spell-result ${flags[qi] ? 'ok' : 'no'}`}>
+              <div className={`spell-result ${flags[qi] ? 'ok' : 'no'}`} role="status" aria-live="polite">
                 {flags[qi] ? (
                   <><Check size={16} /> 拼写正确</>
                 ) : (

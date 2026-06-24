@@ -65,9 +65,13 @@ function reducer(state, action) {
       for (const id of correctIds) {
         const e = wrong[id];
         if (!e) continue;
-        const nb = (e.box || 0) + 1;
-        if (nb >= SRS_INTERVALS.length) delete wrong[id]; // 升到顶级 → 毕业移出错词本
-        else wrong[id] = { ...e, box: nb, due: addDaysKey(SRS_INTERVALS[nb]), lastTs: ts };
+        const b = e.box || 0;
+        if (b >= SRS_INTERVALS.length) {
+          delete wrong[id]; // 走完最长间隔(15天)后再答对 → 毕业移出错词本
+        } else {
+          // 用「当前级」的间隔安排下次复习再升级：新词(box0)首次答对=1天后，逐级 1→2→4→7→15
+          wrong[id] = { ...e, box: b + 1, due: addDaysKey(SRS_INTERVALS[b]), lastTs: ts };
+        }
       }
       for (const id of wrongIds) {
         const e = wrong[id] || { miss: 0 };
@@ -93,6 +97,11 @@ function reducer(state, action) {
       const today = dayKey();
       const history = { ...(state.history || {}) };
       history[today] = (history[today] || 0) + words;
+      // 裁剪：只保留最近约 200 天，避免 localStorage 随年累月无限增长(热力图仅回看 17 周)
+      const hKeys = Object.keys(history);
+      if (hKeys.length > 220) {
+        for (const k of hKeys.sort().slice(0, hKeys.length - 200)) delete history[k];
+      }
       const prev = state.daily;
       if (!prev || prev.date !== today) {
         const continued = prev && prev.date === yesterdayKey();

@@ -580,6 +580,7 @@ body {
   align-items: flex-end;
   justify-content: center;
   padding: 14px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom)); /* 底部按钮避开手势条 */
 }
 @media (min-width: 520px) {
   .modal-backdrop { align-items: center; }
@@ -587,6 +588,8 @@ body {
 .modal {
   width: 100%;
   max-width: 420px;
+  max-height: calc(100dvh - 28px - env(safe-area-inset-bottom)); /* 小屏可滚动，按钮够得到 */
+  overflow-y: auto;
   background: var(--surface);
   border: var(--line-strong);
   border-radius: var(--radius);

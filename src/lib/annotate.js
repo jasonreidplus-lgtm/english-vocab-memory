@@ -17,10 +17,13 @@ const IRREG = {
   arose: 'arise', arisen: 'arise', bore: 'bear', borne: 'bear', drew: 'draw',
 };
 
-// 把一个 token 还原成若干候选基本形（只要命中词库就算）
+// 把一个 token 还原成若干候选基本形（只要命中词库就算）。token 集合有限 → 记忆化，长文/逐句精读复用命中率极高。
+const _candCache = new Map();
 export function candidates(raw) {
   const w = String(raw || '').toLowerCase().replace(/[^a-z'-]/g, '');
   if (!w) return [];
+  const cached = _candCache.get(w);
+  if (cached) return cached;
   const set = new Set([w]);
   const add = (s) => s && s.length >= 3 && set.add(s);
   if (IRREG[w]) add(IRREG[w]);
@@ -58,16 +61,24 @@ export function candidates(raw) {
   if (w.endsWith('able') || w.endsWith('ible')) { add(w.slice(0, -4)); add(w.slice(0, -4) + 'e'); }
   if (w.endsWith('ization') || w.endsWith('isation')) { add(w.slice(0, -7) + 'e'); add(w.slice(0, -7)); }
   if (w.endsWith('ize') || w.endsWith('ise')) { add(w.slice(0, -3)); add(w.slice(0, -3) + 'e'); }
-  return [...set];
+  const out = [...set];
+  if (_candCache.size > 6000) _candCache.clear(); // 简单上限，防无限增长
+  _candCache.set(w, out);
+  return out;
 }
 
-// 由词库构建「小写词 → 词条」查找表
+// 由词库构建「小写词 → 词条」查找表。按 words 数组引用缓存(allReady 稳定)，避免每屏重复遍历 ~4500 词。
+const _lookupCache = new WeakMap();
 export function buildLookup(words) {
+  if (!words) return new Map();
+  const cached = _lookupCache.get(words);
+  if (cached) return cached;
   const m = new Map();
-  for (const w of words || []) {
+  for (const w of words) {
     const k = w && w.word && w.word.toLowerCase();
     if (k && !m.has(k)) m.set(k, w);
   }
+  _lookupCache.set(words, m);
   return m;
 }
 

@@ -1,15 +1,25 @@
 import React from 'react';
 import { X, Volume2, VolumeX, RotateCcw, PencilLine } from 'lucide-react';
+import { useModalA11y } from '../lib/useModalA11y.js';
 
 export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset }) {
   const sound = progress.sound !== false;
   const accent = progress.accent || 'us';
   const goal = (progress.daily && progress.daily.goal) || 20;
   const spell = progress.spell !== false;
+  const ref = useModalA11y(onClose);
 
   return (
     <div className="modal-backdrop fade" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal"
+        ref={ref}
+        role="dialog"
+        aria-modal="true"
+        aria-label="设置"
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="row between" style={{ marginBottom: 6 }}>
           <div className="result-title" style={{ fontSize: 20 }}>设置</div>
           <button className="pill" onClick={onClose} aria-label="关闭" style={{ padding: '6px 8px' }}>
