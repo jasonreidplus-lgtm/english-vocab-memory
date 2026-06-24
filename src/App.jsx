@@ -18,6 +18,8 @@ import { shuffle } from './lib/shuffle.js';
 import LevelSelect from './screens/LevelSelect.jsx'; // 首屏：保持同步导入，避免首次白屏
 import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
 import { loadDict, dictEntry } from './lib/dict.js';
+import LoginScreen from './screens/LoginScreen.jsx';
+import { isAuthed, logout } from './lib/auth.js';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
 
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
@@ -37,6 +39,7 @@ export default function App() {
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [authed, setAuthed] = useState(isAuthed);
   const [confirmReset, setConfirmReset] = useState(false);
 
   // —— 词库加载 ——
@@ -301,7 +304,9 @@ export default function App() {
 
   // —— 渲染 ——
   let screen;
-  if (vocab.status === 'loading') {
+  if (!authed) {
+    screen = <LoginScreen onSuccess={() => setAuthed(true)} />;
+  } else if (vocab.status === 'loading') {
     screen = <div className="center label" style={{ paddingTop: 120 }}>词库加载中…</div>;
   } else if (vocab.status === 'error') {
     screen = (
@@ -485,6 +490,7 @@ export default function App() {
               onSetPref={setPref}
               onSetGoal={setGoal}
               onReset={handleReset}
+              onLogout={() => { logout(); setAuthed(false); setSettingsOpen(false); }}
             />
           </Suspense>
         )}

@@ -958,6 +958,38 @@ body {
 .hm-legend { display: inline-flex; align-items: center; gap: 3px; }
 .hm-legend i { width: 11px; height: 11px; border-radius: 3px; border: var(--line); display: inline-block; }
 
+/* 登录页(软门) */
+.login { display: flex; align-items: center; justify-content: center; min-height: calc(100dvh - 60px); }
+.login-card {
+  width: 100%;
+  max-width: 340px;
+  background: var(--surface);
+  border: var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 20px;
+}
+.login-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 13px;
+  border-radius: var(--btn-radius);
+  background: var(--surface2);
+  border: var(--line);
+}
+.login-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 16px;
+}
+.login-input::placeholder { color: var(--muted); }
+
 @media (prefers-reduced-motion: reduce) {
   .card3d, .bar > i, .fade, .pop, .shake, .cell.just-unlocked, .burst, .combo-pop, .cell.flash {
     transition: none;

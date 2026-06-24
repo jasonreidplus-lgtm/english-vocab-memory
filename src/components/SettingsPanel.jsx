@@ -1,8 +1,8 @@
 import React from 'react';
-import { X, Volume2, VolumeX, RotateCcw } from 'lucide-react';
+import { X, Volume2, VolumeX, RotateCcw, LogOut } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y.js';
 
-export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset }) {
+export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset, onLogout }) {
   const sound = progress.sound !== false;
   const accent = progress.accent || 'us';
   const goal = (progress.daily && progress.daily.goal) || 20;
@@ -52,7 +52,13 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
           </div>
         </div>
 
-        <button className="btn ghost block mt16" onClick={onReset} style={{ color: 'var(--bad)' }}>
+        {onLogout && (
+          <button className="btn ghost block mt16" onClick={onLogout}>
+            <LogOut size={15} /> 退出登录
+          </button>
+        )}
+
+        <button className="btn ghost block mt12" onClick={onReset} style={{ color: 'var(--bad)' }}>
           <RotateCcw size={15} /> 重置全部进度
         </button>
         <div className="label center mt12" style={{ fontSize: 11, opacity: 0.7 }}>
