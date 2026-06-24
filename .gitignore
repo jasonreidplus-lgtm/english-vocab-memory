@@ -14,6 +14,10 @@ KaoYan_*.json
 # 词典构建临时源(ECDICT，约 63MB，不入库；dict.json 产物才入库)
 data-src/_ecdict.csv
 
+# 富字段生成的临时分块(产物并入 vocab.json 后即无用)
+data-src/rich-todo/
+data-src/rich-done/
+
 scripts/targets/
 scripts/out/
 
