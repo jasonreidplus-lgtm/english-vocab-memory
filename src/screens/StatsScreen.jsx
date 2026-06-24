@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Trophy, Flame, Target, BookCheck, Zap, CalendarDays, Brain } from 'lucide-react';
+import { Trophy, Flame, Target, BookCheck, Zap, CalendarDays, Brain, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import { accuracy, dayKey } from '../state/progress.js';
 
@@ -48,7 +48,7 @@ function Tile({ icon, num, label }) {
   );
 }
 
-export default function StatsScreen({ progress, summary, themeKey, onTheme, onBack }) {
+export default function StatsScreen({ progress, summary, themeKey, onTheme, onOpenSettings }) {
   const history = progress.history || {};
   const goal = (progress.daily && progress.daily.goal) || 20;
   const { cells, lead } = useMemo(() => buildGrid(history), [history]);
@@ -59,7 +59,15 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onBa
 
   return (
     <>
-      <HeaderBar onBack={onBack} themeKey={themeKey} onTheme={onTheme} />
+      <HeaderBar
+        themeKey={themeKey}
+        onTheme={onTheme}
+        extra={onOpenSettings && (
+          <button className="pill" onClick={onOpenSettings} aria-label="设置" style={{ padding: '6px 8px' }}>
+            <Settings size={16} />
+          </button>
+        )}
+      />
 
       <div className="section-title">学习统计</div>
 

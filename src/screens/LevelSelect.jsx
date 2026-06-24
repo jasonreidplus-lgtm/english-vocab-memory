@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Zap, Flame, Trophy, Brain, Puzzle, ChevronRight, Play, CornerDownLeft, Settings, BookOpen, ScrollText, Lightbulb, Newspaper, Search, BarChart3 } from 'lucide-react';
+import { Zap, Flame, Trophy, Play, CornerDownLeft, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import DailyCard from '../components/DailyCard.jsx';
 
-// 关卡网格里用轻量文字星标(★/☆)而非 SVG —— 454 关 × 多颗星时性能差距巨大
+// 关卡网格里用轻量文字星标(★/☆)而非 SVG —— 550 关 × 多颗星时性能差距巨大
 function starText(n) {
   return '★★★☆☆☆'.slice(3 - n, 6 - n);
 }
@@ -33,19 +33,7 @@ function Cell({ lv, onPick, highlight }) {
   );
 }
 
-function ReviewEntry({ icon, title, sub, disabled, onClick }) {
-  return (
-    <button className="review-entry" disabled={disabled} onClick={onClick}>
-      <span className="re-icon">{icon}</span>
-      <span className="re-text">
-        <span className="re-title">{title}</span>
-        <span className="re-sub">{sub}</span>
-      </span>
-      {!disabled && <ChevronRight size={18} className="muted" />}
-    </button>
-  );
-}
-
+/* 「闯关」标签页：每日目标 + 继续学习 + 进度 + 关卡网格。 */
 export default function LevelSelect({
   levelStates,
   progress,
@@ -53,23 +41,13 @@ export default function LevelSelect({
   themeKey,
   onTheme,
   onPick,
-  onReview,
-  onBrowseWrong,
-  onMatch,
-  onRead,
-  onCloze,
-  onPassages,
-  onSearch,
-  onStats,
-  reviewDue = 0,
   onSetGoal,
   onOpenSettings,
   justUnlocked,
 }) {
-  const wrongCount = summary.wrongCount;
   const [jumpVal, setJumpVal] = useState('');
 
-  // 当前进度前沿：第一个已解锁但未通关的关(没有就是第一个可进入的)
+  // 当前进度前沿：第一个已解锁但未通关的关(没有就是最后一个已通关)
   const frontier =
     levelStates.find((l) => l.state === 'unlocked') ||
     [...levelStates].reverse().find((l) => l.state === 'done') ||
@@ -107,23 +85,11 @@ export default function LevelSelect({
   return (
     <>
       <HeaderBar themeKey={themeKey} onTheme={onTheme} extra={
-        <>
-          {onSearch && (
-            <button className="pill" onClick={onSearch} aria-label="查词" style={{ padding: '6px 8px' }}>
-              <Search size={16} />
-            </button>
-          )}
-          {onStats && (
-            <button className="pill" onClick={onStats} aria-label="学习统计" style={{ padding: '6px 8px' }}>
-              <BarChart3 size={16} />
-            </button>
-          )}
-          {onOpenSettings && (
-            <button className="pill" onClick={onOpenSettings} aria-label="设置" style={{ padding: '6px 8px' }}>
-              <Settings size={16} />
-            </button>
-          )}
-        </>
+        onOpenSettings && (
+          <button className="pill" onClick={onOpenSettings} aria-label="设置" style={{ padding: '6px 8px' }}>
+            <Settings size={16} />
+          </button>
+        )
       } />
 
       {/* 每日目标 / 连续打卡 */}
@@ -150,64 +116,8 @@ export default function LevelSelect({
         </span>
       </div>
 
-      {/* 复习区 */}
-      <div className="section-title">练习</div>
-      <div className="stack gap8">
-        <ReviewEntry
-          icon={<Brain size={20} color="var(--accent)" />}
-          title="间隔复习"
-          sub={
-            reviewDue > 0
-              ? `今日待复习 ${reviewDue} 词`
-              : wrongCount > 0
-              ? `复习池 ${wrongCount} 词 · 今日已清`
-              : '暂无错词，继续闯关吧'
-          }
-          disabled={reviewDue === 0}
-          onClick={onReview}
-        />
-        {wrongCount > 0 && onBrowseWrong && (
-          <button className="btn ghost block" style={{ minHeight: 42, fontSize: 14 }} onClick={onBrowseWrong}>
-            <BookOpen size={15} /> 浏览错词卡（不测验）
-          </button>
-        )}
-        {onMatch && (
-          <ReviewEntry
-            icon={<Puzzle size={20} color="var(--accent)" />}
-            title="词根连连看"
-            sub="单词 ↔ 释义 配对挑战"
-            onClick={onMatch}
-          />
-        )}
-        {onPassages && (
-          <ReviewEntry
-            icon={<Newspaper size={20} color="var(--accent)" />}
-            title="真题阅读 · 闯关"
-            sub="导入真题文章，每篇拆成句子、标出考研词、点译看讲解"
-            onClick={onPassages}
-          />
-        )}
-        {onRead && (
-          <ReviewEntry
-            icon={<ScrollText size={20} color="var(--accent)" />}
-            title="真题精读"
-            sub="粘贴真题原文，自动高亮考研词、点词看卡"
-            onClick={onRead}
-          />
-        )}
-        {onCloze && (
-          <ReviewEntry
-            icon={<Lightbulb size={20} color="var(--accent)" />}
-            title="句子精读"
-            sub="整句英文、考研词标出，点「翻译」看句义 + 词义讲解"
-            onClick={onCloze}
-          />
-        )}
-      </div>
-
       <div className="section-title">
         选择关卡
-        {/* 跳到第 N 关 */}
         <span className="jump-box" style={{ marginLeft: 'auto' }}>
           <input
             className="jump-input"

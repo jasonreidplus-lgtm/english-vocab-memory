@@ -16,6 +16,9 @@ import { speak } from './lib/speech.js';
 import { shuffle } from './lib/shuffle.js';
 
 import LevelSelect from './screens/LevelSelect.jsx'; // 首屏：保持同步导入，避免首次白屏
+import ReviewScreen from './screens/ReviewScreen.jsx';
+import ReadingScreen from './screens/ReadingScreen.jsx';
+import TabBar from './components/TabBar.jsx';
 import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
 import { loadDict, dictEntry } from './lib/dict.js';
 import LoginScreen from './screens/LoginScreen.jsx';
@@ -41,6 +44,7 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [authed, setAuthed] = useState(isAuthed);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [tab, setTab] = useState('levels'); // 底部主标签：levels|review|reading|stats
 
   // —— 词库加载 ——
   const [vocab, setVocab] = useState({ status: 'loading' });
@@ -279,20 +283,20 @@ export default function App() {
   const startBrowse = (words, title, ret) => {
     if (!words || !words.length) return;
     const tok = ++browseTok.current;
-    setBrowseCtx({ words, title, ret: ret || 'levels' });
+    setBrowseCtx({ words, title, ret: ret || tab });
     setView('browse');
     hydrate(words).then((h) => {
       if (browseTok.current === tok) setBrowseCtx((prev) => (prev ? { ...prev, words: h } : prev));
     });
   };
-  const endBrowse = () => setView(browseCtx?.ret || 'levels');
+  const endBrowse = () => setView(browseCtx?.ret || tab);
   const browseWrong = () => {
     const pool = Object.keys(progress.wrong).map(getWord).filter(Boolean);
-    startBrowse(pool, '错词本', 'levels');
+    startBrowse(pool, '错词本', tab);
   };
 
   const goHome = () => {
-    setView('levels');
+    setView(tab); // 深层流程返回当前所在的主标签
     setGroup(null);
   };
   const replay = () => enterLevel(group); // 再学一次：同一关，重新打乱
@@ -439,6 +443,31 @@ export default function App() {
         hydrateWord={hydrateWord}
       />
     );
+  } else if (view === 'review') {
+    screen = (
+      <ReviewScreen
+        themeKey={theme.key}
+        onTheme={setTheme}
+        reviewDue={reviewDue}
+        wrongCount={summary.wrongCount}
+        onReview={startReview}
+        onBrowseWrong={browseWrong}
+        onMatch={startMatch}
+        onOpenSettings={() => setSettingsOpen(true)}
+      />
+    );
+  } else if (view === 'reading') {
+    screen = (
+      <ReadingScreen
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onPassages={openPassages}
+        onRead={startRead}
+        onCloze={startCloze}
+        onSearch={openSearch}
+        onOpenSettings={() => setSettingsOpen(true)}
+      />
+    );
   } else if (view === 'stats') {
     screen = (
       <StatsScreen
@@ -446,7 +475,7 @@ export default function App() {
         summary={summary}
         themeKey={theme.key}
         onTheme={setTheme}
-        onBack={goHome}
+        onOpenSettings={() => setSettingsOpen(true)}
       />
     );
   } else {
@@ -458,15 +487,6 @@ export default function App() {
         themeKey={theme.key}
         onTheme={setTheme}
         onPick={pickLevel}
-        onReview={startReview}
-        onBrowseWrong={browseWrong}
-        onMatch={startMatch}
-        onRead={startRead}
-        onCloze={startCloze}
-        onPassages={openPassages}
-        onSearch={openSearch}
-        onStats={openStats}
-        reviewDue={reviewDue}
         onSetGoal={setGoal}
         onOpenSettings={() => setSettingsOpen(true)}
         justUnlocked={justUnlocked}
@@ -474,15 +494,18 @@ export default function App() {
     );
   }
 
+  const showTabBar = authed && vocab.status === 'ready' && ['levels', 'review', 'reading', 'stats'].includes(view);
+
   return (
     <div className="page">
-      <div className="vg" style={theme.vars} data-theme={theme.key}>
+      <div className={'vg' + (showTabBar ? ' has-tabbar' : '')} style={theme.vars} data-theme={theme.key}>
         {theme.Deco && <theme.Deco />}
         <div className="vg__content">
           <Suspense fallback={<div className="center label" style={{ paddingTop: 120 }}>加载中…</div>}>
             {screen}
           </Suspense>
         </div>
+        {showTabBar && <TabBar tab={tab} onTab={(k) => { setTab(k); setView(k); setGroup(null); }} />}
         {settingsOpen && (
           <Suspense fallback={null}>
             <SettingsPanel
