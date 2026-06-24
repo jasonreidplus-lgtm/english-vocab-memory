@@ -3,6 +3,8 @@ import { Eraser } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import WordPopup from '../components/WordPopup.jsx';
 import { annotate, buildLookup, countUnique } from '../lib/annotate.js';
+import { resolveTap } from '../lib/dict.js';
+import { useDict } from '../lib/useDict.js';
 
 // 自写的示例句（非真题原文，避免版权问题）；真正的真题由你自己粘贴
 const SAMPLE =
@@ -16,7 +18,8 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
   const curId = useRef(null); // 防止快速切词时旧的 hydrate 覆盖
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
-  const segs = useMemo(() => annotate(text, lookup), [text, lookup]);
+  const dict = useDict();
+  const segs = useMemo(() => annotate(text, lookup, dict), [text, lookup, dict]);
   const hitCount = useMemo(() => countUnique(segs), [segs]);
 
   const openWord = async (entry) => {
@@ -32,6 +35,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
     setPicked(null);
     setRich(null);
   };
+  const tapWord = (raw) => openWord(resolveTap(raw, lookup));
 
   return (
     <>
@@ -57,19 +61,21 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
           </button>
         )}
         <span className="label grow" style={{ textAlign: 'right' }}>
-          {text ? `命中 ${hitCount} 个考研词 · 点词看释义` : '示例句也是自写的，换成你的真题更香'}
+          {text ? `标出 ${hitCount} 重点词 · 点任意词可查` : '示例句也是自写的，换成你的真题更香'}
         </span>
       </div>
 
       {text ? (
         <div className="read-passage fade">
           {segs.map((s, i) =>
-            s.w ? (
+            !/^[A-Za-z]/.test(s.t) ? (
+              <span key={i}>{s.t}</span>
+            ) : s.w ? (
               <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>
                 {s.t}
               </button>
             ) : (
-              <span key={i}>{s.t}</span>
+              <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>
             )
           )}
         </div>

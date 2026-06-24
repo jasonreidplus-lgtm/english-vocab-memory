@@ -11,6 +11,9 @@ tmp_dict/
 *.zip
 KaoYan_*.json
 
+# 词典构建临时源(ECDICT，约 63MB，不入库；dict.json 产物才入库)
+data-src/_ecdict.csv
+
 scripts/targets/
 scripts/out/
 

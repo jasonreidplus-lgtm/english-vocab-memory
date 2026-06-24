@@ -3,6 +3,8 @@ import { Languages, ArrowLeft, ArrowRight, Shuffle, Pencil, Library, Check } fro
 import HeaderBar from '../components/HeaderBar.jsx';
 import WordPopup from '../components/WordPopup.jsx';
 import { annotate, buildLookup } from '../lib/annotate.js';
+import { resolveTap } from '../lib/dict.js';
+import { useDict } from '../lib/useDict.js';
 import { shortMeaning } from '../game/quiz.js';
 import { shuffle } from '../lib/shuffle.js';
 import { fetchBuiltin } from '../lib/passages.js';
@@ -25,6 +27,7 @@ export default function ClozeScreen({
   const curId = useRef(null);
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
+  const dict = useDict();
 
   useEffect(() => {
     if (passageMode) return;
@@ -55,7 +58,7 @@ export default function ClozeScreen({
     : pasteSents;
   const sentence = list[idx] || null;
 
-  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup) : []), [sentence, lookup]);
+  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup, dict) : []), [sentence, lookup, dict]);
   // 句中出现的不同考研词（用于点「翻译」后的词义清单）
   const marked = useMemo(() => {
     const seen = new Set();
@@ -77,6 +80,7 @@ export default function ClozeScreen({
     }
   };
   const closePop = () => { curId.current = null; setPicked(null); setRich(null); };
+  const tapWord = (raw) => openWord(resolveTap(raw, lookup));
 
   const total = list.length;
   const go = (d) => setIdx((v) => Math.max(0, Math.min(total - 1, v + d)));
@@ -117,7 +121,7 @@ export default function ClozeScreen({
           <div className="row between">
             <span className="label">
               {passageMode ? `第 ${idx + 1}/${total} 句` : `${src === 'bank' ? '句库' : '我的真题'} ${idx + 1}/${total}`}
-              {' · '}{marked.length} 个考研词
+              {' · '}{marked.length} 重点词
             </span>
             {!passageMode && src === 'bank' && (
               <button className="pill" onClick={reshuffle} aria-label="换一批"><Shuffle size={14} /></button>
@@ -131,10 +135,12 @@ export default function ClozeScreen({
           {/* 纯英文句子，考研词高亮（点词看词卡） */}
           <div className="cloze-sent fade" key={idx}>
             {segs.map((s, i) =>
-              s.w ? (
+              !/^[A-Za-z]/.test(s.t) ? (
+                <span key={i}>{s.t}</span>
+              ) : s.w ? (
                 <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>{s.t}</button>
               ) : (
-                <span key={i}>{s.t}</span>
+                <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>
               )
             )}
           </div>

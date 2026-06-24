@@ -3,8 +3,10 @@ import { Search, X } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import WordPopup from '../components/WordPopup.jsx';
 import { shortMeaning } from '../game/quiz.js';
+import { dictEntry } from '../lib/dict.js';
+import { useDict } from '../lib/useDict.js';
 
-/* 全局查词：在全部就绪词里按单词/中文释义即时检索，点结果看词卡(懒加载富字段)。 */
+/* 全局查词：考研核心词(释义丰富) + 广义词典(59k 词)即时检索，点结果看词卡。 */
 export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }) {
   const [q, setQ] = useState('');
   const [picked, setPicked] = useState(null);
@@ -12,22 +14,40 @@ export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak,
   const [added, setAdded] = useState({});
   const curId = useRef(null);
 
+  const dict = useDict();
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return [];
     const cn = q.trim();
-    const starts = [];
-    const incl = [];
-    const meaning = [];
+    const seen = new Set();
+    const out = [];
+    const push = (e) => {
+      const k = e && e.word && e.word.toLowerCase();
+      if (k && !seen.has(k)) { seen.add(k); out.push(e); }
+    };
+    // 考研核心词优先(释义更丰富)
+    const cs = [], ci = [], cm = [];
     for (const w of pool) {
       if (!w || !w.word) continue;
       const lw = w.word.toLowerCase();
-      if (lw.startsWith(s)) starts.push(w);
-      else if (lw.includes(s)) incl.push(w);
-      else if (w.base_meaning && w.base_meaning.includes(cn)) meaning.push(w);
+      if (lw.startsWith(s)) cs.push(w);
+      else if (lw.includes(s)) ci.push(w);
+      else if (w.base_meaning && w.base_meaning.includes(cn)) cm.push(w);
     }
-    return [...starts, ...incl, ...meaning].slice(0, 50);
-  }, [q, pool]);
+    [...cs, ...ci, ...cm].forEach(push);
+    // 广义词典补充
+    if (dict && out.length < 50) {
+      const ds = [], di = [];
+      for (const word in dict) {
+        if (seen.has(word)) continue;
+        if (word.startsWith(s)) ds.push(word);
+        else if (di.length < 80 && word.includes(s)) di.push(word);
+        if (ds.length >= 80) break;
+      }
+      [...ds, ...di].forEach((word) => push(dictEntry(word)));
+    }
+    return out.slice(0, 50);
+  }, [q, pool, dict]);
 
   const openWord = async (entry) => {
     curId.current = entry.id;
@@ -69,7 +89,7 @@ export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak,
       </div>
 
       {!q.trim() ? (
-        <div className="label center" style={{ paddingTop: 44 }}>输入即查 · 共 {pool.length} 词可查</div>
+        <div className="label center" style={{ paddingTop: 44 }}>输入即查 · 考研核心 {pool.length} 词 + 广义词典</div>
       ) : results.length === 0 ? (
         <div className="label center" style={{ paddingTop: 44 }}>没有匹配「{q.trim()}」的词</div>
       ) : (

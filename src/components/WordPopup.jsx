@@ -57,13 +57,15 @@ function WordPopupModal({ entry, rich, added, onSpeak, onAddWrong, onClose }) {
           <button className="btn ghost" onClick={() => onSpeak && onSpeak(card.word)} aria-label="朗读">
             <Volume2 size={18} />
           </button>
-          <button className="btn grow" disabled={!!added} onClick={onAddWrong}>
-            {added ? (
-              <><Check size={16} /> 已加入错词本</>
-            ) : (
-              <><BookmarkPlus size={16} /> 加入错词本</>
-            )}
-          </button>
+          {!entry._missing && (
+            <button className="btn grow" disabled={!!added} onClick={onAddWrong}>
+              {added ? (
+                <><Check size={16} /> 已加入错词本</>
+              ) : (
+                <><BookmarkPlus size={16} /> 加入错词本</>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

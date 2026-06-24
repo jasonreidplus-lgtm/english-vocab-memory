@@ -82,22 +82,36 @@ export function buildLookup(words) {
   return m;
 }
 
-export function matchToken(tok, lookup) {
+// 纯功能词：可点查但不作为「考研词」高亮/计数(否则广义词典会让整句全亮)
+const STOP = new Set(
+  ('a an the of to in on at for and or but nor so yet if as by with from into onto upon over under above below out off up down about i you he she we they me him her us them my your his their our its it this that these those am is are was were be been being do does did done have has had having will would shall should can could may might must not no never only also too very more most much many few some any all both each either neither such other others own same here there then than thus when where which while who whom whose why how what because before after again against between among through during without within across around')
+    .split(/\s+/)
+);
+const isStop = (tok) => STOP.has(String(tok).toLowerCase().replace(/[^a-z'-]/g, ''));
+
+// tok 先查考研核心词库，未命中再查广义词典(dict 为可选的 {词:{t,p,pos}})；功能词不计为词条
+export function matchToken(tok, lookup, dict) {
   for (const c of candidates(tok)) {
     const hit = lookup.get(c);
     if (hit) return hit;
+  }
+  if (dict && !isStop(tok)) {
+    for (const c of candidates(tok)) {
+      const e = dict[c];
+      if (e) return { id: 'd:' + c, word: c, base_meaning: e.t, phonetic: e.p || '', pos: e.pos || '', _dict: true };
+    }
   }
   return null;
 }
 
 // 把整段文本切成片段：{ t: 原文片段, w: 命中的词条或 null }
-// 保留所有空白/标点，渲染时拼回原文即可。
-export function annotate(text, lookup) {
+// 连字符视为分隔符(intellectual-property → 两个可匹配词)；保留所有空白/标点，拼回即原文。
+export function annotate(text, lookup, dict) {
   const out = [];
-  const parts = String(text || '').split(/([A-Za-z]+(?:['-][A-Za-z]+)*)/);
+  const parts = String(text || '').split(/([A-Za-z]+(?:'[A-Za-z]+)*)/);
   for (const p of parts) {
     if (!p) continue;
-    if (/^[A-Za-z]/.test(p)) out.push({ t: p, w: matchToken(p, lookup) });
+    if (/^[A-Za-z]/.test(p)) out.push({ t: p, w: matchToken(p, lookup, dict) });
     else out.push({ t: p, w: null });
   }
   return out;

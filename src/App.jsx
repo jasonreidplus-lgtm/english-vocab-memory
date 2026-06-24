@@ -17,6 +17,7 @@ import { shuffle } from './lib/shuffle.js';
 
 import LevelSelect from './screens/LevelSelect.jsx'; // 首屏：保持同步导入，避免首次白屏
 import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
+import { loadDict, dictEntry } from './lib/dict.js';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
 
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
@@ -105,7 +106,12 @@ export default function App() {
   const levels = vocab.status === 'ready' ? vocab.levels : [];
   const byId = vocab.status === 'ready' ? vocab.byId : new Map();
   // 词条查找：兼容 id 为数字/字符串(错词池的 key 是字符串)
-  const getWord = (id) => byId.get(id) ?? byId.get(Number(id)) ?? byId.get(String(id));
+  const getWord = (id) => {
+    const core = byId.get(id) ?? byId.get(Number(id)) ?? byId.get(String(id));
+    if (core) return core;
+    if (typeof id === 'string' && id.startsWith('d:')) return dictEntry(id.slice(2)); // 词典词(供错词本/复习解析)
+    return undefined;
+  };
 
   const levelStates = useMemo(() => computeLevelStates(levels, progress), [levels, progress]);
   const summary = useMemo(() => summarize(levels, progress), [levels, progress]);
@@ -141,7 +147,7 @@ export default function App() {
   const browseTok = useRef(0);
   // 单词补齐富字段(真题精读点词弹卡用)
   const hydrateWord = async (entry) => {
-    if (!entry) return entry;
+    if (!entry || entry._dict) return entry; // 词典词无富字段，直接用
     const [h] = await hydrate([entry]);
     return h || entry;
   };
@@ -181,8 +187,11 @@ export default function App() {
   };
 
   // 间隔复习：取今日到期的错词(最多 20 词)闯关
-  const startReview = () => {
-    const pool = dueReviewIds(progress).map(getWord).filter(Boolean);
+  const startReview = async () => {
+    const dueIds = dueReviewIds(progress);
+    // 错词本里若有词典词(d: 前缀)，先确保词典加载，getWord 才能解析
+    if (dueIds.some((id) => typeof id === 'string' && id.startsWith('d:'))) await loadDict();
+    const pool = dueIds.map(getWord).filter(Boolean);
     if (!pool.length) return;
     const sessionW = shuffle(pool).slice(0, 20);
     setQuizMode('review');
