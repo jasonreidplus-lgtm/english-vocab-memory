@@ -333,6 +333,7 @@ export default function App() {
       <QuizScreen
         questions={questions}
         group={group}
+        pool={allReady}
         heading={quizMode === 'review' ? '错词复习' : undefined}
         themeKey={theme.key}
         onTheme={setTheme}

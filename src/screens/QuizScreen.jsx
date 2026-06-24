@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Check, X, ArrowRight, Volume2, Zap } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import { shortMeaning } from '../game/quiz.js';
+import { buildLookup } from '../lib/annotate.js';
+import { freqOf } from '../lib/freq.js';
+import { useFreq } from '../lib/useFreq.js';
+import FreqBadge from '../components/FreqBadge.jsx';
 
-export default function QuizScreen({ questions, group, heading, themeKey, onTheme, onBack, onComplete, onSpeak }) {
+export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak }) {
   const title = heading || `第 ${group} 关`;
   const total = questions.length;
+  const lookup = useMemo(() => buildLookup(pool), [pool]);
+  const freq = useFreq();
   const [qi, setQi] = useState(0);
   const [flags, setFlags] = useState(() => Array(total).fill(false));
   const [answered, setAnswered] = useState(false);
@@ -100,7 +106,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
         >
           {q.type === 'choice' ? (
             <>
-              <div className="word" style={{ fontSize: 'calc(var(--word-size) * 0.78)' }}>{q.w.word}</div>
+              <div className="word" style={{ fontSize: 'calc(var(--word-size) * 0.78)' }}>{q.w.word}<FreqBadge n={freqOf(freq, q.w.word, lookup)} /></div>
               <div className="ph">{q.w.phonetic}</div>
               <button className="pill" style={{ marginTop: 12 }} onClick={() => onSpeak && onSpeak(q.w.word)} aria-label="朗读">
                 <Volume2 size={16} />
@@ -125,7 +131,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
             <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
               <span className="opt-left">
                 <span className="opt-key" aria-hidden>{i + 1}</span>
-                <span>{optionDisplay(o)}</span>
+                <span>{optionDisplay(o)}{q.type === 'cn2en' && <FreqBadge n={freqOf(freq, o, lookup)} />}</span>
               </span>
               {answered && o === q.answer && <Check size={19} />}
               {answered && o === picked && o !== q.answer && <X size={19} />}

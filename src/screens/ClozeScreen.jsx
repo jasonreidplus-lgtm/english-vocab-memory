@@ -31,7 +31,7 @@ export default function ClozeScreen({
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
-  const freq = useFreq(lookup, dict);
+  const freq = useFreq();
 
   useEffect(() => {
     if (passageMode) return;

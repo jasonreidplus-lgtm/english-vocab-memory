@@ -22,7 +22,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
-  const freq = useFreq(lookup, dict);
+  const freq = useFreq();
   const segs = useMemo(() => annotate(text, lookup, dict), [text, lookup, dict]);
   const hitCount = useMemo(() => countUnique(segs), [segs]);
 
