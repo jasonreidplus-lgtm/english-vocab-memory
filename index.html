@@ -19,11 +19,11 @@
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
     <link rel="apple-touch-icon" href="icon-180.png" />
 
-    <!-- 所有画风用到的字体一次性预连接 + 加载（新增画风若需新字体，可在 theme 配置里声明 fontHref 动态注入） -->
+    <!-- 只首屏加载默认画风用到的中文字体；像素/霓虹/羊皮等画风的专属字体在切换时由 theme.fontHref 动态注入(见 App.jsx) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=VT323&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
   </head>

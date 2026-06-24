@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { getTheme } from './config/themes.jsx';
 import { loadVocab, loadGroupDetail } from './data/loadVocab.js';
 import { useProgress } from './state/useProgress.js';
@@ -13,22 +13,26 @@ import { buildQuiz, tallyResult } from './game/quiz.js';
 import { speak } from './lib/speech.js';
 import { shuffle } from './lib/shuffle.js';
 
-import LevelSelect from './screens/LevelSelect.jsx';
-import LearnScreen from './screens/LearnScreen.jsx';
-import QuizScreen from './screens/QuizScreen.jsx';
-import ResultScreen from './screens/ResultScreen.jsx';
-import MatchScreen from './screens/MatchScreen.jsx';
-import ReadScreen from './screens/ReadScreen.jsx';
-import ClozeScreen from './screens/ClozeScreen.jsx';
-import PassageScreen from './screens/PassageScreen.jsx';
+import LevelSelect from './screens/LevelSelect.jsx'; // 首屏：保持同步导入，避免首次白屏
 import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
-import SettingsPanel from './components/SettingsPanel.jsx';
+import ConfirmDialog from './components/ConfirmDialog.jsx';
+
+// 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
+const LearnScreen = lazy(() => import('./screens/LearnScreen.jsx'));
+const QuizScreen = lazy(() => import('./screens/QuizScreen.jsx'));
+const ResultScreen = lazy(() => import('./screens/ResultScreen.jsx'));
+const MatchScreen = lazy(() => import('./screens/MatchScreen.jsx'));
+const ReadScreen = lazy(() => import('./screens/ReadScreen.jsx'));
+const ClozeScreen = lazy(() => import('./screens/ClozeScreen.jsx'));
+const PassageScreen = lazy(() => import('./screens/PassageScreen.jsx'));
+const SettingsPanel = lazy(() => import('./components/SettingsPanel.jsx'));
 
 export default function App() {
   const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
 
   // —— 词库加载 ——
   const [vocab, setVocab] = useState({ status: 'loading' });
@@ -71,6 +75,26 @@ export default function App() {
   const [passages, setPassages] = useState([]); // 真题阅读关卡库(本机)
   const [activePassage, setActivePassage] = useState(null); // 正在精读的篇目
   useEffect(() => { let alive = true; loadPassages().then((p) => alive && setPassages(p)); return () => { alive = false; }; }, []);
+
+  // 首屏渲染后、空闲时预取其余 screen 分包 → 进 SW 缓存，离线也能直接打开任意页
+  useEffect(() => {
+    const warm = () => {
+      import('./screens/LearnScreen.jsx');
+      import('./screens/QuizScreen.jsx');
+      import('./screens/ResultScreen.jsx');
+      import('./screens/MatchScreen.jsx');
+      import('./screens/ReadScreen.jsx');
+      import('./screens/ClozeScreen.jsx');
+      import('./screens/PassageScreen.jsx');
+      import('./components/SettingsPanel.jsx');
+    };
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(warm);
+      return () => cancelIdleCallback(id);
+    }
+    const t = setTimeout(warm, 1500);
+    return () => clearTimeout(t);
+  }, []);
 
   const levels = vocab.status === 'ready' ? vocab.levels : [];
   const byId = vocab.status === 'ready' ? vocab.byId : new Map();
@@ -121,12 +145,8 @@ export default function App() {
     speak(text, progress.accent === 'uk' ? 'en-GB' : 'en-US');
   };
 
-  const handleReset = () => {
-    if (window.confirm('确定要重置全部进度吗？（XP / 通关 / 错词本将清空，画风保留）')) {
-      resetAll();
-      setSettingsOpen(false);
-    }
-  };
+  const handleReset = () => { setSettingsOpen(false); setConfirmReset(true); };
+  const doReset = () => { resetAll(); setConfirmReset(false); };
 
   // 进入某一关：打乱该关 10 词，先用轻量数据秒开，再补齐富字段(懒加载)
   const enterLevel = (g) => {
@@ -403,14 +423,31 @@ export default function App() {
     <div className="page">
       <div className="vg" style={theme.vars} data-theme={theme.key}>
         {theme.Deco && <theme.Deco />}
-        <div className="vg__content">{screen}</div>
+        <div className="vg__content">
+          <Suspense fallback={<div className="center label" style={{ paddingTop: 120 }}>加载中…</div>}>
+            {screen}
+          </Suspense>
+        </div>
         {settingsOpen && (
-          <SettingsPanel
-            progress={progress}
-            onClose={() => setSettingsOpen(false)}
-            onSetPref={setPref}
-            onSetGoal={setGoal}
-            onReset={handleReset}
+          <Suspense fallback={null}>
+            <SettingsPanel
+              progress={progress}
+              onClose={() => setSettingsOpen(false)}
+              onSetPref={setPref}
+              onSetGoal={setGoal}
+              onReset={handleReset}
+            />
+          </Suspense>
+        )}
+        {confirmReset && (
+          <ConfirmDialog
+            danger
+            title="重置全部进度？"
+            message="XP / 通关 / 错词本将被清空（画风保留）。此操作无法撤销。"
+            confirmText="重置"
+            cancelText="取消"
+            onConfirm={doReset}
+            onCancel={() => setConfirmReset(false)}
           />
         )}
       </div>

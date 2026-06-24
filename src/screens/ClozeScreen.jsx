@@ -5,12 +5,8 @@ import WordPopup from '../components/WordPopup.jsx';
 import { annotate, buildLookup } from '../lib/annotate.js';
 import { shortMeaning } from '../game/quiz.js';
 import { shuffle } from '../lib/shuffle.js';
-
-function splitSentences(text) {
-  return (String(text || '').match(/[^.!?]+[.!?]+(?=\s|$)/g) || [])
-    .map((s) => ({ en: s.trim() }))
-    .filter((s) => s.en.replace(/[^a-z]/gi, '').length >= 15);
-}
+import { fetchBuiltin } from '../lib/passages.js';
+import { splitEnSentences } from '../lib/text.js';
 
 export default function ClozeScreen({
   pool, sentences, title, onDone, // passage 模式：传 sentences + title + onDone
@@ -35,9 +31,10 @@ export default function ClozeScreen({
     let alive = true;
     const base = import.meta.env.BASE_URL;
     Promise.all([
-      fetch(`${base}data/sentences.json`, { cache: 'no-cache' }).then((r) => r.json()),
-      // 复用真题关卡库：把每篇的 sents 摊平当作句库（无内置译文，点「翻译」时会优雅降级）
-      fetch(`${base}data/passages.json`, { cache: 'no-cache' }).then((r) => r.json()).catch(() => []),
+      fetch(`${base}data/sentences.json`).then((r) => r.json()),
+      // 复用真题关卡库(共享 fetchBuiltin 的模块级缓存，避免重复下载 passages.json)：
+      // 把每篇的 sents 摊平当作句库，逐句已带 cn 译文
+      fetchBuiltin(),
     ])
       .then(([self, passages]) => {
         if (!alive) return;
@@ -50,7 +47,7 @@ export default function ClozeScreen({
     return () => { alive = false; };
   }, [passageMode]);
 
-  const pasteSents = useMemo(() => splitSentences(pasteText), [pasteText]);
+  const pasteSents = useMemo(() => splitEnSentences(pasteText).map((en) => ({ en })), [pasteText]);
   const list = passageMode
     ? sentences
     : src === 'bank'

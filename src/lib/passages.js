@@ -6,6 +6,7 @@
    3) 2 篇自写示例文章(对标真题难度，带逐句翻译)。
    版权：内置真题原文仅供本人备考自用，请勿公开分发。
    ============================================================ */
+import { splitEnSentences } from './text.js';
 
 const KEY = 'wordquest:passages';
 
@@ -50,12 +51,8 @@ function write(o) {
   }
 }
 
-// 把英文段落粗切成句子
-export function splitEn(text) {
-  return (String(text || '').match(/[^.!?]+[.!?]+(?=\s|$)/g) || [])
-    .map((s) => s.trim())
-    .filter((s) => s.replace(/[^a-z]/gi, '').length >= 15);
-}
+// 把英文段落粗切成句子(统一规则见 lib/text.js)
+export const splitEn = splitEnSentences;
 function splitCn(text) {
   return (String(text || '').match(/[^。！？]+[。！？]+/g) || []).map((s) => s.trim());
 }
@@ -70,10 +67,10 @@ function makeSents(en, cn) {
 // —— 内置真题关卡(由 scripts/build-passages.mjs 生成 → public/data/passages.json) ——
 //    与 vocab.json / sentences.json 同样从 public/data 取，仅取一次并缓存。
 let _builtin = null;
-async function fetchBuiltin() {
+export async function fetchBuiltin() {
   if (_builtin) return _builtin;
   try {
-    const r = await fetch(`${import.meta.env.BASE_URL}data/passages.json`, { cache: 'no-cache' });
+    const r = await fetch(`${import.meta.env.BASE_URL}data/passages.json`);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     _builtin = Array.isArray(data) ? data : [];

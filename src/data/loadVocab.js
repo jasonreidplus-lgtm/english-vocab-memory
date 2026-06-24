@@ -44,7 +44,9 @@ export function buildLevels(records) {
 }
 
 async function fetchJson(url) {
-  const res = await fetch(url, { cache: 'no-cache' });
+  // 不强制 no-cache：交给 Service Worker 的 stale-while-revalidate + HTTP 条件请求，
+  // 重复访问走缓存秒开、后台校验只回 304，省流量。数据更新时 bump sw.js 的 CACHE 版本即可。
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} @ ${url}`);
   return res.json();
 }

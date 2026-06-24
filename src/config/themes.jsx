@@ -39,6 +39,7 @@ export const THEMES = [
     key: 'pixel',
     label: '像素',
     Deco: PixelDeco,
+    fontHref: 'https://fonts.googleapis.com/css2?family=VT323&display=swap',
     vars: {
       '--bg1': '#16161f', '--bg2': '#0e0e16',
       '--surface': '#2a2a42', '--surface2': '#34345a',
@@ -60,6 +61,8 @@ export const THEMES = [
     key: 'neon',
     label: '霓虹',
     Deco: NeonDeco,
+    fontHref:
+      'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap',
     vars: {
       '--bg1': '#0a0a14', '--bg2': '#06060d',
       '--surface': 'rgba(18,20,40,0.66)', '--surface2': 'rgba(28,30,58,0.7)',
