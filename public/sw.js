@@ -26,8 +26,11 @@ self.addEventListener('fetch', (e) => {
       (async () => {
         try {
           const fresh = await fetch(req);
-          const cache = await caches.open(CACHE);
-          cache.put(req, fresh.clone());
+          // 不缓存被重定向的响应(如 Cloudflare Access 登录页)，避免污染离线壳
+          if (fresh && fresh.ok && !fresh.redirected) {
+            const cache = await caches.open(CACHE);
+            cache.put(req, fresh.clone());
+          }
           return fresh;
         } catch {
           return (await caches.match(req)) || (await caches.match('./')) || Response.error();
@@ -43,7 +46,7 @@ self.addEventListener('fetch', (e) => {
       const cached = await cache.match(req);
       const network = fetch(req)
         .then((res) => {
-          if (res && (res.ok || res.type === 'opaque')) cache.put(req, res.clone());
+          if (res && (res.ok || res.type === 'opaque') && !res.redirected) cache.put(req, res.clone());
           return res;
         })
         .catch(() => cached);
