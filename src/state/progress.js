@@ -6,6 +6,8 @@ import { DEFAULT_THEME } from '../config/themes.jsx';
 
 export const STORAGE_KEY = 'wordquest:v1';
 export const DAILY_GOAL = 20; // 默认每日目标(词)
+// 间隔复习(天)：错词答对逐级 1→2→4→7→15，再答对即毕业移出错词本；答错回到第 1 级
+export const SRS_INTERVALS = [1, 2, 4, 7, 15];
 
 // 本地日期 key：YYYY-MM-DD
 export function dayKey(d = new Date()) {
@@ -16,6 +18,11 @@ export function dayKey(d = new Date()) {
 export function yesterdayKey(d = new Date()) {
   const x = new Date(d);
   x.setDate(x.getDate() - 1);
+  return dayKey(x);
+}
+export function addDaysKey(days, d = new Date()) {
+  const x = new Date(d);
+  x.setDate(x.getDate() + days);
   return dayKey(x);
 }
 
@@ -29,8 +36,11 @@ export function defaultProgress() {
     levels: {}, // { [group]: { stars, completed, bestScore, attempts } }
     wrong: {}, // 错词池 { [wordId]: { miss, lastTs } }
     daily: null, // { date, count, streak, goal } —— 每日目标 / 连续打卡
+    history: {}, // { [YYYY-MM-DD]: 当日学习词数 } —— 打卡热力图
+    stats: { answered: 0, correct: 0 }, // 累计答题数 / 答对数 —— 正确率
     sound: true, // 音效朗读开关
     accent: 'us', // 发音口音 us | uk
+    spell: true, // 闯关是否混入拼写题
   };
 }
 
@@ -106,10 +116,36 @@ export function nextEnterableGroup(levelStates, currentGroup) {
   return null;
 }
 
-// 汇总：通关数 / 总就绪关数 / 已收集错词数
+// 汇总：通关数 / 总就绪关数 / 已收集错词数 / 已学单词数(已通关各关就绪词之和)
 export function summarize(levels, progress) {
   const readyCount = levels.filter((l) => l.ready).length;
-  const clearedCount = Object.values(progress.levels).filter((l) => l && l.completed).length;
+  let clearedCount = 0;
+  let learnedWords = 0;
+  for (const lv of levels) {
+    const p = progress.levels[lv.group];
+    if (p && p.completed) {
+      clearedCount++;
+      learnedWords += lv.readyCount || 0;
+    }
+  }
   const wrongCount = Object.keys(progress.wrong || {}).length;
-  return { readyCount, clearedCount, wrongCount, totalGroups: levels.length };
+  return { readyCount, clearedCount, wrongCount, learnedWords, totalGroups: levels.length };
+}
+
+// —— 间隔复习：到期待复习的词 id（due<=今天，或旧数据无 due 视为到期） ——
+export function dueReviewIds(progress, today = dayKey()) {
+  return Object.entries(progress.wrong || {})
+    .filter(([, e]) => !e || !e.due || e.due <= today)
+    .sort((a, b) => String((a[1] && a[1].due) || '').localeCompare(String((b[1] && b[1].due) || '')))
+    .map(([id]) => id);
+}
+export function dueCount(progress, today = dayKey()) {
+  return dueReviewIds(progress, today).length;
+}
+
+// 累计正确率(%)
+export function accuracy(progress) {
+  const a = (progress.stats && progress.stats.answered) || 0;
+  if (!a) return 0;
+  return Math.round((((progress.stats && progress.stats.correct) || 0) / a) * 100);
 }

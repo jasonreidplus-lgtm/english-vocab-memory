@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Zap, Flame, Trophy, Brain, Puzzle, ChevronRight, Play, CornerDownLeft, Settings, BookOpen, ScrollText, Lightbulb, Newspaper } from 'lucide-react';
+import { Zap, Flame, Trophy, Brain, Puzzle, ChevronRight, Play, CornerDownLeft, Settings, BookOpen, ScrollText, Lightbulb, Newspaper, Search, BarChart3 } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 import DailyCard from '../components/DailyCard.jsx';
 
@@ -59,6 +59,9 @@ export default function LevelSelect({
   onRead,
   onCloze,
   onPassages,
+  onSearch,
+  onStats,
+  reviewDue = 0,
   onSetGoal,
   onOpenSettings,
   justUnlocked,
@@ -104,11 +107,23 @@ export default function LevelSelect({
   return (
     <>
       <HeaderBar themeKey={themeKey} onTheme={onTheme} extra={
-        onOpenSettings && (
-          <button className="pill" onClick={onOpenSettings} aria-label="设置" style={{ padding: '6px 8px' }}>
-            <Settings size={16} />
-          </button>
-        )
+        <>
+          {onSearch && (
+            <button className="pill" onClick={onSearch} aria-label="查词" style={{ padding: '6px 8px' }}>
+              <Search size={16} />
+            </button>
+          )}
+          {onStats && (
+            <button className="pill" onClick={onStats} aria-label="学习统计" style={{ padding: '6px 8px' }}>
+              <BarChart3 size={16} />
+            </button>
+          )}
+          {onOpenSettings && (
+            <button className="pill" onClick={onOpenSettings} aria-label="设置" style={{ padding: '6px 8px' }}>
+              <Settings size={16} />
+            </button>
+          )}
+        </>
       } />
 
       {/* 每日目标 / 连续打卡 */}
@@ -140,9 +155,15 @@ export default function LevelSelect({
       <div className="stack gap8">
         <ReviewEntry
           icon={<Brain size={20} color="var(--accent)" />}
-          title="错词本复习"
-          sub={wrongCount > 0 ? `复习池 ${wrongCount} 词` : '暂无错词，继续闯关吧'}
-          disabled={wrongCount === 0}
+          title="间隔复习"
+          sub={
+            reviewDue > 0
+              ? `今日待复习 ${reviewDue} 词`
+              : wrongCount > 0
+              ? `复习池 ${wrongCount} 词 · 今日已清`
+              : '暂无错词，继续闯关吧'
+          }
+          disabled={reviewDue === 0}
           onClick={onReview}
         />
         {wrongCount > 0 && onBrowseWrong && (

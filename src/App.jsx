@@ -4,6 +4,8 @@ import { loadVocab, loadGroupDetail } from './data/loadVocab.js';
 import { useProgress } from './state/useProgress.js';
 import {
   computeLevelStates,
+  dueCount,
+  dueReviewIds,
   nextEnterableGroup,
   starsFor,
   summarize,
@@ -25,6 +27,8 @@ const MatchScreen = lazy(() => import('./screens/MatchScreen.jsx'));
 const ReadScreen = lazy(() => import('./screens/ReadScreen.jsx'));
 const ClozeScreen = lazy(() => import('./screens/ClozeScreen.jsx'));
 const PassageScreen = lazy(() => import('./screens/PassageScreen.jsx'));
+const SearchScreen = lazy(() => import('./screens/SearchScreen.jsx'));
+const StatsScreen = lazy(() => import('./screens/StatsScreen.jsx'));
 const SettingsPanel = lazy(() => import('./components/SettingsPanel.jsx'));
 
 export default function App() {
@@ -86,6 +90,8 @@ export default function App() {
       import('./screens/ReadScreen.jsx');
       import('./screens/ClozeScreen.jsx');
       import('./screens/PassageScreen.jsx');
+      import('./screens/SearchScreen.jsx');
+      import('./screens/StatsScreen.jsx');
       import('./components/SettingsPanel.jsx');
     };
     if (typeof requestIdleCallback === 'function') {
@@ -103,6 +109,7 @@ export default function App() {
 
   const levelStates = useMemo(() => computeLevelStates(levels, progress), [levels, progress]);
   const summary = useMemo(() => summarize(levels, progress), [levels, progress]);
+  const reviewDue = useMemo(() => dueCount(progress), [progress]);
   const allReady = useMemo(() => levels.flatMap((l) => l.readyWords), [levels]);
 
   const currentLevel = useMemo(
@@ -169,19 +176,19 @@ export default function App() {
     const words = sessionWords.length ? sessionWords : currentLevel?.readyWords;
     if (!words || !words.length) return;
     setQuizMode('level');
-    setQuestions(buildQuiz(words, allReady));
+    setQuestions(buildQuiz(words, allReady, { spelling: progress.spell !== false }));
     setView('quiz');
   };
 
-  // 错词复习：把错词池组成一组(最多 10 词)闯关
+  // 间隔复习：取今日到期的错词(最多 20 词)闯关
   const startReview = () => {
-    const pool = Object.keys(progress.wrong).map(getWord).filter(Boolean);
+    const pool = dueReviewIds(progress).map(getWord).filter(Boolean);
     if (!pool.length) return;
-    const sessionW = shuffle(pool).slice(0, 10);
+    const sessionW = shuffle(pool).slice(0, 20);
     setQuizMode('review');
     setGroup(null);
     setSessionWords(sessionW);
-    setQuestions(buildQuiz(sessionW, allReady.length ? allReady : sessionW));
+    setQuestions(buildQuiz(sessionW, allReady.length ? allReady : sessionW, { spelling: progress.spell !== false }));
     setView('quiz');
   };
 
@@ -193,17 +200,22 @@ export default function App() {
     recordStudy(tally.total); // 计入今日学习词数 / 打卡
 
     if (quizMode === 'review') {
-      const removed = tally.correctIds.length;
-      const before = Object.keys(progress.wrong).length;
-      reviewComplete({ correctIds: tally.correctIds, wrongIds: tally.wrongIds, xpGain });
+      reviewComplete({
+        correctIds: tally.correctIds,
+        wrongIds: tally.wrongIds,
+        xpGain,
+        total: tally.total,
+        correct: tally.correct,
+      });
+      // 答对的词已升级(间隔延长/毕业)，本批都已排到将来 → 今日剩余 = 开局到期数 - 本批题数
       setResult({
         ...tally,
         stars,
         xpGain,
         wrongWords,
         mode: 'review',
-        reviewRemoved: removed,
-        reviewRemaining: Math.max(0, before - removed),
+        reviewAdvanced: tally.correct,
+        reviewRemaining: Math.max(0, reviewDue - tally.total),
       });
       setView('result');
       return;
@@ -233,6 +245,8 @@ export default function App() {
   const startMatch = () => setView('match');
   const startRead = () => setView('read');
   const startCloze = () => { setActivePassage(null); setView('cloze'); };
+  const openSearch = () => setView('search');
+  const openStats = () => setView('stats');
 
   // —— 真题阅读关卡库 ——
   const openPassages = () => setView('passages');
@@ -297,6 +311,7 @@ export default function App() {
         onBack={goHome}
         onStart={startQuiz}
         onSpeak={onSpeak}
+        onMarkWrong={markWrong}
       />
     );
   } else if (view === 'quiz' && questions.length) {
@@ -397,6 +412,28 @@ export default function App() {
         }
       />
     );
+  } else if (view === 'search') {
+    screen = (
+      <SearchScreen
+        pool={allReady}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={goHome}
+        onSpeak={onSpeak}
+        onMarkWrong={markWrong}
+        hydrateWord={hydrateWord}
+      />
+    );
+  } else if (view === 'stats') {
+    screen = (
+      <StatsScreen
+        progress={progress}
+        summary={summary}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={goHome}
+      />
+    );
   } else {
     screen = (
       <LevelSelect
@@ -412,6 +449,9 @@ export default function App() {
         onRead={startRead}
         onCloze={startCloze}
         onPassages={openPassages}
+        onSearch={openSearch}
+        onStats={openStats}
+        reviewDue={reviewDue}
         onSetGoal={setGoal}
         onOpenSettings={() => setSettingsOpen(true)}
         justUnlocked={justUnlocked}

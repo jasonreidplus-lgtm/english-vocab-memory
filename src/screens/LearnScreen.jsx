@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { RotateCw, ArrowLeft, ArrowRight, Zap, ChevronRight, Volume2, Check } from 'lucide-react';
+import { RotateCw, ArrowLeft, ArrowRight, Zap, ChevronRight, Volume2, Check, HelpCircle } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
 
 // 从词条提取“可分层展开”的信息块(空的自动跳过)
@@ -44,12 +44,14 @@ function Layer({ sec, open, onToggle }) {
   );
 }
 
-export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak }) {
+export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong }) {
   const browse = mode === 'browse';
   const heading = title || `第 ${group} 关`;
   const [li, setLi] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [open, setOpen] = useState({});
+  const [marked, setMarked] = useState({}); // 本次「不认识」标记 { [id]: true }
+  const markedCount = Object.keys(marked).length;
 
   const total = words.length;
   const word = words[li];
@@ -129,6 +131,33 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
           <RotateCw size={16} /> 翻面
         </button>
       </div>
+
+      {/* 学习自评：不认识 → 加入间隔复习；认识 → 跳过 */}
+      {!browse && onMarkWrong && (
+        <>
+          <div className="row gap10 mt12">
+            <button
+              className="btn ghost grow"
+              style={{ color: 'var(--bad)' }}
+              onClick={() => {
+                if (!marked[word.id]) onMarkWrong(word.id);
+                setMarked((m) => ({ ...m, [word.id]: true }));
+                if (li < total - 1) go(1);
+              }}
+            >
+              <HelpCircle size={16} /> 不认识
+            </button>
+            <button className="btn ghost grow" style={{ color: 'var(--good)' }} onClick={() => li < total - 1 && go(1)}>
+              <Check size={16} /> 认识
+            </button>
+          </div>
+          {markedCount > 0 && (
+            <div className="label center" style={{ marginTop: 6, fontSize: 12 }}>
+              本次已加入复习 {markedCount} 词
+            </div>
+          )}
+        </>
+      )}
 
       {/* 上一个 / 下一个 / 开始闯关 */}
       <div className="row gap10 mt12">

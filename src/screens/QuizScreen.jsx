@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Check, X, ArrowRight, Volume2, Zap } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
-import { shortMeaning } from '../game/quiz.js';
+import { shortMeaning, spellHint } from '../game/quiz.js';
 
 export default function QuizScreen({ questions, group, heading, themeKey, onTheme, onBack, onComplete, onSpeak }) {
   const title = heading || `第 ${group} 关`;
@@ -10,6 +10,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
   const [flags, setFlags] = useState(() => Array(total).fill(false));
   const [answered, setAnswered] = useState(false);
   const [picked, setPicked] = useState(null);
+  const [spellInput, setSpellInput] = useState('');
 
   const q = questions[qi];
   const correctCount = flags.filter(Boolean).length;
@@ -30,6 +31,11 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     record(opt === q.answer);
   };
 
+  const submitSpell = () => {
+    if (answered || !spellInput.trim()) return;
+    record(spellInput.trim().toLowerCase() === String(q.answer).toLowerCase());
+  };
+
   const next = () => {
     if (lastQuestion) {
       onComplete(flags);
@@ -38,6 +44,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     setQi(qi + 1);
     setAnswered(false);
     setPicked(null);
+    setSpellInput('');
   };
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
         }
         return;
       }
-      if (!answered && /^[1-4]$/.test(e.key)) {
+      if (q.type !== 'spell' && !answered && /^[1-4]$/.test(e.key)) {
         const opt = q.options[Number(e.key) - 1];
         if (opt != null) {
           e.preventDefault();
@@ -86,7 +93,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
 
       <div className="fade" key={qi} style={{ marginTop: 14 }}>
         <div className="label" style={{ marginBottom: 8 }}>
-          {q.type === 'choice' ? '选出正确释义' : '选出正确单词'}
+          {q.type === 'choice' ? '选出正确释义' : q.type === 'spell' ? '拼出这个单词' : '选出正确单词'}
         </div>
         <div
           className="face"
@@ -114,24 +121,59 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
           )}
         </div>
 
-        {q.options.map((o, i) => {
-          let cls = q.type === 'cn2en' ? 'opt opt-en' : 'opt';
-          if (answered) {
-            if (o === q.answer) cls += ' correct';
-            else if (o === picked) cls += ' wrong';
-            else cls += ' dim';
-          }
-          return (
-            <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
-              <span className="opt-left">
-                <span className="opt-key" aria-hidden>{i + 1}</span>
-                <span>{optionDisplay(o)}</span>
-              </span>
-              {answered && o === q.answer && <Check size={19} />}
-              {answered && o === picked && o !== q.answer && <X size={19} />}
-            </button>
-          );
-        })}
+        {q.type === 'spell' ? (
+          <div className="spell-wrap">
+            <div className="spell-hint" aria-hidden>{spellHint(q.answer)}</div>
+            <input
+              className={`spell-input${answered ? (flags[qi] ? ' correct' : ' wrong') : ''}`}
+              value={spellInput}
+              onChange={(e) => setSpellInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !answered) { e.preventDefault(); submitSpell(); }
+              }}
+              placeholder="键入单词"
+              disabled={answered}
+              autoFocus
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoComplete="off"
+              spellCheck={false}
+              inputMode="text"
+            />
+            {!answered ? (
+              <button className="btn primary block mt12" disabled={!spellInput.trim()} onClick={submitSpell}>
+                提交 <ArrowRight size={17} />
+              </button>
+            ) : (
+              <div className={`spell-result ${flags[qi] ? 'ok' : 'no'}`}>
+                {flags[qi] ? (
+                  <><Check size={16} /> 拼写正确</>
+                ) : (
+                  <><X size={16} /> 正确拼写：<b>{q.answer}</b></>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          q.options.map((o, i) => {
+            let cls = q.type === 'cn2en' ? 'opt opt-en' : 'opt';
+            if (answered) {
+              if (o === q.answer) cls += ' correct';
+              else if (o === picked) cls += ' wrong';
+              else cls += ' dim';
+            }
+            return (
+              <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
+                <span className="opt-left">
+                  <span className="opt-key" aria-hidden>{i + 1}</span>
+                  <span>{optionDisplay(o)}</span>
+                </span>
+                {answered && o === q.answer && <Check size={19} />}
+                {answered && o === picked && o !== q.answer && <X size={19} />}
+              </button>
+            );
+          })
+        )}
 
         {answered && (
           <button className="btn primary block fade mt12" onClick={next}>

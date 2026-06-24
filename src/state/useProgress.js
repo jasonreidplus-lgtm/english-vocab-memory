@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import {
   DAILY_GOAL,
+  SRS_INTERVALS,
+  addDaysKey,
   dayKey,
   defaultProgress,
   loadProgress,
@@ -14,7 +16,7 @@ function reducer(state, action) {
       return { ...state, themeKey: action.key };
 
     case 'finishLevel': {
-      const { group, correct, stars, xpGain, wrongIds = [], correctIds = [] } = action.payload;
+      const { group, correct, total = 0, stars, xpGain, wrongIds = [], correctIds = [] } = action.payload;
       const prev = state.levels[group] || {};
       const levels = {
         ...state.levels,
@@ -26,12 +28,13 @@ function reducer(state, action) {
         },
       };
 
-      // 错词池：答错的进池(累计 miss)，本次答对的移出池(视为已掌握)
+      // 错词池：答错的进池(回到第 1 级、今日到期)，本次答对的移出池(视为已掌握)
       const wrong = { ...state.wrong };
       const ts = Date.now();
+      const today = dayKey();
       for (const id of wrongIds) {
         const w = wrong[id] || { miss: 0 };
-        wrong[id] = { miss: w.miss + 1, lastTs: ts };
+        wrong[id] = { miss: (w.miss || 0) + 1, lastTs: ts, box: 0, due: today };
       }
       for (const id of correctIds) {
         if (wrong[id]) delete wrong[id];
@@ -47,36 +50,55 @@ function reducer(state, action) {
         xp: state.xp + xpGain,
         combo,
         bestCombo: Math.max(state.bestCombo || 0, combo),
+        stats: {
+          answered: ((state.stats && state.stats.answered) || 0) + total,
+          correct: ((state.stats && state.stats.correct) || 0) + correct,
+        },
       };
     }
 
     case 'reviewComplete': {
-      // 错词复习：答对的移出池，答错的累计 miss；只加 XP，不计关卡通关
-      const { wrongIds = [], correctIds = [], xpGain = 0 } = action.payload;
+      // 间隔复习：答对的升级(到顶即毕业移出)，答错的回到第 1 级；只加 XP，不计关卡通关
+      const { wrongIds = [], correctIds = [], xpGain = 0, total = 0, correct = 0 } = action.payload;
       const wrong = { ...state.wrong };
       const ts = Date.now();
       for (const id of correctIds) {
-        if (wrong[id]) delete wrong[id];
+        const e = wrong[id];
+        if (!e) continue;
+        const nb = (e.box || 0) + 1;
+        if (nb >= SRS_INTERVALS.length) delete wrong[id]; // 升到顶级 → 毕业移出错词本
+        else wrong[id] = { ...e, box: nb, due: addDaysKey(SRS_INTERVALS[nb]), lastTs: ts };
       }
       for (const id of wrongIds) {
-        const w = wrong[id] || { miss: 0 };
-        wrong[id] = { miss: w.miss + 1, lastTs: ts };
+        const e = wrong[id] || { miss: 0 };
+        wrong[id] = { ...e, miss: (e.miss || 0) + 1, box: 0, due: addDaysKey(SRS_INTERVALS[0]), lastTs: ts };
       }
-      return { ...state, wrong, xp: state.xp + xpGain };
+      return {
+        ...state,
+        wrong,
+        xp: state.xp + xpGain,
+        stats: {
+          answered: ((state.stats && state.stats.answered) || 0) + total,
+          correct: ((state.stats && state.stats.correct) || 0) + correct,
+        },
+      };
     }
 
     case 'addXp':
       return { ...state, xp: state.xp + (action.amount || 0) };
 
     case 'studyActivity': {
-      // 记录今日学习词数，并维护连续打卡天数
+      // 记录今日学习词数(打卡历史 + 连续打卡天数)
       const words = action.words || 0;
       const today = dayKey();
+      const history = { ...(state.history || {}) };
+      history[today] = (history[today] || 0) + words;
       const prev = state.daily;
       if (!prev || prev.date !== today) {
         const continued = prev && prev.date === yesterdayKey();
         return {
           ...state,
+          history,
           daily: {
             date: today,
             count: words,
@@ -85,7 +107,7 @@ function reducer(state, action) {
           },
         };
       }
-      return { ...state, daily: { ...prev, count: prev.count + words } };
+      return { ...state, history, daily: { ...prev, count: prev.count + words } };
     }
 
     case 'setGoal': {
@@ -97,12 +119,13 @@ function reducer(state, action) {
       return { ...state, [action.key]: action.value };
 
     case 'markWrong': {
-      // 把若干词 id 加入错词池(如真题精读里「加入错词本」)
+      // 把若干词 id 加入错词池(真题精读「加入错词本」/学习卡「不认识」)，今日到期可复习
       const wrong = { ...state.wrong };
       const ts = Date.now();
+      const today = dayKey();
       for (const id of action.ids || []) {
         const w = wrong[id] || { miss: 0 };
-        wrong[id] = { miss: w.miss + 1, lastTs: ts };
+        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, box: 0, due: today };
       }
       return { ...state, wrong };
     }

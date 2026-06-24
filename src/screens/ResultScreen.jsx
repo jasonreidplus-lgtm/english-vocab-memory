@@ -24,7 +24,7 @@ export default function ResultScreen({
     wrongWords = [],
     comboAfter,
     mode,
-    reviewRemoved = 0,
+    reviewAdvanced = 0,
     reviewRemaining = 0,
   } = result;
   const isReview = mode === 'review';
@@ -56,7 +56,7 @@ export default function ResultScreen({
         <div className="row" style={{ justifyContent: 'center', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
           <span className="badge"><Trophy size={14} color="var(--accent)" /> +{xpGain} XP</span>
           {isReview ? (
-            <span className="badge"><BookCheck size={14} color="var(--accent)" /> 移出 {reviewRemoved} 词</span>
+            <span className="badge"><BookCheck size={14} color="var(--accent)" /> 升级 {reviewAdvanced} 词</span>
           ) : (
             comboAfter > 0 && (
               <span className={`badge ${comboAfter >= 2 ? 'combo-pop' : ''}`}>
@@ -86,7 +86,7 @@ export default function ResultScreen({
       {isReview ? (
         <>
           <div className="label center mt16" style={{ fontSize: 13 }}>
-            复习池剩余 {reviewRemaining} 词
+            {reviewRemaining > 0 ? `今日待复习剩余 ${reviewRemaining} 词` : '🎉 今日复习已全部完成'}
           </div>
           <div className="row gap10" style={{ marginTop: 12 }}>
             <button className="btn ghost grow" onClick={onReplay} disabled={reviewRemaining === 0}>
