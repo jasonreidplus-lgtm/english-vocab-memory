@@ -1,9 +1,8 @@
 /* ============================================================
    闯关题目生成：数据驱动，与画风无关。
-   随机混合题型：
+   每关随机混合两种题型：
      1. choice 英选中：给单词，选正确释义
      2. cn2en  中选英：给释义，选正确单词
-     3. spell  拼写  ：给释义，键入单词(opts.spelling 开启时混入，无选项)
    ============================================================ */
 import { shuffle } from '../lib/shuffle.js';
 
@@ -24,10 +23,10 @@ function pickDistractors(word, levelWords, globalPool, field) {
   return candidates.slice(0, OPTION_COUNT - 1);
 }
 
-function assignTypes(n, types) {
-  const out = [];
-  for (let i = 0; i < n; i++) out.push(types[i % types.length]);
-  return shuffle(out);
+function assignTypes(n) {
+  const types = [];
+  for (let i = 0; i < n; i++) types.push(QUESTION_TYPES[i % QUESTION_TYPES.length]);
+  return shuffle(types);
 }
 
 function optionsQuestion(w, levelWords, globalPool, field) {
@@ -35,17 +34,13 @@ function optionsQuestion(w, levelWords, globalPool, field) {
   return shuffle(uniq([w[field], ...distractors]));
 }
 
-export function buildQuiz(levelWords, globalPool, opts = {}) {
-  const typePool = opts.spelling ? [...QUESTION_TYPES, 'spell'] : QUESTION_TYPES;
+export function buildQuiz(levelWords, globalPool) {
   const words = shuffle(levelWords);
-  const types = assignTypes(words.length, typePool);
+  const types = assignTypes(words.length);
 
   return words.map((w, i) => {
     const type = types[i];
     const base = { id: w.id, w, type };
-    if (type === 'spell') {
-      return { ...base, answer: w.word }; // 看释义拼单词，无选项
-    }
     if (type === 'choice') {
       return {
         ...base,
@@ -59,14 +54,6 @@ export function buildQuiz(levelWords, globalPool, opts = {}) {
       options: optionsQuestion(w, levelWords, globalPool, 'word'),
     };
   });
-}
-
-// 拼写题提示：首字母 + 其余字母用下划线占位(连字符/空格原样保留)
-export function spellHint(word) {
-  return String(word || '')
-    .split('')
-    .map((ch, i) => (i === 0 ? ch : /[a-zA-Z]/.test(ch) ? '_' : ch))
-    .join(' ');
 }
 
 export function shortMeaning(s, max = 16) {

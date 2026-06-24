@@ -203,6 +203,12 @@ body {
   overflow-y: auto;
 }
 
+/* 学习卡：卡片直接占据屏幕主要高度(扣掉顶栏+底部按钮区)，翻面后释义/分层用整块空间，不再挤在小窗 */
+.learn { display: flex; flex-direction: column; }
+.learn .stage { margin: 10px 0; }
+.learn .card3d { min-height: calc(100dvh - 330px); }
+.learn .face.back { padding-top: 18px; }
+
 .word {
   font-family: var(--display);
   font-weight: 700;
@@ -885,46 +891,6 @@ body {
   font-size: 16px;
 }
 .search-input::placeholder { color: var(--muted); }
-
-/* ---------- 拼写题 ---------- */
-.spell-wrap { display: flex; flex-direction: column; }
-.spell-hint {
-  font-family: var(--display);
-  font-size: 22px;
-  letter-spacing: 4px;
-  color: var(--muted);
-  text-align: center;
-  margin-bottom: 12px;
-}
-.spell-input {
-  width: 100%;
-  text-align: center;
-  font-family: var(--display);
-  font-size: 24px;
-  letter-spacing: 1px;
-  padding: 14px 12px;
-  border-radius: var(--btn-radius);
-  border: var(--line-strong);
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  box-shadow: var(--shadow);
-}
-.spell-input:focus { border-color: var(--accent); }
-.spell-input.correct { border-color: var(--good); color: var(--good); background: var(--good-soft); }
-.spell-input.wrong { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
-.spell-result {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  margin-top: 14px;
-  font-family: var(--display);
-  font-size: 16px;
-}
-.spell-result.ok { color: var(--good); }
-.spell-result.no { color: var(--bad); }
-.spell-result b { font-size: 19px; margin-left: 3px; }
 
 /* ---------- 学习统计 ---------- */
 .stat-grid {

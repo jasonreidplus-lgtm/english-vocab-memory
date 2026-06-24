@@ -66,7 +66,7 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
   const go = (dir) => setLi((v) => Math.min(total - 1, Math.max(0, v + dir)));
 
   return (
-    <>
+    <div className="learn">
       <HeaderBar onBack={onBack} themeKey={themeKey} onTheme={onTheme} />
 
       <div className="row between mt16">
@@ -178,6 +178,6 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }

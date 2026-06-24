@@ -182,7 +182,7 @@ export default function App() {
     const words = sessionWords.length ? sessionWords : currentLevel?.readyWords;
     if (!words || !words.length) return;
     setQuizMode('level');
-    setQuestions(buildQuiz(words, allReady, { spelling: progress.spell !== false }));
+    setQuestions(buildQuiz(words, allReady));
     setView('quiz');
   };
 
@@ -197,7 +197,7 @@ export default function App() {
     setQuizMode('review');
     setGroup(null);
     setSessionWords(sessionW);
-    setQuestions(buildQuiz(sessionW, allReady.length ? allReady : sessionW, { spelling: progress.spell !== false }));
+    setQuestions(buildQuiz(sessionW, allReady.length ? allReady : sessionW));
     setView('quiz');
   };
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Check, X, ArrowRight, Volume2, Zap } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar.jsx';
-import { shortMeaning, spellHint } from '../game/quiz.js';
+import { shortMeaning } from '../game/quiz.js';
 
 export default function QuizScreen({ questions, group, heading, themeKey, onTheme, onBack, onComplete, onSpeak }) {
   const title = heading || `第 ${group} 关`;
@@ -10,7 +10,6 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
   const [flags, setFlags] = useState(() => Array(total).fill(false));
   const [answered, setAnswered] = useState(false);
   const [picked, setPicked] = useState(null);
-  const [spellInput, setSpellInput] = useState('');
 
   const q = questions[qi];
   const correctCount = flags.filter(Boolean).length;
@@ -31,13 +30,6 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     record(opt === q.answer);
   };
 
-  // 判分前归一：去首尾空格、折叠中间空格、忽略大小写(词组/连字符更宽容)
-  const norm = (s) => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
-  const submitSpell = () => {
-    if (answered || !spellInput.trim()) return;
-    record(norm(spellInput) === norm(q.answer));
-  };
-
   const next = () => {
     if (lastQuestion) {
       onComplete(flags);
@@ -46,14 +38,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
     setQi(qi + 1);
     setAnswered(false);
     setPicked(null);
-    setSpellInput('');
   };
-
-  // 切到拼写题时把焦点放进输入框(key 变化重建 DOM 后 autoFocus 不一定生效)
-  const spellRef = useRef(null);
-  useEffect(() => {
-    if (q.type === 'spell' && !answered) spellRef.current?.focus();
-  }, [qi, q.type]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const onKey = (e) => {
@@ -64,7 +49,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
         }
         return;
       }
-      if (q.type !== 'spell' && !answered && /^[1-4]$/.test(e.key)) {
+      if (!answered && /^[1-4]$/.test(e.key)) {
         const opt = q.options[Number(e.key) - 1];
         if (opt != null) {
           e.preventDefault();
@@ -101,7 +86,7 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
 
       <div className="fade" key={qi} style={{ marginTop: 14 }}>
         <div className="label" style={{ marginBottom: 8 }}>
-          {q.type === 'choice' ? '选出正确释义' : q.type === 'spell' ? '拼出这个单词' : '选出正确单词'}
+          {q.type === 'choice' ? '选出正确释义' : '选出正确单词'}
         </div>
         <div
           className="face"
@@ -129,61 +114,24 @@ export default function QuizScreen({ questions, group, heading, themeKey, onThem
           )}
         </div>
 
-        {q.type === 'spell' ? (
-          <div className="spell-wrap">
-            <div className="spell-hint" aria-hidden>{spellHint(q.answer)}</div>
-            <input
-              ref={spellRef}
-              className={`spell-input${answered ? (flags[qi] ? ' correct' : ' wrong') : ''}`}
-              aria-label="拼出这个单词"
-              value={spellInput}
-              onChange={(e) => setSpellInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !answered) { e.preventDefault(); submitSpell(); }
-              }}
-              placeholder="键入单词"
-              disabled={answered}
-              autoFocus
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-              spellCheck={false}
-              inputMode="text"
-            />
-            {!answered ? (
-              <button className="btn primary block mt12" disabled={!spellInput.trim()} onClick={submitSpell}>
-                提交 <ArrowRight size={17} />
-              </button>
-            ) : (
-              <div className={`spell-result ${flags[qi] ? 'ok' : 'no'}`} role="status" aria-live="polite">
-                {flags[qi] ? (
-                  <><Check size={16} /> 拼写正确</>
-                ) : (
-                  <><X size={16} /> 正确拼写：<b>{q.answer}</b></>
-                )}
-              </div>
-            )}
-          </div>
-        ) : (
-          q.options.map((o, i) => {
-            let cls = q.type === 'cn2en' ? 'opt opt-en' : 'opt';
-            if (answered) {
-              if (o === q.answer) cls += ' correct';
-              else if (o === picked) cls += ' wrong';
-              else cls += ' dim';
-            }
-            return (
-              <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
-                <span className="opt-left">
-                  <span className="opt-key" aria-hidden>{i + 1}</span>
-                  <span>{optionDisplay(o)}</span>
-                </span>
-                {answered && o === q.answer && <Check size={19} />}
-                {answered && o === picked && o !== q.answer && <X size={19} />}
-              </button>
-            );
-          })
-        )}
+        {q.options.map((o, i) => {
+          let cls = q.type === 'cn2en' ? 'opt opt-en' : 'opt';
+          if (answered) {
+            if (o === q.answer) cls += ' correct';
+            else if (o === picked) cls += ' wrong';
+            else cls += ' dim';
+          }
+          return (
+            <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
+              <span className="opt-left">
+                <span className="opt-key" aria-hidden>{i + 1}</span>
+                <span>{optionDisplay(o)}</span>
+              </span>
+              {answered && o === q.answer && <Check size={19} />}
+              {answered && o === picked && o !== q.answer && <X size={19} />}
+            </button>
+          );
+        })}
 
         {answered && (
           <button className="btn primary block fade mt12" onClick={next}>

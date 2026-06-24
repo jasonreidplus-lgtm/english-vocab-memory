@@ -40,7 +40,6 @@ export function defaultProgress() {
     stats: { answered: 0, correct: 0 }, // 累计答题数 / 答对数 —— 正确率
     sound: true, // 音效朗读开关
     accent: 'us', // 发音口音 us | uk
-    spell: true, // 闯关是否混入拼写题
   };
 }
 

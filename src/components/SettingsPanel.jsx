@@ -1,12 +1,11 @@
 import React from 'react';
-import { X, Volume2, VolumeX, RotateCcw, PencilLine } from 'lucide-react';
+import { X, Volume2, VolumeX, RotateCcw } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y.js';
 
 export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset }) {
   const sound = progress.sound !== false;
   const accent = progress.accent || 'us';
   const goal = (progress.daily && progress.daily.goal) || 20;
-  const spell = progress.spell !== false;
   const ref = useModalA11y(onClose);
 
   return (
@@ -31,13 +30,6 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
           <span>音效朗读</span>
           <button className={`set-toggle ${sound ? 'on' : ''}`} onClick={() => onSetPref('sound', !sound)}>
             {sound ? <Volume2 size={15} /> : <VolumeX size={15} />} {sound ? '开' : '关'}
-          </button>
-        </div>
-
-        <div className="set-row">
-          <span>闯关含拼写题</span>
-          <button className={`set-toggle ${spell ? 'on' : ''}`} onClick={() => onSetPref('spell', !spell)}>
-            {spell ? <PencilLine size={15} /> : <X size={15} />} {spell ? '开' : '关'}
           </button>
         </div>
 
