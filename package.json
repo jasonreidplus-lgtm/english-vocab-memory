@@ -13,9 +13,13 @@
     "test": "node scripts/test.mjs"
   },
   "dependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "ts-fsrs": "^5.4.1",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

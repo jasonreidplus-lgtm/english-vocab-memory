@@ -2,7 +2,7 @@
    进度模型(纯函数 + 选择器)。持久化在 localStorage。
    存:已通关关卡 / 星级 / 累计 XP / 连胜 / 错词池 / 画风选择。
    ============================================================ */
-import { DEFAULT_THEME } from '../config/themes.jsx';
+import { DEFAULT_THEME } from '../config/themes';
 
 export const STORAGE_KEY = 'wordquest:v1';
 export const DAILY_GOAL = 20; // 默认每日目标(词)

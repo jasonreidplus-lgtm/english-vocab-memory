@@ -1,7 +1,7 @@
 import React from 'react';
 import { Brain, BookOpen, Puzzle, Settings } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import MenuEntry from '../components/MenuEntry.jsx';
+import HeaderBar from '../components/HeaderBar';
+import MenuEntry from '../components/MenuEntry';
 
 /* 「复习」标签页：间隔复习 / 浏览错词 / 词根连连看。 */
 export default function ReviewScreen({ themeKey, onTheme, reviewDue = 0, wrongCount = 0, onReview, onBrowseWrong, onMatch, onOpenSettings }) {

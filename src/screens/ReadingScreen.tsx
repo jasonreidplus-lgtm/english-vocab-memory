@@ -1,7 +1,7 @@
 import React from 'react';
 import { Newspaper, ScrollText, Lightbulb, Search, Settings } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import MenuEntry from '../components/MenuEntry.jsx';
+import HeaderBar from '../components/HeaderBar';
+import MenuEntry from '../components/MenuEntry';
 
 /* 「阅读·查词」标签页：真题阅读闯关 / 真题精读 / 句子精读 / 查词。 */
 export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, onCloze, onSearch, onOpenSettings }) {

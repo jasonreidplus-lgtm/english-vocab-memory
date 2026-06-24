@@ -1,5 +1,5 @@
 import React from 'react';
-import { THEMES } from '../config/themes.jsx';
+import { THEMES } from '../config/themes';
 
 // 画风切换器：直接遍历 THEMES 配置渲染，不认识任何具体画风名。
 // 新增画风(在 themes.jsx 加一个对象)后，这里会自动多出一个按钮。

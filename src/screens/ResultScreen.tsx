@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trophy, RotateCw, ArrowRight, Home, Flame, BookCheck, Brain, BookOpen } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import Stars from '../components/Stars.jsx';
+import HeaderBar from '../components/HeaderBar';
+import Stars from '../components/Stars';
 
 const PRAISE = ['再接再厉', '不错哦', '很棒！', '完美通关！'];
 

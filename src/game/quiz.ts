@@ -4,7 +4,7 @@
      1. choice 英选中：给单词，选正确释义
      2. cn2en  中选英：给释义，选正确单词
    ============================================================ */
-import { shuffle } from '../lib/shuffle.js';
+import { shuffle } from '../lib/shuffle';
 
 const OPTION_COUNT = 4;
 const QUESTION_TYPES = ['choice', 'cn2en'];

@@ -1,7 +1,7 @@
 /* 广义词典(public/data/dict.json，由 scripts/build-dict.mjs 生成)运行期加载。
    仅在阅读类页面/查词/错词本解析时按需加载一次，模块级缓存；与考研核心词库合并使用。
    形态：{ "<小写词>": { t:中文释义, p?:音标, pos?:词性 } } */
-import { candidates } from './annotate.js';
+import { candidates } from './annotate';
 let _dict = null; // 已加载的原始对象
 let _loading = null; // 进行中的 Promise
 

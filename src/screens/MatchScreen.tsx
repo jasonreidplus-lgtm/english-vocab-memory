@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Puzzle, RotateCw, Home, Check } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import { shuffle, sample } from '../lib/shuffle.js';
+import HeaderBar from '../components/HeaderBar';
+import { shuffle, sample } from '../lib/shuffle';
 
 const PAIRS = 5;
 

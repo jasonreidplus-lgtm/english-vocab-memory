@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Check, X, ArrowRight, Volume2, Zap } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import { shortMeaning } from '../game/quiz.js';
-import { buildLookup } from '../lib/annotate.js';
-import { freqOf } from '../lib/freq.js';
-import { useFreq } from '../lib/useFreq.js';
-import FreqBadge from '../components/FreqBadge.jsx';
+import HeaderBar from '../components/HeaderBar';
+import { shortMeaning } from '../game/quiz';
+import { buildLookup } from '../lib/annotate';
+import { freqOf } from '../lib/freq';
+import { useFreq } from '../lib/useFreq';
+import FreqBadge from '../components/FreqBadge';
 
 export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak }) {
   const title = heading || `第 ${group} 关`;

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { getTheme } from './config/themes.jsx';
-import { loadVocab, loadGroupDetail } from './data/loadVocab.js';
-import { useProgress } from './state/useProgress.js';
+import { getTheme } from './config/themes';
+import { loadVocab, loadGroupDetail } from './data/loadVocab';
+import { useProgress } from './state/useProgress';
 import {
   computeLevelStates,
   dueCount,
@@ -10,32 +10,32 @@ import {
   starsFor,
   summarize,
   xpFor,
-} from './state/progress.js';
-import { buildQuiz, tallyResult } from './game/quiz.js';
-import { speak } from './lib/speech.js';
-import { shuffle } from './lib/shuffle.js';
+} from './state/progress';
+import { buildQuiz, tallyResult } from './game/quiz';
+import { speak } from './lib/speech';
+import { shuffle } from './lib/shuffle';
 
-import LevelSelect from './screens/LevelSelect.jsx'; // 首屏：保持同步导入，避免首次白屏
-import ReviewScreen from './screens/ReviewScreen.jsx';
-import ReadingScreen from './screens/ReadingScreen.jsx';
-import TabBar from './components/TabBar.jsx';
-import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages.js';
-import { loadDict, dictEntry } from './lib/dict.js';
-import LoginScreen from './screens/LoginScreen.jsx';
-import { isAuthed, logout } from './lib/auth.js';
-import ConfirmDialog from './components/ConfirmDialog.jsx';
+import LevelSelect from './screens/LevelSelect'; // 首屏：保持同步导入，避免首次白屏
+import ReviewScreen from './screens/ReviewScreen';
+import ReadingScreen from './screens/ReadingScreen';
+import TabBar from './components/TabBar';
+import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages';
+import { loadDict, dictEntry } from './lib/dict';
+import LoginScreen from './screens/LoginScreen';
+import { isAuthed, logout } from './lib/auth';
+import ConfirmDialog from './components/ConfirmDialog';
 
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
-const LearnScreen = lazy(() => import('./screens/LearnScreen.jsx'));
-const QuizScreen = lazy(() => import('./screens/QuizScreen.jsx'));
-const ResultScreen = lazy(() => import('./screens/ResultScreen.jsx'));
-const MatchScreen = lazy(() => import('./screens/MatchScreen.jsx'));
-const ReadScreen = lazy(() => import('./screens/ReadScreen.jsx'));
-const ClozeScreen = lazy(() => import('./screens/ClozeScreen.jsx'));
-const PassageScreen = lazy(() => import('./screens/PassageScreen.jsx'));
-const SearchScreen = lazy(() => import('./screens/SearchScreen.jsx'));
-const StatsScreen = lazy(() => import('./screens/StatsScreen.jsx'));
-const SettingsPanel = lazy(() => import('./components/SettingsPanel.jsx'));
+const LearnScreen = lazy(() => import('./screens/LearnScreen'));
+const QuizScreen = lazy(() => import('./screens/QuizScreen'));
+const ResultScreen = lazy(() => import('./screens/ResultScreen'));
+const MatchScreen = lazy(() => import('./screens/MatchScreen'));
+const ReadScreen = lazy(() => import('./screens/ReadScreen'));
+const ClozeScreen = lazy(() => import('./screens/ClozeScreen'));
+const PassageScreen = lazy(() => import('./screens/PassageScreen'));
+const SearchScreen = lazy(() => import('./screens/SearchScreen'));
+const StatsScreen = lazy(() => import('./screens/StatsScreen'));
+const SettingsPanel = lazy(() => import('./components/SettingsPanel'));
 
 export default function App() {
   const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
@@ -91,16 +91,16 @@ export default function App() {
   // 首屏渲染后、空闲时预取其余 screen 分包 → 进 SW 缓存，离线也能直接打开任意页
   useEffect(() => {
     const warm = () => {
-      import('./screens/LearnScreen.jsx');
-      import('./screens/QuizScreen.jsx');
-      import('./screens/ResultScreen.jsx');
-      import('./screens/MatchScreen.jsx');
-      import('./screens/ReadScreen.jsx');
-      import('./screens/ClozeScreen.jsx');
-      import('./screens/PassageScreen.jsx');
-      import('./screens/SearchScreen.jsx');
-      import('./screens/StatsScreen.jsx');
-      import('./components/SettingsPanel.jsx');
+      import('./screens/LearnScreen');
+      import('./screens/QuizScreen');
+      import('./screens/ResultScreen');
+      import('./screens/MatchScreen');
+      import('./screens/ReadScreen');
+      import('./screens/ClozeScreen');
+      import('./screens/PassageScreen');
+      import('./screens/SearchScreen');
+      import('./screens/StatsScreen');
+      import('./components/SettingsPanel');
     };
     if (typeof requestIdleCallback === 'function') {
       const id = requestIdleCallback(warm);

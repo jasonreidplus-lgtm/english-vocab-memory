@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Zap, Flame, Trophy, Play, CornerDownLeft, Settings } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import DailyCard from '../components/DailyCard.jsx';
+import HeaderBar from '../components/HeaderBar';
+import DailyCard from '../components/DailyCard';
 
 // 关卡网格里用轻量文字星标(★/☆)而非 SVG —— 550 关 × 多颗星时性能差距巨大
 function starText(n) {

@@ -8,7 +8,7 @@ import {
   loadProgress,
   saveProgress,
   yesterdayKey,
-} from './progress.js';
+} from './progress';
 
 function reducer(state, action) {
   switch (action.type) {

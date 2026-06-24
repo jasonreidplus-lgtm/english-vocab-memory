@@ -1,10 +1,10 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import WordPopup from '../components/WordPopup.jsx';
-import { shortMeaning } from '../game/quiz.js';
-import { dictEntry } from '../lib/dict.js';
-import { useDict } from '../lib/useDict.js';
+import HeaderBar from '../components/HeaderBar';
+import WordPopup from '../components/WordPopup';
+import { shortMeaning } from '../game/quiz';
+import { dictEntry } from '../lib/dict';
+import { useDict } from '../lib/useDict';
 
 /* 全局查词：考研核心词(释义丰富) + 广义词典(59k 词)即时检索，点结果看词卡。 */
 export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }) {

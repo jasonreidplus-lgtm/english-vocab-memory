@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flame } from 'lucide-react';
-import { DAILY_GOAL } from '../state/progress.js';
+import { DAILY_GOAL } from '../state/progress';
 
 const GOAL_OPTIONS = [10, 20, 30, 50];
 const R = 26;

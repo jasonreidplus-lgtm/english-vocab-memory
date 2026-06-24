@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { RotateCw, ArrowLeft, ArrowRight, Zap, ChevronRight, Volume2, Check, HelpCircle } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
+import HeaderBar from '../components/HeaderBar';
 
 // 从词条提取“可分层展开”的信息块(空的自动跳过)
 function sectionsOf(w) {

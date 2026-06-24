@@ -1,7 +1,7 @@
 /* 真题库词频：预计算的 public/data/freq.json（{词目: 次数}，由 scripts/build-freq.mjs 生成）。
    运行期直接查表，给阅读高亮词/闯关词标「出现次数」+ 分档颜色：1 灰 / 2-4 黄 / 5-7 红 / 8+ 黑。 */
-import { candidates } from './annotate.js';
-import { dictData } from './dict.js';
+import { candidates } from './annotate';
+import { dictData } from './dict';
 
 // 规范词目：优先考研核心词原型；其次词典中最短候选(把屈折形归并到原型)。与 build-freq.mjs 同逻辑。
 export function lemmaKey(token, lookup) {

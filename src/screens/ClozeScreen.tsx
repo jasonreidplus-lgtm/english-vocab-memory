@@ -1,17 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Languages, ArrowLeft, ArrowRight, Shuffle, Pencil, Library, Check } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import WordPopup from '../components/WordPopup.jsx';
-import { annotate, buildLookup } from '../lib/annotate.js';
-import { resolveTap } from '../lib/dict.js';
-import { useDict } from '../lib/useDict.js';
-import { freqOf } from '../lib/freq.js';
-import { useFreq } from '../lib/useFreq.js';
-import FreqBadge from '../components/FreqBadge.jsx';
-import { shortMeaning } from '../game/quiz.js';
-import { shuffle } from '../lib/shuffle.js';
-import { fetchBuiltin } from '../lib/passages.js';
-import { splitEnSentences } from '../lib/text.js';
+import HeaderBar from '../components/HeaderBar';
+import WordPopup from '../components/WordPopup';
+import { annotate, buildLookup } from '../lib/annotate';
+import { resolveTap } from '../lib/dict';
+import { useDict } from '../lib/useDict';
+import { freqOf } from '../lib/freq';
+import { useFreq } from '../lib/useFreq';
+import FreqBadge from '../components/FreqBadge';
+import { shortMeaning } from '../game/quiz';
+import { shuffle } from '../lib/shuffle';
+import { fetchBuiltin } from '../lib/passages';
+import { splitEnSentences } from '../lib/text';
 
 export default function ClozeScreen({
   pool, sentences, title, onDone, // passage 模式：传 sentences + title + onDone

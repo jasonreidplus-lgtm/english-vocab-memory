@@ -6,7 +6,7 @@
    3) 2 篇自写示例文章(对标真题难度，带逐句翻译)。
    版权：内置真题原文仅供本人备考自用，请勿公开分发。
    ============================================================ */
-import { splitEnSentences } from './text.js';
+import { splitEnSentences } from './text';
 
 const KEY = 'wordquest:passages';
 

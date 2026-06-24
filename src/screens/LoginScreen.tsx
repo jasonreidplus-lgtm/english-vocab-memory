@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LogIn, User, Lock } from 'lucide-react';
-import { tryLogin } from '../lib/auth.js';
+import { tryLogin } from '../lib/auth';
 
 /* 应用内登录页（软门）。登录成功后调用 onSuccess。 */
 export default function LoginScreen({ onSuccess }) {

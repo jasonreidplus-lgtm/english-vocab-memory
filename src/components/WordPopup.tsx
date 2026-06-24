@@ -1,6 +1,6 @@
 import React from 'react';
 import { Volume2, BookmarkPlus, Check, X } from 'lucide-react';
-import { useModalA11y } from '../lib/useModalA11y.js';
+import { useModalA11y } from '../lib/useModalA11y';
 
 // 点词弹层（真题精读 / 句子精读 / 查词共用）。entry=轻量词条，rich=懒加载补齐后的词条。
 export default function WordPopup({ entry, rich, added, onSpeak, onAddWrong, onClose }) {

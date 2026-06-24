@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Plus, Trash2, Check, ChevronRight, X, BookMarked } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import ConfirmDialog from '../components/ConfirmDialog.jsx';
-import { buildLookup, annotate } from '../lib/annotate.js';
-import { parseBulk } from '../lib/passages.js';
-import { useModalA11y } from '../lib/useModalA11y.js';
+import HeaderBar from '../components/HeaderBar';
+import ConfirmDialog from '../components/ConfirmDialog';
+import { buildLookup, annotate } from '../lib/annotate';
+import { parseBulk } from '../lib/passages';
+import { useModalA11y } from '../lib/useModalA11y';
 
 function ImportModal({ onClose, onSave, onBulk }) {
   const [mode, setMode] = useState('one'); // one | bulk

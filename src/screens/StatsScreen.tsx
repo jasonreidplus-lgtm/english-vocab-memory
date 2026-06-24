@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Trophy, Flame, Target, BookCheck, Zap, CalendarDays, Brain, Settings } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import { accuracy, dayKey } from '../state/progress.js';
+import HeaderBar from '../components/HeaderBar';
+import { accuracy, dayKey } from '../state/progress';
 
 const WEEKS = 17; // 热力图回看周数
 const WEEKDAY_LABELS = ['一', '', '三', '', '五', '', '日'];

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
-import ThemeSwitcher from './ThemeSwitcher.jsx';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function HeaderBar({ onBack, themeKey, onTheme, extra }) {
   return (

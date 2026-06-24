@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { useModalA11y } from '../lib/useModalA11y.js';
+import { useModalA11y } from '../lib/useModalA11y';
 
 /* 应用内确认弹窗(替代原生 window.confirm，统一画风)。复用 .modal 样式。 */
 export default function ConfirmDialog({

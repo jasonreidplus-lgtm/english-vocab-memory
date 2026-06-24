@@ -13,7 +13,7 @@
      fontHref?: 可选，该画风需要的额外 Google Fonts 链接(动态注入)
    }
    ============================================================ */
-import { InkDeco, PixelDeco, NeonDeco, ParchmentDeco } from './decos.jsx';
+import { InkDeco, PixelDeco, NeonDeco, ParchmentDeco } from './decos';
 
 export const THEMES = [
   {

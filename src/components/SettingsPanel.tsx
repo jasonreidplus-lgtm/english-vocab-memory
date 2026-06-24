@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Volume2, VolumeX, RotateCcw, LogOut } from 'lucide-react';
-import { useModalA11y } from '../lib/useModalA11y.js';
+import { useModalA11y } from '../lib/useModalA11y';
 
 export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset, onLogout }) {
   const sound = progress.sound !== false;

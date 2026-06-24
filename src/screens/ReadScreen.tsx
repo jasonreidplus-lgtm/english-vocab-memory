@@ -1,13 +1,13 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Eraser } from 'lucide-react';
-import HeaderBar from '../components/HeaderBar.jsx';
-import WordPopup from '../components/WordPopup.jsx';
-import { annotate, buildLookup, countUnique } from '../lib/annotate.js';
-import { resolveTap } from '../lib/dict.js';
-import { useDict } from '../lib/useDict.js';
-import { freqOf } from '../lib/freq.js';
-import { useFreq } from '../lib/useFreq.js';
-import FreqBadge from '../components/FreqBadge.jsx';
+import HeaderBar from '../components/HeaderBar';
+import WordPopup from '../components/WordPopup';
+import { annotate, buildLookup, countUnique } from '../lib/annotate';
+import { resolveTap } from '../lib/dict';
+import { useDict } from '../lib/useDict';
+import { freqOf } from '../lib/freq';
+import { useFreq } from '../lib/useFreq';
+import FreqBadge from '../components/FreqBadge';
 
 // 自写的示例句（非真题原文，避免版权问题）；真正的真题由你自己粘贴
 const SAMPLE =
