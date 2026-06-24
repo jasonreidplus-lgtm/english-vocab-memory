@@ -5,6 +5,9 @@ import WordPopup from '../components/WordPopup.jsx';
 import { annotate, buildLookup } from '../lib/annotate.js';
 import { resolveTap } from '../lib/dict.js';
 import { useDict } from '../lib/useDict.js';
+import { freqOf } from '../lib/freq.js';
+import { useFreq } from '../lib/useFreq.js';
+import FreqBadge from '../components/FreqBadge.jsx';
 import { shortMeaning } from '../game/quiz.js';
 import { shuffle } from '../lib/shuffle.js';
 import { fetchBuiltin } from '../lib/passages.js';
@@ -28,6 +31,7 @@ export default function ClozeScreen({
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
+  const freq = useFreq(lookup, dict);
 
   useEffect(() => {
     if (passageMode) return;
@@ -138,7 +142,9 @@ export default function ClozeScreen({
               !/^[A-Za-z]/.test(s.t) ? (
                 <span key={i}>{s.t}</span>
               ) : s.w ? (
-                <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>{s.t}</button>
+                <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>
+                  {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
+                </button>
               ) : (
                 <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>
               )

@@ -5,6 +5,9 @@ import WordPopup from '../components/WordPopup.jsx';
 import { annotate, buildLookup, countUnique } from '../lib/annotate.js';
 import { resolveTap } from '../lib/dict.js';
 import { useDict } from '../lib/useDict.js';
+import { freqOf } from '../lib/freq.js';
+import { useFreq } from '../lib/useFreq.js';
+import FreqBadge from '../components/FreqBadge.jsx';
 
 // 自写的示例句（非真题原文，避免版权问题）；真正的真题由你自己粘贴
 const SAMPLE =
@@ -19,6 +22,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
+  const freq = useFreq(lookup, dict);
   const segs = useMemo(() => annotate(text, lookup, dict), [text, lookup, dict]);
   const hitCount = useMemo(() => countUnique(segs), [segs]);
 
@@ -72,7 +76,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
               <span key={i}>{s.t}</span>
             ) : s.w ? (
               <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>
-                {s.t}
+                {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
               </button>
             ) : (
               <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>

@@ -728,6 +728,20 @@ body {
   color: var(--good);
   border-bottom-color: var(--good);
 }
+/* 真题词频角标：高亮词右上角的出现次数(1 灰 / 2-4 黄 / 5-7 红 / 8+ 黑) */
+.fq {
+  font-family: var(--display);
+  font-size: 0.6em;
+  font-weight: 700;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: 1px;
+}
+.fq-gray { color: #9aa0a6; }
+.fq-yellow { color: #d4a017; }
+.fq-red { color: #e23b3b; }
+.fq-black { color: var(--ink); }
+
 /* 非重点词：看着像正文，但可点查(广义词典) */
 .read-passage .tapword,
 .cloze-sent .tapword {
