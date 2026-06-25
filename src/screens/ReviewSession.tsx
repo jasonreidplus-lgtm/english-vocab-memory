@@ -91,7 +91,7 @@ export default function ReviewSession({ items, themeKey, onTheme, onBack, onGrad
 
         <div className="rev-card">
           <div className="rev-word">{w.word}</div>
-          {w.phonetic && <div className="rev-ph">/{w.phonetic}/</div>}
+          {w.phonetic && <div className="rev-ph">{w.phonetic}</div>}
           <button className="rev-speak" onClick={() => onSpeak?.(w.word)} aria-label="朗读">
             <Volume2 size={20} />
           </button>

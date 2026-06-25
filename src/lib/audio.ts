@@ -1,39 +1,52 @@
-/* 单词发音：优先「有道词典」真人/词典语音(美音/英音随设置)，失败或离线时回退浏览器 TTS。
-   有道 dictvoice：type=2 美音 / type=1 英音，直接 word→mp3，覆盖全词库；
-   多词/句子用浏览器 TTS(dictvoice 主要面向单词)。所有发音入口都汇到 App.onSpeak → 这里。 */
+/* 单词发音优先级：① 随 app 内置的本地 mp3(public/audio，同源、可离线) → ② 在线有道(未内置时补充)
+   → ③ 浏览器 TTS(都失败时兜底)。单词才有内置音频；多词/句子直接走 TTS。
+   美音=有道 type=2 / 英音=type=1，跟随设置里的 accent。所有发音入口都汇到 App.onSpeak → 这里。 */
 import { speak } from './speech';
 
 let current: HTMLAudioElement | null = null;
-
 export type Accent = 'us' | 'uk';
 
-const langOf = (accent: Accent) => (accent === 'uk' ? 'en-GB' : 'en-US');
+const langOf = (a: Accent) => (a === 'uk' ? 'en-GB' : 'en-US');
+const BASE = import.meta.env.BASE_URL || '/';
 
 export function playWord(text: string, accent: Accent = 'us'): void {
   const word = (text || '').trim();
   if (!word) return;
-  // 含空格(短语/句子) → 直接浏览器 TTS
+  const lang = langOf(accent);
+  // 含空格(短语/句子) → 浏览器 TTS
   if (/\s/.test(word)) {
-    speak(word, langOf(accent));
+    speak(word, lang);
     return;
   }
-  try {
-    if (current) {
-      current.pause();
-      current = null;
-    }
-    const type = accent === 'uk' ? 1 : 2; // 有道：1 英音 / 2 美音
-    const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=${type}`);
-    current = audio;
-    let fellBack = false;
-    const fallback = () => {
-      if (fellBack) return; // 只回退一次(error 与 play().catch 可能都触发)
-      fellBack = true;
-      speak(word, langOf(accent));
-    };
-    audio.addEventListener('error', fallback);
-    audio.play().catch(fallback); // 网络失败 / 自动播放限制 → TTS
-  } catch {
-    speak(word, langOf(accent));
+  if (current) {
+    try { current.pause(); } catch { /* noop */ }
+    current = null;
   }
+
+  const enc = encodeURIComponent(word.toLowerCase());
+  const sub = accent === 'uk' ? 'uk' : 'us';
+  const type = accent === 'uk' ? 1 : 2;
+  const srcs = [
+    `${BASE}audio/${sub}/${enc}.mp3`, // 内置本地(可离线)
+    `https://dict.youdao.com/dictvoice?audio=${enc}&type=${type}`, // 在线兜底
+  ];
+
+  let i = 0;
+  const tryNext = () => {
+    if (i >= srcs.length) {
+      speak(word, lang); // 本地 + 在线都失败 → TTS
+      return;
+    }
+    const a = new Audio(srcs[i++]);
+    current = a;
+    let advanced = false;
+    const adv = () => {
+      if (advanced) return; // 每个源只前进一次(error 与 play().catch 可能都触发)
+      advanced = true;
+      tryNext();
+    };
+    a.addEventListener('error', adv, { once: true });
+    a.play().catch(adv);
+  };
+  tryNext();
 }

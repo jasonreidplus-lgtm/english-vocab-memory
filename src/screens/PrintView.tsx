@@ -35,7 +35,7 @@ export default function PrintView({ title, words, onClose }: PrintViewProps) {
           {words.map((w, i) => (
             <li key={`${w.id}-${i}`} className="pv-item">
               <span className="pv-word">{w.word}</span>
-              {w.phonetic && <span className="pv-ph">/{w.phonetic}/</span>}
+              {w.phonetic && <span className="pv-ph">{w.phonetic}</span>}
               <span className="pv-mean">
                 {w.pos && <em className="pv-pos">{w.pos}</em>} {w.base_meaning}
               </span>
