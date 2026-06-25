@@ -10,7 +10,7 @@
     "prebuild": "node scripts/split-vocab.cjs",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/test.mjs"
+    "test": "tsx scripts/test.mjs"
   },
   "dependencies": {
     "@types/react": "^19.2.17",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.22.4",
     "vite": "^6.0.7"
   }
 }
