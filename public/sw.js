@@ -21,6 +21,9 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
 
+  // 跨域单词发音(有道 dictvoice)不走 SW：opaque 响应会撑爆缓存配额，离线由 TTS 兜底
+  if (req.url.indexOf('dict.youdao.com') !== -1) return;
+
   if (req.mode === 'navigate') {
     e.respondWith(
       (async () => {

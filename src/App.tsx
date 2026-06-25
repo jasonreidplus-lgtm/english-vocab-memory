@@ -12,7 +12,7 @@ import {
   xpFor,
 } from './state/progress';
 import { buildQuiz, tallyResult } from './game/quiz';
-import { speak } from './lib/speech';
+import { playWord } from './lib/audio';
 import { shuffle } from './lib/shuffle';
 
 import LevelSelect from './screens/LevelSelect'; // 首屏：保持同步导入，避免首次白屏
@@ -198,7 +198,7 @@ export default function App() {
   // —— 流程处理 ——
   const onSpeak = (text: string) => {
     if (progress.sound === false) return;
-    speak(text, progress.accent === 'uk' ? 'en-GB' : 'en-US');
+    playWord(text, progress.accent); // 有道真人发音(美/英音随设置)，失败/离线回退 TTS
   };
 
   const handleReset = () => { setSettingsOpen(false); setConfirmReset(true); };
