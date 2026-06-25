@@ -51,6 +51,21 @@ export function gradeCard(card: SerializedCard | undefined, grade: Grade, now: D
   return serialize(scheduler.next(toCard(card, now), now, grade).card);
 }
 
+/** 评分并返回重排卡 + 复习日志(写 revlog 用)。st=复习前状态，s=复习后 stability */
+export function gradeWithLog(
+  card: SerializedCard | undefined,
+  grade: Grade,
+  now: Date = new Date()
+): { card: SerializedCard; log: { t: number; r: number; st: number; s: number } } {
+  const { card: next, log } = scheduler.next(toCard(card, now), now, grade);
+  return { card: serialize(next), log: { t: now.getTime(), r: grade, st: log.state, s: next.stability } };
+}
+
+/** 某时刻的可提取性(0-1)。仅对已复习过(state≠New)的卡有意义。 */
+export function retrievability(card: SerializedCard, when: Date = new Date()): number {
+  return scheduler.get_retrievability(deserialize(card), when, false) as number;
+}
+
 /** 标记为「答错/不认识」：无卡→新建今日到期；有卡→按 Again 失忆重排 */
 export function markWrongCard(card: SerializedCard | undefined, now: Date = new Date()): SerializedCard {
   if (!card) return emptyCard(now); // 新错词：今日就该复习
@@ -87,4 +102,4 @@ export function intervalLabel(days: number): string {
   return `${y < 2 ? y.toFixed(1) : Math.round(y)} 年`;
 }
 
-export { Rating };
+export { Rating, State };

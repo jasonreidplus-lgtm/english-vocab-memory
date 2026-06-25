@@ -65,6 +65,15 @@ export interface WrongEntry {
   due?: string; // YYYY-MM-DD
 }
 
+/** 一条复习记录(自评复习写入)，供时序统计：真实保持率 / 趋势 / 活动 */
+export interface RevlogEntry {
+  id: number | string; // wordId
+  t: number; // 复习时间戳(ms)
+  r: number; // 评分 1-4 (Again/Hard/Good/Easy)
+  st: number; // 复习前状态(ts-fsrs State；真实保持率只看 Review 态=2)
+  s: number; // 复习后 stability(天)
+}
+
 export interface Daily {
   date: string;
   count: number;
@@ -94,9 +103,12 @@ export interface Progress {
   wrong: Record<string, WrongEntry>;
   daily: Daily | null;
   history: Record<string, number>;
+  newHistory: Record<string, number>; // { day: 当日新学(首次通关)词数 } —— 燃尽/配速
+  revlog: RevlogEntry[]; // 复习日志(封顶裁剪)
   stats: Stats;
   sound: boolean;
   accent: 'us' | 'uk';
+  examDate?: string; // 目标考试日(YYYY-MM-DD)，配速/燃尽用
 }
 
 export interface Summary {
@@ -104,6 +116,7 @@ export interface Summary {
   clearedCount: number;
   wrongCount: number;
   learnedWords: number;
+  totalWords: number;
   totalGroups: number;
 }
 

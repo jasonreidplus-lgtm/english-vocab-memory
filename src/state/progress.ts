@@ -37,9 +37,12 @@ export function defaultProgress(): Progress {
     wrong: {}, // 错词池 { [wordId]: { miss, lastTs } }
     daily: null, // { date, count, streak, goal } —— 每日目标 / 连续打卡
     history: {}, // { [YYYY-MM-DD]: 当日学习词数 } —— 打卡热力图
+    newHistory: {}, // { [YYYY-MM-DD]: 当日新学(首次通关)词数 } —— 燃尽/配速
+    revlog: [], // 复习日志(封顶裁剪) —— 真实保持率/趋势
     stats: { answered: 0, correct: 0 }, // 累计答题数 / 答对数 —— 正确率
     sound: true, // 音效朗读开关
     accent: 'us', // 发音口音 us | uk
+    examDate: '2026-12-21', // 目标考试日(可在统计页修改)
   };
 }
 
@@ -120,7 +123,9 @@ export function summarize(levels: Level[], progress: Progress): Summary {
   const readyCount = levels.filter((l) => l.ready).length;
   let clearedCount = 0;
   let learnedWords = 0;
+  let totalWords = 0;
   for (const lv of levels) {
+    if (lv.ready) totalWords += lv.readyCount || 0;
     const p = progress.levels[lv.group];
     if (p && p.completed) {
       clearedCount++;
@@ -128,7 +133,7 @@ export function summarize(levels: Level[], progress: Progress): Summary {
     }
   }
   const wrongCount = Object.keys(progress.wrong || {}).length;
-  return { readyCount, clearedCount, wrongCount, learnedWords, totalGroups: levels.length };
+  return { readyCount, clearedCount, wrongCount, learnedWords, totalWords, totalGroups: levels.length };
 }
 
 // —— 间隔复习：到期待复习的词 id ——

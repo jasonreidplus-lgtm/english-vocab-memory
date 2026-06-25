@@ -29,6 +29,7 @@ import type { Word, Level, Question, Passage } from './types';
 import type { VocabPack, GroupDetail } from './data/loadVocab';
 import type { Result } from './screens/ResultScreen';
 import type { ReviewItem } from './screens/ReviewSession';
+import { isLearningTier, LEECH_LAPSES, type ExportFilter } from './lib/stats';
 
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
 const LearnScreen = lazy(() => import('./screens/LearnScreen'));
@@ -41,6 +42,7 @@ const ClozeScreen = lazy(() => import('./screens/ClozeScreen'));
 const PassageScreen = lazy(() => import('./screens/PassageScreen'));
 const SearchScreen = lazy(() => import('./screens/SearchScreen'));
 const StatsScreen = lazy(() => import('./screens/StatsScreen'));
+const PrintView = lazy(() => import('./screens/PrintView'));
 const SettingsPanel = lazy(() => import('./components/SettingsPanel'));
 
 const REVIEW_LIMIT = 30; // 每轮间隔复习最多词数
@@ -117,6 +119,7 @@ export default function App() {
   const [browseCtx, setBrowseCtx] = useState<BrowseCtx | null>(null); // 浏览模式 { words, title, ret }
   const [passages, setPassages] = useState<Passage[]>([]); // 真题阅读关卡库(本机)
   const [activePassage, setActivePassage] = useState<Passage | null>(null); // 正在精读的篇目
+  const [printData, setPrintData] = useState<{ title: string; words: Word[] } | null>(null); // PDF 导出覆盖层
   useEffect(() => { let alive = true; loadPassages().then((p) => alive && setPassages(p)); return () => { alive = false; }; }, []);
 
   // 首屏渲染后、空闲时预取其余 screen 分包 → 进 SW 缓存，离线也能直接打开任意页
@@ -248,6 +251,41 @@ export default function App() {
       recordStudy(reviewed);
     }
     goHome();
+  };
+
+  // —— 统计：改考试日 / 导出 PDF ——
+  const onExamDate = (iso: string) => setPref('examDate', iso);
+  const EXPORT_LABELS: Record<ExportFilter, string> = {
+    'wrong-all': '错词本 · 全部',
+    leech: '困难词（易错）',
+    learning: '错词 · 学习中',
+    familiar: '错词 · 熟悉',
+    due: '即将到期（错词）',
+    'learned-all': '全部已学单词',
+  };
+  const onExport = async (filter: ExportFilter) => {
+    let words: Word[] = [];
+    if (filter === 'learned-all') {
+      words = levels.filter((l) => progress.levels[l.group]?.completed).flatMap((l) => l.readyWords);
+    } else {
+      const now = Date.now();
+      const ids = Object.entries(progress.wrong)
+        .filter(([, e]) => {
+          const c = e.card;
+          if (!c) return filter === 'wrong-all';
+          if (filter === 'leech') return (c.lapses || 0) >= LEECH_LAPSES;
+          if (filter === 'learning') return isLearningTier(c);
+          if (filter === 'familiar') return !isLearningTier(c);
+          if (filter === 'due') return new Date(c.due).getTime() <= now + 2 * 86400000; // 含今天 + 2 天
+          return true; // wrong-all
+        })
+        .map(([id]) => id);
+      if (ids.some((id) => id.startsWith('d:'))) await loadDict();
+      words = ids.map(getWord).filter(Boolean) as Word[];
+    }
+    if (!words.length) return;
+    const hydrated = await hydrate(words);
+    setPrintData({ title: EXPORT_LABELS[filter], words: hydrated });
   };
 
   const completeQuiz = (flags: boolean[]) => {
@@ -500,6 +538,8 @@ export default function App() {
         themeKey={theme.key}
         onTheme={setTheme}
         onOpenSettings={() => setSettingsOpen(true)}
+        onExamDate={onExamDate}
+        onExport={onExport}
       />
     );
   } else {
@@ -554,6 +594,11 @@ export default function App() {
           />
         )}
       </div>
+      {printData && (
+        <Suspense fallback={null}>
+          <PrintView title={printData.title} words={printData.words} onClose={() => setPrintData(null)} />
+        </Suspense>
+      )}
     </div>
   );
 }

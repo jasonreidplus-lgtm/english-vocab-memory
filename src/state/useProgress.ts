@@ -7,9 +7,11 @@ import {
   saveProgress,
   yesterdayKey,
 } from './progress';
-import { markWrongCard, gradeCard, isMastered, Rating } from '../lib/fsrs';
-import type { Progress, Daily, WrongEntry } from '../types';
+import { markWrongCard, gradeWithLog, isMastered, Rating } from '../lib/fsrs';
+import type { Progress, Daily, WrongEntry, RevlogEntry } from '../types';
 import type { Grade } from 'ts-fsrs';
+
+const REVLOG_CAP = 5000; // 复习日志封顶，超出裁掉最旧(够画数月趋势)
 
 /** finishLevel 载荷：一关结束后的结算数据 */
 export interface FinishLevelPayload {
@@ -41,6 +43,7 @@ function reducer(state: Progress, action: Action): Progress {
     case 'finishLevel': {
       const { group, correct, total = 0, stars, xpGain, wrongIds = [], correctIds = [] } = action.payload;
       const prev = state.levels[group] || {};
+      const firstClear = !(prev && prev.completed); // 首次通关才记「新学」
       const levels = {
         ...state.levels,
         [group]: {
@@ -63,6 +66,13 @@ function reducer(state: Progress, action: Action): Progress {
         if (wrong[id]) delete wrong[id];
       }
 
+      // 首次通关：本关词数计入「当日新学」(燃尽/配速曲线)
+      const newHistory: Record<string, number> = { ...(state.newHistory || {}) };
+      if (firstClear) {
+        const today = dayKey();
+        newHistory[today] = (newHistory[today] || 0) + total;
+      }
+
       const passed = stars >= 1;
       const combo = passed ? state.combo + 1 : 0;
 
@@ -70,6 +80,7 @@ function reducer(state: Progress, action: Action): Progress {
         ...state,
         levels,
         wrong,
+        newHistory,
         xp: state.xp + xpGain,
         combo,
         bestCombo: Math.max(state.bestCombo || 0, combo),
@@ -85,7 +96,7 @@ function reducer(state: Progress, action: Action): Progress {
       const e = state.wrong[action.id];
       if (!e) return state;
       const now = new Date();
-      const card = gradeCard(e.card, action.grade, now);
+      const { card, log } = gradeWithLog(e.card, action.grade, now);
       const wrong: Record<string, WrongEntry> = { ...state.wrong };
       if (isMastered(card)) {
         delete wrong[action.id]; // 已掌握 → 毕业移出
@@ -97,7 +108,10 @@ function reducer(state: Progress, action: Action): Progress {
           miss: action.grade === Rating.Again ? (e.miss || 0) + 1 : e.miss,
         };
       }
-      return { ...state, wrong };
+      // 记一条复习日志(供真实保持率/趋势)，封顶裁剪最旧
+      const revlog = [...(state.revlog || []), { id: action.id, ...log } as RevlogEntry];
+      if (revlog.length > REVLOG_CAP) revlog.splice(0, revlog.length - REVLOG_CAP);
+      return { ...state, wrong, revlog };
     }
 
     case 'addXp':
