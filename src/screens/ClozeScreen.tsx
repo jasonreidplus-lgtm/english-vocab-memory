@@ -3,7 +3,7 @@ import { Languages, ArrowLeft, ArrowRight, Shuffle, Pencil, Library, Check } fro
 import HeaderBar from '../components/HeaderBar';
 import WordPopup from '../components/WordPopup';
 import { annotate, buildLookup } from '../lib/annotate';
-import { resolveTap } from '../lib/dict';
+import { resolveTap, isDictLoading, loadDict } from '../lib/dict';
 import { useDict } from '../lib/useDict';
 import { freqOf } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
@@ -98,7 +98,15 @@ export default function ClozeScreen({
     }
   };
   const closePop = () => { curId.current = null; setPicked(null); setRich(null); };
-  const tapWord = (raw: string) => openWord(resolveTap(raw, lookup));
+  const tapWord = async (raw: string) => {
+    let entry = resolveTap(raw, lookup);
+    if (entry._missing && isDictLoading()) {
+      openWord({ ...entry, base_meaning: '词典加载中…' });
+      await loadDict();
+      entry = resolveTap(raw, lookup); // 词典就绪后重判
+    }
+    openWord(entry);
+  };
 
   const total = list.length;
   const go = (d: number) => setIdx((v) => Math.max(0, Math.min(total - 1, v + d)));

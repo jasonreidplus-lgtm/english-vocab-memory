@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import { GRADES, previewDays, intervalLabel, Rating } from '../lib/fsrs';
@@ -28,10 +28,12 @@ const GRADE_META: Record<Grade, { label: string; cls: string }> = {
 };
 
 export default function ReviewSession({ items, themeKey, onTheme, onBack, onGrade, onFinish, onSpeak }: ReviewSessionProps) {
+  const [queue, setQueue] = useState<ReviewItem[]>(items);
+  const requeued = useRef<Set<number | string>>(new Set());
   const [idx, setIdx] = useState(0);
   const [revealed, setRevealed] = useState(false);
-  const total = items.length;
-  const item: ReviewItem | undefined = items[idx];
+  const total = queue.length;
+  const item: ReviewItem | undefined = queue[idx];
   const done = idx >= total && total > 0;
 
   // 当前词的四档下次间隔(天)，按钮上预览
@@ -40,6 +42,11 @@ export default function ReviewSession({ items, themeKey, onTheme, onBack, onGrad
   const grade = (g: Grade) => {
     if (!item) return;
     onGrade(item.word.id, g);
+    // 「忘了」当场排到队尾再练一次(每词最多补一次，避免无限循环)
+    if (g === Rating.Again && !requeued.current.has(item.word.id)) {
+      requeued.current.add(item.word.id);
+      setQueue((q) => [...q, item]);
+    }
     setRevealed(false);
     setIdx((i) => i + 1);
   };
@@ -75,8 +82,8 @@ export default function ReviewSession({ items, themeKey, onTheme, onBack, onGrad
         <div className="center fade" style={{ paddingTop: 60 }}>
           <div style={{ fontSize: 56 }}>🎉</div>
           <h2 style={{ margin: '10px 0 4px' }}>复习完成</h2>
-          <p className="label">本轮自评复习 {total} 词，已按 FSRS 重新排期</p>
-          <button className="rev-finish" onClick={() => onFinish(total)}>完成</button>
+          <p className="label">本轮自评复习 {items.length} 词，已按 FSRS 重新排期</p>
+          <button className="rev-finish" onClick={() => onFinish(items.length)}>完成</button>
         </div>
       </>
     );

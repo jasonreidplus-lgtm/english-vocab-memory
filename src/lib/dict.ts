@@ -27,6 +27,9 @@ export function dictData(): DictData | null {
   return _dict;
 }
 
+// 词典是否正在加载(点词时显示「词典加载中」而非误判「未收录」)
+export const isDictLoading = (): boolean => !!_loading && !_dict;
+
 // 把词典命中包装成与考研词条同构的对象(供 annotate/WordPopup/错词本复用)
 export function dictEntry(word: string): Word | null {
   const w = String(word || '').toLowerCase();

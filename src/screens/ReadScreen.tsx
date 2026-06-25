@@ -3,7 +3,7 @@ import { Eraser } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import WordPopup from '../components/WordPopup';
 import { annotate, buildLookup, countUnique } from '../lib/annotate';
-import { resolveTap } from '../lib/dict';
+import { resolveTap, isDictLoading, loadDict } from '../lib/dict';
 import { useDict } from '../lib/useDict';
 import { freqOf } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
@@ -50,7 +50,15 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
     setPicked(null);
     setRich(null);
   };
-  const tapWord = (raw: string) => openWord(resolveTap(raw, lookup));
+  const tapWord = async (raw: string) => {
+    let entry = resolveTap(raw, lookup);
+    if (entry._missing && isDictLoading()) {
+      openWord({ ...entry, base_meaning: '词典加载中…' });
+      await loadDict();
+      entry = resolveTap(raw, lookup); // 词典就绪后重判
+    }
+    openWord(entry);
+  };
 
   return (
     <>

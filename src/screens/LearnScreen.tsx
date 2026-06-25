@@ -84,11 +84,12 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
   const word = words[li];
   const sections = useMemo(() => sectionsOf(word), [word]);
 
-  // 切到新词：翻回正面、收起所有分层
+  // 切到新词：翻回正面、收起所有分层、自动发音(受「音效朗读」开关控制)
   useEffect(() => {
     setFlipped(false);
     setOpen({});
-  }, [li]);
+    if (word) onSpeak?.(word.word);
+  }, [li]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const go = (dir: number) => setLi((v) => Math.min(total - 1, Math.max(0, v + dir)));
 
