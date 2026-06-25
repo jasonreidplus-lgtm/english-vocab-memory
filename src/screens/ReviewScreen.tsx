@@ -3,8 +3,19 @@ import { Brain, BookOpen, Puzzle, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import MenuEntry from '../components/MenuEntry';
 
+interface ReviewScreenProps {
+  themeKey: string;
+  onTheme: (key: string) => void;
+  reviewDue?: number;
+  wrongCount?: number;
+  onReview: () => void;
+  onBrowseWrong?: () => void;
+  onMatch: () => void;
+  onOpenSettings?: () => void;
+}
+
 /* 「复习」标签页：间隔复习 / 浏览错词 / 词根连连看。 */
-export default function ReviewScreen({ themeKey, onTheme, reviewDue = 0, wrongCount = 0, onReview, onBrowseWrong, onMatch, onOpenSettings }) {
+export default function ReviewScreen({ themeKey, onTheme, reviewDue = 0, wrongCount = 0, onReview, onBrowseWrong, onMatch, onOpenSettings }: ReviewScreenProps) {
   return (
     <>
       <HeaderBar

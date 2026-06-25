@@ -4,8 +4,10 @@
    只读词库、不改任何字段（守数据只读铁律）。
    ============================================================ */
 
+import type { Word, Seg, Lookup, DictData } from '../types';
+
 // 高频不规则变化（规则法覆盖不到的）
-const IRREG = {
+const IRREG: Record<string, string> = {
   went: 'go', gone: 'go', better: 'good', best: 'good', worse: 'bad', worst: 'bad',
   children: 'child', men: 'man', women: 'woman', feet: 'foot', teeth: 'tooth',
   taught: 'teach', bought: 'buy', brought: 'bring', thought: 'think', sought: 'seek',
@@ -18,14 +20,14 @@ const IRREG = {
 };
 
 // 把一个 token 还原成若干候选基本形（只要命中词库就算）。token 集合有限 → 记忆化，长文/逐句精读复用命中率极高。
-const _candCache = new Map();
-export function candidates(raw) {
+const _candCache = new Map<string, string[]>();
+export function candidates(raw: string): string[] {
   const w = String(raw || '').toLowerCase().replace(/[^a-z'-]/g, '');
   if (!w) return [];
   const cached = _candCache.get(w);
   if (cached) return cached;
   const set = new Set([w]);
-  const add = (s) => s && s.length >= 3 && set.add(s);
+  const add = (s: string) => s && s.length >= 3 && set.add(s);
   if (IRREG[w]) add(IRREG[w]);
   // 复数 / 三单
   if (w.endsWith('ies')) add(w.slice(0, -3) + 'y');
@@ -68,12 +70,12 @@ export function candidates(raw) {
 }
 
 // 由词库构建「小写词 → 词条」查找表。按 words 数组引用缓存(allReady 稳定)，避免每屏重复遍历 ~4500 词。
-const _lookupCache = new WeakMap();
-export function buildLookup(words) {
+const _lookupCache = new WeakMap<Word[], Lookup>();
+export function buildLookup(words: Word[]): Lookup {
   if (!words) return new Map();
   const cached = _lookupCache.get(words);
   if (cached) return cached;
-  const m = new Map();
+  const m: Lookup = new Map();
   for (const w of words) {
     const k = w && w.word && w.word.toLowerCase();
     if (k && !m.has(k)) m.set(k, w);
@@ -87,10 +89,10 @@ const STOP = new Set(
   ('a an the of to in on at for and or but nor so yet if as by with from into onto upon over under above below out off up down about i you he she we they me him her us them my your his their our its it this that these those am is are was were be been being do does did done have has had having will would shall should can could may might must not no never only also too very more most much many few some any all both each either neither such other others own same here there then than thus when where which while who whom whose why how what because before after again against between among through during without within across around')
     .split(/\s+/)
 );
-const isStop = (tok) => STOP.has(String(tok).toLowerCase().replace(/[^a-z'-]/g, ''));
+const isStop = (tok: string) => STOP.has(String(tok).toLowerCase().replace(/[^a-z'-]/g, ''));
 
 // tok 先查考研核心词库，未命中再查广义词典(dict 为可选的 {词:{t,p,pos}})；功能词不计为词条
-export function matchToken(tok, lookup, dict) {
+export function matchToken(tok: string, lookup: Lookup, dict?: DictData): Word | null {
   for (const c of candidates(tok)) {
     const hit = lookup.get(c);
     if (hit) return hit;
@@ -106,8 +108,8 @@ export function matchToken(tok, lookup, dict) {
 
 // 把整段文本切成片段：{ t: 原文片段, w: 命中的词条或 null }
 // 连字符视为分隔符(intellectual-property → 两个可匹配词)；保留所有空白/标点，拼回即原文。
-export function annotate(text, lookup, dict) {
-  const out = [];
+export function annotate(text: string, lookup: Lookup, dict?: DictData): Seg[] {
+  const out: Seg[] = [];
   const parts = String(text || '').split(/([A-Za-z]+(?:'[A-Za-z]+)*)/);
   for (const p of parts) {
     if (!p) continue;
@@ -118,6 +120,6 @@ export function annotate(text, lookup, dict) {
 }
 
 // 命中的不同考研词个数
-export function countUnique(segs) {
-  return new Set((segs || []).filter((s) => s.w).map((s) => s.w.word)).size;
+export function countUnique(segs: Seg[]): number {
+  return new Set((segs || []).filter((s) => s.w).map((s) => (s.w as Word).word)).size;
 }

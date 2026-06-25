@@ -1,10 +1,11 @@
 /* 真题库词频：预计算的 public/data/freq.json（{词目: 次数}，由 scripts/build-freq.mjs 生成）。
    运行期直接查表，给阅读高亮词/闯关词标「出现次数」+ 分档颜色：1 灰 / 2-4 黄 / 5-7 红 / 8+ 黑。 */
+import type { Lookup } from '../types';
 import { candidates } from './annotate';
 import { dictData } from './dict';
 
 // 规范词目：优先考研核心词原型；其次词典中最短候选(把屈折形归并到原型)。与 build-freq.mjs 同逻辑。
-export function lemmaKey(token, lookup) {
+export function lemmaKey(token: string, lookup?: Lookup): string | null {
   const cs = candidates(token);
   for (const c of cs) {
     const hit = lookup && lookup.get(c);
@@ -12,21 +13,21 @@ export function lemmaKey(token, lookup) {
   }
   const d = dictData();
   if (d) {
-    let best = null;
+    let best: string | null = null;
     for (const c of cs) if (d[c] && (best === null || c.length < best.length)) best = c;
     if (best) return best;
   }
   return null;
 }
 
-let _freq = null;
-let _loading = null;
-export function loadFreq() {
+let _freq: Map<string, number> | null = null;
+let _loading: Promise<Map<string, number>> | null = null;
+export function loadFreq(): Promise<Map<string, number>> {
   if (_freq) return Promise.resolve(_freq);
   if (_loading) return _loading;
   _loading = fetch(`${import.meta.env.BASE_URL}data/freq.json`)
-    .then((r) => (r.ok ? r.json() : {}))
-    .then((o) => {
+    .then((r) => (r.ok ? (r.json() as Promise<Record<string, number>>) : ({} as Record<string, number>)))
+    .then((o: Record<string, number>) => {
       _freq = new Map(Object.entries(o || {}));
       return _freq;
     })
@@ -37,11 +38,11 @@ export function loadFreq() {
   return _loading;
 }
 
-export function freqOf(freq, token, lookup) {
+export function freqOf(freq: Map<string, number> | null, token: string, lookup: Lookup): number {
   if (!freq) return 0;
   const k = lemmaKey(token, lookup);
   return k ? freq.get(k) || 0 : 0;
 }
-export const freqLabel = (n) => (n >= 8 ? '8+' : String(n));
-export const freqClass = (n) =>
+export const freqLabel = (n: number): string => (n >= 8 ? '8+' : String(n));
+export const freqClass = (n: number): string =>
   n >= 8 ? 'fq-black' : n >= 5 ? 'fq-red' : n >= 2 ? 'fq-yellow' : n >= 1 ? 'fq-gray' : '';

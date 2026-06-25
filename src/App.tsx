@@ -25,6 +25,10 @@ import LoginScreen from './screens/LoginScreen';
 import { isAuthed, logout } from './lib/auth';
 import ConfirmDialog from './components/ConfirmDialog';
 
+import type { Word, Level, Question, Passage } from './types';
+import type { VocabPack, GroupDetail } from './data/loadVocab';
+import type { Result } from './screens/ResultScreen';
+
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
 const LearnScreen = lazy(() => import('./screens/LearnScreen'));
 const QuizScreen = lazy(() => import('./screens/QuizScreen'));
@@ -37,6 +41,28 @@ const SearchScreen = lazy(() => import('./screens/SearchScreen'));
 const StatsScreen = lazy(() => import('./screens/StatsScreen'));
 const SettingsPanel = lazy(() => import('./components/SettingsPanel'));
 
+type TabKey = 'levels' | 'review' | 'reading' | 'stats';
+type View =
+  | TabKey
+  | 'learn'
+  | 'quiz'
+  | 'result'
+  | 'match'
+  | 'read'
+  | 'cloze'
+  | 'passages'
+  | 'browse'
+  | 'search';
+type VocabState =
+  | { status: 'loading' }
+  | { status: 'error'; error: unknown }
+  | ({ status: 'ready' } & VocabPack);
+interface BrowseCtx {
+  words: Word[];
+  title: string;
+  ret: View;
+}
+
 export default function App() {
   const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
     useProgress();
@@ -44,10 +70,10 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [authed, setAuthed] = useState(isAuthed);
   const [confirmReset, setConfirmReset] = useState(false);
-  const [tab, setTab] = useState('levels'); // 底部主标签：levels|review|reading|stats
+  const [tab, setTab] = useState<TabKey>('levels'); // 底部主标签：levels|review|reading|stats
 
   // —— 词库加载 ——
-  const [vocab, setVocab] = useState({ status: 'loading' });
+  const [vocab, setVocab] = useState<VocabState>({ status: 'loading' });
   useEffect(() => {
     let alive = true;
     loadVocab()
@@ -76,16 +102,16 @@ export default function App() {
   }, [theme]);
 
   // —— 导航 ——
-  const [view, setView] = useState('levels'); // levels | learn | quiz | result | match
-  const [group, setGroup] = useState(null);
-  const [sessionWords, setSessionWords] = useState([]); // 本次进关打乱后的 10 词
-  const [questions, setQuestions] = useState([]);
-  const [quizMode, setQuizMode] = useState('level'); // level | review
-  const [result, setResult] = useState(null);
-  const [justUnlocked, setJustUnlocked] = useState(null); // 刚解锁的关卡(用于高亮动画)
-  const [browseCtx, setBrowseCtx] = useState(null); // 浏览模式 { words, title, ret }
-  const [passages, setPassages] = useState([]); // 真题阅读关卡库(本机)
-  const [activePassage, setActivePassage] = useState(null); // 正在精读的篇目
+  const [view, setView] = useState<View>('levels'); // levels | learn | quiz | result | match
+  const [group, setGroup] = useState<number | null>(null);
+  const [sessionWords, setSessionWords] = useState<Word[]>([]); // 本次进关打乱后的 10 词
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [quizMode, setQuizMode] = useState<'level' | 'review'>('level'); // level | review
+  const [result, setResult] = useState<Result | null>(null);
+  const [justUnlocked, setJustUnlocked] = useState<number | null>(null); // 刚解锁的关卡(用于高亮动画)
+  const [browseCtx, setBrowseCtx] = useState<BrowseCtx | null>(null); // 浏览模式 { words, title, ret }
+  const [passages, setPassages] = useState<Passage[]>([]); // 真题阅读关卡库(本机)
+  const [activePassage, setActivePassage] = useState<Passage | null>(null); // 正在精读的篇目
   useEffect(() => { let alive = true; loadPassages().then((p) => alive && setPassages(p)); return () => { alive = false; }; }, []);
 
   // 首屏渲染后、空闲时预取其余 screen 分包 → 进 SW 缓存，离线也能直接打开任意页
@@ -110,10 +136,10 @@ export default function App() {
     return () => clearTimeout(t);
   }, []);
 
-  const levels = vocab.status === 'ready' ? vocab.levels : [];
-  const byId = vocab.status === 'ready' ? vocab.byId : new Map();
+  const levels: Level[] = vocab.status === 'ready' ? vocab.levels : [];
+  const byId = vocab.status === 'ready' ? vocab.byId : new Map<number | string, Word>();
   // 词条查找：兼容 id 为数字/字符串(错词池的 key 是字符串)
-  const getWord = (id) => {
+  const getWord = (id: number | string): Word | null | undefined => {
     const core = byId.get(id) ?? byId.get(Number(id)) ?? byId.get(String(id));
     if (core) return core;
     if (typeof id === 'string' && id.startsWith('d:')) return dictEntry(id.slice(2)); // 词典词(供错词本/复习解析)
@@ -131,10 +157,11 @@ export default function App() {
   );
 
   // —— 懒加载富字段：进关/浏览时按 group 拉取并合并 ——
-  const richCache = useRef(new Map()); // group -> { id: rich }
-  const hydrate = async (words) => {
-    if (!vocab.lazy || !words || !words.length) return words;
-    const groups = [...new Set(words.map((w) => w.group))];
+  const richCache = useRef<Map<number, GroupDetail>>(new Map()); // group -> { id: rich }
+  const hydrate = async (words: Word[]): Promise<Word[]> => {
+    const lazy = vocab.status === 'ready' && !!vocab.lazy;
+    if (!lazy || !words || !words.length) return words;
+    const groups = [...new Set(words.map((w) => w.group).filter((g): g is number => g != null))];
     await Promise.all(
       groups.map(async (g) => {
         if (richCache.current.has(g)) return;
@@ -146,21 +173,21 @@ export default function App() {
       })
     );
     return words.map((w) => {
-      const rich = richCache.current.get(w.group);
+      const rich = w.group != null ? richCache.current.get(w.group) : undefined;
       return rich && rich[w.id] ? { ...w, ...rich[w.id] } : w;
     });
   };
   const enterTok = useRef(0); // 防止快速切关时旧的 hydrate 覆盖新会话
   const browseTok = useRef(0);
   // 单词补齐富字段(真题精读点词弹卡用)
-  const hydrateWord = async (entry) => {
+  const hydrateWord = async (entry: Word): Promise<Word> => {
     if (!entry || entry._dict) return entry; // 词典词无富字段，直接用
     const [h] = await hydrate([entry]);
     return h || entry;
   };
 
   // —— 流程处理 ——
-  const onSpeak = (text) => {
+  const onSpeak = (text: string) => {
     if (progress.sound === false) return;
     speak(text, progress.accent === 'uk' ? 'en-GB' : 'en-US');
   };
@@ -169,7 +196,7 @@ export default function App() {
   const doReset = () => { resetAll(); setConfirmReset(false); };
 
   // 进入某一关：打乱该关 10 词，先用轻量数据秒开，再补齐富字段(懒加载)
-  const enterLevel = (g) => {
+  const enterLevel = (g: number) => {
     const lvl = levels.find((l) => l.group === g);
     if (!lvl) return;
     setJustUnlocked(null);
@@ -183,7 +210,7 @@ export default function App() {
     });
   };
 
-  const pickLevel = (g) => enterLevel(g);
+  const pickLevel = (g: number) => enterLevel(g);
 
   const startQuiz = () => {
     const words = sessionWords.length ? sessionWords : currentLevel?.readyWords;
@@ -198,7 +225,7 @@ export default function App() {
     const dueIds = dueReviewIds(progress);
     // 错词本里若有词典词(d: 前缀)，先确保词典加载，getWord 才能解析
     if (dueIds.some((id) => typeof id === 'string' && id.startsWith('d:'))) await loadDict();
-    const pool = dueIds.map(getWord).filter(Boolean);
+    const pool = dueIds.map(getWord).filter(Boolean) as Word[];
     if (!pool.length) return;
     const sessionW = shuffle(pool).slice(0, 20);
     setQuizMode('review');
@@ -208,11 +235,11 @@ export default function App() {
     setView('quiz');
   };
 
-  const completeQuiz = (flags) => {
+  const completeQuiz = (flags: boolean[]) => {
     const tally = tallyResult(questions, flags); // { correct, total, wrongIds, correctIds }
     const stars = starsFor(tally.correct, tally.total);
     const xpGain = xpFor(tally.correct, stars);
-    const wrongWords = tally.wrongIds.map(getWord).filter(Boolean);
+    const wrongWords = tally.wrongIds.map(getWord).filter(Boolean) as Word[];
     recordStudy(tally.total); // 计入今日学习词数 / 打卡
 
     if (quizMode === 'review') {
@@ -239,7 +266,7 @@ export default function App() {
 
     const comboAfter = stars >= 1 ? progress.combo + 1 : 0;
     finishLevel({
-      group,
+      group: group!,
       correct: tally.correct,
       total: tally.total,
       stars,
@@ -249,7 +276,7 @@ export default function App() {
     });
     // 本关通关后，下一关若是新解锁则标记，回到关卡页时高亮
     if (stars >= 1) {
-      const ng = nextEnterableGroup(levelStates, group);
+      const ng = nextEnterableGroup(levelStates, group!);
       if (ng != null && !(progress.levels[ng] && progress.levels[ng].completed)) {
         setJustUnlocked(ng);
       }
@@ -267,11 +294,11 @@ export default function App() {
   // —— 真题阅读关卡库 ——
   const openPassages = () => setView('passages');
   const backToPassages = () => { setActivePassage(null); setView('passages'); };
-  const openPassage = (p) => { setActivePassage(p); setView('cloze'); };
-  const importPassage = (title, en, cn) => { addPassage(title, en, cn); loadPassages().then(setPassages); };
-  const bulkImportPassages = (text) => { addPassagesBulk(parseBulk(text)); loadPassages().then(setPassages); };
-  const deletePassage = (id) => { removePassage(id); loadPassages().then(setPassages); };
-  const finishPassage = (p) => {
+  const openPassage = (p: Passage) => { setActivePassage(p); setView('cloze'); };
+  const importPassage = (title: string, en: string, cn: string) => { addPassage(title, en, cn); loadPassages().then(setPassages); };
+  const bulkImportPassages = (text: string) => { addPassagesBulk(parseBulk(text)); loadPassages().then(setPassages); };
+  const deletePassage = (id: string) => { removePassage(id); loadPassages().then(setPassages); };
+  const finishPassage = (p: Passage) => {
     markStudied(p.id);
     loadPassages().then(setPassages);
     addXp(20);
@@ -280,7 +307,7 @@ export default function App() {
   };
 
   // 浏览模式：只翻词卡，不测验。先显示轻量卡，再懒加载富字段补齐分层。
-  const startBrowse = (words, title, ret) => {
+  const startBrowse = (words: Word[], title: string, ret?: View) => {
     if (!words || !words.length) return;
     const tok = ++browseTok.current;
     setBrowseCtx({ words, title, ret: ret || tab });
@@ -291,7 +318,7 @@ export default function App() {
   };
   const endBrowse = () => setView(browseCtx?.ret || tab);
   const browseWrong = () => {
-    const pool = Object.keys(progress.wrong).map(getWord).filter(Boolean);
+    const pool = Object.keys(progress.wrong).map(getWord).filter(Boolean) as Word[];
     startBrowse(pool, '错词本', tab);
   };
 
@@ -299,7 +326,7 @@ export default function App() {
     setView(tab); // 深层流程返回当前所在的主标签
     setGroup(null);
   };
-  const replay = () => enterLevel(group); // 再学一次：同一关，重新打乱
+  const replay = () => { if (group != null) enterLevel(group); }; // 再学一次：同一关，重新打乱
   const nextGroup = group != null ? nextEnterableGroup(levelStates, group) : null;
   const goNext = () => {
     if (nextGroup == null) return goHome();
@@ -307,7 +334,7 @@ export default function App() {
   };
 
   // —— 渲染 ——
-  let screen;
+  let screen: React.ReactNode;
   if (!authed) {
     screen = <LoginScreen onSuccess={() => setAuthed(true)} />;
   } else if (vocab.status === 'loading') {
@@ -316,7 +343,7 @@ export default function App() {
     screen = (
       <div className="center label" style={{ paddingTop: 100 }}>
         词库加载失败 😢
-        <div style={{ fontSize: 12, marginTop: 8, opacity: 0.8 }}>{String(vocab.error?.message || vocab.error)}</div>
+        <div style={{ fontSize: 12, marginTop: 8, opacity: 0.8 }}>{String((vocab.error as Error)?.message || vocab.error)}</div>
       </div>
     );
   } else if (view === 'learn' && currentLevel) {

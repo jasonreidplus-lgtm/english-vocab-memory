@@ -5,15 +5,24 @@
      2. cn2en  中选英：给释义，选正确单词
    ============================================================ */
 import { shuffle } from '../lib/shuffle';
+import type { Word, Question, QuizType } from '../types';
+
+/** 用于出题/找干扰项的字段：均为 Word 上的字符串字段。 */
+type QuizField = 'word' | 'base_meaning';
 
 const OPTION_COUNT = 4;
-const QUESTION_TYPES = ['choice', 'cn2en'];
+const QUESTION_TYPES: QuizType[] = ['choice', 'cn2en'];
 
-function uniq(arr) {
+function uniq<T>(arr: T[]): T[] {
   return [...new Set(arr)];
 }
 
-function pickDistractors(word, levelWords, globalPool, field) {
+function pickDistractors(
+  word: Word,
+  levelWords: Word[],
+  globalPool: Word[],
+  field: QuizField
+): string[] {
   const correct = word[field];
   const sameLevel = levelWords.filter((w) => w.id !== word.id).map((w) => w[field]);
   const global = globalPool.map((w) => w[field]);
@@ -23,18 +32,23 @@ function pickDistractors(word, levelWords, globalPool, field) {
   return candidates.slice(0, OPTION_COUNT - 1);
 }
 
-function assignTypes(n) {
-  const types = [];
+function assignTypes(n: number): QuizType[] {
+  const types: QuizType[] = [];
   for (let i = 0; i < n; i++) types.push(QUESTION_TYPES[i % QUESTION_TYPES.length]);
   return shuffle(types);
 }
 
-function optionsQuestion(w, levelWords, globalPool, field) {
+function optionsQuestion(
+  w: Word,
+  levelWords: Word[],
+  globalPool: Word[],
+  field: QuizField
+): string[] {
   const distractors = pickDistractors(w, levelWords, globalPool, field);
   return shuffle(uniq([w[field], ...distractors]));
 }
 
-export function buildQuiz(levelWords, globalPool) {
+export function buildQuiz(levelWords: Word[], globalPool: Word[]): Question[] {
   const words = shuffle(levelWords);
   const types = assignTypes(words.length);
 
@@ -56,7 +70,7 @@ export function buildQuiz(levelWords, globalPool) {
   });
 }
 
-export function shortMeaning(s, max = 16) {
+export function shortMeaning(s: string | null | undefined, max = 16): string {
   const str = String(s || '').trim();
   if (str.length <= max) return str;
 
@@ -69,11 +83,21 @@ export function shortMeaning(s, max = 16) {
   return out;
 }
 
-export function tallyResult(questions, answersCorrect) {
+export interface TallyResult {
+  correct: number;
+  total: number;
+  wrongIds: Array<number | string>;
+  correctIds: Array<number | string>;
+}
+
+export function tallyResult(
+  questions: Question[],
+  answersCorrect: boolean[]
+): TallyResult {
   const total = questions.length;
   let correct = 0;
-  const wrongIds = [];
-  const correctIds = [];
+  const wrongIds: Array<number | string> = [];
+  const correctIds: Array<number | string> = [];
   questions.forEach((q, i) => {
     if (answersCorrect[i]) {
       correct++;

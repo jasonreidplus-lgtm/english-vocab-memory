@@ -2,6 +2,16 @@ import React from 'react';
 import { AlertTriangle } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y';
 
+interface ConfirmDialogProps {
+  title: string;
+  message?: string;
+  confirmText?: string;
+  cancelText?: string;
+  danger?: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
 /* 应用内确认弹窗(替代原生 window.confirm，统一画风)。复用 .modal 样式。 */
 export default function ConfirmDialog({
   title,
@@ -11,7 +21,7 @@ export default function ConfirmDialog({
   danger = false,
   onConfirm,
   onCancel,
-}) {
+}: ConfirmDialogProps) {
   const ref = useModalA11y(onCancel);
   return (
     <div className="modal-backdrop fade" onClick={onCancel}>

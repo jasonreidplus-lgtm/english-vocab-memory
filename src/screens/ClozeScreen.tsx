@@ -12,22 +12,36 @@ import { shortMeaning } from '../game/quiz';
 import { shuffle } from '../lib/shuffle';
 import { fetchBuiltin } from '../lib/passages';
 import { splitEnSentences } from '../lib/text';
+import type { Word, Sentence, Passage, DictData } from '../types';
+
+interface ClozeScreenProps {
+  pool: Word[];
+  sentences?: Sentence[]; // passage 模式：传 sentences + title + onDone
+  title?: string;
+  onDone?: () => void;
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack: () => void;
+  onSpeak: (word: string) => void;
+  onMarkWrong: (id: Word['id']) => void;
+  hydrateWord: (w: Word) => Promise<Word>;
+}
 
 export default function ClozeScreen({
   pool, sentences, title, onDone, // passage 模式：传 sentences + title + onDone
   themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord,
-}) {
+}: ClozeScreenProps) {
   const passageMode = Array.isArray(sentences);
-  const [bank, setBank] = useState(null);
-  const [src, setSrc] = useState('bank'); // bank | paste（仅独立「句子精读」用）
+  const [bank, setBank] = useState<Sentence[] | null>(null);
+  const [src, setSrc] = useState<'bank' | 'paste'>('bank'); // bank | paste（仅独立「句子精读」用）
   const [pasteText, setPasteText] = useState('');
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState<number[]>([]);
   const [idx, setIdx] = useState(0);
   const [showTrans, setShowTrans] = useState(false);
-  const [picked, setPicked] = useState(null);
-  const [rich, setRich] = useState(null);
-  const [added, setAdded] = useState({});
-  const curId = useRef(null);
+  const [picked, setPicked] = useState<Word | null>(null);
+  const [rich, setRich] = useState<Word | null>(null);
+  const [added, setAdded] = useState<Record<Word['id'], boolean>>({});
+  const curId = useRef<Word['id'] | null>(null);
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
@@ -43,7 +57,7 @@ export default function ClozeScreen({
       // 把每篇的 sents 摊平当作句库，逐句已带 cn 译文
       fetchBuiltin(),
     ])
-      .then(([self, passages]) => {
+      .then(([self, passages]: [Sentence[], Passage[]]) => {
         if (!alive) return;
         const real = Array.isArray(passages) ? passages.flatMap((p) => p.sents || []) : [];
         const all = [...(Array.isArray(self) ? self : []), ...real];
@@ -54,7 +68,7 @@ export default function ClozeScreen({
     return () => { alive = false; };
   }, [passageMode]);
 
-  const pasteSents = useMemo(() => splitEnSentences(pasteText).map((en) => ({ en })), [pasteText]);
+  const pasteSents = useMemo<Sentence[]>(() => splitEnSentences(pasteText).map((en) => ({ en })), [pasteText]);
   const list = passageMode
     ? sentences
     : src === 'bank'
@@ -62,11 +76,11 @@ export default function ClozeScreen({
     : pasteSents;
   const sentence = list[idx] || null;
 
-  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup, dict) : []), [sentence, lookup, dict]);
+  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup, dict as DictData | undefined) : []), [sentence, lookup, dict]);
   // 句中出现的不同考研词（用于点「翻译」后的词义清单）
   const marked = useMemo(() => {
-    const seen = new Set();
-    const out = [];
+    const seen = new Set<Word['id']>();
+    const out: Word[] = [];
     for (const s of segs) if (s.w && !seen.has(s.w.id)) { seen.add(s.w.id); out.push(s.w); }
     return out;
   }, [segs]);
@@ -74,7 +88,7 @@ export default function ClozeScreen({
   useEffect(() => { setShowTrans(false); }, [idx, src, pasteText, bank, title]);
   useEffect(() => { setIdx(0); }, [src, title]);
 
-  const openWord = async (entry) => {
+  const openWord = async (entry: Word) => {
     curId.current = entry.id;
     setPicked(entry);
     setRich(null);
@@ -84,10 +98,10 @@ export default function ClozeScreen({
     }
   };
   const closePop = () => { curId.current = null; setPicked(null); setRich(null); };
-  const tapWord = (raw) => openWord(resolveTap(raw, lookup));
+  const tapWord = (raw: string) => openWord(resolveTap(raw, lookup));
 
   const total = list.length;
-  const go = (d) => setIdx((v) => Math.max(0, Math.min(total - 1, v + d)));
+  const go = (d: number) => setIdx((v) => Math.max(0, Math.min(total - 1, v + d)));
   const reshuffle = () => { if (bank) { setOrder(shuffle(bank.map((_, i) => i))); setIdx(0); } };
   const isLast = idx >= total - 1;
 
@@ -142,7 +156,7 @@ export default function ClozeScreen({
               !/^[A-Za-z]/.test(s.t) ? (
                 <span key={i}>{s.t}</span>
               ) : s.w ? (
-                <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>
+                <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
                   {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
                 </button>
               ) : (

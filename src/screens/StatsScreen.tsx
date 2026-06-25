@@ -2,16 +2,22 @@ import React, { useMemo } from 'react';
 import { Trophy, Flame, Target, BookCheck, Zap, CalendarDays, Brain, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import { accuracy, dayKey } from '../state/progress';
+import type { Progress, Summary } from '../types';
 
 const WEEKS = 17; // 热力图回看周数
 const WEEKDAY_LABELS = ['一', '', '三', '', '五', '', '日'];
 
+interface HeatCell {
+  key: string;
+  count: number;
+}
+
 // 生成最近 WEEKS*7 天的格子(末尾=今天)，并算出首格星期(用于补前导空格对齐周列)
-function buildGrid(history) {
+function buildGrid(history: Record<string, number>): { cells: HeatCell[]; lead: number } {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const days = WEEKS * 7;
-  const cells = [];
+  const cells: HeatCell[] = [];
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
@@ -25,7 +31,7 @@ function buildGrid(history) {
   return { cells, lead };
 }
 
-function levelOf(count, goal) {
+function levelOf(count: number, goal: number): number {
   if (!count) return 0;
   const r = count / (goal || 20);
   if (r < 0.34) return 1;
@@ -33,12 +39,18 @@ function levelOf(count, goal) {
   if (r < 1) return 3;
   return 4;
 }
-const cellStyle = (lvl) =>
+const cellStyle = (lvl: number): React.CSSProperties =>
   lvl === 0
     ? { background: 'var(--accent-soft)' }
     : { background: 'var(--accent)', opacity: 0.3 + lvl * 0.17 };
 
-function Tile({ icon, num, label }) {
+interface TileProps {
+  icon: React.ReactNode;
+  num: React.ReactNode;
+  label: string;
+}
+
+function Tile({ icon, num, label }: TileProps) {
   return (
     <div className="stat-tile">
       <span className="stat-icon">{icon}</span>
@@ -48,13 +60,21 @@ function Tile({ icon, num, label }) {
   );
 }
 
-export default function StatsScreen({ progress, summary, themeKey, onTheme, onOpenSettings }) {
+interface StatsScreenProps {
+  progress: Progress;
+  summary: Summary;
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onOpenSettings?: () => void;
+}
+
+export default function StatsScreen({ progress, summary, themeKey, onTheme, onOpenSettings }: StatsScreenProps) {
   const history = progress.history || {};
   const goal = (progress.daily && progress.daily.goal) || 20;
   const { cells, lead } = useMemo(() => buildGrid(history), [history]);
 
-  const studyDays = useMemo(() => Object.values(history).filter((n) => n > 0).length, [history]);
-  const totalWords = useMemo(() => Object.values(history).reduce((a, b) => a + (b || 0), 0), [history]);
+  const studyDays = useMemo(() => Object.values(history).filter((n: number) => n > 0).length, [history]);
+  const totalWords = useMemo(() => Object.values(history).reduce((a: number, b: number) => a + (b || 0), 0), [history]);
   const streak = (progress.daily && progress.daily.streak) || 0;
 
   return (

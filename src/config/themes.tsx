@@ -13,9 +13,10 @@
      fontHref?: 可选，该画风需要的额外 Google Fonts 链接(动态注入)
    }
    ============================================================ */
+import type { Theme } from '../types';
 import { InkDeco, PixelDeco, NeonDeco, ParchmentDeco } from './decos';
 
-export const THEMES = [
+export const THEMES: Theme[] = [
   {
     key: 'ink',
     label: '水墨',
@@ -127,8 +128,8 @@ export const THEMES = [
   },
 ];
 
-export const DEFAULT_THEME = THEMES[0].key;
+export const DEFAULT_THEME: string = THEMES[0].key;
 
-export function getTheme(key) {
+export function getTheme(key: string): Theme {
   return THEMES.find((t) => t.key === key) || THEMES[0];
 }

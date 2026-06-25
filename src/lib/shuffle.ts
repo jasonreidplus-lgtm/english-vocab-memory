@@ -1,6 +1,6 @@
 // 洗牌 / 取样小工具(真实浏览器环境，直接用 Math.random)
 
-export function shuffle(arr) {
+export function shuffle<T>(arr: T[]): T[] {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -10,6 +10,6 @@ export function shuffle(arr) {
 }
 
 // 从数组中随机取 n 个不重复元素
-export function sample(arr, n) {
+export function sample<T>(arr: T[], n: number): T[] {
   return shuffle(arr).slice(0, n);
 }

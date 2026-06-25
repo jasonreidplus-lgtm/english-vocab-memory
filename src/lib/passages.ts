@@ -7,11 +7,33 @@
    版权：内置真题原文仅供本人备考自用，请勿公开分发。
    ============================================================ */
 import { splitEnSentences } from './text';
+import type { Passage, Sentence } from '../types';
 
 const KEY = 'wordquest:passages';
 
+/** 用户导入文章的本机原始结构(尚未切句) */
+interface ImportedPassage {
+  id: string;
+  title: string;
+  en: string;
+  cn: string;
+}
+
+/** localStorage 中持久化的整体结构 */
+interface Store {
+  imported?: ImportedPassage[];
+  studied?: Record<string, boolean>;
+}
+
+/** parseBulk 产出的解析项(标题 + 原文，cn 可选) */
+interface BulkItem {
+  title: string;
+  en: string;
+  cn?: string;
+}
+
 // —— 自写示例文章(原创，非真题，带逐句翻译) ——
-const DEMO = [
+const DEMO: Passage[] = [
   {
     id: 'demo-automation',
     title: '示例 · 自动化与就业',
@@ -36,14 +58,14 @@ const DEMO = [
   },
 ];
 
-function read() {
+function read(): Store {
   try {
-    return JSON.parse(localStorage.getItem(KEY)) || {};
+    return JSON.parse(localStorage.getItem(KEY) || 'null') || {};
   } catch {
     return {};
   }
 }
-function write(o) {
+function write(o: Store): void {
   try {
     localStorage.setItem(KEY, JSON.stringify(o));
   } catch {
@@ -53,11 +75,11 @@ function write(o) {
 
 // 把英文段落粗切成句子(统一规则见 lib/text.js)
 export const splitEn = splitEnSentences;
-function splitCn(text) {
+function splitCn(text: string): string[] {
   return (String(text || '').match(/[^。！？]+[。！？]+/g) || []).map((s) => s.trim());
 }
 // 由 en(+可选 cn) 生成逐句 { en, cn? }；中英句数一致才逐句配翻译
-function makeSents(en, cn) {
+function makeSents(en: string, cn?: string): Sentence[] {
   const enS = splitEn(en);
   const cnS = cn ? splitCn(cn) : [];
   const aligned = cnS.length === enS.length;
@@ -66,14 +88,14 @@ function makeSents(en, cn) {
 
 // —— 内置真题关卡(由 scripts/build-passages.mjs 生成 → public/data/passages.json) ——
 //    与 vocab.json / sentences.json 同样从 public/data 取，仅取一次并缓存。
-let _builtin = null;
-export async function fetchBuiltin() {
+let _builtin: Passage[] | null = null;
+export async function fetchBuiltin(): Promise<Passage[]> {
   if (_builtin) return _builtin;
   try {
     const r = await fetch(`${import.meta.env.BASE_URL}data/passages.json`);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
-    _builtin = Array.isArray(data) ? data : [];
+    _builtin = Array.isArray(data) ? (data as Passage[]) : [];
     return _builtin;
   } catch {
     return []; // 不缓存失败，下次(如导入后刷新)仍可重试
@@ -81,28 +103,28 @@ export async function fetchBuiltin() {
 }
 
 // 读取全部关卡：用户导入(新→旧) + 内置真题 + 自写示例；附 studied 标记
-export async function loadPassages() {
+export async function loadPassages(): Promise<Passage[]> {
   const { imported = [], studied = {} } = read();
   const builtin = await fetchBuiltin();
-  const userP = imported.map((p) => ({
+  const userP: Passage[] = imported.map((p) => ({
     id: p.id,
     title: p.title,
     sents: makeSents(p.en, p.cn),
     studied: !!studied[p.id],
   }));
   // 内置真题标 demo:true → 不可误删，复用现有「内置篇目」逻辑
-  const builtinP = builtin.map((p) => ({
+  const builtinP: Passage[] = builtin.map((p) => ({
     id: p.id,
     title: p.title,
     sents: p.sents,
     demo: true,
     studied: !!studied[p.id],
   }));
-  const demoP = DEMO.map((p) => ({ ...p, studied: !!studied[p.id] }));
+  const demoP: Passage[] = DEMO.map((p) => ({ ...p, studied: !!studied[p.id] }));
   return [...userP, ...builtinP, ...demoP];
 }
 
-export function addPassage(title, en, cn) {
+export function addPassage(title: string, en: string, cn?: string): string {
   const o = read();
   o.imported = o.imported || [];
   const id = 'u' + Date.now();
@@ -113,20 +135,20 @@ export function addPassage(title, en, cn) {
 
 // 批量解析：用「# 标题」(或 ===标题===、2020 Text 1 这种行)分隔多篇文章。
 // 文章内部的空行会保留(段落不被拆开)；没有任何标题行时整体当作一篇。
-export function parseBulk(text) {
+export function parseBulk(text: string): BulkItem[] {
   const t = String(text || '').replace(/\r\n/g, '\n').trim();
   if (!t) return [];
   const lines = t.split('\n');
-  const isHeader = (ln) =>
+  const isHeader = (ln: string): boolean =>
     /^\s*#/.test(ln) ||
     /^\s*={2,}/.test(ln) ||
     /^\s*【.+】\s*$/.test(ln) ||
     /^\s*(?:19|20)\d{2}.{0,8}(?:text|阅读|passage)\s*\d/i.test(ln);
-  const clean = (ln) => ln.replace(/^[\s#=【]+|[\s=】]+$/g, '').trim();
-  const heads = [];
+  const clean = (ln: string): string => ln.replace(/^[\s#=【]+|[\s=】]+$/g, '').trim();
+  const heads: number[] = [];
   lines.forEach((ln, i) => isHeader(ln) && heads.push(i));
   if (!heads.length) return [{ title: '导入真题', en: t }];
-  const out = [];
+  const out: BulkItem[] = [];
   for (let h = 0; h < heads.length; h++) {
     const start = heads[h];
     const end = h + 1 < heads.length ? heads[h + 1] : lines.length;
@@ -137,7 +159,7 @@ export function parseBulk(text) {
   return out;
 }
 
-export function addPassagesBulk(items) {
+export function addPassagesBulk(items: BulkItem[]): number {
   const o = read();
   o.imported = o.imported || [];
   let n = 0;
@@ -154,14 +176,14 @@ export function addPassagesBulk(items) {
   return n;
 }
 
-export function removePassage(id) {
+export function removePassage(id: string): void {
   const o = read();
   o.imported = (o.imported || []).filter((p) => p.id !== id);
   if (o.studied) delete o.studied[id];
   write(o);
 }
 
-export function markStudied(id) {
+export function markStudied(id: string): void {
   const o = read();
   o.studied = o.studied || {};
   o.studied[id] = true;

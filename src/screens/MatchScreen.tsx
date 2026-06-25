@@ -2,18 +2,34 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Puzzle, RotateCw, Home, Check } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import { shuffle, sample } from '../lib/shuffle';
+import type { Word } from '../types';
 
 const PAIRS = 5;
 
-export default function MatchScreen({ pool, themeKey, onTheme, onBack, onReward, onStudied }) {
+type Side = 'en' | 'cn';
+interface Pick {
+  side: Side;
+  id: Word['id'];
+}
+
+interface MatchScreenProps {
+  pool: Word[];
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack?: () => void;
+  onReward: (n: number) => void;
+  onStudied: (n: number) => void;
+}
+
+export default function MatchScreen({ pool, themeKey, onTheme, onBack, onReward, onStudied }: MatchScreenProps) {
   const [round, setRound] = useState(0);
   const words = useMemo(() => sample(pool, Math.min(PAIRS, pool.length)), [pool, round]);
   const left = useMemo(() => shuffle(words), [words]); // 英文列
   const right = useMemo(() => shuffle(words), [words]); // 释义列
 
-  const [sel, setSel] = useState(null); // { side, id }
-  const [matched, setMatched] = useState(() => new Set());
-  const [wrong, setWrong] = useState(null); // { side, id }
+  const [sel, setSel] = useState<Pick | null>(null); // { side, id }
+  const [matched, setMatched] = useState<Set<Word['id']>>(() => new Set());
+  const [wrong, setWrong] = useState<Pick | null>(null); // { side, id }
   const [rewarded, setRewarded] = useState(false);
 
   const done = words.length > 0 && matched.size === words.length;
@@ -34,7 +50,7 @@ export default function MatchScreen({ pool, themeKey, onTheme, onBack, onReward,
     }
   }, [done, rewarded, words.length, onReward]);
 
-  const tap = (side, id) => {
+  const tap = (side: Side, id: Word['id']) => {
     if (matched.has(id) || done) return;
     if (!sel) {
       setSel({ side, id });
@@ -57,7 +73,7 @@ export default function MatchScreen({ pool, themeKey, onTheme, onBack, onReward,
     }
   };
 
-  const cls = (side, id) => {
+  const cls = (side: Side, id: Word['id']) => {
     let c = 'match-item';
     if (side === 'en') c += ' en';
     if (matched.has(id)) c += ' matched';

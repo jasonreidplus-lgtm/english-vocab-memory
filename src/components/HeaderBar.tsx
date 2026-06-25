@@ -2,7 +2,14 @@ import React from 'react';
 import { ChevronLeft } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
 
-export default function HeaderBar({ onBack, themeKey, onTheme, extra }) {
+interface HeaderBarProps {
+  onBack?: () => void;
+  themeKey: string;
+  onTheme: (k: string) => void;
+  extra?: React.ReactNode;
+}
+
+export default function HeaderBar({ onBack, themeKey, onTheme, extra }: HeaderBarProps) {
   return (
     <div className="row between">
       <div className="row" style={{ gap: 6, minWidth: 0 }}>

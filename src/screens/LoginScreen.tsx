@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { LogIn, User, Lock } from 'lucide-react';
 import { tryLogin } from '../lib/auth';
 
+interface LoginScreenProps {
+  onSuccess: () => void;
+}
+
 /* 应用内登录页（软门）。登录成功后调用 onSuccess。 */
-export default function LoginScreen({ onSuccess }) {
+export default function LoginScreen({ onSuccess }: LoginScreenProps) {
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
   const [err, setErr] = useState(false);
 
-  const submit = (e) => {
+  const submit = (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
     if (tryLogin(user, pass)) onSuccess();
     else setErr(true);

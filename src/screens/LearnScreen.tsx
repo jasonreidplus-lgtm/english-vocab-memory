@@ -1,10 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { RotateCw, ArrowLeft, ArrowRight, Zap, ChevronRight, Volume2, Check, HelpCircle } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
+import type { Word } from '../types';
+
+interface Section {
+  key: string;
+  icon: string;
+  title: string;
+  body: React.ReactNode;
+}
 
 // 从词条提取“可分层展开”的信息块(空的自动跳过)
-function sectionsOf(w) {
-  const list = [];
+function sectionsOf(w: Word): Section[] {
+  const list: Section[] = [];
   if (w.roots) list.push({ key: 'roots', icon: '🧩', title: '词根拆解', body: <span>{w.roots}</span> });
   if (Array.isArray(w.examples) && w.examples.length) {
     list.push({
@@ -29,7 +37,13 @@ function sectionsOf(w) {
   return list;
 }
 
-function Layer({ sec, open, onToggle }) {
+interface LayerProps {
+  sec: Section;
+  open: boolean;
+  onToggle: () => void;
+}
+
+function Layer({ sec, open, onToggle }: LayerProps) {
   return (
     <div className="layer">
       <button className="layer__head" onClick={onToggle} aria-expanded={open}>
@@ -44,13 +58,26 @@ function Layer({ sec, open, onToggle }) {
   );
 }
 
-export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong }) {
+export interface LearnScreenProps {
+  words: Word[];
+  group?: number | null;
+  title?: string;
+  mode?: 'learn' | 'browse';
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack: () => void;
+  onStart: () => void;
+  onSpeak?: (t: string) => void;
+  onMarkWrong?: (id: number | string) => void;
+}
+
+export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong }: LearnScreenProps) {
   const browse = mode === 'browse';
   const heading = title || `第 ${group} 关`;
   const [li, setLi] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [open, setOpen] = useState({});
-  const [marked, setMarked] = useState({}); // 本次「不认识」标记 { [id]: true }
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const [marked, setMarked] = useState<Record<string, boolean>>({}); // 本次「不认识」标记 { [id]: true }
   const markedCount = Object.keys(marked).length;
 
   const total = words.length;
@@ -63,7 +90,7 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
     setOpen({});
   }, [li]);
 
-  const go = (dir) => setLi((v) => Math.min(total - 1, Math.max(0, v + dir)));
+  const go = (dir: number) => setLi((v) => Math.min(total - 1, Math.max(0, v + dir)));
 
   return (
     <div className="learn">

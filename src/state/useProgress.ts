@@ -9,8 +9,40 @@ import {
   saveProgress,
   yesterdayKey,
 } from './progress';
+import type { Progress, Daily, WrongEntry } from '../types';
 
-function reducer(state, action) {
+/** finishLevel 载荷：一关结束后的结算数据 */
+export interface FinishLevelPayload {
+  group: number;
+  correct: number;
+  total?: number;
+  stars: number;
+  xpGain: number;
+  wrongIds?: Array<number | string>;
+  correctIds?: Array<number | string>;
+}
+
+/** reviewComplete 载荷：间隔复习一轮结束后的结算数据 */
+export interface ReviewCompletePayload {
+  wrongIds?: Array<number | string>;
+  correctIds?: Array<number | string>;
+  xpGain?: number;
+  total?: number;
+  correct?: number;
+}
+
+export type Action =
+  | { type: 'setTheme'; key: string }
+  | { type: 'finishLevel'; payload: FinishLevelPayload }
+  | { type: 'reviewComplete'; payload: ReviewCompletePayload }
+  | { type: 'addXp'; amount?: number }
+  | { type: 'studyActivity'; words?: number }
+  | { type: 'setGoal'; goal: number }
+  | { type: 'setPref'; key: keyof Progress; value: Progress[keyof Progress] }
+  | { type: 'markWrong'; ids?: Array<number | string> }
+  | { type: 'resetAll' };
+
+function reducer(state: Progress, action: Action): Progress {
   switch (action.type) {
     case 'setTheme':
       return { ...state, themeKey: action.key };
@@ -29,7 +61,7 @@ function reducer(state, action) {
       };
 
       // 错词池：答错的进池(回到第 1 级、今日到期)，本次答对的移出池(视为已掌握)
-      const wrong = { ...state.wrong };
+      const wrong: Record<string, WrongEntry> = { ...state.wrong };
       const ts = Date.now();
       const today = dayKey();
       for (const id of wrongIds) {
@@ -60,7 +92,7 @@ function reducer(state, action) {
     case 'reviewComplete': {
       // 间隔复习：答对的升级(到顶即毕业移出)，答错的回到第 1 级；只加 XP，不计关卡通关
       const { wrongIds = [], correctIds = [], xpGain = 0, total = 0, correct = 0 } = action.payload;
-      const wrong = { ...state.wrong };
+      const wrong: Record<string, WrongEntry> = { ...state.wrong };
       const ts = Date.now();
       for (const id of correctIds) {
         const e = wrong[id];
@@ -95,7 +127,7 @@ function reducer(state, action) {
       // 记录今日学习词数(打卡历史 + 连续打卡天数)
       const words = action.words || 0;
       const today = dayKey();
-      const history = { ...(state.history || {}) };
+      const history: Record<string, number> = { ...(state.history || {}) };
       history[today] = (history[today] || 0) + words;
       // 裁剪：只保留最近约 200 天，避免 localStorage 随年累月无限增长(热力图仅回看 17 周)
       const hKeys = Object.keys(history);
@@ -120,7 +152,7 @@ function reducer(state, action) {
     }
 
     case 'setGoal': {
-      const prev = state.daily || { date: dayKey(), count: 0, streak: 1, goal: DAILY_GOAL };
+      const prev: Daily = state.daily || { date: dayKey(), count: 0, streak: 1, goal: DAILY_GOAL };
       return { ...state, daily: { ...prev, goal: action.goal } };
     }
 
@@ -129,7 +161,7 @@ function reducer(state, action) {
 
     case 'markWrong': {
       // 把若干词 id 加入错词池(真题精读「加入错词本」/学习卡「不认识」)，今日到期可复习
-      const wrong = { ...state.wrong };
+      const wrong: Record<string, WrongEntry> = { ...state.wrong };
       const ts = Date.now();
       const today = dayKey();
       for (const id of action.ids || []) {
@@ -155,15 +187,18 @@ export function useProgress() {
     saveProgress(progress);
   }, [progress]);
 
-  const setTheme = useCallback((key) => dispatch({ type: 'setTheme', key }), []);
-  const finishLevel = useCallback((payload) => dispatch({ type: 'finishLevel', payload }), []);
-  const reviewComplete = useCallback((payload) => dispatch({ type: 'reviewComplete', payload }), []);
-  const addXp = useCallback((amount) => dispatch({ type: 'addXp', amount }), []);
-  const recordStudy = useCallback((words) => dispatch({ type: 'studyActivity', words }), []);
-  const setGoal = useCallback((goal) => dispatch({ type: 'setGoal', goal }), []);
-  const setPref = useCallback((key, value) => dispatch({ type: 'setPref', key, value }), []);
+  const setTheme = useCallback((key: string) => dispatch({ type: 'setTheme', key }), []);
+  const finishLevel = useCallback((payload: FinishLevelPayload) => dispatch({ type: 'finishLevel', payload }), []);
+  const reviewComplete = useCallback((payload: ReviewCompletePayload) => dispatch({ type: 'reviewComplete', payload }), []);
+  const addXp = useCallback((amount: number) => dispatch({ type: 'addXp', amount }), []);
+  const recordStudy = useCallback((words: number) => dispatch({ type: 'studyActivity', words }), []);
+  const setGoal = useCallback((goal: number) => dispatch({ type: 'setGoal', goal }), []);
+  const setPref = useCallback(
+    <K extends keyof Progress>(key: K, value: Progress[K]) => dispatch({ type: 'setPref', key, value }),
+    []
+  );
   const markWrong = useCallback(
-    (ids) => dispatch({ type: 'markWrong', ids: Array.isArray(ids) ? ids : [ids] }),
+    (ids: number | string | Array<number | string>) => dispatch({ type: 'markWrong', ids: Array.isArray(ids) ? ids : [ids] }),
     []
   );
   const resetAll = useCallback(() => dispatch({ type: 'resetAll' }), []);

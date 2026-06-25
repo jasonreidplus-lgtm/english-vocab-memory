@@ -6,10 +6,10 @@
    ============================================================ */
 import React from 'react';
 
-const fill = { position: 'absolute', inset: 0, pointerEvents: 'none' };
+const fill: React.CSSProperties = { position: 'absolute', inset: 0, pointerEvents: 'none' };
 
 // 水墨：宣纸渍 + 右侧断笔圆环(枯山水「圆相」)
-export function InkDeco() {
+export function InkDeco(): React.JSX.Element {
   return (
     <div style={fill} aria-hidden>
       <div
@@ -39,7 +39,7 @@ export function InkDeco() {
 }
 
 // 像素：CRT 扫描线
-export function PixelDeco() {
+export function PixelDeco(): React.JSX.Element {
   return (
     <div
       style={{
@@ -54,7 +54,7 @@ export function PixelDeco() {
 }
 
 // 羊皮纸RPG：陈年纸渍 + 暗角 + 一枚朱红火漆印
-export function ParchmentDeco() {
+export function ParchmentDeco(): React.JSX.Element {
   return (
     <div style={fill} aria-hidden>
       <div
@@ -86,7 +86,7 @@ export function ParchmentDeco() {
 }
 
 // 霓虹：赛博网格 + 顶部光晕
-export function NeonDeco() {
+export function NeonDeco(): React.JSX.Element {
   return (
     <div
       style={{

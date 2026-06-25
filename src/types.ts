@@ -1,0 +1,136 @@
+/* 全局共用类型契约。各模块从这里 import，避免各造一套。 */
+import type { ComponentType } from 'react';
+
+export interface Example {
+  en: string;
+  cn: string;
+}
+
+/** 单词词条：核心词库(数字 id) / 广义词典词(id 形如 "d:word") / 未收录占位("x:..") 通用。 */
+export interface Word {
+  id: number | string;
+  word: string;
+  base_meaning: string;
+  phonetic?: string;
+  pos?: string;
+  group?: number;
+  status?: string;
+  roots?: string;
+  examples?: Example[];
+  confusions?: string;
+  exam_tip?: string;
+  mnemonic?: string;
+  _dict?: boolean; // 来自广义词典
+  _missing?: boolean; // 词典也未收录
+}
+
+export interface Level {
+  group: number;
+  words: Word[];
+  readyWords: Word[];
+  ready: boolean;
+  count: number;
+  readyCount: number;
+}
+
+export type LevelStatus = 'done' | 'unlocked' | 'locked' | 'pending';
+export interface LevelState extends Level {
+  stars: number;
+  completed: boolean;
+  state: LevelStatus;
+  enterable: boolean;
+  bestScore?: number;
+}
+
+export interface WrongEntry {
+  miss: number;
+  lastTs?: number;
+  box?: number; // 间隔复习档位(Leitner，FSRS 接入后改存 Card)
+  due?: string; // YYYY-MM-DD
+}
+
+export interface Daily {
+  date: string;
+  count: number;
+  streak: number;
+  goal: number;
+}
+
+export interface LevelProgress {
+  stars: number;
+  completed: boolean;
+  bestScore: number;
+  attempts: number;
+}
+
+export interface Stats {
+  answered: number;
+  correct: number;
+}
+
+export interface Progress {
+  v: number;
+  themeKey: string;
+  xp: number;
+  combo: number;
+  bestCombo: number;
+  levels: Record<string, LevelProgress>;
+  wrong: Record<string, WrongEntry>;
+  daily: Daily | null;
+  history: Record<string, number>;
+  stats: Stats;
+  sound: boolean;
+  accent: 'us' | 'uk';
+}
+
+export interface Summary {
+  readyCount: number;
+  clearedCount: number;
+  wrongCount: number;
+  learnedWords: number;
+  totalGroups: number;
+}
+
+export interface Sentence {
+  en: string;
+  cn?: string;
+}
+
+export interface Passage {
+  id: string;
+  title: string;
+  sents: Sentence[];
+  demo?: boolean;
+  studied?: boolean;
+  year?: number;
+  text?: number;
+}
+
+export interface Theme {
+  key: string;
+  label: string;
+  vars: Record<string, string>;
+  Deco?: ComponentType;
+  fontHref?: string;
+}
+
+export type QuizType = 'choice' | 'cn2en';
+export interface Question {
+  id: number | string;
+  w: Word;
+  type: QuizType;
+  answer: string;
+  options: string[];
+}
+
+/** annotate 切片：t=原文片段，w=命中的词条或 null */
+export interface Seg {
+  t: string;
+  w: Word | null;
+}
+
+/** 广义词典原始结构 public/data/dict.json */
+export type DictData = Record<string, { t: string; p?: string; pos?: string }>;
+
+/** 词→小写词的查找表 */
+export type Lookup = Map<string, Word>;

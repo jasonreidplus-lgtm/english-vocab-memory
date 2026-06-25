@@ -8,25 +8,36 @@ import { useDict } from '../lib/useDict';
 import { freqOf } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
 import FreqBadge from '../components/FreqBadge';
+import type { Word, DictData } from '../types';
+
+interface ReadScreenProps {
+  pool: Word[];
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack: () => void;
+  onSpeak: (word: string) => void;
+  onMarkWrong: (id: Word['id']) => void;
+  hydrateWord: (w: Word) => Promise<Word>;
+}
 
 // 自写的示例句（非真题原文，避免版权问题）；真正的真题由你自己粘贴
 const SAMPLE =
   'The unprecedented surge in remote work has compelled many companies to reconsider how they evaluate productivity. Critics argue that the prevailing emphasis on visible activity is misleading, and that a more nuanced approach would acknowledge the diverse circumstances of individual employees.';
 
-export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }) {
+export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }: ReadScreenProps) {
   const [text, setText] = useState('');
-  const [picked, setPicked] = useState(null); // 轻量词条
-  const [rich, setRich] = useState(null); // 懒加载补齐后的词条
-  const [added, setAdded] = useState({}); // id -> 已加入错词本
-  const curId = useRef(null); // 防止快速切词时旧的 hydrate 覆盖
+  const [picked, setPicked] = useState<Word | null>(null); // 轻量词条
+  const [rich, setRich] = useState<Word | null>(null); // 懒加载补齐后的词条
+  const [added, setAdded] = useState<Record<Word['id'], boolean>>({}); // id -> 已加入错词本
+  const curId = useRef<Word['id'] | null>(null); // 防止快速切词时旧的 hydrate 覆盖
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const dict = useDict();
   const freq = useFreq();
-  const segs = useMemo(() => annotate(text, lookup, dict), [text, lookup, dict]);
+  const segs = useMemo(() => annotate(text, lookup, dict as DictData | undefined), [text, lookup, dict]);
   const hitCount = useMemo(() => countUnique(segs), [segs]);
 
-  const openWord = async (entry) => {
+  const openWord = async (entry: Word) => {
     curId.current = entry.id;
     setPicked(entry);
     setRich(null);
@@ -39,7 +50,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
     setPicked(null);
     setRich(null);
   };
-  const tapWord = (raw) => openWord(resolveTap(raw, lookup));
+  const tapWord = (raw: string) => openWord(resolveTap(raw, lookup));
 
   return (
     <>
@@ -75,7 +86,7 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
             !/^[A-Za-z]/.test(s.t) ? (
               <span key={i}>{s.t}</span>
             ) : s.w ? (
-              <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w)}>
+              <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
                 {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
               </button>
             ) : (

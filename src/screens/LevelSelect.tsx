@@ -2,13 +2,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Zap, Flame, Trophy, Play, CornerDownLeft, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import DailyCard from '../components/DailyCard';
+import type { LevelState, Progress, Summary } from '../types';
 
 // 关卡网格里用轻量文字星标(★/☆)而非 SVG —— 550 关 × 多颗星时性能差距巨大
-function starText(n) {
+function starText(n: number): string {
   return '★★★☆☆☆'.slice(3 - n, 6 - n);
 }
 
-function Cell({ lv, onPick, highlight }) {
+interface CellProps {
+  lv: LevelState;
+  onPick: (g: number) => void;
+  highlight: boolean;
+}
+
+function Cell({ lv, onPick, highlight }: CellProps) {
   const { group, state, stars, readyCount, enterable } = lv;
   return (
     <button
@@ -33,6 +40,18 @@ function Cell({ lv, onPick, highlight }) {
   );
 }
 
+interface LevelSelectProps {
+  levelStates: LevelState[];
+  progress: Progress;
+  summary: Summary;
+  themeKey: string;
+  onTheme: (key: string) => void;
+  onPick: (g: number) => void;
+  onSetGoal: (n: number) => void;
+  onOpenSettings?: () => void;
+  justUnlocked?: number | null;
+}
+
 /* 「闯关」标签页：每日目标 + 继续学习 + 进度 + 关卡网格。 */
 export default function LevelSelect({
   levelStates,
@@ -44,7 +63,7 @@ export default function LevelSelect({
   onSetGoal,
   onOpenSettings,
   justUnlocked,
-}) {
+}: LevelSelectProps) {
   const [jumpVal, setJumpVal] = useState('');
 
   // 当前进度前沿：第一个已解锁但未通关的关(没有就是最后一个已通关)
@@ -53,7 +72,7 @@ export default function LevelSelect({
     [...levelStates].reverse().find((l) => l.state === 'done') ||
     null;
 
-  const scrollToLevel = (n, flash) => {
+  const scrollToLevel = (n: number, flash: boolean) => {
     const el = document.getElementById(`level-${n}`);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });

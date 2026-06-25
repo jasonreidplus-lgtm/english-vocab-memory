@@ -1,7 +1,15 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 
-export default function Stars({ count = 0, total = 3, size = 18, pop = false, gap = 4 }) {
+interface StarsProps {
+  count?: number;
+  total?: number;
+  size?: number;
+  pop?: boolean;
+  gap?: number;
+}
+
+export default function Stars({ count = 0, total = 3, size = 18, pop = false, gap = 4 }: StarsProps) {
   return (
     <span style={{ display: 'inline-flex', gap }}>
       {Array.from({ length: total }).map((_, i) => (

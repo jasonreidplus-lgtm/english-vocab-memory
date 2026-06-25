@@ -5,28 +5,39 @@ import WordPopup from '../components/WordPopup';
 import { shortMeaning } from '../game/quiz';
 import { dictEntry } from '../lib/dict';
 import { useDict } from '../lib/useDict';
+import type { Word } from '../types';
+
+interface SearchScreenProps {
+  pool: Word[];
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack?: () => void;
+  onSpeak?: (word: string) => void;
+  onMarkWrong?: (id: Word['id']) => void;
+  hydrateWord?: (entry: Word) => Promise<Word> | Word;
+}
 
 /* 全局查词：考研核心词(释义丰富) + 广义词典(59k 词)即时检索，点结果看词卡。 */
-export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }) {
+export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }: SearchScreenProps) {
   const [q, setQ] = useState('');
-  const [picked, setPicked] = useState(null);
-  const [rich, setRich] = useState(null);
-  const [added, setAdded] = useState({});
-  const curId = useRef(null);
+  const [picked, setPicked] = useState<Word | null>(null);
+  const [rich, setRich] = useState<Word | null>(null);
+  const [added, setAdded] = useState<Record<string, boolean>>({});
+  const curId = useRef<Word['id'] | null>(null);
 
   const dict = useDict();
-  const results = useMemo(() => {
+  const results = useMemo<Word[]>(() => {
     const s = q.trim().toLowerCase();
     if (!s) return [];
     const cn = q.trim();
-    const seen = new Set();
-    const out = [];
-    const push = (e) => {
+    const seen = new Set<string>();
+    const out: Word[] = [];
+    const push = (e: Word | null) => {
       const k = e && e.word && e.word.toLowerCase();
-      if (k && !seen.has(k)) { seen.add(k); out.push(e); }
+      if (k && !seen.has(k)) { seen.add(k); out.push(e as Word); }
     };
     // 考研核心词优先(释义更丰富)
-    const cs = [], ci = [], cm = [];
+    const cs: Word[] = [], ci: Word[] = [], cm: Word[] = [];
     for (const w of pool) {
       if (!w || !w.word) continue;
       const lw = w.word.toLowerCase();
@@ -49,7 +60,7 @@ export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak,
     return out.slice(0, 50);
   }, [q, pool, dict]);
 
-  const openWord = async (entry) => {
+  const openWord = async (entry: Word) => {
     curId.current = entry.id;
     setPicked(entry);
     setRich(null);
@@ -74,7 +85,7 @@ export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak,
         <input
           className="search-input"
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQ(e.target.value)}
           placeholder="输入单词或中文释义"
           autoFocus
           autoCapitalize="off"

@@ -2,8 +2,33 @@ import React from 'react';
 import { Trophy, RotateCw, ArrowRight, Home, Flame, BookCheck, Brain, BookOpen } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import Stars from '../components/Stars';
+import type { Word } from '../types';
 
 const PRAISE = ['再接再厉', '不错哦', '很棒！', '完美通关！'];
+
+export interface Result {
+  correct: number;
+  total: number;
+  stars: number;
+  xpGain: number;
+  wrongWords?: Word[];
+  comboAfter?: number;
+  mode?: string;
+  reviewAdvanced?: number;
+  reviewRemaining?: number;
+}
+
+export interface ResultScreenProps {
+  result: Result;
+  group?: number | null;
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onReplay: () => void;
+  onNext: () => void;
+  onHome: () => void;
+  onBrowse?: () => void;
+  hasNext: boolean;
+}
 
 export default function ResultScreen({
   result,
@@ -15,14 +40,14 @@ export default function ResultScreen({
   onHome,
   onBrowse,
   hasNext,
-}) {
+}: ResultScreenProps) {
   const {
     correct,
     total,
     stars,
     xpGain,
     wrongWords = [],
-    comboAfter,
+    comboAfter = 0,
     mode,
     reviewAdvanced = 0,
     reviewRemaining = 0,

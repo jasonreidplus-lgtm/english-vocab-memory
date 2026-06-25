@@ -1,15 +1,23 @@
 import React from 'react';
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  err: Error | null;
+}
+
 // 捕获渲染期异常，避免单个坏词条/坏状态把整页打白。
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { err: null };
   }
-  static getDerivedStateFromError(err) {
+  static getDerivedStateFromError(err: Error): ErrorBoundaryState {
     return { err };
   }
-  componentDidCatch(err, info) {
+  componentDidCatch(err: Error, info: React.ErrorInfo) {
     // eslint-disable-next-line no-console
     console.error('App crashed:', err, info);
   }

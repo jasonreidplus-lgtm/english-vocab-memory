@@ -5,7 +5,7 @@ const KEY = 'wordquest:auth';
 const USER = 'pilgrim';
 const PASS = '123456';
 
-export function isAuthed() {
+export function isAuthed(): boolean {
   try {
     return localStorage.getItem(KEY) === '1';
   } catch {
@@ -13,7 +13,7 @@ export function isAuthed() {
   }
 }
 
-export function tryLogin(user, pass) {
+export function tryLogin(user: string, pass: string): boolean {
   if (String(user).trim().toLowerCase() === USER && String(pass) === PASS) {
     try {
       localStorage.setItem(KEY, '1');
@@ -25,7 +25,7 @@ export function tryLogin(user, pass) {
   return false;
 }
 
-export function logout() {
+export function logout(): void {
   try {
     localStorage.removeItem(KEY);
   } catch {

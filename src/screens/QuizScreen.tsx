@@ -6,22 +6,35 @@ import { buildLookup } from '../lib/annotate';
 import { freqOf } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
 import FreqBadge from '../components/FreqBadge';
+import type { Question, Word } from '../types';
 
-export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak }) {
+export interface QuizScreenProps {
+  questions: Question[];
+  group?: number | null;
+  heading?: string;
+  pool: Word[];
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack: () => void;
+  onComplete: (flags: boolean[]) => void;
+  onSpeak?: (t: string) => void;
+}
+
+export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak }: QuizScreenProps) {
   const title = heading || `第 ${group} 关`;
   const total = questions.length;
   const lookup = useMemo(() => buildLookup(pool), [pool]);
   const freq = useFreq();
   const [qi, setQi] = useState(0);
-  const [flags, setFlags] = useState(() => Array(total).fill(false));
+  const [flags, setFlags] = useState<boolean[]>(() => Array(total).fill(false));
   const [answered, setAnswered] = useState(false);
-  const [picked, setPicked] = useState(null);
+  const [picked, setPicked] = useState<string | null>(null);
 
   const q = questions[qi];
   const correctCount = flags.filter(Boolean).length;
   const lastQuestion = qi + 1 >= total;
 
-  const record = (ok) => {
+  const record = (ok: boolean) => {
     setFlags((f) => {
       const n = f.slice();
       n[qi] = ok;
@@ -30,7 +43,7 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
     setAnswered(true);
   };
 
-  const answerChoice = (opt) => {
+  const answerChoice = (opt: string) => {
     if (answered) return;
     setPicked(opt);
     record(opt === q.answer);
@@ -47,7 +60,7 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
   };
 
   useEffect(() => {
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         if (answered) {
           e.preventDefault();
@@ -67,7 +80,7 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
     return () => window.removeEventListener('keydown', onKey);
   }, [answered, qi]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  let optionDisplay = (o) => o;
+  let optionDisplay: (o: string) => string | undefined = (o) => o;
   if (q.type === 'choice') {
     const shorts = q.options.map((o) => shortMeaning(o));
     if (new Set(shorts).size === shorts.length) {

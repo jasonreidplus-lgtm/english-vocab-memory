@@ -3,8 +3,18 @@ import { Newspaper, ScrollText, Lightbulb, Search, Settings } from 'lucide-react
 import HeaderBar from '../components/HeaderBar';
 import MenuEntry from '../components/MenuEntry';
 
+interface ReadingScreenProps {
+  themeKey: string;
+  onTheme: (key: string) => void;
+  onPassages: () => void;
+  onRead: () => void;
+  onCloze: () => void;
+  onSearch: () => void;
+  onOpenSettings?: () => void;
+}
+
 /* 「阅读·查词」标签页：真题阅读闯关 / 真题精读 / 句子精读 / 查词。 */
-export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, onCloze, onSearch, onOpenSettings }) {
+export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, onCloze, onSearch, onOpenSettings }: ReadingScreenProps) {
   return (
     <>
       <HeaderBar

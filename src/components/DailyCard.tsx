@@ -1,12 +1,18 @@
 import React from 'react';
 import { Flame } from 'lucide-react';
 import { DAILY_GOAL } from '../state/progress';
+import type { Daily } from '../types';
 
 const GOAL_OPTIONS = [10, 20, 30, 50];
 const R = 26;
 const C = 2 * Math.PI * R;
 
-export default function DailyCard({ daily, onSetGoal }) {
+interface DailyCardProps {
+  daily?: Daily | null;
+  onSetGoal: (goal: number) => void;
+}
+
+export default function DailyCard({ daily, onSetGoal }: DailyCardProps) {
   const count = daily?.count || 0;
   const goal = daily?.goal || DAILY_GOAL;
   const streak = daily?.streak || 0;

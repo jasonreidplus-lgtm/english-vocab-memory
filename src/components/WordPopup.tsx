@@ -1,9 +1,19 @@
 import React from 'react';
 import { Volume2, BookmarkPlus, Check, X } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y';
+import type { Word } from '../types';
+
+interface WordPopupProps {
+  entry: Word | null;
+  rich: Word | null;
+  added: boolean;
+  onSpeak?: (word: string) => void;
+  onAddWrong: () => void;
+  onClose: () => void;
+}
 
 // 点词弹层（真题精读 / 句子精读 / 查词共用）。entry=轻量词条，rich=懒加载补齐后的词条。
-export default function WordPopup({ entry, rich, added, onSpeak, onAddWrong, onClose }) {
+export default function WordPopup({ entry, rich, added, onSpeak, onAddWrong, onClose }: WordPopupProps) {
   if (!entry) return null;
   return (
     <WordPopupModal
@@ -17,7 +27,11 @@ export default function WordPopup({ entry, rich, added, onSpeak, onAddWrong, onC
   );
 }
 
-function WordPopupModal({ entry, rich, added, onSpeak, onAddWrong, onClose }) {
+interface WordPopupModalProps extends WordPopupProps {
+  entry: Word;
+}
+
+function WordPopupModal({ entry, rich, added, onSpeak, onAddWrong, onClose }: WordPopupModalProps) {
   const ref = useModalA11y(onClose);
   const card = rich || entry;
   return (

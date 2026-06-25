@@ -5,9 +5,16 @@ import ConfirmDialog from '../components/ConfirmDialog';
 import { buildLookup, annotate } from '../lib/annotate';
 import { parseBulk } from '../lib/passages';
 import { useModalA11y } from '../lib/useModalA11y';
+import type { Word, Passage } from '../types';
 
-function ImportModal({ onClose, onSave, onBulk }) {
-  const [mode, setMode] = useState('one'); // one | bulk
+interface ImportModalProps {
+  onClose: () => void;
+  onSave: (title: string, en: string, cn: string) => void;
+  onBulk: (text: string) => void;
+}
+
+function ImportModal({ onClose, onSave, onBulk }: ImportModalProps) {
+  const [mode, setMode] = useState<'one' | 'bulk'>('one'); // one | bulk
   const [title, setTitle] = useState('');
   const [en, setEn] = useState('');
   const [cn, setCn] = useState('');
@@ -91,16 +98,33 @@ function ImportModal({ onClose, onSave, onBulk }) {
   );
 }
 
-export default function PassageScreen({ passages, pool, themeKey, onTheme, onBack, onOpen, onImport, onBulkImport, onDelete }) {
+interface PassageStat {
+  sentences: number;
+  words: number;
+}
+
+interface PassageScreenProps {
+  passages: Passage[];
+  pool: Word[];
+  themeKey: string;
+  onTheme: (k: string) => void;
+  onBack: () => void;
+  onOpen: (p: Passage) => void;
+  onImport: (title: string, en: string, cn: string) => void;
+  onBulkImport: (text: string) => void;
+  onDelete: (id: string) => void;
+}
+
+export default function PassageScreen({ passages, pool, themeKey, onTheme, onBack, onOpen, onImport, onBulkImport, onDelete }: PassageScreenProps) {
   const [importing, setImporting] = useState(false);
-  const [delTarget, setDelTarget] = useState(null);
+  const [delTarget, setDelTarget] = useState<Passage | null>(null);
   const lookup = useMemo(() => buildLookup(pool), [pool]);
 
   const stats = useMemo(() => {
-    const m = {};
+    const m: Record<string, PassageStat> = {};
     for (const p of passages) {
       const text = p.sents.map((s) => s.en).join(' ');
-      const hits = new Set(annotate(text, lookup).filter((s) => s.w).map((s) => s.w.word)).size;
+      const hits = new Set(annotate(text, lookup).filter((s) => s.w).map((s) => (s.w as Word).word)).size;
       m[p.id] = { sentences: p.sents.length, words: hits };
     }
     return m;

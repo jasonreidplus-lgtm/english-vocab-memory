@@ -1,8 +1,18 @@
 import React from 'react';
 import { X, Volume2, VolumeX, RotateCcw, LogOut } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y';
+import type { Progress } from '../types';
 
-export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset, onLogout }) {
+interface SettingsPanelProps {
+  progress: Progress;
+  onClose: () => void;
+  onSetPref: ((key: 'sound', value: boolean) => void) & ((key: 'accent', value: 'us' | 'uk') => void);
+  onSetGoal: (goal: number) => void;
+  onReset: () => void;
+  onLogout?: () => void;
+}
+
+export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal, onReset, onLogout }: SettingsPanelProps) {
   const sound = progress.sound !== false;
   const accent = progress.accent || 'us';
   const goal = (progress.daily && progress.daily.goal) || 20;
