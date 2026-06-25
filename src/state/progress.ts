@@ -124,16 +124,18 @@ export function summarize(levels: Level[], progress: Progress): Summary {
   let clearedCount = 0;
   let learnedWords = 0;
   let totalWords = 0;
+  const learnedIds = new Set<number | string>();
   for (const lv of levels) {
     if (lv.ready) totalWords += lv.readyCount || 0;
     const p = progress.levels[lv.group];
     if (p && p.completed) {
       clearedCount++;
       learnedWords += lv.readyCount || 0;
+      for (const w of lv.readyWords || []) learnedIds.add(w.id);
     }
   }
   const wrongCount = Object.keys(progress.wrong || {}).length;
-  return { readyCount, clearedCount, wrongCount, learnedWords, totalWords, totalGroups: levels.length };
+  return { readyCount, clearedCount, wrongCount, learnedWords, totalWords, totalGroups: levels.length, learnedIds };
 }
 
 // —— 间隔复习：到期待复习的词 id ——
@@ -149,9 +151,6 @@ export function dueReviewIds(progress: Progress, now: Date = new Date()): string
     .filter(([, e]: [string, WrongEntry]) => (e?.card ? isDue(e.card, now) : !e || !e.due || e.due <= today))
     .sort((a, b) => dueTs(a[1]) - dueTs(b[1]))
     .map(([id]) => id);
-}
-export function dueCount(progress: Progress, now: Date = new Date()): number {
-  return dueReviewIds(progress, now).length;
 }
 
 // 累计正确率(%)

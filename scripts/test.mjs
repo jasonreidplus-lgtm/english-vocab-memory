@@ -5,6 +5,7 @@ import { shuffle, sample } from '../src/lib/shuffle';
 import { emptyCard, gradeCard, markWrongCard, isMastered, isDue, previewDays, intervalLabel, Rating } from '../src/lib/fsrs';
 import { computeStats } from '../src/lib/stats';
 import { starsFor, xpFor, summarize, dueReviewIds } from '../src/state/progress';
+import { reducer } from '../src/state/useProgress';
 
 let pass = 0;
 let fail = 0;
@@ -143,6 +144,44 @@ t('错词进入学习中档 + 有保持率', () => {
   assert.equal(s.mastery.tiers.learning, 1);
   assert.equal(s.mastery.tiers.solid, 9);
   assert.ok(s.retention.current !== null);
+});
+
+console.log('stats 掌握分档(learnedIds 精确化):');
+t('查词加入但未通关的词不从 solid 扣，计入「在学」', () => {
+  const c = gradeCard(undefined, Rating.Good, NOW); // 低 stability → 学习中
+  const prog = baseProgress({ levels: { 1: { completed: true, stars: 3, bestScore: 9, attempts: 1 } }, wrong: { 999: { miss: 1, card: c } } });
+  const summary = { readyCount: 2, clearedCount: 1, wrongCount: 1, learnedWords: 10, totalWords: 5500, totalGroups: 2, learnedIds: new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) };
+  const s = computeStats(prog, summary, { now: NOW });
+  assert.equal(s.mastery.tiers.solid, 10);    // 未学错词不拉低已掌握
+  assert.equal(s.mastery.tiers.learning, 1);  // 999 计入在学
+  assert.equal(s.mastery.tiers.unseen, 5489); // 5500 - 10 - 1
+});
+t('广义词典 d: 词不计入词库分档', () => {
+  const c = gradeCard(undefined, Rating.Good, NOW);
+  const prog = baseProgress({ levels: { 1: { completed: true, stars: 3, bestScore: 9, attempts: 1 } }, wrong: { 'd:foo': { miss: 1, card: c } } });
+  const summary = { readyCount: 2, clearedCount: 1, wrongCount: 1, learnedWords: 10, totalWords: 5500, totalGroups: 2, learnedIds: new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) };
+  const s = computeStats(prog, summary, { now: NOW });
+  assert.equal(s.mastery.tiers.learning, 0);
+  assert.equal(s.mastery.tiers.solid, 10);
+  assert.equal(s.mastery.tiers.unseen, 5490);
+});
+
+console.log('finishLevel 错词池(闯关答对交给 FSRS):');
+t('答对池中词→不删，按 FSRS 重排(Good)', () => {
+  const due = markWrongCard(undefined, NOW); // 词5在池、今日到期
+  const state = baseProgress({ wrong: { 5: { miss: 1, card: due } } });
+  const next = reducer(state, { type: 'finishLevel', payload: { group: 1, correct: 1, total: 1, stars: 3, xpGain: 35, wrongIds: [], correctIds: [5] } });
+  assert.ok(next.wrong[5], '答对一次不应立即移出错词池');
+  assert.ok(next.wrong[5].card.scheduled_days >= 1, '应被 FSRS 排到未来(Good)');
+});
+t('答对不在池中的词→无副作用', () => {
+  const next = reducer(baseProgress({}), { type: 'finishLevel', payload: { group: 1, correct: 1, total: 1, stars: 3, xpGain: 35, wrongIds: [], correctIds: [7] } });
+  assert.equal(Object.keys(next.wrong).length, 0);
+});
+t('答错→进错词池(New 态/今日到期)', () => {
+  const next = reducer(baseProgress({}), { type: 'finishLevel', payload: { group: 1, correct: 0, total: 1, stars: 0, xpGain: 0, wrongIds: [9], correctIds: [] } });
+  assert.ok(next.wrong[9] && next.wrong[9].card, '答错应进池且有 FSRS 卡');
+  assert.equal(next.wrong[9].card.state, 0); // New = 今日到期
 });
 
 function baseProgress(over) {

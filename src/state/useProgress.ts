@@ -7,7 +7,7 @@ import {
   saveProgress,
   yesterdayKey,
 } from './progress';
-import { markWrongCard, gradeWithLog, isMastered, Rating } from '../lib/fsrs';
+import { markWrongCard, gradeCard, gradeWithLog, isMastered, Rating } from '../lib/fsrs';
 import type { Progress, Daily, WrongEntry, RevlogEntry } from '../types';
 import type { Grade } from 'ts-fsrs';
 
@@ -35,7 +35,7 @@ export type Action =
   | { type: 'markWrong'; ids?: Array<number | string> }
   | { type: 'resetAll' };
 
-function reducer(state: Progress, action: Action): Progress {
+export function reducer(state: Progress, action: Action): Progress {
   switch (action.type) {
     case 'setTheme':
       return { ...state, themeKey: action.key };
@@ -62,8 +62,14 @@ function reducer(state: Progress, action: Action): Progress {
         const w: WrongEntry = wrong[id] || { miss: 0 };
         wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, card: markWrongCard(w.card, now) };
       }
+      // 答对：若该词本就在错词池里，按一次成功复习(Good)交给 FSRS 重排，达毕业(≥21天)才移出——
+      // 与「间隔复习」一致，避免闯关蒙对一次就把仍需巩固的词永久移出。不写 revlog(那是专给自评复习的)。
       for (const id of correctIds) {
-        if (wrong[id]) delete wrong[id];
+        const e = wrong[id];
+        if (!e) continue; // 不在错词池 → 无需处理
+        const card = gradeCard(e.card, Rating.Good, now);
+        if (isMastered(card)) delete wrong[id];
+        else wrong[id] = { ...e, card, lastTs: ts };
       }
 
       // 首次通关：本关词数计入「当日新学」(燃尽/配速曲线)

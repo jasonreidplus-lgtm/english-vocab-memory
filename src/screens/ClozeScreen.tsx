@@ -87,6 +87,8 @@ export default function ClozeScreen({
 
   useEffect(() => { setShowTrans(false); }, [idx, src, pasteText, bank, title]);
   useEffect(() => { setIdx(0); }, [src, title]);
+  // 句源变化致句数减少时（如把粘贴文本换成更短的），把越界的 idx 收回范围内，避免停在空白句误显示空状态
+  useEffect(() => { if (idx > list.length - 1) setIdx(Math.max(0, list.length - 1)); }, [list.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openWord = async (entry: Word) => {
     curId.current = entry.id;

@@ -4,7 +4,6 @@ import { loadVocab, loadGroupDetail } from './data/loadVocab';
 import { useProgress } from './state/useProgress';
 import {
   computeLevelStates,
-  dueCount,
   dueReviewIds,
   nextEnterableGroup,
   starsFor,
@@ -157,7 +156,11 @@ export default function App() {
 
   const levelStates = useMemo(() => computeLevelStates(levels, progress), [levels, progress]);
   const summary = useMemo(() => summarize(levels, progress), [levels, progress]);
-  const reviewDue = useMemo(() => dueCount(progress), [progress]);
+  // 只数能解析出词条的到期错词（过滤旧存档/词库变动遗留的「幽灵 id」，与实际可复习数一致）
+  const reviewDue = useMemo(
+    () => dueReviewIds(progress).filter((id) => byId.has(id) || byId.has(Number(id)) || String(id).startsWith('d:')).length,
+    [progress, byId]
+  );
   const allReady = useMemo(() => levels.flatMap((l) => l.readyWords), [levels]);
 
   const currentLevel = useMemo(
@@ -312,7 +315,7 @@ export default function App() {
         setJustUnlocked(ng);
       }
     }
-    setResult({ ...tally, stars, xpGain, wrongWords, comboAfter, mode: 'level' });
+    setResult({ ...tally, stars, xpGain, wrongWords, comboAfter });
     setView('result');
   };
 

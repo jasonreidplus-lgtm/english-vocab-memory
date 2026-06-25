@@ -149,17 +149,27 @@ export function computeStats(progress: Progress, summary: Summary, opts: StatsOp
   const pace = { daysToExam, remaining, neededPerDay, actualPerDay, onTrack, finishMs, willFinishBeforeExam, deficit };
 
   // —— 掌握分档 ——
+  // 只统计考研核心词宇宙：排除广义词典 d: 词；用 learnedIds 精确区分错词是否属于「已通关词」，
+  // 这样「查词/真题里手动加入错词本、但还没通关」的词只算「在学」，不会从 solid 里被错误扣减。
+  const learnedIds = summary.learnedIds;
   let learning = 0;
   let familiar = 0;
   let leech = 0;
-  for (const c of cards) {
+  let coreWrong = 0; // 在词库内(非 d:)且有卡的错词数
+  let wrongInLearned = 0; // 其中属于已通关词的数量
+  for (const [id, e] of Object.entries(wrong)) {
+    const c = e.card;
+    if (!c || String(id).startsWith('d:')) continue; // 无卡 / 广义词典词不计入词库分档
+    coreWrong++;
     if ((c.lapses || 0) >= LEECH_LAPSES) leech++;
     if (isLearningTier(c)) learning++;
     else familiar++; // 7 天以上(含罕见 ≥21 未毕业)归熟悉
+    if (!learnedIds || learnedIds.has(Number(id)) || learnedIds.has(id)) wrongInLearned++;
   }
-  const inWrong = learning + familiar;
-  const solid = Math.max(0, learned - inWrong);
-  const unseen = Math.max(0, total - learned);
+  const coreWrongNotLearned = coreWrong - wrongInLearned; // 加入错词本但未通关的词：算「在学」，不从 solid 扣
+  const seen = Math.min(total, learned + coreWrongNotLearned); // 已接触过的词
+  const solid = Math.max(0, learned - wrongInLearned); // 已通关且当前不在错词池 = 稳固掌握
+  const unseen = Math.max(0, total - seen);
   const tiers: Record<Tier, number> = { solid, familiar, learning, unseen };
   const mastery = { tiers, matureCoverage: total ? solid / total : 0, leech };
 

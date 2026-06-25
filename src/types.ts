@@ -118,6 +118,8 @@ export interface Summary {
   learnedWords: number;
   totalWords: number;
   totalGroups: number;
+  /** 已通关各关「就绪词」的 id 集合，用于统计页精确区分错词是否属于已学词 */
+  learnedIds?: Set<number | string>;
 }
 
 export interface Sentence {

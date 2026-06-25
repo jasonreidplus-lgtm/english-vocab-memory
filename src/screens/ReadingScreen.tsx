@@ -32,7 +32,7 @@ export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, o
         <MenuEntry
           icon={<Newspaper size={20} color="var(--accent)" />}
           title="真题阅读 · 闯关"
-          sub="2010–2020 真题，逐句精读、标考研词、看译文"
+          sub="历年真题，逐句精读、标考研词、看译文"
           onClick={onPassages}
         />
         <MenuEntry

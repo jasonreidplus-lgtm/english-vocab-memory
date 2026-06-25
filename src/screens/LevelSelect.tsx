@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Zap, Flame, Trophy, Play, CornerDownLeft, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import DailyCard from '../components/DailyCard';
@@ -10,13 +10,18 @@ function starText(n: number): string {
 }
 
 interface CellProps {
-  lv: LevelState;
-  onPick: (g: number) => void;
+  group: number;
+  state: LevelState['state'];
+  stars: number;
+  readyCount: number;
+  enterable: boolean;
   highlight: boolean;
+  onPick: (g: number) => void;
 }
 
-function Cell({ lv, onPick, highlight }: CellProps) {
-  const { group, state, stars, readyCount, enterable } = lv;
+// 关卡格用 React.memo + 基本类型 props：550 个格子只在自身状态(星级/解锁/高亮)变化时重渲染，
+// 避免任何 progress 变化(XP/打卡等)触发全部 550 个一起重排。配合下方稳定的 onPick 引用生效。
+const Cell = React.memo(function Cell({ group, state, stars, readyCount, enterable, highlight, onPick }: CellProps) {
   return (
     <button
       id={`level-${group}`}
@@ -38,7 +43,7 @@ function Cell({ lv, onPick, highlight }: CellProps) {
       </span>
     </button>
   );
-}
+});
 
 interface LevelSelectProps {
   levelStates: LevelState[];
@@ -65,6 +70,11 @@ export default function LevelSelect({
   justUnlocked,
 }: LevelSelectProps) {
   const [jumpVal, setJumpVal] = useState('');
+
+  // 稳定的选关回调：用 ref 持有最新 onPick，使传给每个格子的引用不变 → React.memo 不会因父组件重渲染而失效
+  const onPickRef = useRef(onPick);
+  onPickRef.current = onPick;
+  const handlePick = useCallback((g: number) => onPickRef.current(g), []);
 
   // 当前进度前沿：第一个已解锁但未通关的关(没有就是最后一个已通关)
   const frontier =
@@ -158,7 +168,16 @@ export default function LevelSelect({
 
       <div className="grid">
         {levelStates.map((lv) => (
-          <Cell key={lv.group} lv={lv} onPick={onPick} highlight={lv.group === justUnlocked} />
+          <Cell
+            key={lv.group}
+            group={lv.group}
+            state={lv.state}
+            stars={lv.stars}
+            readyCount={lv.readyCount}
+            enterable={lv.enterable}
+            highlight={lv.group === justUnlocked}
+            onPick={handlePick}
+          />
         ))}
       </div>
 
