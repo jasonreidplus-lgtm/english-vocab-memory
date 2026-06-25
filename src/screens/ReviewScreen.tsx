@@ -52,7 +52,7 @@ export default function ReviewScreen({ themeKey, onTheme, reviewDue = 0, wrongCo
 
       <div className="label center" style={{ marginTop: 18, fontSize: 12, opacity: 0.8, lineHeight: 1.8 }}>
         错词来自：闯关答错 · 真题点词「加入错词本」· 学习卡「不认识」。<br />
-        到期才提醒，按 1/2/4/7/15 天间隔安排复习。
+        到期才提醒，自评「忘了 / 模糊 / 记得 / 秒答」，由 FSRS 算法智能安排下次间隔。
       </div>
     </>
   );

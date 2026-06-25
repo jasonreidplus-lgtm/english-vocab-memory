@@ -42,10 +42,26 @@ export interface LevelState extends Level {
   bestScore?: number;
 }
 
+/** ts-fsrs Card 的可序列化形态(Date → ISO 字符串)，存进 localStorage */
+export interface SerializedCard {
+  due: string; // ISO，下次到期时间
+  stability: number;
+  difficulty: number;
+  elapsed_days: number;
+  scheduled_days: number;
+  reps: number;
+  lapses: number;
+  learning_steps: number;
+  state: number; // ts-fsrs State：0 New / 1 Learning / 2 Review / 3 Relearning
+  last_review?: string; // ISO
+}
+
 export interface WrongEntry {
   miss: number;
   lastTs?: number;
-  box?: number; // 间隔复习档位(Leitner，FSRS 接入后改存 Card)
+  card?: SerializedCard; // FSRS 调度卡(新数据源；间隔由它决定)
+  // —— 旧 Leitner 字段，仅用于旧存档兼容读取 ——
+  box?: number;
   due?: string; // YYYY-MM-DD
 }
 

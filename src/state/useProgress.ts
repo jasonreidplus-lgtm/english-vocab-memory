@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import {
   DAILY_GOAL,
-  SRS_INTERVALS,
-  addDaysKey,
   dayKey,
   defaultProgress,
   loadProgress,
   saveProgress,
   yesterdayKey,
 } from './progress';
+import { markWrongCard, gradeCard, isMastered, Rating } from '../lib/fsrs';
 import type { Progress, Daily, WrongEntry } from '../types';
+import type { Grade } from 'ts-fsrs';
 
 /** finishLevel 载荷：一关结束后的结算数据 */
 export interface FinishLevelPayload {
@@ -22,19 +22,10 @@ export interface FinishLevelPayload {
   correctIds?: Array<number | string>;
 }
 
-/** reviewComplete 载荷：间隔复习一轮结束后的结算数据 */
-export interface ReviewCompletePayload {
-  wrongIds?: Array<number | string>;
-  correctIds?: Array<number | string>;
-  xpGain?: number;
-  total?: number;
-  correct?: number;
-}
-
 export type Action =
   | { type: 'setTheme'; key: string }
   | { type: 'finishLevel'; payload: FinishLevelPayload }
-  | { type: 'reviewComplete'; payload: ReviewCompletePayload }
+  | { type: 'reviewGrade'; id: number | string; grade: Grade }
   | { type: 'addXp'; amount?: number }
   | { type: 'studyActivity'; words?: number }
   | { type: 'setGoal'; goal: number }
@@ -60,13 +51,13 @@ function reducer(state: Progress, action: Action): Progress {
         },
       };
 
-      // 错词池：答错的进池(回到第 1 级、今日到期)，本次答对的移出池(视为已掌握)
+      // 错词池：答错的进池(FSRS 今日到期)，本次答对的移出池(视为已掌握)
       const wrong: Record<string, WrongEntry> = { ...state.wrong };
       const ts = Date.now();
-      const today = dayKey();
+      const now = new Date(ts);
       for (const id of wrongIds) {
-        const w = wrong[id] || { miss: 0 };
-        wrong[id] = { miss: (w.miss || 0) + 1, lastTs: ts, box: 0, due: today };
+        const w: WrongEntry = wrong[id] || { miss: 0 };
+        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, card: markWrongCard(w.card, now) };
       }
       for (const id of correctIds) {
         if (wrong[id]) delete wrong[id];
@@ -89,35 +80,24 @@ function reducer(state: Progress, action: Action): Progress {
       };
     }
 
-    case 'reviewComplete': {
-      // 间隔复习：答对的升级(到顶即毕业移出)，答错的回到第 1 级；只加 XP，不计关卡通关
-      const { wrongIds = [], correctIds = [], xpGain = 0, total = 0, correct = 0 } = action.payload;
+    case 'reviewGrade': {
+      // 间隔复习四档自评：用 FSRS 重排该词的卡；达长间隔(Review 态)即毕业移出错词本
+      const e = state.wrong[action.id];
+      if (!e) return state;
+      const now = new Date();
+      const card = gradeCard(e.card, action.grade, now);
       const wrong: Record<string, WrongEntry> = { ...state.wrong };
-      const ts = Date.now();
-      for (const id of correctIds) {
-        const e = wrong[id];
-        if (!e) continue;
-        const b = e.box || 0;
-        if (b >= SRS_INTERVALS.length) {
-          delete wrong[id]; // 走完最长间隔(15天)后再答对 → 毕业移出错词本
-        } else {
-          // 用「当前级」的间隔安排下次复习再升级：新词(box0)首次答对=1天后，逐级 1→2→4→7→15
-          wrong[id] = { ...e, box: b + 1, due: addDaysKey(SRS_INTERVALS[b]), lastTs: ts };
-        }
+      if (isMastered(card)) {
+        delete wrong[action.id]; // 已掌握 → 毕业移出
+      } else {
+        wrong[action.id] = {
+          ...e,
+          card,
+          lastTs: now.getTime(),
+          miss: action.grade === Rating.Again ? (e.miss || 0) + 1 : e.miss,
+        };
       }
-      for (const id of wrongIds) {
-        const e = wrong[id] || { miss: 0 };
-        wrong[id] = { ...e, miss: (e.miss || 0) + 1, box: 0, due: addDaysKey(SRS_INTERVALS[0]), lastTs: ts };
-      }
-      return {
-        ...state,
-        wrong,
-        xp: state.xp + xpGain,
-        stats: {
-          answered: ((state.stats && state.stats.answered) || 0) + total,
-          correct: ((state.stats && state.stats.correct) || 0) + correct,
-        },
-      };
+      return { ...state, wrong };
     }
 
     case 'addXp':
@@ -163,10 +143,10 @@ function reducer(state: Progress, action: Action): Progress {
       // 把若干词 id 加入错词池(真题精读「加入错词本」/学习卡「不认识」)，今日到期可复习
       const wrong: Record<string, WrongEntry> = { ...state.wrong };
       const ts = Date.now();
-      const today = dayKey();
+      const now = new Date(ts);
       for (const id of action.ids || []) {
-        const w = wrong[id] || { miss: 0 };
-        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, box: 0, due: today };
+        const w: WrongEntry = wrong[id] || { miss: 0 };
+        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, card: markWrongCard(w.card, now) };
       }
       return { ...state, wrong };
     }
@@ -189,7 +169,7 @@ export function useProgress() {
 
   const setTheme = useCallback((key: string) => dispatch({ type: 'setTheme', key }), []);
   const finishLevel = useCallback((payload: FinishLevelPayload) => dispatch({ type: 'finishLevel', payload }), []);
-  const reviewComplete = useCallback((payload: ReviewCompletePayload) => dispatch({ type: 'reviewComplete', payload }), []);
+  const reviewGrade = useCallback((id: number | string, grade: Grade) => dispatch({ type: 'reviewGrade', id, grade }), []);
   const addXp = useCallback((amount: number) => dispatch({ type: 'addXp', amount }), []);
   const recordStudy = useCallback((words: number) => dispatch({ type: 'studyActivity', words }), []);
   const setGoal = useCallback((goal: number) => dispatch({ type: 'setGoal', goal }), []);
@@ -207,7 +187,7 @@ export function useProgress() {
     progress,
     setTheme,
     finishLevel,
-    reviewComplete,
+    reviewGrade,
     addXp,
     recordStudy,
     setGoal,

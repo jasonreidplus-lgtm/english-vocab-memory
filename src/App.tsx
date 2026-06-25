@@ -28,11 +28,13 @@ import ConfirmDialog from './components/ConfirmDialog';
 import type { Word, Level, Question, Passage } from './types';
 import type { VocabPack, GroupDetail } from './data/loadVocab';
 import type { Result } from './screens/ResultScreen';
+import type { ReviewItem } from './screens/ReviewSession';
 
 // 其余 screen 按需懒加载，减小首屏 JS；挂载后空闲再预取(见下方 warm 副作用)，保证离线可用
 const LearnScreen = lazy(() => import('./screens/LearnScreen'));
 const QuizScreen = lazy(() => import('./screens/QuizScreen'));
 const ResultScreen = lazy(() => import('./screens/ResultScreen'));
+const ReviewSession = lazy(() => import('./screens/ReviewSession'));
 const MatchScreen = lazy(() => import('./screens/MatchScreen'));
 const ReadScreen = lazy(() => import('./screens/ReadScreen'));
 const ClozeScreen = lazy(() => import('./screens/ClozeScreen'));
@@ -41,12 +43,15 @@ const SearchScreen = lazy(() => import('./screens/SearchScreen'));
 const StatsScreen = lazy(() => import('./screens/StatsScreen'));
 const SettingsPanel = lazy(() => import('./components/SettingsPanel'));
 
+const REVIEW_LIMIT = 30; // 每轮间隔复习最多词数
+
 type TabKey = 'levels' | 'review' | 'reading' | 'stats';
 type View =
   | TabKey
   | 'learn'
   | 'quiz'
   | 'result'
+  | 'reviewSession'
   | 'match'
   | 'read'
   | 'cloze'
@@ -64,7 +69,7 @@ interface BrowseCtx {
 }
 
 export default function App() {
-  const { progress, setTheme, finishLevel, reviewComplete, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
+  const { progress, setTheme, finishLevel, reviewGrade, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -102,12 +107,12 @@ export default function App() {
   }, [theme]);
 
   // —— 导航 ——
-  const [view, setView] = useState<View>('levels'); // levels | learn | quiz | result | match
+  const [view, setView] = useState<View>('levels'); // levels | learn | quiz | result | reviewSession | …
   const [group, setGroup] = useState<number | null>(null);
   const [sessionWords, setSessionWords] = useState<Word[]>([]); // 本次进关打乱后的 10 词
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [quizMode, setQuizMode] = useState<'level' | 'review'>('level'); // level | review
   const [result, setResult] = useState<Result | null>(null);
+  const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]); // 本轮间隔复习的词 + FSRS 卡
   const [justUnlocked, setJustUnlocked] = useState<number | null>(null); // 刚解锁的关卡(用于高亮动画)
   const [browseCtx, setBrowseCtx] = useState<BrowseCtx | null>(null); // 浏览模式 { words, title, ret }
   const [passages, setPassages] = useState<Passage[]>([]); // 真题阅读关卡库(本机)
@@ -120,6 +125,7 @@ export default function App() {
       import('./screens/LearnScreen');
       import('./screens/QuizScreen');
       import('./screens/ResultScreen');
+      import('./screens/ReviewSession');
       import('./screens/MatchScreen');
       import('./screens/ReadScreen');
       import('./screens/ClozeScreen');
@@ -215,24 +221,33 @@ export default function App() {
   const startQuiz = () => {
     const words = sessionWords.length ? sessionWords : currentLevel?.readyWords;
     if (!words || !words.length) return;
-    setQuizMode('level');
     setQuestions(buildQuiz(words, allReady));
     setView('quiz');
   };
 
-  // 间隔复习：取今日到期的错词(最多 20 词)闯关
+  // 间隔复习(FSRS)：取今日到期的错词，补齐富字段后进入四档自评复习
   const startReview = async () => {
-    const dueIds = dueReviewIds(progress);
+    const ids = dueReviewIds(progress);
+    if (!ids.length) return;
     // 错词本里若有词典词(d: 前缀)，先确保词典加载，getWord 才能解析
-    if (dueIds.some((id) => typeof id === 'string' && id.startsWith('d:'))) await loadDict();
-    const pool = dueIds.map(getWord).filter(Boolean) as Word[];
-    if (!pool.length) return;
-    const sessionW = shuffle(pool).slice(0, 20);
-    setQuizMode('review');
-    setGroup(null);
-    setSessionWords(sessionW);
-    setQuestions(buildQuiz(sessionW, allReady.length ? allReady : sessionW));
-    setView('quiz');
+    if (ids.some((id) => typeof id === 'string' && id.startsWith('d:'))) await loadDict();
+    const words = ids.map(getWord).filter(Boolean) as Word[];
+    const hydrated = await hydrate(words);
+    const items: ReviewItem[] = shuffle(hydrated)
+      .slice(0, REVIEW_LIMIT)
+      .map((w) => ({ word: w, card: progress.wrong[String(w.id)]?.card }));
+    if (!items.length) return;
+    setReviewItems(items);
+    setView('reviewSession');
+  };
+
+  // 间隔复习结束：按复习词数给 XP + 计入打卡，返回复习页
+  const finishReview = (reviewed: number) => {
+    if (reviewed > 0) {
+      addXp(reviewed * 2);
+      recordStudy(reviewed);
+    }
+    goHome();
   };
 
   const completeQuiz = (flags: boolean[]) => {
@@ -241,28 +256,6 @@ export default function App() {
     const xpGain = xpFor(tally.correct, stars);
     const wrongWords = tally.wrongIds.map(getWord).filter(Boolean) as Word[];
     recordStudy(tally.total); // 计入今日学习词数 / 打卡
-
-    if (quizMode === 'review') {
-      reviewComplete({
-        correctIds: tally.correctIds,
-        wrongIds: tally.wrongIds,
-        xpGain,
-        total: tally.total,
-        correct: tally.correct,
-      });
-      // 答对的词已升级(间隔延长/毕业)，本批都已排到将来 → 今日剩余 = 开局到期数 - 本批题数
-      setResult({
-        ...tally,
-        stars,
-        xpGain,
-        wrongWords,
-        mode: 'review',
-        reviewAdvanced: tally.correct,
-        reviewRemaining: Math.max(0, reviewDue - tally.total),
-      });
-      setView('result');
-      return;
-    }
 
     const comboAfter = stars >= 1 ? progress.combo + 1 : 0;
     finishLevel({
@@ -289,7 +282,6 @@ export default function App() {
   const startRead = () => setView('read');
   const startCloze = () => { setActivePassage(null); setView('cloze'); };
   const openSearch = () => setView('search');
-  const openStats = () => setView('stats');
 
   // —— 真题阅读关卡库 ——
   const openPassages = () => setView('passages');
@@ -365,11 +357,22 @@ export default function App() {
         questions={questions}
         group={group}
         pool={allReady}
-        heading={quizMode === 'review' ? '错词复习' : undefined}
         themeKey={theme.key}
         onTheme={setTheme}
         onBack={goHome}
         onComplete={completeQuiz}
+        onSpeak={onSpeak}
+      />
+    );
+  } else if (view === 'reviewSession') {
+    screen = (
+      <ReviewSession
+        items={reviewItems}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={goHome}
+        onGrade={reviewGrade}
+        onFinish={finishReview}
         onSpeak={onSpeak}
       />
     );
@@ -445,17 +448,11 @@ export default function App() {
         group={group}
         themeKey={theme.key}
         onTheme={setTheme}
-        onReplay={result.mode === 'review' ? startReview : replay}
+        onReplay={replay}
         onNext={goNext}
         onHome={goHome}
         hasNext={nextGroup != null}
-        onBrowse={() =>
-          startBrowse(
-            sessionWords,
-            result.mode === 'review' ? '错词复习' : `第 ${group} 关`,
-            'result'
-          )
-        }
+        onBrowse={() => startBrowse(sessionWords, `第 ${group} 关`, 'result')}
       />
     );
   } else if (view === 'search') {

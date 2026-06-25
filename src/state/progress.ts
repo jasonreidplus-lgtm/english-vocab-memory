@@ -3,12 +3,11 @@
    存:已通关关卡 / 星级 / 累计 XP / 连胜 / 错词池 / 画风选择。
    ============================================================ */
 import { DEFAULT_THEME } from '../config/themes';
+import { isDue } from '../lib/fsrs';
 import type { Progress, LevelState, Summary, Level, WrongEntry } from '../types';
 
 export const STORAGE_KEY = 'wordquest:v1';
 export const DAILY_GOAL = 20; // 默认每日目标(词)
-// 间隔复习(天)：错词答对逐级 1→2→4→7→15，再答对即毕业移出错词本；答错回到第 1 级
-export const SRS_INTERVALS = [1, 2, 4, 7, 15];
 
 // 本地日期 key：YYYY-MM-DD
 export function dayKey(d: Date | number = new Date()): string {
@@ -132,15 +131,22 @@ export function summarize(levels: Level[], progress: Progress): Summary {
   return { readyCount, clearedCount, wrongCount, learnedWords, totalGroups: levels.length };
 }
 
-// —— 间隔复习：到期待复习的词 id（due<=今天，或旧数据无 due 视为到期） ——
-export function dueReviewIds(progress: Progress, today: string = dayKey()): string[] {
+// —— 间隔复习：到期待复习的词 id ——
+// 新数据看 FSRS card.due；旧存档(无 card)回退看旧 due 日期；按到期早晚排序
+function dueTs(e: WrongEntry | undefined): number {
+  if (e?.card) return new Date(e.card.due).getTime();
+  if (e?.due) return new Date(`${e.due}T00:00:00`).getTime();
+  return 0; // 无任何排期信息 → 视为最早到期
+}
+export function dueReviewIds(progress: Progress, now: Date = new Date()): string[] {
+  const today = dayKey(now);
   return Object.entries(progress.wrong || {})
-    .filter(([, e]: [string, WrongEntry]) => !e || !e.due || e.due <= today)
-    .sort((a, b) => String((a[1] && a[1].due) || '').localeCompare(String((b[1] && b[1].due) || '')))
+    .filter(([, e]: [string, WrongEntry]) => (e?.card ? isDue(e.card, now) : !e || !e.due || e.due <= today))
+    .sort((a, b) => dueTs(a[1]) - dueTs(b[1]))
     .map(([id]) => id);
 }
-export function dueCount(progress: Progress, today: string = dayKey()): number {
-  return dueReviewIds(progress, today).length;
+export function dueCount(progress: Progress, now: Date = new Date()): number {
+  return dueReviewIds(progress, now).length;
 }
 
 // 累计正确率(%)
