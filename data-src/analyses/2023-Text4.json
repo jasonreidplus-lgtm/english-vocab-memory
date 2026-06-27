@@ -1,0 +1,50 @@
+{
+  "2023-T4-P1-S20": {
+    "trunk": "状语 + 冒号 + 祈使句：for authors who …: when …, do not oblige and do report …（对希望远离引用卡特尔的作者：当…时，请勿照办，并务必上报）",
+    "structure": [
+      "状语(for…)：And for authors who wish to steer clear of citation cartel activities",
+      "  └ 定语从句〔who，修饰 authors〕：who wish to steer clear of citation cartel activities",
+      "冒号后（祈使句）：",
+      "  ├ 时间状语从句(when)：when an editor, a reviewer, or a support service asks you to add inappropriate references（ask sb to do）",
+      "  └ 并列祈使句：do not oblige and do report the request to the journal（do report 中 do 表强调）"
+    ],
+    "logic": "for authors who…（who 定语从句修饰 authors）作状语；冒号引出建议（祈使句）；when… 时间状语从句（ask sb to do）；并列祈使 do not oblige and do report（do 强调）。",
+    "notes": [
+      "for authors who wish to steer clear of…：who 定语从句修饰 authors；steer clear of 避开。",
+      "when … asks you to add …：when 时间状语从句；ask sb to do。",
+      "do not oblige and do report：并列祈使句；do report 中 do 表强调（务必上报）。"
+    ]
+  },
+  "2023-T4-P1-S8": {
+    "trunk": "S+V + 冒号展开：another expression of this predatory behavior has emerged（这种掠夺行为的又一表现已经出现）",
+    "structure": [
+      "主句：Recently, another expression of this predatory behavior has emerged",
+      "冒号后（展开）：so-called support service consultancies … sometimes advise contributors to add a number of citations to their articles",
+      "  ├ 定语从句〔that，修饰 consultancies〕：that provide language and other editorial support to individual authors and to journals",
+      "  └ advise sb to do：advise contributors to add…"
+    ],
+    "logic": "主句 another expression has emerged；冒号引出具体内容：consultancies（that 定语从句修饰）advise sb to do（建议…添加引用）。",
+    "notes": [
+      "冒号后展开 emerged 的具体内容。",
+      "consultancies that provide … support to …：that 定语从句修饰 consultancies（主谓被定语从句隔开）。",
+      "advise sb to do：建议某人做…（advise contributors to add citations）。"
+    ]
+  },
+  "2023-T4-P1-S7": {
+    "trunk": "S+V+O：researchers developed an algorithm to recognize suspicious citation patterns（研究者开发了一种算法以识别可疑的引用模式）",
+    "structure": [
+      "状语：In 2016",
+      "主句：researchers developed an algorithm to recognize suspicious citation patterns",
+      "  ├ 不定式作定语〔修饰 algorithm〕：to recognize suspicious citation patterns",
+      "  └ including… 作定语/补充〔列举 patterns〕：including groups of authors … and groups of journals …",
+      "      ├ 定语从句〔that，修饰 groups of authors〕：that disproportionately cite one another",
+      "      └ 定语从句〔that，修饰 groups of journals〕：that cite each other frequently to increase the impact factors of their publications（to increase… 目的）"
+    ],
+    "logic": "主句 developed an algorithm（to recognize… 不定式定语）；including… 列举 patterns（两个 that 定语从句分别修饰 groups of authors 和 groups of journals）；to increase… 目的。",
+    "notes": [
+      "to recognize suspicious citation patterns：不定式作定语修饰 algorithm。",
+      "including groups of authors that… and groups of journals that…：including 列举，两个 that 定语从句各修饰自己的中心词。",
+      "cite each other frequently to increase the impact factors：to increase… 目的状语（互引以抬高影响因子）。"
+    ]
+  }
+}

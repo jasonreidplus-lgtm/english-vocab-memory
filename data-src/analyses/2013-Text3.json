@@ -1,0 +1,51 @@
+{
+  "2013-T3-P3-S4": {
+    "trunk": "祈使句+and+陈述句：Look up Homo sapiens …, and you will read: 「…」（查一下「智人」，你就会读到：「…」）",
+    "structure": [
+      "祈使句①：Look up Homo sapiens in the 「Red List」 of threatened species of the IUCN",
+      "and 连接结果句②：you will read: 「…」",
+      "引语：Listed as Least Concern as the species is very widely distributed, adaptable, currently increasing, and there are no major threats …",
+      "  ├ 过去分词作状语：Listed as Least Concern（被列为「无危」）",
+      "  └ 原因状语从句(as)：as the species is very widely distributed, adaptable, currently increasing, and there are no major threats resulting in an overall population decline",
+      "      └ 现在分词作定语〔修饰 threats〕：resulting in an overall population decline"
+    ],
+    "logic": "「祈使句 + and + 陈述句」表条件结果（去查…，你就会读到…）；引语中 Listed as… 过去分词作状语，as 引导原因从句，resulting in… 现在分词修饰 threats。",
+    "notes": [
+      "Look up…, and you will read…：「祈使句 + and」表条件结果。",
+      "Listed as Least Concern：过去分词短语作状语（被列为「无危」物种）。",
+      "as 引导原因状语从句；resulting in… 现在分词作定语修饰 threats。（原文 Concentration 应为 Conservation，IUCN=世界自然保护联盟）"
+    ]
+  },
+  "2013-T3-P6-S2": {
+    "trunk": "S+V+O：the past holds the key to the future（过去握有通向未来的钥匙）",
+    "structure": [
+      "状语：As so often（一如既往）",
+      "主句：the past holds the key to the future",
+      "冒号后（展开）：we have now identified enough of the long-term patterns … to make evidence-based forecasts about the situations …",
+      "  ├ 现在分词作定语〔修饰 patterns〕：shaping the history of the planet, and our species",
+      "  ├ 不定式作目的(enough…to do)：to make evidence-based forecasts about the situations",
+      "  └ 定语从句〔in which，修饰 situations〕：in which our descendants will find themselves"
+    ],
+    "logic": "As so often 状语；主句 the past holds the key；冒号展开：identified enough of patterns（shaping… 现在分词定语），enough…to make forecasts（目的）；in which 定语从句修饰 situations。",
+    "notes": [
+      "enough of the … patterns … to make …：enough…to do 结构（已识别出足够多的模式，足以做出…预测）。",
+      "shaping the history of the planet 现在分词作定语修饰 patterns。",
+      "in which our descendants will find themselves：in which 定语从句修饰 situations（后代将置身其中的处境）。"
+    ]
+  },
+  "2013-T3-P3-S3": {
+    "trunk": "祈使句+and+形式主语：Take a broader look …, and it becomes clear that …（放眼看…，就会清楚…）",
+    "structure": [
+      "祈使句①：Take a broader look at our species' place in the universe",
+      "and 连接②（形式主语 it）：it becomes clear that we have an excellent chance of surviving for tens, if not hundreds, of thousands of years",
+      "  ├ 主语从句(that，it 形式主语)：that we have an excellent chance of surviving …",
+      "  └ 插入：if not hundreds（即便不是数十万年）"
+    ],
+    "logic": "「祈使句 + and + it becomes clear that…」表条件结果；it 形式主语，真正主语是 that 从句；if not hundreds 插入（递进让步）。",
+    "notes": [
+      "Take…, and it becomes clear that…：祈使句+and 表条件结果；it 形式主语，真正主语是 that 从句。",
+      "tens, if not hundreds, of thousands of years：if not hundreds 插入（数万、甚至数十万年）。",
+      "chance of surviving：of + 动名词作 chance 的定语。"
+    ]
+  }
+}

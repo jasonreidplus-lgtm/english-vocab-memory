@@ -1,0 +1,53 @@
+{
+  "2016-T4-P4-S3": {
+    "trunk": "引语：we're going to have questions like that where …；it's better to be more aggressive than less aggressive",
+    "structure": [
+      "句①：we're going to have questions like that where we have things … that don't make sense …",
+      "  └ 定语从句〔where，修饰 questions〕：where we have things we're doing that don't make sense when the market changes and the world changes",
+      "      ├ 定语从句〔省略关系词，修饰 things〕：we're doing",
+      "      └ 定语从句〔that，修饰 things〕：that don't make sense when the market changes and the world changes",
+      "          └ 时间状语从句(when)：when the market changes and the world changes",
+      "句②（形式主语 it）：In those situations, it's better to be more aggressive than less aggressive"
+    ],
+    "logic": "句① questions … where…（where 定语从句），内含 (that) we're doing 与 that don't make sense（两层定语修饰 things），when… 时间状语；句② it's better to do（it 形式主语）。",
+    "notes": [
+      "where we have things (that) we're doing that don't make sense：where 定语从句内再套两层修饰 things 的定语从句（一层省略关系词，一层 that）。",
+      "it's better to be more aggressive than less aggressive：it 形式主语；（原文 aggressive that 应为 than）。",
+      "when the market changes and the world changes：时间状语从句。"
+    ]
+  },
+  "2016-T4-P1-S10": {
+    "trunk": "引语(动名词主语)+he said+but从句：Figuring out a way … would make sense … but if you discontinue it, …",
+    "structure": [
+      "引语前半：Figuring out a way to accelerate that transition would make sense for them",
+      "  ├ 动名词作主语：Figuring out a way to accelerate that transition",
+      "  └ 不定式作定语〔修饰 way〕：to accelerate that transition",
+      "插入：he said",
+      "引语后半(but + if)：but if you discontinue it, you're going to have your most loyal customers really upset with you",
+      "  ├ 条件状语从句(if)：if you discontinue it",
+      "  └ 主句：you're going to have your most loyal customers really upset with you（have + 宾语 + 宾补 upset）"
+    ],
+    "logic": "引语前半 动名词主语 Figuring out… would make sense；he said 插入；后半 but + if 条件从句 + 主句 have sb upset（使…不满，have+宾+宾补）。",
+    "notes": [
+      "Figuring out a way…：动名词短语作主语；to accelerate… 不定式修饰 way。",
+      "he said 是插入语，分隔引语前后。",
+      "have your most loyal customers really upset：have + 宾语 + 宾补（使最忠实的客户很不满）。"
+    ]
+  },
+  "2016-T4-P1-S5": {
+    "trunk": "分号并列：The infrastructure … isn't just expensive; it's excessive …（…基础设施不只是昂贵，更是过剩）",
+    "structure": [
+      "分句①：The infrastructure … isn't just expensive",
+      "  ├ 过去分词作定语〔修饰 infrastructure〕：required to make a physical newspaper",
+      "  └ 破折号插入（举例）：printing presses, delivery trucks",
+      "分号并列分句②：it's excessive at a time when online-only competitors don't have the same set of financial constraints",
+      "  └ 定语从句〔when，修饰 a time〕：when online-only competitors don't have the same set of financial constraints"
+    ],
+    "logic": "主语 infrastructure 被 required to make…（过去分词定语）+ 破折号插入 隔开谓语 isn't（主谓分隔）；分号接并列分句②，when 定语从句修饰 a time。",
+    "notes": [
+      "主谓分隔：主语 The infrastructure 与谓语 isn't 被 required to make a physical newspaper（过去分词定语）和破折号插入隔开。",
+      "required to make…：过去分词作定语修饰 infrastructure（制作纸质报纸所需的基础设施）。",
+      "when 引导定语从句修饰 a time；online-only competitors 纯线上竞争者。"
+    ]
+  }
+}

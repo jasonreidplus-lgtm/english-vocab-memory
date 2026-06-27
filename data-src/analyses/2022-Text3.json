@@ -1,0 +1,48 @@
+{
+  "2022-T3-P1-S16": {
+    "trunk": "时间从句+主句：As …, the centre was … looking to a time when …（随着…，该中心同时憧憬着一个…的时代）",
+    "structure": [
+      "时间状语从句(As)：As science and technology progressed, and divided into more sub-disciplines（并列谓语 progressed / divided）",
+      "主句：the centre was simultaneously looking to a time …",
+      "  └ 定语从句〔when，修饰 a time〕：when leading researchers could also be artists, writers and poets, and vice versa"
+    ],
+    "logic": "As 时间从句（随着…，并列谓语 progressed/divided）；主句 the centre was looking to a time；when 定语从句修饰 a time（and vice versa 反之亦然）。",
+    "notes": [
+      "As 引导时间状语从句（随着…），从句内并列谓语 progressed and divided。",
+      "look to a time when…：when 定语从句修饰 a time（憧憬一个…的时代）。",
+      "and vice versa：反之亦然（艺术家也可以是科学家）。"
+    ]
+  },
+  "2022-T3-P1-S3": {
+    "trunk": "并列双分句(;and)：① Nearly 40% … said they had collaborated … ② almost all said they would consider doing so …",
+    "structure": [
+      "分句①：Nearly 40% of the roughly 350 people … said (that) they had collaborated with artists",
+      "  ├ 定语从句〔who，修饰 people〕：who responded to an accompanying poll",
+      "  └ 宾语从句(省略 that)：they had collaborated with artists",
+      "分号 + and 分句②：almost all said they would consider doing so in future",
+      "  └ 宾语从句(省略 that)：they would consider doing so in future"
+    ],
+    "logic": "分句① 主语 40% of the people（who 定语从句修饰），said (that)…；分号+and 接分句② almost all said (that)…；doing so 替代前文动作。",
+    "notes": [
+      "who responded to an accompanying poll：who 定语从句修饰 people。",
+      "said (that) they had collaborated…：省略 that 的宾语从句。",
+      "consider doing so：consider + 动名词；doing so 替代 collaborating with artists。"
+    ]
+  },
+  "2022-T3-P1-S17": {
+    "trunk": "并列双分句(but)：① findings suggest that this trend is as strong as ever ② both sides need to invest time, and embrace …",
+    "structure": [
+      "分句①：Nature's poll findings suggest that this trend is as strong as ever",
+      "  └ 宾语从句(that)：this trend is as strong as ever",
+      "并列(but)分句②：both sides need to invest time, and embrace surprise and challenge",
+      "  ├ 不定式作目的状语(插入)：to make a collaboration work（make + 宾 + 宾补 work）",
+      "  └ 并列不定式(need to)：to invest time, and (to) embrace surprise and challenge"
+    ],
+    "logic": "but 连接两分句；分句① suggest that…（as strong as ever）；分句② to make…work 目的状语插入，主句 both sides need to invest… and embrace…（并列不定式）。",
+    "notes": [
+      "as strong as ever：as…as ever（一如既往地强劲）。",
+      "to make a collaboration work：不定式作目的状语（make + 宾语 + 宾补 work，使合作奏效）。",
+      "need to invest… and embrace…：need to 后并列不定式。"
+    ]
+  }
+}

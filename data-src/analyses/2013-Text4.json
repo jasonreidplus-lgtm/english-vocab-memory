@@ -1,0 +1,46 @@
+{
+  "2013-T4-P5-S1": {
+    "trunk": "S+并列谓语：Two of the three objecting Justices … agreed … but disagreed …（三位持异议法官中的两位 认同…但不认同…）",
+    "structure": [
+      "主句主语：Two of the three objecting Justices",
+      "  └ 破折号同位语〔点明那两位〕：Samuel Alito and Clarence Thomas",
+      "并列谓语(but)：agreed with this Constitutional logic / disagreed about which Arizona rules conflicted with the federal statute",
+      "  └ 宾语从句(which，作 about 的宾语)：which Arizona rules conflicted with the federal statute"
+    ],
+    "logic": "主语 Two of the three… Justices（破折号同位语点名）；并列谓语 agreed but disagreed；about 后 which 引导宾语从句。",
+    "notes": [
+      "破折号夹的 Samuel Alito and Clarence Thomas 是同位语（点明那两位法官）。",
+      "并列谓语：agreed with… but disagreed about…。",
+      "which Arizona rules conflicted…：which 引导介词 about 的宾语从句（哪些亚利桑那规定与联邦法冲突）。"
+    ]
+  },
+  "2013-T4-P4-S1": {
+    "trunk": "S+V+O：the Justices said that …（法官们表示…）",
+    "structure": [
+      "状语：However",
+      "主句：the Justices said that …",
+      "  └ 宾语从句(that)：Arizona police would be allowed to verify the legal status of people …",
+      "      └ 定语从句〔who，修饰 people〕：who come in contact with law enforcement"
+    ],
+    "logic": "that 引导 said 的宾语从句；be allowed to do 被动（获准）；who 定语从句修饰 people。",
+    "notes": [
+      "that 引导 said 的宾语从句。",
+      "be allowed to do：被动（获准做…）。",
+      "who come in contact with law enforcement：who 定语从句修饰 people；come in contact with 与…接触。"
+    ]
+  },
+  "2013-T4-P1-S2": {
+    "trunk": "S+be+表：the decision was an 8-0 defeat for the Administration's effort（这一裁决是对政府那一努力 8 比 0 的挫败）",
+    "structure": [
+      "状语：But on the more important matter of the Constitution",
+      "主句：the decision was an 8-0 defeat for the Administration's effort",
+      "  └ 不定式作定语〔修饰 effort〕：to upset the balance of power between the federal government and the states"
+    ],
+    "logic": "主系表（the decision was a defeat for the effort）；to upset… 不定式修饰 effort；between… 介词短语修饰 balance of power。",
+    "notes": [
+      "the decision was an 8-0 defeat for … effort：主系表结构。",
+      "to upset the balance of power 不定式作定语修饰 effort（打破权力平衡的努力）。",
+      "upset 在此=打破、扰乱；between the federal government and the states 修饰 balance of power。"
+    ]
+  }
+}

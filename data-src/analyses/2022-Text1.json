@@ -1,0 +1,51 @@
+{
+  "2022-T1-P1-S9": {
+    "trunk": "引语(主句+because) + 倒装提示语：「Certain artifacts are especially vulnerable because …」 says Thea van Oosten …",
+    "structure": [
+      "引语：Certain artifacts are especially vulnerable because some pioneers in plastic art didn't always know how to mix ingredients properly",
+      "  └ 原因状语从句(because)：because some pioneers … didn't always know how to mix ingredients properly（how + 不定式作 know 的宾语）",
+      "倒装提示语：says Thea van Oosten, a polymer chemist who …（= Thea van Oosten says）",
+      "  └ 同位语〔说明 Thea van Oosten〕：a polymer chemist",
+      "      └ 定语从句〔who，修饰 a polymer chemist〕：who, until retiring a few years ago, worked for decades at the Cultural Heritage Agency of the Netherlands"
+    ],
+    "logic": "引语 artifacts are vulnerable because…（how to mix… 宾语）；says + 主语 倒装；a polymer chemist 同位语，who 定语从句修饰（until retiring… 插入时间状语）。",
+    "notes": [
+      "says Thea van Oosten…：引语提示语的倒装（= … says）；a polymer chemist 是其同位语。",
+      "know how to mix ingredients properly：how + 不定式作 know 的宾语。",
+      "who, until retiring a few years ago, worked…：who 定语从句修饰 a polymer chemist，until retiring… 是插入的时间状语。"
+    ]
+  },
+  "2022-T1-P1-S23": {
+    "trunk": "S+V+O：Joana Lia Ferreira … notes that …（费雷拉指出…）",
+    "structure": [
+      "主句：Joana Lia Ferreira … notes that …",
+      "  ├ 同位语〔说明 Ferreira〕：an assistant professor of conservation and restoration at the NOVA School of Science and Technology",
+      "  └ 宾语从句(that)：archaeologists first defined the great material ages of human history … after examining artifacts in museums",
+      "      ├ 破折号同位列举〔说明 the great material ages〕：Stone Age, Iron Age, and so on",
+      "      └ 时间状语(after + V-ing)：after examining artifacts in museums"
+    ],
+    "logic": "主语 Ferreira（同位语很长，造成主谓分隔），谓语 notes that…；宾语从句 defined the great material ages（破折号列举 Stone Age… 同位）；after examining… 时间状语。",
+    "notes": [
+      "主谓分隔：主语 Joana Lia Ferreira 与谓语 notes 被长同位语隔开。",
+      "破折号夹的 Stone Age, Iron Age, and so on 是 the great material ages 的同位列举。",
+      "after examining artifacts in museums：after + 动名词作时间状语（在考察…之后）。"
+    ]
+  },
+  "2022-T1-P1-S24": {
+    "trunk": "S+V：We now live in an age of plastic（我们如今生活在塑料时代）",
+    "structure": [
+      "主句：We now live in an age of plastic",
+      "  └ 插入语：she says",
+      "引语：what we decide to collect today, what we decide to preserve … will have a strong impact on how in the future we'll be seen",
+      "  ├ 并列主语从句(what)：what we decide to collect today / what we decide to preserve",
+      "  ├ 谓语：will have a strong impact on …",
+      "  └ 介词宾语从句(how)：how in the future we'll be seen"
+    ],
+    "logic": "主句 We live in an age of plastic（she says 插入）；引语主语是两个并列 what 从句，谓语 will have impact on…；how… 宾语从句。",
+    "notes": [
+      "she says 是插入语。",
+      "what we decide to collect…, what we decide to preserve…：两个并列 what 主语从句作引语主语。",
+      "a strong impact on how … we'll be seen：how 引导介词 on 的宾语从句（对将来我们如何被看待…）。"
+    ]
+  }
+}

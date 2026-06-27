@@ -93,11 +93,12 @@ const isStop = (tok: string) => STOP.has(String(tok).toLowerCase().replace(/[^a-
 
 // tok 先查考研核心词库，未命中再查广义词典(dict 为可选的 {词:{t,p,pos}})；功能词不计为词条
 export function matchToken(tok: string, lookup: Lookup, dict?: DictData): Word | null {
+  if (isStop(tok)) return null; // 功能词(the/of/we/and/to/which…)一律不作为考研词高亮/计数——即使它们恰好被收进了核心词库
   for (const c of candidates(tok)) {
     const hit = lookup.get(c);
     if (hit) return hit;
   }
-  if (dict && !isStop(tok)) {
+  if (dict) {
     for (const c of candidates(tok)) {
       const e = dict[c];
       if (e) return { id: 'd:' + c, word: c, base_meaning: e.t, phonetic: e.p || '', pos: e.pos || '', _dict: true };

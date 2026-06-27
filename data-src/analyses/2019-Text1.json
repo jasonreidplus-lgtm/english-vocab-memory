@@ -1,0 +1,48 @@
+{
+  "2019-T1-P2-S2": {
+    "trunk": "S+V+O：He quotes a giant of classical economics, Alfred Marshall（他援引古典经济学巨擘马歇尔）",
+    "structure": [
+      "主句：He quotes a giant of classical economics",
+      "  └ 同位语〔说明 a giant〕：Alfred Marshall",
+      "方式状语(in + V-ing)：in describing this financial impatience as acting like 「children who pick the plums out of their pudding to eat them at once」 rather than putting them aside to be eaten last",
+      "  ├ describe A as B：describe this financial impatience as acting like…",
+      "  ├ 定语从句〔who，修饰 children〕：who pick the plums out of their pudding to eat them at once（to eat… 目的）",
+      "  └ rather than 对比并列动名词：acting like… rather than putting them aside to be eaten last"
+    ],
+    "logic": "主句 He quotes Marshall（同位语）；in describing… 方式状语（describe A as B）；who 定语从句修饰 children；rather than 对比两个动名词（acting like… rather than putting…）。",
+    "notes": [
+      "Alfred Marshall 是 a giant of classical economics 的同位语。",
+      "describe A as B：把…形容为…；in describing… 作方式/伴随状语。",
+      "acting like… rather than putting…：rather than 连接对比的并列动名词；who 定语从句修饰 children；to eat them at once 目的状语。"
+    ]
+  },
+  "2019-T1-P1-S4": {
+    "trunk": "S+V+介宾：officials also hope for a much larger benefit（官员们还指望一个大得多的好处）",
+    "structure": [
+      "主句：Yet officials also hope for a much larger benefit",
+      "冒号后（同位说明 benefit）：more long-term decision-making, not only by banks but by all corporations, to build a stronger economy for future generations",
+      "  ├ not only…but… 并列：not only by banks but by all corporations",
+      "  └ 不定式作目的：to build a stronger economy for future generations"
+    ],
+    "logic": "主句 hope for a benefit；冒号引出 benefit 的具体内容（more long-term decision-making）；not only…but… 并列；to build… 目的。",
+    "notes": [
+      "冒号后是对 a much larger benefit 的同位说明。",
+      "not only by banks but by all corporations：not only…but (also)… 并列介词短语。",
+      "to build a stronger economy 不定式作目的状语。"
+    ]
+  },
+  "2019-T1-P4-S2": {
+    "trunk": "引语+倒装提示语：「There seems to be a predominance of short-term thinking …」 said Commissioner Daniel Gallagher …",
+    "structure": [
+      "引语：There seems to be a predominance of short-term thinking at the expense of long-term investing",
+      "  └ there seems to be：存在句 + seem（似乎存在）",
+      "倒装提示语：said Commissioner Daniel Gallagher of the US Securities and Exchange Commission in a speech this week（= … said）"
+    ],
+    "logic": "引语是 there seems to be…（存在句，at the expense of 以…为代价）；said + 主语 是引语提示语的倒装。",
+    "notes": [
+      "There seems to be…：there be 结构 + seem（似乎存在…）。",
+      "at the expense of…：以…为代价（牺牲长期投资）。",
+      "said Commissioner Daniel Gallagher…：引语提示语的倒装（= … said）。"
+    ]
+  }
+}

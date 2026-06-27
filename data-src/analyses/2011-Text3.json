@@ -1,0 +1,48 @@
+{
+  "2011-T3-P4-S3": {
+    "trunk": "S+V+O：Toyota Motor … alleviated some of the damage from its recall crisis（丰田汽车减轻了召回危机造成的部分损害）",
+    "structure": [
+      "主句：Toyota Motor … alleviated some of the damage from its recall crisis earlier this year with a … social-media response campaign",
+      "  ├ 插入语：for example",
+      "  └ 非限制性定语从句〔which，修饰 campaign〕：which included efforts to engage with consumers directly on sites such as Twitter and the social-news site Digg",
+      "      └ 不定式作定语〔修饰 efforts〕：to engage with consumers directly on sites…"
+    ],
+    "logic": "主干 Toyota alleviated the damage（with a campaign 表方式）；which 定语从句说明该 campaign 的内容；to engage… 不定式修饰 efforts。",
+    "notes": [
+      "for example 是插入语，夹在主语与谓语之间。",
+      "which 非限制性定语从句修饰 campaign；efforts to engage… 中不定式作定语。",
+      "alleviate 减轻；well-orchestrated 精心策划的；recall crisis 召回危机。"
+    ]
+  },
+  "2011-T3-P3-S1": {
+    "trunk": "S+V+O：The … technological changes … have also increased the risk（这些技术变革也加大了风险）",
+    "structure": [
+      "主句：The same dramatic technological changes … have also increased the risk …",
+      "  ├ 定语从句〔that，修饰 changes〕：that have provided marketers with more (and more diverse) communications choices",
+      "  └ 同位语从句〔that，说明 the risk〕：that passionate consumers will voice their opinions in quicker, more visible, and much more damaging ways"
+    ],
+    "logic": "主语 changes 后接 that 定语从句（修饰 changes）造成主谓分隔；主句谓语是 have also increased the risk；其后 that 引导同位语从句说明 the risk 的内容。",
+    "notes": [
+      "主谓分隔：主语 changes 与谓语 have also increased 被 that 定语从句隔开 —— 真正谓语是 have increased，不是从句里的 have provided。",
+      "两个 that 不同：第一个是定语从句（修饰 changes），第二个是同位语从句（说明 the risk）。",
+      "provide sb with sth 向某人提供；voice opinions 表达意见。"
+    ]
+  },
+  "2011-T3-P2-S7": {
+    "trunk": "S+三个并列谓语：the presence of other marketers makes …, gives …, and may help …（其他营销者的存在 使…、给…、并可能帮助…）",
+    "structure": [
+      "状语（Besides + V-ing）：Besides generating income",
+      "主句主语：the presence of other marketers",
+      "  ├ 并列谓语①：makes the site seem objective（make + 宾语 + 宾补 seem objective）",
+      "  ├ 并列谓语②：gives companies opportunities to learn valuable information about the appeal of other companies' marketing",
+      "  │   └ 不定式作定语〔修饰 opportunities〕：to learn valuable information…",
+      "  └ 并列谓语③(and)：may help expand user traffic for all companies concerned"
+    ],
+    "logic": "Besides generating income 作状语（除…之外）；一个主语 the presence 带三个并列谓语 makes/gives/may help；其中 to learn… 不定式修饰 opportunities；concerned 后置定语。",
+    "notes": [
+      "一个主语带三个并列谓语：makes…, gives…, and may help…。",
+      "makes the site seem objective：make + 宾语 + 宾补（动词原形 seem）。",
+      "all companies concerned：concerned 后置定语（相关的所有公司）；Besides + V-ing 除…之外。"
+    ]
+  }
+}

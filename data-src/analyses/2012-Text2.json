@@ -1,0 +1,52 @@
+{
+  "2012-T2-P4-S2": {
+    "trunk": "S+V+O：A string of accidents … raised serious questions（一连串事故引发了严重质疑）",
+    "structure": [
+      "主句：A string of accidents … raised serious questions about both Vermont Yankee's safety and Entergy's management",
+      "  ├ 现在分词介词作定语/插入〔列举 accidents〕：including the partial collapse of a cooling tower in 2007 and the discovery of an underground pipe system leakage",
+      "  ├ both…and… 并列：both Vermont Yankee's safety and Entergy's management",
+      "  └ 时间状语（破折号后）：especially after the company made misleading statements about the pipe"
+    ],
+    "logic": "主语 accidents 后 including… 列举（造成主谓分隔），谓语是 raised questions；both…and… 并列两个 about 对象；破折号 + after… 补充时间状语。",
+    "notes": [
+      "主谓分隔：主语 A string of accidents 与谓语 raised 被 including… 插入隔开。",
+      "including… 列举 accidents 的具体内容（介词，作定语/补充）。",
+      "both A and B 并列；raise questions about 对…提出质疑。"
+    ]
+  },
+  "2012-T2-P5-S2": {
+    "trunk": "S+be+表：The legal issues in the case are obscure（此案的法律问题晦暗不明）",
+    "structure": [
+      "主句：The legal issues in the case are obscure",
+      "冒号后（展开，whereas 对比）：",
+      "  ├ 对比状语从句(whereas)：whereas the Supreme Court has ruled that states do have some regulatory authority over nuclear power",
+      "  │   └ 宾语从句(that)：that states do have some regulatory authority over nuclear power",
+      "  └ 主句：legal scholars say that Vermont case will offer a precedent-setting test of how far those powers extend",
+      "      └ 宾语从句(that)：that … will offer a precedent-setting test of how far those powers extend",
+      "          └ 介词宾语从句(how，作 of 的宾语)：how far those powers extend"
+    ],
+    "logic": "冒号引出对 obscure 的说明；whereas 引导对比/让步状语从句（然而最高法已裁定…）；主句 scholars say that…；how far… 是介词 of 的宾语从句。",
+    "notes": [
+      "whereas 引导对比状语从句（然而、尽管）。",
+      "do have：do 表强调（确实拥有）。",
+      "how far those powers extend 是介词 of 的宾语从句（这些权力延伸多远）。"
+    ]
+  },
+  "2012-T2-P2-S1": {
+    "trunk": "S+V+O：the company has done precisely what it had long promised it would not（该公司恰恰做了它长期承诺不会做的事）",
+    "structure": [
+      "状语：Instead",
+      "主句：the company has done precisely what it had long promised it would not",
+      "  └ 宾语从句(what)：what it had long promised it would not〔嵌套 promised (that) it would not (do)，句末省略 do〕",
+      "冒号后（对 what 的具体说明）：challenge the constitutionality of Vermont's rules in the federal court",
+      "  └ 状语(as part of…)：as part of a desperate effort to keep its Vermont Yankee nuclear power plant running",
+      "      └ 不定式作定语〔修饰 effort〕：to keep its … plant running"
+    ],
+    "logic": "what 引导宾语从句（it had long promised it would not (do)）；冒号引出 what 的具体内容（challenge…）；to keep… running 修饰 effort。",
+    "notes": [
+      "what it had long promised it would not：what 作 done 的宾语；内部嵌套 promised (that) it would not，句末省略 do。",
+      "冒号后 challenge… 是对 what 的具体说明（动词原形与 do 呼应）。",
+      "keep its plant running：keep + 宾语 + 现在分词（使…持续运转）。"
+    ]
+  }
+}

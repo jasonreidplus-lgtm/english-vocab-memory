@@ -1,0 +1,50 @@
+{
+  "2020-T4-P7-S1": {
+    "trunk": "S+be+表 + 冒号展开：France's planned tax is a clear warning（法国拟征之税是一记明确警告）",
+    "structure": [
+      "主句：France's planned tax is a clear warning",
+      "冒号后（展开警告内容）：Unless …, other nations are likely to follow suit, and American companies will face a cascade of different taxes …",
+      "  ├ 条件状语从句(Unless)：Unless a broad consensus can be reached on reforming the international tax system",
+      "  └ 并列主句(and)：other nations are likely to follow suit / American companies will face a cascade of different taxes from dozens of nations",
+      "      └ 定语从句〔that，修饰 taxes〕：that will prove burdensome and costly"
+    ],
+    "logic": "主句 tax is a warning；冒号展开：Unless 条件从句 + 两个并列主句（nations follow suit / companies will face taxes）；that 定语从句修饰 taxes（将被证明…）。",
+    "notes": [
+      "冒号后展开警告的内容；Unless 引导条件状语从句（除非…）。",
+      "and 连接两个并列主句（other nations… / American companies…）；follow suit 仿效跟进。",
+      "taxes … that will prove burdensome and costly：that 定语从句修饰 taxes（prove + 形容词 终将证明是…）。"
+    ]
+  },
+  "2020-T4-P1-S3": {
+    "trunk": "S+V+O(refer to A as B)：Many … have referred to this as a 「GAFA tax」（许多人把它称为「GAFA 税」）",
+    "structure": [
+      "主句：Many French politicians and media outlets have referred to this as a 「GAFA tax」",
+      "  └ refer to A as B：refer to this as a 「GAFA tax」",
+      "现在分词作结果状语：meaning that it is designed to apply primarily to companies such as Google, Apple, Facebook and Amazon",
+      "  ├ 宾语从句(that)：it is designed to apply primarily to companies…",
+      "  └ 破折号同位/换言：in other words, multinational tech companies based in the United States（based… 过去分词修饰 companies）"
+    ],
+    "logic": "主句 refer to A as B（把它称为…）；meaning that… 现在分词作结果状语（意思是…）；破折号 in other words… 是对前面 companies 的同位换言；based in… 过去分词定语。",
+    "notes": [
+      "refer to A as B：把 A 称为 B。",
+      "meaning that…：现在分词作结果/补充状语（意即…）。",
+      "in other words, multinational tech companies based in…：破折号引出同位换言；based in… 过去分词作定语。"
+    ]
+  },
+  "2020-T4-P5-S1": {
+    "trunk": "并列双分句(but)：① These … developments differ in their specifics ② they are all designed to tax multinationals …",
+    "structure": [
+      "分句①：These unilateral developments differ in their specifics",
+      "并列(but)分句②：they are all designed to tax multinationals on income and revenue …",
+      "  ├ be designed to do：旨在",
+      "  ├ 定语从句〔that，修饰 income and revenue〕：that countries believe they should have a right to tax（countries believe 为插入）",
+      "  └ 让步状语从句(even if)：even if international tax rules do not grant them that right"
+    ],
+    "logic": "but 连接两分句；分句② be designed to tax…；that 定语从句修饰 income and revenue（countries believe (that) they should have a right to tax，countries believe 插入）；even if 让步从句。",
+    "notes": [
+      "differ in：在…方面不同；be designed to do：旨在做…。",
+      "income and revenue that countries believe they should have a right to tax：that 定语从句修饰 income and revenue，countries believe 是插入（各国认为自己有权征税的…）。",
+      "even if 引导让步状语从句（即便…）；grant sb sth 授予。"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "2015-T4-P3-S1": {
+    "trunk": "S+V：the wider issue of dearth of integrity still stands（诚信匮乏这一更广的问题依然存在）",
+    "structure": [
+      "时间状语从句(As)：As the hacking trial concludes",
+      "  └ 破折号插入（现在分词作伴随，说明庭审结果）：finding guilty one ex-editor …, and finding his predecessor … innocent of the same charge",
+      "      └ find + 宾 + 宾补（并列）：finding [one ex-editor] guilty / finding [his predecessor] innocent",
+      "主句：the wider issue of dearth of integrity still stands",
+      "（后续独立句）：Journalists are known to have hacked the phones of up to 5,500 people"
+    ],
+    "logic": "As 引导时间状语从句（随着…落幕）；破折号夹的 finding… 现在分词作伴随状语（裁定…有罪、…无罪）；主句 the wider issue still stands；末句独立。",
+    "notes": [
+      "破折号夹的 finding … guilty … and finding … innocent 是现在分词作伴随状语（find + 宾语 + 宾补）。",
+      "As the hacking trial concludes：As 引导时间状语从句（随着庭审落幕）。",
+      "本条含两句；dearth of integrity 诚信匮乏；be known to have done 据悉曾…。"
+    ]
+  },
+  "2015-T4-P2-S1": {
+    "trunk": "现在分词状语+主句：Driving her point home, she continued: 「…」（为强调其观点，她接着说：「…」）",
+    "structure": [
+      "现在分词作状语：Driving her point home",
+      "主句：she continued: 「…」",
+      "引语（形式主语 it）：It's increasingly apparent that the absence of purpose … could become one of the most dangerous goals for capitalism and freedom",
+      "  ├ 主语从句(that)：that the absence of purpose … could become …",
+      "  └ of… 并列补充〔说明 the absence〕：of a moral language within government, media or business"
+    ],
+    "logic": "Driving her point home 现在分词作状语（强调观点）；主句 she continued；引语 it 形式主语，真正主语是 that 从句；of a moral language… 补充说明 the absence。",
+    "notes": [
+      "Driving her point home：现在分词短语作状语（drive one's point home 把观点讲透/强调）。",
+      "It's apparent that…：it 形式主语，真正主语是 that 从句。",
+      "the absence of purpose, of a moral language…：of… 并列补充（缺乏宗旨、缺乏道德话语）。"
+    ]
+  },
+  "2015-T4-P2-S2": {
+    "trunk": "S+V+O：This same absence of moral purpose was wounding companies …（这种道德目的的缺失正在损害…等公司）",
+    "structure": [
+      "主句：This same absence of moral purpose was wounding companies such as News International",
+      "  └ 插入语：she thought",
+      "现在分词作结果状语：making it more likely that it would lose its way …",
+      "  ├ make it（形式宾语）+ more likely + that 从句（真正宾语）：that it would lose its way",
+      "  └ 方式状语从句(as)：as it had with widespread illegal telephone hacking"
+    ],
+    "logic": "主句 the absence was wounding companies（she thought 插入）；making… 现在分词作结果状语（make it + 形容词 + that 从句，it 形式宾语）；as it had… 方式状语（如同它曾…）。",
+    "notes": [
+      "she thought 是插入语。",
+      "making it more likely that…：现在分词作结果状语；make it（形式宾语）+ more likely + that 从句（真正宾语）。",
+      "as it had (done) with…：as 引导方式状语从句（如同它在…中曾经那样）；lose one's way 迷失方向。"
+    ]
+  }
+}

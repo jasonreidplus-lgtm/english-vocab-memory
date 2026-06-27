@@ -1,0 +1,48 @@
+{
+  "2023-T3-P1-S13": {
+    "trunk": "S+V：It comes at a time when …（此事发生之际，作者们正担忧…）",
+    "structure": [
+      "主句：It comes at a time",
+      "  └ 定语从句〔when，修饰 a time〕：when authors are already worried about the consequences of the proposed merger between PRH and another big publisher",
+      "      └ 同位语〔说明 another big publisher〕：Simon & Schuster",
+      "破折号后（补充说明/独立分句）：the reduction in the number of unaligned UK publishers is likely to lead to fewer bidding wars, lower advances, and more conformity in terms of what is published",
+      "  ├ lead to + 三个并列宾语：fewer bidding wars, lower advances, and more conformity",
+      "  └ 介词宾语从句(what)：what is published（in terms of 的宾语）"
+    ],
+    "logic": "主句 It comes at a time（when 定语从句修饰 a time，Simon & Schuster 同位语）；破折号后补充说明（the reduction… is likely to lead to… 三个并列宾语，what is published 宾语从句）。",
+    "notes": [
+      "a time when…：when 定语从句修饰 a time；Simon & Schuster 是 another big publisher 的同位语。",
+      "破折号后是补充说明（合并的后果）；lead to + 三个并列宾语。",
+      "in terms of what is published：what 引导介词 in terms of 的宾语从句（在所出版内容方面）。"
+    ]
+  },
+  "2023-T3-P1-S1": {
+    "trunk": "条件+主句；分号并列：If you're heading for …, you might have to be prepared to hunt around a bit; the same may be true of …",
+    "structure": [
+      "条件状语从句(If)：If you're heading for your nearest branch of Waterstones in search of the Duchess of Sussex's new children's book The Bench（The Bench 为同位语）",
+      "主句：you might have to be prepared to hunt around a bit",
+      "分号并列分句：the same may be true of The President's Daughter, the new thriller by Bill Clinton and James Patterson（同位语补充）"
+    ],
+    "logic": "If 条件从句（in search of… 状语，The Bench 同位语）；主句 you might have to be prepared to…；分号接并列分句（the same may be true of…，同位语补充）。",
+    "notes": [
+      "If 引导条件状语从句；in search of 寻找；The Bench 是 book 的同位语。",
+      "be prepared to do：准备好做…；hunt around 四处搜寻。",
+      "the same may be true of…：分号并列分句（…也是如此）；the new thriller… 是 The President's Daughter 的同位语。"
+    ]
+  },
+  "2023-T3-P1-S14": {
+    "trunk": "S+V+O(if 宾语从句，错综虚拟)：one wonders if PRH would have been confident enough … if it weren't … such a big company …",
+    "structure": [
+      "主句：And one wonders if …",
+      "  └ 宾语从句(if)：PRH would have been confident enough to deal with Waterstones in the way it has if it weren't quite such a big company … and likely to get bigger",
+      "      ├ 定语从句〔省略 that，修饰 the way〕：it has (dealt)〔the way (that) it has，句末省略 dealt〕",
+      "      └ 虚拟条件从句(if)：if it weren't quite such a big company … and likely to get bigger（括号插入：it was formed with the merger of Penguin and Random House in 2013）"
+    ],
+    "logic": "one wonders if…（if 宾语从句，含虚拟）；in the way (that) it has (done) 定语从句修饰 the way；嵌套 if 虚拟条件从句（if it weren't… and (weren't) likely to get bigger）；括号插入补充。",
+    "notes": [
+      "wonders if…：if 引导 wonder 的宾语从句（是否…）。",
+      "would have been … if it weren't …：错综虚拟（主句对过去 would have been，条件对现在 weren't）。",
+      "in the way (that) it has：the way 后省略关系词的定语从句，句末省略 dealt；括号内是插入补充。"
+    ]
+  }
+}

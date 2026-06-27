@@ -1,0 +1,51 @@
+{
+  "2019-T4-P3-S1": {
+    "trunk": "S+V+O：The cases … said that …（被法院推翻的那些判例曾认定…）",
+    "structure": [
+      "主句：The cases … said that …",
+      "  ├ 定语从句〔省略关系词，修饰 The cases〕：the court overturned",
+      "  └ 宾语从句(that)：if a business was shipping …, the business didn't have to collect sales tax for the state",
+      "      ├ 条件状语从句(if)：if a business was shipping a customer's purchase to a state where the business didn't have a physical presence …",
+      "      │   └ 定语从句〔where，修饰 a state〕：where the business didn't have a physical presence such as a warehouse or office",
+      "      └ 主句（宾语从句内）：the business didn't have to collect sales tax for the state"
+    ],
+    "logic": "主语 The cases（(that) the court overturned 定语从句修饰）；said that…（宾语从句）；宾语从句内含 if 条件从句（where 定语从句修饰 a state）+ 主句。",
+    "notes": [
+      "The cases (that) the court overturned：cases 后省略关系词的定语从句（法院推翻的那些判例）。",
+      "said that…：宾语从句，内部又含 if 条件从句 + 主句（didn't have to collect tax）。",
+      "a state where…：where 定语从句修饰 a state（企业在该州无实体存在）。"
+    ]
+  },
+  "2019-T4-P1-S1": {
+    "trunk": "S+V+O(force sb to do)：States will be able to force more people to pay sales tax …（各州将能迫使更多人缴销售税）",
+    "structure": [
+      "主句：States will be able to force more people to pay sales tax when they make online purchases under a Supreme Court decision Thursday …",
+      "  ├ force sb to do：force more people to pay sales tax",
+      "  ├ 时间状语从句(when)：when they make online purchases",
+      "  ├ 状语(under)：under a Supreme Court decision Thursday",
+      "  └ 定语从句〔that，修饰 decision〕：that will leave shoppers with lighter wallets but is a big financial win for states（并列谓语 leave / is）"
+    ],
+    "logic": "主句 force sb to do（迫使更多人缴税）；when… 时间状语；under… 状语（依据…裁决）；that 定语从句修饰 decision（并列谓语 leave… but is…）。",
+    "notes": [
+      "force sb to do：迫使某人做…。",
+      "when they make online purchases：when 时间状语从句。",
+      "that will leave… but is…：that 定语从句修饰 decision，含并列谓语（leave shoppers with lighter wallets 让购物者钱包更瘪 / 对各州是财政利好）。"
+    ]
+  },
+  "2019-T4-P6-S1": {
+    "trunk": "S+V：many sellers … have been able to avoid charging sales taxes（迄今许多卖家得以避免征收销售税）",
+    "structure": [
+      "状语：Until now",
+      "主句：many sellers … have been able to avoid charging sales taxes when they ship to addresses outside those states",
+      "  ├ 定语从句〔that，修饰 sellers〕：that have a physical presence in only a single state or a few states",
+      "  ├ avoid + V-ing：avoid charging sales taxes",
+      "  └ 时间状语从句(when)：when they ship to addresses outside those states"
+    ],
+    "logic": "主语 sellers（that 定语从句修饰，造成主谓分隔），谓语 have been able to avoid charging…；when… 时间状语。",
+    "notes": [
+      "主谓分隔：主语 many sellers 与谓语 have been able 被 that 定语从句隔开。",
+      "avoid charging sales taxes：avoid + 动名词（避免征税）。",
+      "when they ship to addresses outside those states：when 时间状语从句。"
+    ]
+  }
+}

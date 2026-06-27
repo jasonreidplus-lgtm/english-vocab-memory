@@ -1,6 +1,6 @@
 /* 真题库词频：预计算的 public/data/freq.json（{词目: 次数}，由 scripts/build-freq.mjs 生成）。
    运行期直接查表，给阅读高亮词/闯关词标「出现次数」+ 分档颜色：1 灰 / 2-4 黄 / 5-7 红 / 8+ 黑。 */
-import type { Lookup } from '../types';
+import type { Lookup, Word } from '../types';
 import { candidates } from './annotate';
 import { dictData } from './dict';
 
@@ -42,6 +42,14 @@ export function freqOf(freq: Map<string, number> | null, token: string, lookup: 
   if (!freq) return 0;
   const k = lemmaKey(token, lookup);
   return k ? freq.get(k) || 0 : 0;
+}
+
+// 高亮门槛：真题词频 ≥ 此值的最高频基础词(the/time/world/even/turn…)不再高亮，只保留可点查，减少噪声。调大=高亮更多，调小=更克制。
+export const HL_FREQ_CAP = 8;
+/** 是否作为「重点词」高亮：考研核心词(非广义词典词) 且 真题词频未达最高频档(否则太常见、徒增视觉噪声) */
+export function isKeyHit(w: Word | null, token: string, lookup: Lookup, freq: Map<string, number> | null): boolean {
+  if (!w || w._dict) return false;
+  return freqOf(freq, token, lookup) < HL_FREQ_CAP;
 }
 export const freqLabel = (n: number): string => (n >= 8 ? '8+' : String(n));
 export const freqClass = (n: number): string =>

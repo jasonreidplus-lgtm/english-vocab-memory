@@ -1,0 +1,52 @@
+{
+  "2010-T1-P3-S1": {
+    "trunk": "S+be+表：We are (even farther) removed from the … newspaper reviews（我们离那些报纸评论更遥远）",
+    "structure": [
+      "主句：We are even farther removed from the unfocused newspaper reviews",
+      "  └ 过去分词作后置定语〔修饰 reviews〕：published in England between the turn of the 20th century and the eve of World War II",
+      "  └ 时间状语：at a time",
+      "      └ 定语从句〔when，修饰 a time〕：when newsprint was dirt-cheap and stylish arts criticism was considered an ornament to the publications",
+      "          ├ 并列分句①：newsprint was dirt-cheap",
+      "          └ 并列分句②(and)：stylish arts criticism was considered an ornament to the publications",
+      "              └ 定语从句〔in which，修饰 publications〕：in which it appeared"
+    ],
+    "logic": "published… 分词短语作定语修饰 reviews；when 引导定语从句修饰 a time，其内部两分句由 and 并列；最末 in which 定语从句修饰 publications。",
+    "notes": [
+      "be removed from 在此意为「远离 / 有距离」，不是「被移走」。",
+      "published… 是过去分词作后置定语（修饰 reviews），不是句子的谓语。",
+      "when 引导的是修饰 a time 的定语从句，不是时间状语从句。",
+      "生词：newsprint 新闻纸；dirt-cheap 极其便宜；ornament 装饰、点缀。"
+    ]
+  },
+  "2010-T1-P3-S5": {
+    "trunk": "引语主干（so … that 结果结构）：So few authors have … that I am tempted to define 'journalism' as …（鲜有作者… 以至于我想把「新闻业」定义为…）",
+    "structure": [
+      "插入语：Newman wrote（把一句直接引语劈成前后两半）",
+      "引语 = so few … that … 结果结构：",
+      "  主句：So few authors have brains enough or literary gift enough",
+      "    └ 不定式作状语〔修饰 enough〕：to keep their own end up in journalism",
+      "  结果状语从句(that)：that I am tempted to define 'journalism' as 'a term of contempt …'",
+      "      ├ 定语从句〔who，修饰前一 writers〕：writers who are not read",
+      "      └ 定语从句〔who，修饰后一 writers〕：writers who are〔are 后省略 read〕"
+    ],
+    "logic": "so few … that … 表结果（如此少…以至于…）；applied by…to… 过去分词作定语修饰 a term；两个 who 定语从句对比「not read（不被读）」与「are (read)（被读）」。",
+    "notes": [
+      "Newman wrote 是插入语，还原后引语是「So few … that I am tempted …」。",
+      "writers who are 后省略了 read（= writers who are read），与前面 who are not read 形成对比。",
+      "短语：keep one's end up 尽本分、不落下风；a term of contempt 蔑称。"
+    ]
+  },
+  "2010-T1-P4-S2": {
+    "trunk": "S+be known as：Neville Cardus is now known solely as a writer of essays on cricket（如今 N. 卡尔达斯仅以板球随笔作者闻名）",
+    "structure": [
+      "主句：Neville Cardus is now known solely as a writer of essays on the game of cricket",
+      "  └ 非限制性定语从句〔who，修饰 Neville Cardus，双逗号夹、可删〕：who wrote for the Manchester Guardian from 1917 until shortly before his death in 1975"
+    ],
+    "logic": "who 非限制性定语从句补充说明 Neville Cardus 的生平；与主句「如今只以板球随笔闻名」隐含「曾…如今却只…」的对比，宜拆译。",
+    "notes": [
+      "主谓分隔：主语 Neville Cardus 与谓语 is known 被 who 从句隔开，读时把两端复位。",
+      "非限制性定语从句（带逗号）宜拆译、另起一句，不要硬塞成「…的」。",
+      "短语：be known as 作为…而闻名；solely 仅仅、唯独。"
+    ]
+  }
+}

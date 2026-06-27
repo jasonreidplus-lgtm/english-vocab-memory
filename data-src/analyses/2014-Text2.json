@@ -1,0 +1,49 @@
+{
+  "2014-T2-P3-S3": {
+    "trunk": "there be：There is just one path for a lawyer in most American states（在多数美国州，当律师只有一条路）",
+    "structure": [
+      "主句(there be)：There is just one path for a lawyer in most American states",
+      "冒号后（对 path 的同位说明，三项并列）：a four-year undergraduate degree …, then a three-year law degree …, and an expensive preparation for the bar exam",
+      "  └ 过去分词作定语〔修饰 law schools〕：authorized by the American Bar Association"
+    ],
+    "logic": "there be one path；冒号引出 path 的具体内容（三个并列名词短语：本科学位、法学学位、备考）；authorized by… 过去分词定语修饰 law schools。",
+    "notes": [
+      "冒号后是对 one path 的同位说明，三个并列名词短语（degree, then degree…, and preparation）。",
+      "authorized by the American Bar Association：过去分词作定语修饰 law schools。",
+      "there be 结构：真正主语是 one path。"
+    ]
+  },
+  "2014-T2-P5-S4": {
+    "trunk": "并列双分句(but)：① There is pressure for change … ② opponents … insist that …（行业内有变革压力，但反对者坚称…）",
+    "structure": [
+      "分句①(there be)：There is pressure for change from within the profession",
+      "并列(but)分句②：opponents of change among the regulators insist that …",
+      "  └ 宾语从句(that)：keeping outsiders out of a law firm isolates lawyers from the pressure …",
+      "      ├ 动名词作主语：keeping outsiders out of a law firm",
+      "      └ 不定式作定语〔修饰 pressure〕：to make money rather than serve clients ethically"
+    ],
+    "logic": "but 连接两分句；分句② insist that…，从句主语是动名词 keeping…，谓语 isolates A from B；to make money rather than serve… 修饰 pressure。",
+    "notes": [
+      "that 宾语从句的主语是动名词 keeping outsiders out of a law firm（把外人挡在所外）。",
+      "isolate A from B 使 A 与 B 隔绝；the pressure to make money rather than serve clients ethically：不定式作定语修饰 pressure。",
+      "rather than 连接对比（赚钱 而非 有道德地服务客户）。"
+    ]
+  },
+  "2014-T2-P6-S1": {
+    "trunk": "动名词主语+并列谓语：allowing … would reduce costs and improve services（允许非律师持股 会降成本、提升服务）",
+    "structure": [
+      "状语：In fact",
+      "主句主语（动名词）：allowing non-lawyers to own shares in law firms",
+      "并列谓语：would reduce costs and improve services to customers",
+      "方式状语(by + V-ing)：by encouraging law firms to use technology and to employ professional managers to focus on improving firms' efficiency",
+      "  ├ encourage sb to do（两个并列不定式）：to use technology / to employ professional managers",
+      "  └ 不定式作目的：to focus on improving firms' efficiency"
+    ],
+    "logic": "动名词短语 allowing… 作主语；并列谓语 would reduce… and improve…；by encouraging… 方式状语，其中 encourage sb to do（两个并列不定式）+ to focus on… 目的。",
+    "notes": [
+      "主语是动名词短语 allowing non-lawyers to own shares…（允许非律师持股）。",
+      "by encouraging… 方式状语；encourage sb to do 两个并列不定式 to use… and to employ…。",
+      "would reduce costs and improve services 并列谓语；focus on improving 专注于改进。"
+    ]
+  }
+}

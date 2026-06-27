@@ -1,0 +1,53 @@
+{
+  "2010-T3-P4-S1": {
+    "trunk": "S+V+介宾：The researchers' argument stems from a simple observation about social influence（研究者的论点源于一个关于社会影响的简单观察）",
+    "structure": [
+      "主句：The researchers' argument stems from a simple observation about social influence",
+      "  └ 冒号后（对 observation 的具体说明 = 同位内容）：even the most influential members of a population simply don't interact with that many others",
+      "      ├ 状语（除…之外，表排除）：With the exception of a few celebrities like Oprah Winfrey",
+      "      └ 非限制性定语从句〔whose，破折号夹、修饰 Oprah Winfrey〕：whose outsize presence is primarily a function of media, not interpersonal, influence"
+    ],
+    "logic": "冒号引出 observation 的具体内容；With the exception of… 作让步状语；破折号夹的 whose 从句插入说明 Oprah；该句核心是「even the most influential members … don't interact with that many others」。",
+    "notes": [
+      "（原文 observing 应为 observation，疑笔误。）",
+      "破折号夹的 whose… 是插入的非限制性定语从句；提出后主干「members … don't interact with that many others」复位。",
+      "a function of media, not interpersonal, influence = 主要由媒体（而非人际）影响造就；not interpersonal 是插入修正。",
+      "that many = 那么多；outsize 超大的。"
+    ]
+  },
+  "2010-T3-P4-S3": {
+    "trunk": "并列双分句（;and 连接）：① each person … must influence his or her acquaintances ② how many others pay attention … has little to do with the initial influential",
+    "structure": [
+      "目的状语(不定式)：For a social epidemic to occur（for + 逻辑主语 + to do）",
+      "插入语：however",
+      "分句①：each person so affected must then influence his or her own acquaintances",
+      "  ├ 过去分词作定语〔修饰 person〕：so affected（= being so affected 这样受影响的）",
+      "  └ 非限制性定语从句〔who，修饰 acquaintances〕：who must in turn influence theirs, and so on",
+      "分号 + and 连接分句②：just how many others pay attention to each of these people has little to do with the initial influential",
+      "  └ 主语从句(how)：just how many others pay attention to each of these people"
+    ],
+    "logic": "For…to occur 不定式作目的状语；分句①主干「person must influence acquaintances」，who 定语从句修饰 acquaintances；分号后 and 接并列分句②，其主语是 how 引导的主语从句。",
+    "notes": [
+      "For a social epidemic to occur 是「for + 名词 + to do」结构作目的状语（为了…发生）。",
+      "so affected = 这样受影响的（过去分词作后置定语，修饰 person）。",
+      "分句②主语是主语从句「how many others pay attention to…」，谓语是 has little to do with。",
+      "have little to do with 与…几乎无关；in turn 反过来、依次。"
+    ]
+  },
+  "2010-T3-P1-S1": {
+    "trunk": "S+V+O：Malcolm Gladwell argues that …（格拉德威尔主张…）",
+    "structure": [
+      "状语：In his book The Tipping Point",
+      "主句：Malcolm Gladwell argues that …",
+      "  └ 宾语从句(that)：「social epidemics」 are driven in large part by the action of a tiny minority of special individuals",
+      "      ├ 过去分词短语作定语〔修饰 individuals〕：often called influentials",
+      "      └ 非限制性定语从句〔who，修饰 individuals〕：who are unusually informed, persuasive, or well-connected"
+    ],
+    "logic": "that 引导 argues 的宾语从句（被动 are driven by）；often called influentials 过去分词短语作定语修饰 individuals；who 定语从句进一步描述这些人。",
+    "notes": [
+      "（原文 the acting 应为 the action，疑笔误。）",
+      "are driven by 被动语态（被…驱动）；可译为「主要源于…的作用」。",
+      "often called influentials 是过去分词短语作定语（被称为…），who 从句补充其特点。"
+    ]
+  }
+}

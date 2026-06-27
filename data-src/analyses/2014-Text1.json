@@ -1,0 +1,49 @@
+{
+  "2014-T1-P2-S7": {
+    "trunk": "S+be+表：this was the socially concerned chancellor（乍一听，这是位关心社会的财政大臣）",
+    "structure": [
+      "状语：On first hearing",
+      "主句：this was the socially concerned chancellor",
+      "  ├ 现在分词作伴随/定语〔修饰 chancellor〕：trying to change lives for the better",
+      "  └ 形容词短语作伴随/定语〔修饰 chancellor〕：complete with 「reforms」 to an obviously indulgent system",
+      "      └ 定语从句〔that，修饰 system〕：that demands too little effort from the newly unemployed to find work, and subsidizes laziness",
+      "          └ 从句内并列谓语：demands too little effort… and subsidizes laziness"
+    ],
+    "logic": "主句 this was the chancellor；trying… 现在分词、complete with… 形容词短语都修饰 chancellor（伴随描述）；that 定语从句修饰 system，从句内并列谓语 demands… and subsidizes…。",
+    "notes": [
+      "trying to change… 与 complete with… 都作 chancellor 的后置修饰/伴随成分。",
+      "that demands… and subsidizes…：that 定语从句修饰 system（原文 subsides 应为 subsidizes 补贴/助长）。",
+      "demand too little effort … to find work：too little…to 结构；on first hearing 乍一听。"
+    ]
+  },
+  "2014-T1-P1-S2": {
+    "trunk": "部分倒装：Only if … will they be eligible for benefit（只有…他们才有资格领取救济）",
+    "structure": [
+      "条件状语从句(Only if，置于句首)：Only if the jobless arrive at the job centre with a CV, register for online job search, and start looking for work",
+      "  └ 从句内并列谓语：arrive…, register…, and start looking…",
+      "主句（部分倒装）：will they be eligible for benefit",
+      "and then 补充：then they should report weekly rather than fortnightly"
+    ],
+    "logic": "Only if 置于句首 → 主句部分倒装（will they be…）；条件从句内三个并列谓语；rather than 对比（每周而非每两周）。",
+    "notes": [
+      "Only if 置于句首 → 主句部分倒装：will they be eligible（只有…他们才…）。",
+      "条件从句内并列谓语：arrive…, register…, and start looking…。",
+      "weekly rather than fortnightly：rather than 对比（每周而非每两周）。"
+    ]
+  },
+  "2014-T1-P4-S5": {
+    "trunk": "S+V+O：the claimant receives a time-limited 「allowance」（申领者领到一笔有时限的「津贴」）",
+    "structure": [
+      "状语：Instead",
+      "主句：the claimant receives a time-limited 「allowance」",
+      "  └ 形容词短语作后置定语〔修饰 allowance〕：conditional on actively seeking a job",
+      "分号后（对 allowance 的补充/同位说明）：no entitlement and no insurance, at £71.70 a week, one of the least generous in the EU"
+    ],
+    "logic": "主句 the claimant receives an allowance；conditional on… 形容词短语作定语（以…为条件）；分号后补充说明该津贴（无权益、无保险、每周71.70英镑，欧盟最低之一）。",
+    "notes": [
+      "conditional on actively seeking a job：形容词短语作后置定语修饰 allowance（以积极求职为条件）。",
+      "分号后是对该 allowance 的补充/同位说明。",
+      "one of the least generous in the EU：one of the + 最高级（欧盟最不慷慨者之一）。"
+    ]
+  }
+}

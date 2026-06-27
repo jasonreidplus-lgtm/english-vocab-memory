@@ -1,0 +1,47 @@
+{
+  "2022-T4-P1-S18": {
+    "trunk": "两句（漏句点）：① 严苛的解雇规定…损害…；② 澳大利亚通过把高收入雇员排除在保护之外来应对…",
+    "structure": [
+      "句①：Stringent job dismissal regulations adversely affect productivity growth and hamper both prosperity and overall well-being",
+      "  └ 并列谓语：affect… and hamper both… and…",
+      "句②：Across the Tasman Sea, Australia deals with the unjustified dismissal paradox by excluding employees … from the protection of its unfair dismissal laws",
+      "  ├ 方式状语(by + V-ing)：by excluding employees … from the protection",
+      "  └ 现在分词作定语〔修饰 employees〕：earning above a specified 「high-income threshold」"
+    ],
+    "logic": "句① regulations affect… and hamper…（并列谓语，both…and… 并列宾语）；句② Australia deals with…by excluding…（方式状语，exclude A from B，earning… 现在分词定语修饰 employees）。",
+    "notes": [
+      "（原文 well-being 后漏句点，实为两句）。句① 并列谓语 affect… and hamper…。",
+      "deal with … by doing：通过…来应对；exclude A from B 把 A 排除在 B 之外。",
+      "employees earning above a specified threshold：earning… 现在分词作定语修饰 employees（收入高于…门槛的雇员）。"
+    ]
+  },
+  "2022-T4-P1-S11": {
+    "trunk": "S+V：those laws act as a constraint on …（那些法律就成了对…的制约）",
+    "structure": [
+      "让步/条件状语(If not + V-ing)：If not placing jobs at risk（即便不至于危及就业）",
+      "程度状语从句(to the extent)：to the extent (that) employment protection laws constrain business owners from dismissing under-performing managers（constrain sb from doing）",
+      "主句：those laws act as a constraint on firm productivity and therefore on workers' wages",
+      "  └ act as + 并列介词宾语：on firm productivity and … on workers' wages"
+    ],
+    "logic": "If not placing…（省略式条件状语，即便不…）；to the extent (that)… 程度状语从句（在…的程度上）；主句 those laws act as a constraint on… and on…。",
+    "notes": [
+      "If not placing jobs at risk：省略式状语（= even if they do not place jobs at risk）。",
+      "to the extent (that) … constrain … from doing：to the extent 引导程度状语从句；constrain sb from doing 阻止/限制某人做。",
+      "act as a constraint on A and … on B：充当对 A 以及 B 的制约（并列介词宾语）。"
+    ]
+  },
+  "2022-T4-P1-S12": {
+    "trunk": "S+V+O(single out A as B)：the Productivity Commission singled out the low quality of managerial capabilities as a cause …（生产率委员会把管理能力低下列为…的一个原因）",
+    "structure": [
+      "状语：Indeed, in 「An International Perspective on New Zealand's Productivity Paradox」(2014)",
+      "主句：the Productivity Commission singled out the low quality of managerial capabilities as a cause of the country's poor productivity growth record",
+      "  └ single out A as B：singled out the low quality of managerial capabilities as a cause…"
+    ],
+    "logic": "主句 single out A as B（把…单独挑出作为…）；in 「…」(2014) 状语（在…报告中）。",
+    "notes": [
+      "single out A as B：把 A 单独挑出作为 B（认定…为…的一个原因）。",
+      "in 「…」(2014)：状语（在…报告中）。",
+      "the low quality of managerial capabilities：管理能力的低下；productivity growth record 生产率增长记录。"
+    ]
+  }
+}

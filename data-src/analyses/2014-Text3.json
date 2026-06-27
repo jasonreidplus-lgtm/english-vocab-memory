@@ -1,0 +1,52 @@
+{
+  "2014-T3-P5-S3": {
+    "trunk": "并列松散句：① it is a good thing that … ② It is fair to … — but ③ it is the prize-givers' money to do with as they please",
+    "structure": [
+      "分句①（形式主语 it）：it is surely a good thing that the money and attention come to science rather than go elsewhere",
+      "  └ 主语从句(that)：that the money and attention come to science rather than go elsewhere",
+      "分句②（形式主语 it）：It is fair to criticize and question the mechanism",
+      "  └ 破折号插入：that is the culture of research, after all",
+      "but 分句③：it is the prize-givers' money to do with as they please",
+      "  ├ 不定式作定语〔修饰 money〕：to do with",
+      "  └ 方式状语从句(as)：as they please"
+    ],
+    "logic": "三个分句：①②均为 it 形式主语（真正主语分别是 that 从句、to criticize… 不定式）；③ it is the … money to do with as they please（这是奖金颁发者的钱，他们爱怎么花就怎么花）；破折号插入解释 mechanism。",
+    "notes": [
+      "①it is a good thing that…：it 形式主语，真正主语是 that 从句。②It is fair to criticize…：it 形式主语，真正主语是不定式。",
+      "破折号夹的 that is the culture of research, after all 是插入解释（毕竟这就是科研文化）。",
+      "to do with as they please：to do with 不定式作定语修饰 money，as they please 方式状语（随他们高兴怎么处置）。"
+    ]
+  },
+  "2014-T3-P4-S3": {
+    "trunk": "S+V(被动)：the Nobel Foundation's limit … has long been outgrown by the collaborative nature of modern research（诺奖「每奖至多三人」的限制 早已被现代科研的协作性所超越）",
+    "structure": [
+      "主句：the Nobel Foundation's limit of three recipients per prize … has long been outgrown by the collaborative nature of modern research",
+      "  ├ 非限制性定语从句〔each of whom，修饰 recipients〕：each of whom must still be living",
+      "  └ 破折号 + 非限制性定语从句(as)：as will be demonstrated by the inevitable row over who is ignored …",
+      "      └ 宾语从句(who，作 over 的宾语)：who is ignored when it comes to acknowledging the discovery of the Higgs boson",
+      "          └ 时间状语从句(when)：when it comes to acknowledging the discovery of the Higgs boson"
+    ],
+    "logic": "主句被动 limit has been outgrown by…；each of whom… 非限制定语从句修饰 recipients（造成主谓分隔）；破折号后 as 引导非限制性定语从句（正如…所示）；row over who…（who 宾语从句）；when it comes to doing 当谈到…时。",
+    "notes": [
+      "主谓分隔：主语 limit 与谓语 has long been outgrown 被 each of whom must still be living 隔开。",
+      "has been outgrown by…：被动（已被…超越/不再适应）。",
+      "as will be demonstrated…：as 引导非限制性定语从句（正如…将证明）；when it comes to + doing 当谈及…时。"
+    ]
+  },
+  "2014-T3-P1-S5": {
+    "trunk": "并列双分句(and)：① These benefactors have succeeded … ② they want to use their wealth to draw attention to …（这些捐助者已在各自领域成功，他们想用财富让人关注…）",
+    "structure": [
+      "分句①：These benefactors have succeeded in their chosen fields",
+      "  └ 插入语：they say",
+      "并列(and)分句②：they want to use their wealth to draw attention to those …",
+      "  ├ 不定式作目的：to draw attention to those",
+      "  └ 定语从句〔who，修饰 those〕：who have succeeded in science"
+    ],
+    "logic": "they say 插入语；and 连接两分句；分句② want to do + to draw attention（目的）；who 定语从句修饰 those。",
+    "notes": [
+      "they say 是插入语（他们说），可提出。",
+      "use their wealth to draw attention to…：to draw… 不定式作目的状语。",
+      "those who have succeeded in science：who 定语从句修饰 those。"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "2017-T2-P5-S3": {
+    "trunk": "S+V+O：Calls … ignore the reality that …（要求…的呼声忽视了一个事实）",
+    "structure": [
+      "主句：Calls … ignore the reality …",
+      "  ├ 不定式作定语〔修饰 Calls，并列〕：to disassemble all telescopes on Mauna Kea or to ban future development there",
+      "  └ 同位语从句〔that，说明 reality〕：that astronomy and Hawaiian culture both seek to answer big questions about who we are, where we come from and where we are going",
+      "      └ 并列名词性从句（作介词 about 的宾语）：who we are, where we come from and where we are going"
+    ],
+    "logic": "主语 Calls + 两个并列不定式定语（to disassemble… or to ban…）造成主谓分隔，谓语 ignore the reality；that 同位语从句说明 reality；who/where… 并列宾语从句作 about 的宾语。",
+    "notes": [
+      "主谓分隔：主语 Calls 与谓语 ignore 被 to disassemble… or to ban…（并列不定式定语）隔开。",
+      "the reality that…：that 同位语从句说明 reality（不是定语从句）。",
+      "who we are, where we come from and where we are going：三个并列名词性从句作介词 about 的宾语。"
+    ]
+  },
+  "2017-T2-P2-S1": {
+    "trunk": "完全倒装：At issue is the TMT's planned location on Mauna Kea（争议焦点是 TMT 在莫纳克亚山的选址）",
+    "structure": [
+      "完全倒装：At issue is the TMT's planned location on Mauna Kea（= the location … is at issue）",
+      "  ├ 同位语〔说明 Mauna Kea〕：a dormant volcano worshiped by some Hawaiians as the piko",
+      "  │   └ 过去分词作定语〔修饰 volcano〕：worshiped by some Hawaiians as the piko",
+      "  └ 定语从句〔that，修饰 the piko〕：that connects the Hawaiian Islands to the heavens"
+    ],
+    "logic": "At issue is…（表语前置的完全倒装，真正主语是 the location）；a dormant volcano… 是 Mauna Kea 的同位语（worshiped… 过去分词定语）；that 定语从句修饰 the piko。",
+    "notes": [
+      "At issue is the … location：表语 At issue 前置引起完全倒装（= The location is at issue）。",
+      "a dormant volcano worshiped by … as the piko：Mauna Kea 的同位语，worshiped… 过去分词作定语。",
+      "that connects … to the heavens：that 定语从句修饰 the piko（被尊为连接群岛与天界的「脐点」）。"
+    ]
+  },
+  "2017-T2-P2-S3": {
+    "trunk": "S+V：Mauna Kea's peak rises above … atmosphere（莫纳克亚山峰高出地球稠密大气层的主体部分）",
+    "structure": [
+      "过去分词作状语：Rested in the Pacific Ocean（坐落于太平洋中）",
+      "主句：Mauna Kea's peak rises above the bulk of our planet's dense atmosphere",
+      "非限制性定语从句〔where，修饰前面的处所〕：where conditions allow telescopes to obtain images of unsurpassed clarity",
+      "  └ allow sb to do：allow telescopes to obtain images of unsurpassed clarity"
+    ],
+    "logic": "Rested in…（过去分词作状语 = Located in）；主句 peak rises above…；where 定语从句修饰前面的处所（在那里条件允许…）；allow sth to do。",
+    "notes": [
+      "Rested in the Pacific Ocean：过去分词短语作状语（坐落于太平洋中；宜为 Resting/Located in）。",
+      "where 引导非限制性定语从句，修饰前面的处所（在那里…）。",
+      "allow telescopes to obtain images of unsurpassed clarity：allow sb/sth to do（让望远镜获得无与伦比清晰的图像）。"
+    ]
+  }
+}

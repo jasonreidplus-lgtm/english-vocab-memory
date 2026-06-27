@@ -1,0 +1,50 @@
+{
+  "2012-T3-P3-S3": {
+    "trunk": "四个并列分句（分号 + and）：researchers make discoveries; editors … act as gatekeepers; other scientists use …; the public … receives …",
+    "structure": [
+      "状语：Within the complex social structure of the scientific community",
+      "并列分句①：researchers make discoveries",
+      "并列分句②(;)：editors and reviewers act as gatekeepers by controlling the publication process",
+      "并列分句③(;)：other scientists use the new finding to suit their own purposes",
+      "并列分句④(; and finally)：the public (including other scientists) receives the new discovery and possibly accompanying technology"
+    ],
+    "logic": "四个由分号和 and 并列的分句，描绘科学共同体的运作链条；by controlling… 方式状语；to suit… 目的状语。",
+    "notes": [
+      "四个分句由分号与 and 并列（make / act / use / receives）。",
+      "act as 充当；by controlling… 方式状语（通过…）；to suit… 目的状语。",
+      "accompanying technology：现在分词作定语（随附的技术）。"
+    ]
+  },
+  "2012-T3-P1-S1": {
+    "trunk": "S+V：facts about the world are waiting to be observed and collected（关于世界的事实正等待被观察和收集）",
+    "structure": [
+      "状语：In the idealized version of how science is done",
+      "  └ 介词宾语从句(how，作 of 的宾语)：how science is done",
+      "主句：facts about the world are waiting to be observed and collected by objective researchers",
+      "  ├ 不定式被动并列：to be observed and collected",
+      "  └ 定语从句〔who，修饰 researchers〕：who use the scientific method to carry out their work",
+      "      └ 不定式作目的状语：to carry out their work"
+    ],
+    "logic": "how science is done 是介词 of 的宾语从句；主句 facts are waiting to be observed and collected（不定式被动）；who 定语从句修饰 researchers；to carry out 表目的。",
+    "notes": [
+      "how science is done 是介词 of 的宾语从句（科学如何进行）。",
+      "are waiting to be observed and collected：不定式被动并列（等待被观察和收集）。",
+      "who 定语从句修饰 researchers；to carry out their work 目的状语。"
+    ]
+  },
+  "2012-T3-P3-S4": {
+    "trunk": "S+V+O：the interaction and confrontation … transforms an individual's discovery claim into the community's credible discovery（互动与交锋把个人的发现主张转化为共同体公认的发现）",
+    "structure": [
+      "时间状语从句(As)：As a discovery claim works its way through the community",
+      "主句：the interaction and confrontation … transforms an individual's discovery claim into the community's credible discovery",
+      "  ├ 介词短语作定语〔修饰 interaction and confrontation〕：between shared and competing beliefs about the science and the technology involved",
+      "  └ 过去分词作后置定语〔修饰 technology〕：involved"
+    ],
+    "logic": "As 引导时间状语从句（随着…）；主句主语 the interaction and confrontation 后接 between… 长定语（造成主谓分隔），谓语 transforms A into B；involved 后置定语修饰 technology。",
+    "notes": [
+      "主谓分隔：主语 the interaction and confrontation 与谓语 transforms 被 between… 长介词短语隔开（视为一个整体概念，故谓语用单数 transforms）。",
+      "As 引导时间状语从句（随着一项发现主张在共同体中逐步推进）。",
+      "transform A into B 把 A 转变为 B；the technology involved：involved 后置定语（所涉及的技术）。"
+    ]
+  }
+}

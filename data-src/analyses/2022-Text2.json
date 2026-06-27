@@ -1,0 +1,48 @@
+{
+  "2022-T2-P1-S7": {
+    "trunk": "be+不定式表语(not…but…)：This is not to say … but rather (to) stress …（这并非要说…而是要强调…）",
+    "structure": [
+      "主句：This is not to say that … but rather stress that …, that … and that …",
+      "  ├ not…but… 并列不定式表语：not to say… but (to) rather stress…",
+      "  ├ say 的宾语从句(that)：that there is no point in getting a degree",
+      "  └ stress 的三个并列宾语从句(that…, that… and that…)：that a degree is not for everyone / that the switch from classroom to lecture hall is not an inevitable one / that other options are available"
+    ],
+    "logic": "This is not to say… but rather (to) stress…（be + 不定式表语，not…but… 并列）；say + that 宾语从句；stress + 三个并列 that 宾语从句。",
+    "notes": [
+      "This is not to say … but rather (to) stress …：not…but… 并列不定式作表语（这并非要说…而是要强调…）。",
+      "stress that…, that… and that…：stress 后三个并列 that 宾语从句。",
+      "there is no point in getting a degree：there be no point in doing（做…没有意义）。"
+    ]
+  },
+  "2022-T2-P1-S1": {
+    "trunk": "时间从句+形式主语：As …, it may be worth considering …（当…时，或许值得思考…）",
+    "structure": [
+      "时间状语从句(As)：As the latest crop of students pen their undergraduate application form and weigh up their options（并列谓语 pen / weigh up）",
+      "主句（形式主语 it）：it may be worth considering just how … and what …",
+      "  ├ 真正主语(动名词)：considering just how the point, purpose and value of a degree has changed and what Generation Z need to consider",
+      "  │   └ 并列宾语从句(how… and what…)：how … has changed / what Generation Z need to consider",
+      "  └ 时间状语从句(as)：as they start the third stage of their educational journey"
+    ],
+    "logic": "As 时间从句（并列谓语 pen/weigh up）；主句 it 形式主语，worth considering（动名词）后接 how… and what… 并列宾语从句；as they start… 时间状语。",
+    "notes": [
+      "it may be worth considering…：it 形式主语，worth + 动名词（值得考虑…）。",
+      "how … has changed and what … need to consider：considering 后两个并列宾语从句。",
+      "As… 与 as they start…：两处时间状语从句（当…时）；pen 作动词=书写。"
+    ]
+  },
+  "2022-T2-P1-S16": {
+    "trunk": "形式主语 It + that 主语从句(被动)：It has been estimated that …（据估计…）",
+    "structure": [
+      "主句（形式主语 It）：It has been estimated that …",
+      "  └ 主语从句(that)：this generation … will work for 17 different employers … and have five different careers",
+      "      ├ 插入（原因状语）：due to the pressures of technology, the wish for personal fulfilment and desire for diversity",
+      "      └ 并列谓语：will work for… and have…"
+    ],
+    "logic": "It has been estimated that…（it 形式主语 + 被动；真正主语是 that 从句）；that 从句主语 this generation（due to… 插入）+ 并列谓语 will work… and have…。",
+    "notes": [
+      "It has been estimated that…：it 形式主语 + 被动；真正主语是 that 从句。",
+      "due to…：插入的原因状语，夹在主语 this generation 与谓语之间（主谓分隔）。",
+      "will work for… and have…：that 从句内的并列谓语；over the course of 在…期间。"
+    ]
+  }
+}

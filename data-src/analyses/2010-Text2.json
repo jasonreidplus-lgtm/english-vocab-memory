@@ -1,0 +1,52 @@
+{
+  "2010-T2-P4-S2": {
+    "trunk": "S+V+O：The Federal Circuit issued an unusual order（联邦巡回法院发出一道不寻常的指令）",
+    "structure": [
+      "主句：The Federal Circuit issued an unusual order",
+      "  └ 现在分词作定语〔修饰 order〕：stating that … and that …",
+      "      ├ 宾语从句①(that)：the case would be heard by all 12 of the court's judges, rather than a typical panel of three",
+      "      └ 宾语从句②(and that)：one issue it wants to evaluate is whether it should 「reconsider」 its State Street Bank ruling",
+      "          ├ 定语从句〔省略关系词，修饰 one issue〕：it wants to evaluate",
+      "          └ 表语从句(whether)：whether it should 「reconsider」 its State Street Bank ruling"
+    ],
+    "logic": "stating… 现在分词作定语修饰 order；其后 that…and that… 两个并列宾语从句作 stating 的宾语；从句②中 one issue 后省略关系词的定语从句 + whether 表语从句。",
+    "notes": [
+      "stating… 是现在分词作定语（修饰 order），不是句子的谓语。",
+      "两个 that 并列作 stating 的宾语；第二个 that 不可省（标示并列）。",
+      "one issue (that) it wants to evaluate：issue 后省略了关系代词，it wants to evaluate 是定语从句。",
+      "rather than a typical panel of three 与 by all 12 of the judges 对比（而非…）。"
+    ]
+  },
+  "2010-T2-P3-S1": {
+    "trunk": "S+be+表：Curbs on business-method claims would be a dramatic about-face（对商业方法专利申请的限制将是一次彻底的转向）",
+    "structure": [
+      "主句：Curbs on business-method claims would be a dramatic about-face",
+      "  └ 原因状语从句(because)：because it was the federal circuit itself that introduced such patents …",
+      "      ├ 强调句：it was the federal circuit itself that introduced such patents（强调主语 the federal circuit itself）",
+      "      └ 现在分词短语〔补充说明 its 1998 decision〕：approving a patent on a way of pooling mutual-fund assets"
+    ],
+    "logic": "because 引导原因状语从句；其内为强调句 it was…that…（强调 the federal circuit itself）；approving… 现在分词短语伴随/补充说明那项 1998 年裁决。",
+    "notes": [
+      "it was … that … 是强调句（强调 the federal circuit itself）：删掉 it was…that 后句子仍成立。",
+      "approving… 现在分词短语作伴随状语，补充说明 the 1998 decision。",
+      "（原文 with is 1998 decision 应为 with its 1998 decision，疑 OCR 笔误。）",
+      "about-face 彻底转向、大转弯；curbs 限制。"
+    ]
+  },
+  "2010-T2-P3-S4": {
+    "trunk": "S+V+O：IBM noted … that …（IBM 在一份法庭文件中指出…）",
+    "structure": [
+      "时间状语：In 2005",
+      "主句：IBM noted in a court filing that …",
+      "  └ 宾语从句(that)：it had been issued more than 300 business-method patents despite the fact that …",
+      "      └ 介词短语作状语(despite)：despite the fact that it questioned the legal basis for granting them",
+      "          └ 同位语从句(that，说明 the fact)：that it questioned the legal basis for granting them"
+    ],
+    "logic": "that 引导 noted 的宾语从句；despite the fact that… 中 that 引导同位语从句说明抽象名词 the fact，整体表让步。",
+    "notes": [
+      "had been issued 是过去完成时的被动语态（已被授予）。",
+      "despite the fact that…：that 引导同位语从句（说明 the fact），不是定语从句。",
+      "granting them = 授予这些专利（them 指 patents）。"
+    ]
+  }
+}

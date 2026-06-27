@@ -1,0 +1,49 @@
+{
+  "2017-T1-P3-S1": {
+    "trunk": "S+V+O：the TSA found … that …（去年运输安全管理局在一次秘密检查中发现…）",
+    "structure": [
+      "状语：Last year",
+      "主句：the Transportation Security Administration (TSA) found in a secret check that …",
+      "  └ 宾语从句(that)：undercover investigators were able to sneak weapons … past airport security nearly every time they tried",
+      "      ├ 破折号插入〔修饰 weapons〕：both fake and real",
+      "      └ 时间状语从句(every time)：nearly every time they tried"
+    ],
+    "logic": "that 引导 found 的宾语从句（in a secret check 状语插在中间）；破折号插入 both fake and real 修饰 weapons；every time 引导时间状语从句（每当…时）。",
+    "notes": [
+      "that 引导 found 的宾语从句（in a secret check 插在 found 与 that 之间）。",
+      "破折号夹的 both fake and real 是 weapons 的插入修饰。",
+      "every time (they tried) 相当于连词，引导时间状语从句（每次尝试时）；sneak … past 偷偷带过。"
+    ]
+  },
+  "2017-T1-P1-S1": {
+    "trunk": "S+be+表语从句：this is how far in advance authorities are recommending people show up …（这就是当局建议人们提前多久到场）",
+    "structure": [
+      "破折号前（铺垫状语）：First two hours, now three hours",
+      "主句：this is how far in advance authorities are recommending people show up to catch a domestic flight",
+      "  ├ 表语从句(how)：how far in advance authorities are recommending people show up",
+      "  │   └ 宾语从句(省略 that，虚拟)：people show up（recommend (that) people (should) show up）",
+      "  ├ 不定式作目的：to catch a domestic flight",
+      "  └ 状语：at least at some major U.S. airports with increasingly massive security lines"
+    ],
+    "logic": "破折号前是铺垫；主句 this is how…（how 引导表语从句）；recommend (that) people show up（虚拟省略）；to catch… 目的。",
+    "notes": [
+      "this is how far in advance…：how 引导表语从句（这就是…要提前多久）。",
+      "are recommending people show up：recommend (that) sb (should) do 的虚拟（省略 that 与 should）。",
+      "to catch a domestic flight 目的状语；with increasingly massive security lines 修饰 airports。"
+    ]
+  },
+  "2017-T1-P3-S2": {
+    "trunk": "S+V+介宾：Enhanced security measures … have resulted in long waits（增强的安检措施…导致了长时间的等待）",
+    "structure": [
+      "主句：Enhanced security measures since then … have resulted in long waits at major airports such as Chicago's O'Hare International",
+      "  └ 过去分词作状语/插入：combined with a rise in airline travel due to the improving economy and low oil prices",
+      "      └ due to… 介词短语作定语〔修饰 a rise〕：due to the improving economy and low oil prices"
+    ],
+    "logic": "主语 measures + 谓语 have resulted in（被 combined with… 过去分词插入隔开，主谓分隔）；due to… 修饰 a rise。",
+    "notes": [
+      "主谓分隔：主语 Enhanced security measures 与谓语 have resulted 被 combined with…（过去分词插入）隔开。",
+      "combined with…：过去分词短语作状语（再加上…）；与主语视为并列概念，谓语用复数 have。",
+      "due to the improving economy and low oil prices：介词短语作定语修饰 a rise（因经济好转与低油价）。"
+    ]
+  }
+}

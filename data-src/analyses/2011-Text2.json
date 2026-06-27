@@ -1,0 +1,46 @@
+{
+  "2011-T2-P4-S3": {
+    "trunk": "全部倒装：Says Dennis Carey: 「…」（科恩/费里高级合伙人丹尼斯·凯里说：…）",
+    "structure": [
+      "倒装主句：Says Korn/Ferry senior partner Dennis Carey（= Dennis Carey says，因引语提前而全部倒装）",
+      "引语：I can't think of a single search …",
+      "  ├ 定语从句〔省略关系词，修饰 search〕：I've done",
+      "  └ 定语从句〔where，修饰 search〕：where a board has not instructed me to look at sitting CEOs first"
+    ],
+    "logic": "Says + 主语 是引语提示语的全部倒装；引语主干 I can't think of a single search；其后 (that) I've done 与 where… 两个定语从句都修饰 search。",
+    "notes": [
+      "Says Dennis Carey 是全部倒装（= Dennis Carey says），因引语提前。",
+      "a single search (that) I've done where…：search 后接两个定语从句，第一个省略关系词，第二个由 where 引导。",
+      "sitting CEOs 现任 CEO；instruct sb to do 指示某人做。"
+    ]
+  },
+  "2011-T2-P1-S4": {
+    "trunk": "S+V：he was talking … with the board of Hartford Financial Services Group（他正与哈特福德金融服务集团的董事会洽谈）",
+    "structure": [
+      "时间状语：Within two weeks",
+      "主句：he was talking for the first time with the board of Hartford Financial Services Group",
+      "  └ 非限制性定语从句〔which，修饰 the Group/board〕：which named him CEO and chairman on September 29"
+    ],
+    "logic": "主句 he was talking with the board；which 非限制性定语从句补充说明该集团随后的动作（任命他）。",
+    "notes": [
+      "which 非限制性定语从句（带逗号）补充说明 Hartford Financial Services Group。",
+      "name sb CEO 任命某人为 CEO（name + 宾语 + 宾补）。",
+      "for the first time 首次。"
+    ]
+  },
+  "2011-T2-P1-S2": {
+    "trunk": "S+并列谓语：he came right out and said （他直截了当地说…）",
+    "structure": [
+      "方式状语（Rather than + V-ing）：Rather than cloaking his exit in the usual vague excuses",
+      "主句：he came right out and said …（并列谓语 came out / said）",
+      "  └ 宾语从句（省略 that）：he was leaving 「to pursue my goal of running a company」",
+      "      └ 不定式作目的状语：to pursue my goal of running a company"
+    ],
+    "logic": "Rather than cloaking… 作方式状语（而不是…）；主句并列谓语 came out and said；said 后接省略 that 的宾语从句，其中 to pursue… 表目的。",
+    "notes": [
+      "Rather than + V-ing：而不是…（与主句动作对比）。",
+      "came right out and said 直截了当地说出来（并列谓语）。",
+      "to pursue my goal of running a company 不定式作目的状语；cloak 掩饰、遮掩。"
+    ]
+  }
+}

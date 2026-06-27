@@ -1,0 +1,51 @@
+{
+  "2013-T2-P6-S3": {
+    "trunk": "条件+主句：If it is trying to upset Google …, it has chosen an indirect method（若它意在打击谷歌，那它选了一种迂回手段）",
+    "structure": [
+      "条件状语从句(If)：If it is trying to upset Google",
+      "  └ 非限制性定语从句〔which，修饰 Google〕：which relies almost wholly on advertising",
+      "主句：it has chosen an indirect method",
+      "冒号后（说明）：There is no guarantee that DNT by default will become the norm",
+      "  └ 同位语从句(that，说明 guarantee)：that DNT by default will become the norm",
+      "（后续独立句）：DNT does not seem an obviously huge selling point for Windows 8 — though the firm has compared … before"
+    ],
+    "logic": "If 条件从句（which 非限制定语从句修饰 Google）；主句 it has chosen an indirect method；冒号 + there is no guarantee that…（同位语从句）；末句 + though 让步。",
+    "notes": [
+      "which 非限制性定语从句修饰 Google（几乎全靠广告）。",
+      "no guarantee that…：that 同位语从句说明 guarantee（无法保证…）。",
+      "本条含两句：句号后 DNT does not seem… 为另一句，though 引导让步；selling point 卖点；on that count 在那一点上。"
+    ]
+  },
+  "2013-T2-P3-S1": {
+    "trunk": "S+V+O(动名词)：the FTC proposed adding a 「do not track」 option to internet browsers（联邦贸易委员会提议给浏览器加「禁止追踪」选项）",
+    "structure": [
+      "状语：In December 2010",
+      "主句：America's Federal Trade Commission (FTC) proposed adding a 「do not track」 (DNT) option to internet browsers",
+      "  └ 动名词作宾语：adding a … option to internet browsers",
+      "目的状语从句(so that)：so that users could tell advertisers that they did not want to be followed",
+      "  └ 宾语从句(that)：that they did not want to be followed"
+    ],
+    "logic": "主句 proposed adding…（动名词宾语）；so that 引导目的状语从句；tell advertisers that… 为双宾语 + that 宾语从句。",
+    "notes": [
+      "propose doing：proposed adding…（动名词作宾语）。",
+      "so that 引导目的状语从句（以便）。",
+      "tell sb that…：tell advertisers + that 宾语从句；be followed 被追踪。"
+    ]
+  },
+  "2013-T2-P2-S1": {
+    "trunk": "S+V+O：a quarrel has illustrated the value … of such fine-grained information（一场争论显示出这种细颗粒信息的价值）",
+    "structure": [
+      "状语：In the past couple of weeks",
+      "主句：a quarrel has illustrated the value to advertisers of such fine-grained information",
+      "  └ 两个介词短语都修饰 value（中心词与修饰语分隔）：to advertisers + of such fine-grained information",
+      "冒号后（设问）：Should advertisers assume that people are happy to be tracked and sent behavioral ads?",
+      "  └ 宾语从句(that)：that people are happy to be tracked and sent behavioral ads"
+    ],
+    "logic": "主句 a quarrel illustrated the value（to advertisers 与 of … information 两个介词短语都修饰 value，造成中心词与修饰语分隔）；冒号引出一个反问；assume that… 宾语从句。",
+    "notes": [
+      "the value to advertisers of such … information：to advertisers 与 of … information 两个介词短语都修饰 value（分隔）。",
+      "冒号后是设问句（引出讨论）。",
+      "be tracked and sent behavioral ads：被追踪并被推送行为广告（被动并列）。"
+    ]
+  }
+}

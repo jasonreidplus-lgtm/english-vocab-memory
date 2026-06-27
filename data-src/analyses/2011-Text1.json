@@ -1,0 +1,46 @@
+{
+  "2011-T1-P4-S2": {
+    "trunk": "S+V(+with)：classical instrumentalists must compete not only with … but also with …（古典器乐演奏家必须竞争…）",
+    "structure": [
+      "前置状语（所争夺对象）：For the time, attention, and money of the art-loving public",
+      "主句：classical instrumentalists must compete not only with … but also with …",
+      "  ├ 并列项①(not only with)：opera houses, dance troupes, theater companies, and museums",
+      "  └ 并列项②(but also with)：the recorded performances of the great classical musicians of the 20th century"
+    ],
+    "logic": "句首 For the time, attention, and money… 点明所争夺的对象（状语）；主干为 instrumentalists must compete with…；not only…but also… 并列两类竞争对手。",
+    "notes": [
+      "前置状语 For the time, attention, and money…=为争夺（公众的时间/注意/金钱）。",
+      "not only … but also … 并列两个 with 介词短语（两类竞争对手）。",
+      "compete with 与…竞争；instrumentalist 器乐演奏家；troupe 剧团。"
+    ]
+  },
+  "2011-T1-P5-S2": {
+    "trunk": "冒号连双主句：① Gilbert's interest … has been widely noted ② Alex Ross has described him as a man …",
+    "structure": [
+      "主句①：Gilbert's own interest in new music has been widely noted",
+      "冒号后主句②（举例说明）：Alex Ross … has described him as a man …",
+      "  ├ 同位语〔说明 Alex Ross〕：a classical-music critic",
+      "  └ 定语从句〔who，修饰 a man〕：who is capable of turning the Philharmonic into 「a markedly different, more vibrant organization」"
+    ],
+    "logic": "冒号引出对前句「广受关注」的举例说明；主句② describe him as a man，who 定语从句修饰 a man。",
+    "notes": [
+      "冒号后是对前句的举例说明。",
+      "describe sb as … 把某人描述为…；who 定语从句修饰 a man。",
+      "be capable of doing 有能力做；Philharmonic 爱乐乐团；vibrant 有活力的。"
+    ]
+  },
+  "2011-T1-P2-S3": {
+    "trunk": "S+V：that seems likely to have struck at least some Times readers as faint praise（那番话很可能让一些《时报》读者觉得是敷衍的赞美）",
+    "structure": [
+      "前置状语（身份/方式）：As a description of the next music director of an orchestra",
+      "  └ 定语从句〔that，修饰 an orchestra〕：that has hitherto been led by musicians like Gustav Mahler and Pierre Boulez",
+      "主句：that seems likely to have struck at least some Times readers as faint praise（主语 that 指代前文那句描述）"
+    ],
+    "logic": "句首 As a description of… 作状语（作为对…的描述）；其中 that 定语从句修饰 an orchestra；主句主语 that 指代前文那句话，strike sb as… 给某人…的印象。",
+    "notes": [
+      "句首 As a description of… 是状语；主句真正主语是 that（指代前文的那句描述）。",
+      "strike sb as … 给某人留下…的印象；faint praise 不痛不痒的、敷衍的赞扬。",
+      "hitherto 迄今为止；that has hitherto been led… 定语从句修饰 an orchestra。"
+    ]
+  }
+}

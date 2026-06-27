@@ -1,0 +1,51 @@
+{
+  "2023-T1-P1-S12": {
+    "trunk": "S+be+表语从句：Another issue is that …（另一个问题是…）",
+    "structure": [
+      "主句：Another issue is that …",
+      "  └ 表语从句(that)：while climate change is well integrated …, it is not as well represented …",
+      "      ├ 让步状语从句(while)：while climate change is well integrated into some subjects and at some ages（破折号插入举例：such as earth and space sciences in high schools）",
+      "      └ 主句（表语从句内）：it is not as well represented in curricula for younger children and in subjects that are more widely taught",
+      "          └ 定语从句〔that，修饰 subjects〕：that are more widely taught（such as biology and chemistry 举例）"
+    ],
+    "logic": "主句 Another issue is that…（表语从句）；表语从句内含 while 让步从句 + 主句 it is not as well represented…；that 定语从句修饰 subjects。",
+    "notes": [
+      "Another issue is that…：that 引导表语从句。",
+      "while climate change is well integrated…, it is not as well represented…：表语从句内的 while 让步从句 + 主句（虽…但…）。",
+      "subjects that are more widely taught：that 定语从句修饰 subjects；not as well represented 没有那么好地体现（as…as 的省略比较）。"
+    ]
+  },
+  "2023-T1-P1-S6": {
+    "trunk": "倒装提示语 + 引语(what 主语从句)：says Dan Quinn …，「What … kids learn … is determined … by …」",
+    "structure": [
+      "倒装提示语：says Dan Quinn, senior communications strategist at the Texas Freedom Network, a non-profit group that monitors public education（= Dan Quinn says）",
+      "  ├ 同位语①〔说明 Dan Quinn〕：senior communications strategist at the Texas Freedom Network",
+      "  └ 同位语②〔说明 the Texas Freedom Network〕：a non-profit group（定语从句 that monitors public education 修饰之）",
+      "引语：What millions of Texas kids learn in their public schools is determined too often by the political ideology of partisan board members, rather than facts and sound scholarship",
+      "  ├ 主语从句(What)：What millions of Texas kids learn in their public schools",
+      "  └ 谓语(被动) + 对比：is determined too often by … , rather than facts and sound scholarship"
+    ],
+    "logic": "says + 主语 倒装；多重同位语（strategist…、a non-profit group that…）；引语主语是 What 从句，谓语被动 is determined by…（rather than 对比）。",
+    "notes": [
+      "says Dan Quinn…：引语提示语的倒装；后接多重同位语（strategist… / a non-profit group that monitors…）。",
+      "What millions of Texas kids learn…：what 主语从句作引语主语。",
+      "is determined … by … rather than …：被动 + rather than 对比（由…而非…决定）。"
+    ]
+  },
+  "2023-T1-P1-S8": {
+    "trunk": "S+V+双宾：A study … gave barely half of US states a grade B+ or higher（一项研究只给约一半的美国各州评了 B+ 或以上）",
+    "structure": [
+      "主句：A study last year by the National Center for Science Education … gave barely half of US states a grade B+ or higher",
+      "  ├ 同位语〔说明 the National Center for Science Education〕：a non-profit group of scientists and teachers",
+      "  ├ 现在分词作定语〔修饰 A study〕：looking at how state public schools across the country address climate change in science classes",
+      "  │   └ 介词宾语从句(how，作 looking at 的宾语)：how state public schools … address climate change",
+      "  └ 双宾语：gave [barely half of US states] [a grade B+ or higher]"
+    ],
+    "logic": "主语 A study（同位语 + looking at… 现在分词定语，造成主谓分隔），谓语 gave sb sth（双宾语）；how… 是 looking at 的宾语从句。",
+    "notes": [
+      "主谓分隔：主语 A study 与谓语 gave 被长同位语和 looking at… 现在分词定语隔开。",
+      "looking at how…：现在分词作定语修饰 A study；how 引导宾语从句（考察…如何应对气候变化）。",
+      "gave barely half of US states a grade B+ or higher：give sb sth 双宾语（给…评了 B+ 或以上）。"
+    ]
+  }
+}

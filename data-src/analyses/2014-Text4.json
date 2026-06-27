@@ -1,0 +1,55 @@
+{
+  "2014-T4-P2-S1": {
+    "trunk": "S+V+O：Democrats and Republicans sent letters to the AAAS …（两党议员致信美国艺术与科学院…）",
+    "structure": [
+      "状语：In 2010",
+      "主句：leading congressional Democrats and Republicans sent letters to the AAAS",
+      "  └ 现在分词作伴随状语〔修饰寄信动作〕：asking that it identify actions …",
+      "      └ 宾语从句(that + 虚拟语气)：that it identify actions（ask that + 主语 + (should) do）",
+      "          └ 定语从句〔that，修饰 actions〕：that could be taken by 「…」 to 「maintain national excellence…」",
+      "              └ 不定式作目的：to 「maintain national excellence in humanities and social scientific scholarship and education」",
+      "（后续独立句）：In response, the American Academy formed the Commission on the Humanities and Social Sciences"
+    ],
+    "logic": "主句 sent letters；asking that… 现在分词短语作伴随状语，其中 ask that + (should) identify 虚拟；that could be taken… 定语从句修饰 actions；to maintain… 目的；末句独立。",
+    "notes": [
+      "asking that it identify…：ask that + 主语 + (should) do 的虚拟语气（动词原形 identify）。",
+      "actions that could be taken by … to maintain…：that 定语从句修饰 actions，to maintain… 表目的。",
+      "本条含两句：In response… 为另一句。"
+    ]
+  },
+  "2014-T4-P3-S3": {
+    "trunk": "S+V+O：the report calls for …（报告呼吁四项并列举措）",
+    "structure": [
+      "目的状语(不定式)：To encourage innovation and competition",
+      "主句：the report calls for …（call for 后四个并列名词宾语）",
+      "  ├ 并列宾语①：increased investment in research",
+      "  ├ 并列宾语②：the crafting of coherent curricula",
+      "  │   └ 定语从句〔that，修饰 curricula〕：that improve students' ability to solve problems and communicate effectively in the 21st century（不定式 to solve… 修饰 ability）",
+      "  ├ 并列宾语③：increased funding for teachers",
+      "  └ 并列宾语④：the encouragement of scholars to bring their learning to bear on the great challenges of the day"
+    ],
+    "logic": "To encourage… 目的状语；主句 calls for + 四个并列名词宾语；其中 curricula 带 that 定语从句（that improve ability to do）；最后 encouragement of scholars to bring…（bring sth to bear on 把…用于）。",
+    "notes": [
+      "calls for 后接四个并列名词宾语：investment, the crafting of curricula, funding, and the encouragement…。",
+      "curricula that improve students' ability to do：that 定语从句修饰 curricula；to solve… 不定式修饰 ability。",
+      "bring one's learning to bear on…：把学识用于（应对）…；To encourage… 目的状语。"
+    ]
+  },
+  "2014-T4-P5-S1": {
+    "trunk": "S+V+O(treat A as B)：professors … treat the progressive interpretation … as the proper subject of study（教授们惯于把进步派解读当作正当研究对象）",
+    "structure": [
+      "状语：Today",
+      "主句：professors routinely treat the progressive interpretation of history and progressive public policy as the proper subject of study",
+      "  └ treat A as B：treat 〔进步派历史解读 + 进步派公共政策〕 as the proper subject of study",
+      "while + 现在分词作对比状语：while portraying conservative or classical liberal ideas … as falling outside the boundaries …",
+      "  ├ portray A as B：portray 〔保守/古典自由派思想〕 as falling outside the boundaries of … investigation",
+      "  └ 破折号插入（举例）：such as free markets or self-reliance"
+    ],
+    "logic": "主句 treat A as B（把进步派解读当作正当研究对象）；while portraying… 现在分词作对比状语（同时却把保守/古典自由派思想描绘为…）；portray A as B；破折号插入举例。",
+    "notes": [
+      "treat A as B（把 A 当作 B）与 while portraying A as B（同时把 A 描绘成 B）形成鲜明对比。",
+      "while + V-ing 作伴随/对比状语（同时却…）。",
+      "破折号夹的 such as free markets or self-reliance 是插入举例；fall outside the boundaries 落在…范围之外。"
+    ]
+  }
+}

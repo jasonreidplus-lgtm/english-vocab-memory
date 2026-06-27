@@ -1,0 +1,51 @@
+{
+  "2020-T2-P3-S1": {
+    "trunk": "S+V+O：The Dutch giant Elsevier … made profits of more than £900m last year（荷兰巨头爱思唯尔去年获利逾9亿英镑）",
+    "structure": [
+      "主句：The Dutch giant Elsevier … made profits of more than £900m last year",
+      "  └ 非限制性定语从句〔which，修饰 Elsevier〕：which claims to publish 25% of the scientific papers produced in the world（produced… 过去分词修饰 papers）",
+      "while 对比状语从句：while UK universities alone spent more than £210m in 2016 to enable researchers to access their own publicly funded research",
+      "  └ 不定式作目的：to enable researchers to access their own publicly funded research",
+      "冒号后（总结）：both figures seem to rise unstoppably despite increasingly desperate efforts to change them"
+    ],
+    "logic": "主语 Elsevier（which 非限制定语从句插入，造成主谓分隔），谓语 made profits；while 对比从句（universities spent…to enable…）；冒号总结（both figures… despite efforts to change them）。",
+    "notes": [
+      "主谓分隔：主语 Elsevier 与谓语 made 被 which 非限制定语从句隔开。",
+      "while 引导对比状语从句（与此同时/相比之下）；to enable sb to do 目的状语。",
+      "冒号后是总结；despite + efforts to change them（尽管…努力）；produced in the world 过去分词定语修饰 papers。"
+    ]
+  },
+  "2020-T2-P5-S3": {
+    "trunk": "S+V(被动)：More than half … is now published under open access terms（如今逾半英国科研以开放获取方式发表）",
+    "structure": [
+      "主句：More than half of all British scientific research is now published under open access terms",
+      "冒号后（展开 open access terms，either…or…）：either freely available from the moment of publication, or paywalled for a year or more …",
+      "  ├ either…or… 并列：freely available / paywalled",
+      "  └ 目的状语从句(so that)：so that the publishers can make a profit before being placed on general release",
+      "      └ 时间状语(before + 动名词被动)：before being placed on general release"
+    ],
+    "logic": "主句被动 is published under open access terms；冒号引出 terms 的两种形态（either freely available… or paywalled…）；so that 目的从句；before being placed… 时间状语（被动动名词）。",
+    "notes": [
+      "冒号后 either … or …：并列说明开放获取的两种形态（要么即时免费、要么先付费墙一年以上）。",
+      "so that 引导目的状语从句（以便出版商获利）。",
+      "before being placed on general release：before + 动名词被动（在公开发布之前）。"
+    ]
+  },
+  "2020-T2-P6-S5": {
+    "trunk": "S+V+O：the scientific publishing model resembles the economy of the social internet（科学出版模式与社交网络经济相似）",
+    "structure": [
+      "状语：In some ways",
+      "主句：the scientific publishing model resembles the economy of the social internet",
+      "冒号后（展开类比）：",
+      "  ├ 分句①：labour is provided free in exchange for the hope of status（被动）",
+      "  └ while 对比状语从句：while huge profits are made by a few big firms who run the market places",
+      "      └ 定语从句〔who，修饰 firms〕：who run the market places"
+    ],
+    "logic": "主句 model resembles the economy；冒号引出类比的具体内容：labour is provided free（被动）+ while 对比（profits are made by firms，who 定语从句修饰 firms）。",
+    "notes": [
+      "resemble 与…相似（及物，不接 to）。",
+      "冒号引出类比展开；in exchange for 以换取…；while 引导对比状语从句。",
+      "huge profits are made by a few big firms who…：被动 + who 定语从句修饰 firms（运营平台的少数大公司）。"
+    ]
+  }
+}

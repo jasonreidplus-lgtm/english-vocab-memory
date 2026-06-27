@@ -1,0 +1,52 @@
+{
+  "2023-T2-P1-S7": {
+    "trunk": "引语(主句) + 倒装提示语：「short-term rentals also provide housing for tourists …」 pointed out Ryan Castle …",
+    "structure": [
+      "引语：short-term rentals also provide housing for tourists, a crucial part of the economies in places like …",
+      "  └ 同位语〔补充说明前述「为游客供房/旅游业」〕：a crucial part of the economies in places like Nantucket, Cape Cod, or the towns",
+      "      └ 定语从句〔that，修饰 the towns〕：that make up New Hampshire's Seacoast and Lakes Region",
+      "倒装提示语：pointed out Ryan Castle, CEO of the Cape Cod & Islands Association of Realtors（= Ryan Castle pointed out）",
+      "  └ 同位语〔说明 Ryan Castle〕：CEO of the Cape Cod & Islands Association of Realtors"
+    ],
+    "logic": "引语 rentals provide housing for tourists（a crucial part… 同位语，that 定语从句修饰 the towns）；pointed out + 主语 倒装（CEO… 同位语）。",
+    "notes": [
+      "pointed out Ryan Castle…：引语提示语的倒装（= … pointed out）；CEO… 是其同位语。",
+      "a crucial part of the economies…：同位语，补充说明「为游客提供住房（即旅游业）」。",
+      "the towns that make up …：that 定语从句修饰 the towns（构成…地区的那些城镇）。"
+    ]
+  },
+  "2023-T2-P1-S5": {
+    "trunk": "引语(主句+so+anytime 从句) + 倒装提示语：「We are at a crisis level …, so anytime …, you're … taking supply off the market …」 said Nick Taylor …",
+    "structure": [
+      "引语分句①：We are at a crisis level on the supply of rental housing",
+      "so 结果分句②：so anytime you're taking the tool out of the toolkit …, you're potentially taking supply off the market …",
+      "  ├ 时间状语从句(anytime)：anytime you're taking the tool out of the toolkit for communities to address this（for+名词+to do）",
+      "  └ 主句：you're potentially taking supply off the market that's already incredibly stressed",
+      "      └ 定语从句〔that，修饰 the market〕：that's already incredibly stressed",
+      "倒装提示语：said Nick Taylor, executive director of the Workforce Housing Coalition of the Greater Seacoast"
+    ],
+    "logic": "引语 We are at a crisis level…，so + anytime 从句（时间状语，for communities to address 不定式）+ 主句（taking supply off the market，that 定语从句修饰 market）；said + 主语 倒装。",
+    "notes": [
+      "anytime (you're…)：相当于连词，引导时间状语从句（每当…时）。",
+      "the tool out of the toolkit for communities to address this：for + 名词 + to do 不定式（供社区应对此事的工具）。",
+      "the market that's already incredibly stressed：that 定语从句修饰 the market；said Nick Taylor… 倒装。"
+    ]
+  },
+  "2023-T2-P1-S2": {
+    "trunk": "there be：there's an increased urgency in such regulation（如今对此类监管的紧迫性增强了）",
+    "structure": [
+      "状语(with 复合结构)：Now, with record-high home prices and historically low inventory",
+      "主句(there be)：there's an increased urgency in such regulation",
+      "状语：particularly among those …",
+      "  └ 定语从句〔who，修饰 those〕：who worry that developers will come in and buy up swaths of housing to flip for a fortune on the short-term rental market",
+      "      ├ 宾语从句(that)：developers will come in and buy up swaths of housing（并列谓语 come in / buy up）",
+      "      └ 不定式作目的：to flip for a fortune on the short-term rental market"
+    ],
+    "logic": "with… 复合结构状语；there be 主句；among those who… 状语（who 定语从句修饰 those，worry that… 宾语从句，并列谓语 come in and buy up，to flip… 目的）。",
+    "notes": [
+      "with record-high home prices and historically low inventory：with 复合结构作状语（在…的情况下）。",
+      "those who worry that…：who 定语从句修饰 those；worry that… 宾语从句。",
+      "buy up swaths of housing to flip for a fortune：to flip… 目的状语（大量买进房产以转手牟利）；flip 转手倒卖。"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "2020-T3-P5-S1": {
+    "trunk": "两句（逗号粘连）：① 最高法不赞成基于性别的分类，除非… ② 因…，法院很可能裁定该法违宪",
+    "structure": [
+      "句①：The US Supreme Court frowns on sex-based classifications unless they are designed to address an 「important」 policy interest",
+      "  └ 条件状语从句(unless)：unless they are designed to address an 「important」 policy interest",
+      "句②：Because …, courts are likely to rule that …",
+      "  ├ 原因状语从句(Because)：Because the California law applies to all boards, even where there is no history of prior discrimination",
+      "  │   └ 让步状语从句(even where)：even where there is no history of prior discrimination",
+      "  └ 主句：courts are likely to rule that the law violates the constitutional guarantee of 「equal protection」",
+      "      └ 宾语从句(that)：that the law violates the constitutional guarantee of 「equal protection」"
+    ],
+    "logic": "句① frowns on…unless…（条件）；句② Because 原因从句（even where… 让步）+ 主句 courts are likely to rule that…（宾语从句）。",
+    "notes": [
+      "frown on 不赞成；unless 引导条件状语从句（除非…）。",
+      "（原文 interest, Because 为逗号粘连，实为两句）。Because 原因从句内含 even where… 让步状语从句。",
+      "be likely to do 很可能；rule that… 宾语从句（裁定该法违反「平等保护」的宪法保障）。"
+    ]
+  },
+  "2020-T3-P9-S1": {
+    "trunk": "现在分词状语+S+V+O：Writing in The New Republic, Alice Lee notes that …（李在《新共和》撰文指出…）",
+    "structure": [
+      "现在分词作状语：Writing in The New Republic",
+      "主句：Alice Lee notes that …",
+      "  └ 宾语从句(that)：increasing the number of opportunities … has led to a 「golden skirt」 phenomenon",
+      "      ├ 动名词作主语：increasing the number of opportunities for board membership without increasing the pool of qualified women to serve on such boards（to serve… 修饰 women）",
+      "      └ 非限制性定语从句〔where，修饰 phenomenon〕：where the same elite women scoop up multiple seats on a variety of boards"
+    ],
+    "logic": "Writing in… 现在分词状语；主句 Alice Lee notes that…；that 从句主语是动名词 increasing…（without increasing… 修饰），谓语 has led to a phenomenon；where 定语从句修饰 phenomenon。",
+    "notes": [
+      "Writing in The New Republic：现在分词作状语（在《新共和》撰文时）。",
+      "that 从句主语是动名词 increasing the number of opportunities…（without increasing… 修饰），谓语 has led to。",
+      "where 引导非限制定语从句修饰 phenomenon（在这种现象中，同一批精英女性…）；to serve on such boards 不定式修饰 women。"
+    ]
+  },
+  "2020-T3-P10-S1": {
+    "trunk": "时间从句+祈使句：Next time …, remember that …（下次当有人…时，记住…）",
+    "structure": [
+      "时间状语从句(Next time)：Next time somebody pushes corporate quotas as a way to promote gender equity（to promote… 修饰 a way）",
+      "主句（祈使句）：remember that …",
+      "  └ 宾语从句(that)：such policies are largely self-serving measures …",
+      "      └ 定语从句〔that，修饰 measures〕：that make their sponsors feel good but do little to help average women（并列谓语 make / do）"
+    ],
+    "logic": "Next time 引导时间状语从句（下次当…时）；主句是祈使句 remember that…；that 宾语从句；其中 that 定语从句修饰 measures（并列谓语 make… but do little…）。",
+    "notes": [
+      "Next time (somebody…)：相当于连词，引导时间状语从句（下次当…时）。",
+      "remember that…：祈使句 + that 宾语从句。",
+      "measures that make their sponsors feel good but do little to…：that 定语从句修饰 measures，并列谓语（make sb do / do little to do）。"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "2011-T4-P5-S2": {
+    "trunk": "形式主语：It's interesting to wonder if …（值得玩味的是去想一想 是否…）",
+    "structure": [
+      "主句（形式主语 it）：it's interesting to wonder if …（真正主语是 to wonder if…）",
+      "  └ 宾语从句(if=是否)：the images … aren't … contributing to our own dissatisfactions with the actual experience",
+      "      ├ 主语：the images",
+      "      │   └ 定语从句〔省略关系词，修饰 images〕：we see every week（of … parenthood 介词短语亦修饰 images）",
+      "      ├ 谓语：aren't … contributing to our own dissatisfactions…",
+      "      └ 方式状语(in the same way that…)：in the same way that a small part of us hoped getting 「the Rachel」 might make us look just a little bit like Jennifer Aniston"
+    ],
+    "logic": "it 形式主语，真正主语是 to wonder if…；if 引导 wonder 的宾语从句（是否…）；the images (that) we see… 为该从句主语；in the same way that… 作方式状语类比。",
+    "notes": [
+      "it's interesting to wonder…：it 形式主语，真正主语是 to wonder if… 不定式。",
+      "if 在此=「是否」，引导 wonder 的宾语从句（不是「如果」）。",
+      "the images (that) we see every week of … parenthood：images 后省略关系词的定语从句，谓语远在后面（aren't contributing），属主谓分隔。",
+      "aren't contributing 用否定形式表委婉的肯定猜测；in the same way that … 以…同样的方式。"
+    ]
+  },
+  "2011-T4-P3-S3": {
+    "trunk": "并列双分句(but)：① Unhappy parents rarely are provoked to wonder … ② unhappy childless folks are bothered with the message …",
+    "structure": [
+      "分句①：Unhappy parents rarely are provoked to wonder if they shouldn't have had kids",
+      "  └ 宾语从句(if=是否)：if they shouldn't have had kids",
+      "并列(but)分句②：unhappy childless folks are bothered with the message …",
+      "  └ 同位语从句〔that，说明 the message〕：that children are the single most important thing in the world",
+      "冒号后（推论）：obviously their misery must be a direct result of the gaping baby-size holes in their lives"
+    ],
+    "logic": "but 连接对比两分句；分句①中 if=是否；分句②中 that 引导同位语从句说明 the message；冒号引出由该 message 推出的（反讽）结论。",
+    "notes": [
+      "if they shouldn't have had kids：if=是否；shouldn't have had 是「本不该有」（对过去的虚拟）。",
+      "the message that children are…：that 引导同位语从句（说明 the message）。",
+      "冒号后 obviously… 是顺着该 message 推出的反讽结论；gaping baby-size holes 婴儿般大小的空洞（反讽）。"
+    ]
+  },
+  "2011-T4-P1-S1": {
+    "trunk": "形式主语：It's no surprise that …（…毫不令人意外）",
+    "structure": [
+      "主句（形式主语 it）：It's no surprise that …（真正主语是 that 主语从句）",
+      "  └ 主语从句(that)：Jennifer Senior's … magazine cover story … is arousing much chatter",
+      "      └ 同位语〔说明 cover story，引号标题〕：「I Love My Children, I Hate My Life」",
+      "破折号后（补充说明原因）：nothing gets people talking like the suggestion that child rearing is anything less than a completely fulfilling, life-enriching experience",
+      "  └ 同位语从句〔that，说明 the suggestion〕：that child rearing is anything less than a completely fulfilling, life-enriching experience"
+    ],
+    "logic": "it 形式主语，真正主语是 that 主语从句；引号内是 cover story 的同位语（标题）；破折号后补充原因，其中 that 引导同位语从句说明 the suggestion。",
+    "notes": [
+      "It's no surprise that…：it 形式主语，真正主语是 that 从句。",
+      "nothing gets people talking like…：没有什么比…更让人议论（get people talking 使人议论）。",
+      "the suggestion that…：that 同位语从句说明 the suggestion；anything less than fulfilling 反讽（暗示养育绝非全然圆满）。"
+    ]
+  }
+}

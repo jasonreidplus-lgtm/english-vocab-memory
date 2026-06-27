@@ -1,0 +1,50 @@
+{
+  "2017-T4-P2-S1": {
+    "trunk": "S+V+O：The high court's decision said (that) …（高院的裁决称…）",
+    "structure": [
+      "主句：The high court's decision said …",
+      "  └ 宾语从句(省略 that)：the judge … failed to tell a jury that it must look only at his 「official acts」 …",
+      "      ├ 宾语从句(that)：that it must look only at his 「official acts」（tell sb that…）",
+      "      └ 同位语〔说明 official acts〕：or the former governor's decisions on 「specific」 and 「unsettled」 issues",
+      "          └ 过去分词作定语〔修饰 issues〕：related to his duties"
+    ],
+    "logic": "主句 decision said (that)…；宾语从句 the judge failed to tell a jury that…（tell sb that 宾语从句）；or… 是对 「official acts」 的同位解释；related to… 过去分词定语修饰 issues。",
+    "notes": [
+      "said (that) … failed to tell …：两层宾语从句（said 的宾语从句 + tell sb that 的宾语从句）。",
+      "or the former governor's decisions…：or 引出对 「official acts」 的同位解释（即…）。",
+      "issues related to his duties：related to… 过去分词作定语修饰 issues（与其职责相关的问题）。"
+    ]
+  },
+  "2017-T4-P1-S2": {
+    "trunk": "S+V：But it did so（但它这么做时…）",
+    "structure": [
+      "主句：But it did so",
+      "时间/伴随状语(while + V-ing)：while holding its nose at the ethics of his conduct",
+      "非限制性定语从句〔which，修饰 his conduct〕：which included accepting gifts such as a Rolex watch and a Ferrari Automobile from a company …",
+      "  ├ 动名词作宾语：accepting gifts such as…",
+      "  └ 现在分词作定语〔修饰 a company〕：seeking access to government"
+    ],
+    "logic": "主句 it did so；while holding…（现在分词伴随状语，捏着鼻子=勉强容忍）；which 非限制定语从句修饰 conduct（included accepting… 动名词宾语；seeking… 现在分词定语修饰 company）。",
+    "notes": [
+      "while holding its nose at…：while + 现在分词作伴随状语（hold one's nose at 捏鼻忍受、勉强容忍）。",
+      "which 非限制性定语从句修饰 his conduct；included accepting…（动名词作宾语）。",
+      "a company seeking access to government：seeking… 现在分词作定语修饰 company（一家谋求接近政府的公司）。"
+    ]
+  },
+  "2017-T4-P5-S3": {
+    "trunk": "引语(主谓被提示语分隔)：The basic compact … assumes that …（首席大法官罗伯茨写道：代议制政府的基本契约…假定…）",
+    "structure": [
+      "引语主语：The basic compact",
+      "  └ 现在分词作定语〔修饰 compact〕：underlying representative government",
+      "提示语（倒装，插入主谓之间）：wrote Chief Justice John Roberts for the court",
+      "引语谓语：assumes that public officials will hear from their constituents and act on their concerns",
+      "  └ 宾语从句(that)：public officials will hear from their constituents and act on their concerns（并列谓语 hear / act）"
+    ],
+    "logic": "引语主语 The basic compact（underlying… 现在分词定语），谓语 assumes that…；中间 wrote Chief Justice John Roberts 是引语提示语（倒装）插入；that 从句内并列谓语 hear from… and act on…。",
+    "notes": [
+      "wrote Chief Justice John Roberts for the court 是引语提示语（倒装），插在引语主谓之间。",
+      "The basic compact underlying representative government：underlying… 现在分词作定语修饰 compact。",
+      "assumes that…：that 宾语从句，内含并列谓语 hear from… and act on…。"
+    ]
+  }
+}

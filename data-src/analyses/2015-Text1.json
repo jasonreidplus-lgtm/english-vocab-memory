@@ -1,0 +1,45 @@
+{
+  "2015-T1-P1-S12": {
+    "trunk": "形式主语：it is bizarre that wealthy aristocratic families should still be the symbolic heart …（…仍是…的象征核心，实在离奇）",
+    "structure": [
+      "状语：At a time",
+      "  └ 定语从句〔when，修饰 a time〕：when Thomas Piketty and other economists are warning of rising inequality and the increasing power of inherited wealth",
+      "主句（形式主语 it）：it is bizarre that wealthy aristocratic families should still be the symbolic heart of modern democratic states",
+      "  └ 主语从句(that)：that wealthy aristocratic families should still be the symbolic heart of modern democratic states"
+    ],
+    "logic": "At a time when… 时间状语（when 定语从句修饰 a time）；it 形式主语，真正主语是 that 从句；should 表「竟然/居然」的情感色彩。",
+    "notes": [
+      "when 引导定语从句修饰 a time（不是状语从句）。",
+      "it is bizarre that…：it 形式主语，真正主语是 that 从句。",
+      "should still be：should 表惊讶/不解（竟然还…），非「应该」；warn of 警示。"
+    ]
+  },
+  "2015-T1-P1-S16": {
+    "trunk": "让步+强调句：While …, it is the British royals who have most to fear …（尽管…，最该惧怕的是英国王室）",
+    "structure": [
+      "让步状语从句(While)：While Europe's monarchies will no doubt be smart enough to survive for some time to come",
+      "主句（强调句）：it is the British royals who have most to fear from the Spanish example"
+    ],
+    "logic": "While 引导让步状语从句（尽管）；主句是强调句 it is X who…（强调 the British royals）。",
+    "notes": [
+      "While 引导让步状语从句（尽管）。",
+      "it is the British royals who…：强调句（强调 the British royals），删 it is…who 后句子仍成立。",
+      "smart enough to survive：enough to do；some time to come 未来一段时间。"
+    ]
+  },
+  "2015-T1-P1-S9": {
+    "trunk": "S+V：most royal families have survived（多数王室得以存续）",
+    "structure": [
+      "状语(unlike…)：But unlike their absolutist counterparts in the Gulf and Asia",
+      "主句：most royal families have survived",
+      "原因状语从句(because)：because they allow voters to avoid the difficult search for a non-controversial but respected public figure",
+      "  └ allow sb to do：allow voters to avoid the difficult search"
+    ],
+    "logic": "unlike… 作状语（与…不同）；主句 most royal families have survived；because 原因从句，allow sb to do（让选民得以避免…）。",
+    "notes": [
+      "unlike their absolutist counterparts… 作状语（与海湾和亚洲的专制君主不同）。",
+      "because 引导原因状语从句；allow sb to do（让某人得以…）。",
+      "non-controversial but respected：并列形容词修饰 public figure（无争议却受尊敬的）。"
+    ]
+  }
+}

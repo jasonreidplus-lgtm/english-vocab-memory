@@ -122,9 +122,18 @@ export interface Summary {
   learnedIds?: Set<number | string>;
 }
 
+/** 长难句拆解（作者侧按规则离线预生成，存进句子数据；运行时只读取展示） */
+export interface SentenceAnalysis {
+  trunk: string; // 主干（一句话，如 "S+V+O：…"）
+  structure?: string[]; // 分层结构：每行一条(自带缩进/├└ 符号)
+  logic?: string; // 逻辑关系（一句话）
+  notes?: string[]; // 难点提示（要点：分隔点/易错结构/生词）
+}
+
 export interface Sentence {
   en: string;
   cn?: string;
+  analysis?: SentenceAnalysis;
 }
 
 export interface Passage {

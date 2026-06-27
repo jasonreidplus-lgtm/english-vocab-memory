@@ -2,13 +2,13 @@ import React, { useMemo, useRef, useState } from 'react';
 import { Eraser } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import WordPopup from '../components/WordPopup';
-import { annotate, buildLookup, countUnique } from '../lib/annotate';
+import { annotate, buildLookup } from '../lib/annotate';
 import { resolveTap, isDictLoading, loadDict } from '../lib/dict';
 import { useDict } from '../lib/useDict';
-import { freqOf } from '../lib/freq';
+import { freqOf, isKeyHit } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
 import FreqBadge from '../components/FreqBadge';
-import type { Word, DictData } from '../types';
+import type { Word } from '../types';
 
 interface ReadScreenProps {
   pool: Word[];
@@ -32,10 +32,11 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
   const curId = useRef<Word['id'] | null>(null); // 防止快速切词时旧的 hydrate 覆盖
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
-  const dict = useDict();
+  useDict(); // 预加载广义词典：点任意词都能查（但不参与高亮，避免整段全亮）
   const freq = useFreq();
-  const segs = useMemo(() => annotate(text, lookup, dict as DictData | undefined), [text, lookup, dict]);
-  const hitCount = useMemo(() => countUnique(segs), [segs]);
+  // 高亮只认考研核心词库(lookup)；广义词典词不高亮，但点击仍走 resolveTap 可查
+  const segs = useMemo(() => annotate(text, lookup), [text, lookup]);
+  const hitCount = useMemo(() => new Set(segs.filter((s) => isKeyHit(s.w, s.t, lookup, freq)).map((s) => (s.w as Word).word)).size, [segs, lookup, freq]);
 
   const openWord = async (entry: Word) => {
     curId.current = entry.id;
@@ -90,17 +91,18 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
 
       {text ? (
         <div className="read-passage fade">
-          {segs.map((s, i) =>
-            !/^[A-Za-z]/.test(s.t) ? (
-              <span key={i}>{s.t}</span>
-            ) : s.w ? (
-              <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
-                {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
-              </button>
-            ) : (
-              <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>
-            )
-          )}
+          {segs.map((s, i) => {
+            if (!/^[A-Za-z]/.test(s.t)) return <span key={i}>{s.t}</span>;
+            if (isKeyHit(s.w, s.t, lookup, freq)) {
+              return (
+                <button key={i} className={`hl${added[s.w!.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
+                  {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
+                </button>
+              );
+            }
+            // 非重点词（常见核心词 / 广义词典词 / 未收录）：普通文字，点击仍可查
+            return <button key={i} className="tapword" onClick={() => (s.w ? openWord(s.w) : tapWord(s.t))}>{s.t}</button>;
+          })}
         </div>
       ) : (
         <div className="label center mt16" style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.8 }}>

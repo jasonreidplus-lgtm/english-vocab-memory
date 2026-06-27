@@ -1,0 +1,46 @@
+{
+  "2018-T2-P6-S1": {
+    "trunk": "S+V+O：they reveal a mental discipline …（当年轻人批评爱发推的总统时，他们显露出一种思维上的自律）",
+    "structure": [
+      "时间状语从句(when)：So when young people are critical of an over-tweeting president",
+      "主句：they reveal a mental discipline in thinking skills – and in their choices on when to share on social media",
+      "  ├ 并列介词短语：in thinking skills / in their choices on when to share on social media",
+      "  └ 介词宾语（疑问词+不定式）：when to share on social media"
+    ],
+    "logic": "when 引导时间状语从句；主句 they reveal a discipline；in… and in… 并列介词短语；when to share 是「疑问词+不定式」作 on 的宾语。",
+    "notes": [
+      "when 引导时间状语从句（当年轻人批评…时）。",
+      "in thinking skills – and in their choices…：破折号连接的并列介词短语。",
+      "when to share on social media：「疑问词 + 不定式」作介词 on 的宾语（何时在社媒分享）。"
+    ]
+  },
+  "2018-T2-P4-S2": {
+    "trunk": "S+V+O：A 2014 survey … found that …（一项2014年的调查发现…）",
+    "structure": [
+      "主句：A 2014 survey … found that young people's reliance on social media led to greater political engagement",
+      "  ├ 过去分词作定语〔修饰 survey〕：conducted in Australia, Britain, and the United States by the University of Wisconsin-Madison",
+      "  └ 宾语从句(that)：young people's reliance on social media led to greater political engagement"
+    ],
+    "logic": "主语 survey + 谓语 found（被 conducted… 过去分词定语隔开，主谓分隔）；that 宾语从句。",
+    "notes": [
+      "主谓分隔：主语 A 2014 survey 与谓语 found 被 conducted…（过去分词定语）隔开。",
+      "conducted in … by …：过去分词作定语修饰 survey（一项…开展的调查）。",
+      "that 引导 found 的宾语从句；reliance on 对…的依赖；led to 导致。"
+    ]
+  },
+  "2018-T2-P2-S4": {
+    "trunk": "S+be+表：nearly a quarter of web content … was fake news（近四分之一的网络内容是假新闻）",
+    "structure": [
+      "状语：During the 2016 presidential campaign",
+      "主句：nearly a quarter of web content … was fake news",
+      "  └ 过去分词作定语〔修饰 web content〕：shared by Twitter users in the politically critical state of Michigan",
+      "状语(according to)：according to the University of Oxford"
+    ],
+    "logic": "主语 a quarter of web content + 系动词 was（被 shared by… 过去分词定语隔开，主谓分隔）；according to… 状语（据…）。",
+    "notes": [
+      "主谓分隔：主语 nearly a quarter of web content 与系动词 was 被 shared by…（过去分词定语）隔开。",
+      "shared by Twitter users in…：过去分词作定语修饰 web content。",
+      "according to… 状语（据牛津大学）；a quarter of 四分之一。"
+    ]
+  }
+}

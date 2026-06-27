@@ -1,0 +1,50 @@
+{
+  "2018-T3-P1-S4": {
+    "trunk": "强调句：It is against that background that … Denham … has issued her damning verdict …（正是在此背景下，信息专员丹纳姆…作出严厉裁定）",
+    "structure": [
+      "强调句：It is against that background that …（强调状语 against that background）",
+      "被强调后的主句：the information commissioner, Elizabeth Denham, has issued her damning verdict against the Royal Free hospital trust under the NHS",
+      "  ├ 同位语〔说明 commissioner〕：Elizabeth Denham",
+      "  └ 非限制性定语从句〔which，修饰 the trust〕：which handed over to DeepMind the records of 1.6 million patients in 2015 on the basis of a vague agreement",
+      "      └ 定语从句〔which，修饰 a vague agreement〕：which took far too little account of the patients' rights and their expectations of privacy"
+    ],
+    "logic": "It is … that … 强调句（强调 against that background）；主句 commissioner has issued verdict；第一个 which 定语从句修饰 trust；其内再套第二个 which 定语从句修饰 agreement。",
+    "notes": [
+      "It is against that background that…：强调句（强调状语；删 It is…that 后句子仍成立）。",
+      "第一个 which 非限制定语从句修饰 trust（它把…记录移交 DeepMind）；第二个 which 定语从句修饰 a vague agreement。",
+      "take far too little account of…：太少顾及…；Elizabeth Denham 是 commissioner 的同位语。"
+    ]
+  },
+  "2018-T3-P2-S3": {
+    "trunk": "S+V(被动)：Further arrangements … will be carefully scrutinised（NHS 与 DeepMind 之间今后的安排将受到仔细审查）",
+    "structure": [
+      "主句：Further arrangements … between the NHS and DeepMind will be carefully scrutinised",
+      "  ├ 破折号插入：and there may be many",
+      "  ├ 介词短语作定语〔修饰 arrangements〕：between the NHS and DeepMind",
+      "  └ 不定式作目的：to ensure that all necessary permissions have been asked of patients and all unnecessary data has been cleaned",
+      "      └ 并列宾语从句(that)：all necessary permissions have been asked … and all unnecessary data has been cleaned"
+    ],
+    "logic": "主语 arrangements（破折号插入 and there may be many + between… 定语，造成主谓分隔），谓语 will be scrutinised（被动）；to ensure that…（目的 + 并列宾语从句，均现在完成被动）。",
+    "notes": [
+      "主谓分隔：主语 Further arrangements 与谓语 will be carefully scrutinised 被破折号插入（and there may be many）与 between… 隔开。",
+      "to ensure that … and …：不定式作目的，that 引导并列宾语从句（两项均为现在完成被动）。",
+      "permissions have been asked of patients：ask sth of sb 的被动（已向患者征得许可）。"
+    ]
+  },
+  "2018-T3-P4-S5": {
+    "trunk": "条件+主句：If software promises to save lives …, big data may be expected to behave as big pharma has done",
+    "structure": [
+      "条件状语从句(If)：If software promises to save lives on the scale that drugs now can",
+      "  └ 定语从句〔that，修饰 the scale〕：that drugs now can (save)〔句末省略 save〕",
+      "主句：big data may be expected to behave as big pharma has done",
+      "  ├ be expected to do：被动（可望/被期待）",
+      "  └ 方式状语从句(as)：as big pharma has done〔done 替代 behaved〕"
+    ],
+    "logic": "If 条件从句（that 定语从句修饰 the scale，句末省略 save）；主句 big data may be expected to behave（被动）；as big pharma has done 方式状语从句（如同大药厂那样）。",
+    "notes": [
+      "on the scale that drugs now can (save)：that 定语从句修饰 the scale，句末省略 save（达到如今药物所能拯救的规模）。",
+      "be expected to do：被动（可望/被期待）。",
+      "as big pharma has done：as 方式状语从句（如同大型制药业已做的那样），done 替代 behaved。"
+    ]
+  }
+}

@@ -3,6 +3,7 @@
    - 句子按 paragraph、sentence 升序；篇目按 year、text 升序。
    - 弯引号(""'')规范化为直引号，改善点词匹配与显示。
    - 译文：从 data-src/translations/*.json({ "<句子id>": "<中文译文>" }) 按 id 并入 cn。
+   - 拆解：从 data-src/analyses/*.json({ "<句子id>": { trunk, structure?, logic?, notes? } }) 按 id 并入 analysis。
    - 该 passages.json 同时被「句子精读·句库」复用(flatten 取 sents)。
    覆盖/新增 data-src/拆句_JSONL/*.jsonl 或 data-src/translations/*.json 后，
    重跑 `node scripts/build-passages.mjs` 即可。 */
@@ -14,6 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'data-src', '拆句_JSONL');
 const TRANS_DIR = path.join(ROOT, 'data-src', 'translations');
+const ANALYSES_DIR = path.join(ROOT, 'data-src', 'analyses');
 const OUT_DIR = path.join(ROOT, 'public', 'data');
 const OUT = path.join(OUT_DIR, 'passages.json');
 
@@ -37,6 +39,16 @@ try {
   }
 } catch {
   /* 无 translations 目录则全部英文 */
+}
+
+// 合并长难句拆解(data-src/analyses/*.json：{ "<句子id>": { trunk, structure?, logic?, notes? } })
+const analyses = {};
+try {
+  for (const f of readdirSync(ANALYSES_DIR).filter((f) => f.toLowerCase().endsWith('.json'))) {
+    Object.assign(analyses, JSON.parse(readFileSync(path.join(ANALYSES_DIR, f), 'utf8')));
+  }
+} catch {
+  /* 无 analyses 目录则无拆解 */
 }
 
 const groups = new Map(); // "year-text" -> { year, text, records:[] }
@@ -86,20 +98,23 @@ const passages = [...groups.values()]
       year,
       text,
       sents: records.map((r) => {
-        const cn = trans[r.id];
-        return cn ? { en: r.en, cn } : { en: r.en };
+        const out = { en: r.en };
+        if (trans[r.id]) out.cn = trans[r.id];
+        if (analyses[r.id]) out.analysis = analyses[r.id];
+        return out;
       }),
     };
   });
 
 const sentTotal = passages.reduce((n, p) => n + p.sents.length, 0);
 const cnTotal = passages.reduce((n, p) => n + p.sents.filter((s) => s.cn).length, 0);
+const anaTotal = passages.reduce((n, p) => n + p.sents.filter((s) => s.analysis).length, 0);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(OUT, JSON.stringify(passages));
 
 console.log(
-  `passages.json：${passages.length} 篇 / ${sentTotal} 句 / ${cnTotal} 句有译文` +
+  `passages.json：${passages.length} 篇 / ${sentTotal} 句 / ${cnTotal} 句有译文 / ${anaTotal} 句有拆解` +
     `（读取 ${files.length} 文件 / ${lineCount} 行${badLines ? `，跳过 ${badLines} 行异常` : ''}）`
 );
 console.log(`→ ${path.relative(ROOT, OUT)}`);

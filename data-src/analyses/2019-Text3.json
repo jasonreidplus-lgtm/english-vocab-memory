@@ -1,0 +1,49 @@
+{
+  "2019-T3-P6-S1": {
+    "trunk": "时间从句+引语+倒装提示语：Whenever …, 「you quickly get into a lot of ethical questions,」 notes Tan Kiat How …",
+    "structure": [
+      "时间状语从句(Whenever)：Whenever decisions are based on masses of data",
+      "引语：you quickly get into a lot of ethical questions",
+      "倒装提示语：notes Tan Kiat How, chief executive of a Singapore-based agency …（= Tan Kiat How notes）",
+      "  └ 同位语〔说明 Tan Kiat How〕：chief executive of a Singapore-based agency",
+      "      └ 定语从句〔that，修饰 agency〕：that is helping the government develop a voluntary code for the ethical use of AI"
+    ],
+    "logic": "Whenever 引导时间状语从句（每当…）；引语；notes + 主语 倒装；chief executive… 同位语，that 定语从句修饰 agency（help sb do）。",
+    "notes": [
+      "Whenever 引导时间状语从句（每当…时）。",
+      "notes Tan Kiat How…：引语提示语的倒装（= … notes）；chief executive… 是其同位语。",
+      "that is helping the government develop…：that 定语从句修饰 agency；help sb do（帮助政府制定…）。"
+    ]
+  },
+  "2019-T3-P3-S2": {
+    "trunk": "S+remain+表：humans remain fascinated by the idea of robots …（人类依然为「像人一样的机器人」这一构想着迷）",
+    "structure": [
+      "主句：Yet humans remain fascinated by the idea of robots …",
+      "  ├ 定语从句〔that，修饰 robots〕：that would look, move, and respond like humans（并列谓语 look/move/respond）",
+      "  └ 形容词短语作定语〔修饰 robots〕：similar to those recently depicted on popular sci-fi TV series such as 「West world」 and 「Humans」",
+      "      └ 过去分词作定语〔修饰 those〕：recently depicted on popular sci-fi TV series"
+    ],
+    "logic": "主句 humans remain fascinated by the idea of robots；that 定语从句修饰 robots（并列谓语 look/move/respond）；similar to those… 形容词短语修饰 robots，其中 depicted… 过去分词定语修饰 those。",
+    "notes": [
+      "remain fascinated by…：remain + 形容词（依然着迷于…）。",
+      "that would look, move, and respond like humans：that 定语从句修饰 robots（并列谓语）。",
+      "similar to those recently depicted…：similar to… 形容词短语作定语；depicted… 过去分词修饰 those（科幻剧中刻画的那些）。"
+    ]
+  },
+  "2019-T3-P1-S2": {
+    "trunk": "S+V+O：the author produced a remarkable work of speculative fiction …（早在电灯泡发明之前，作者就写出了一部非凡的思辨小说）",
+    "structure": [
+      "状语：Even before the invention of the electric light bulb",
+      "主句：the author produced a remarkable work of speculative fiction …",
+      "  └ 定语从句〔that，修饰 work〕：that would foreshadow many ethical questions …",
+      "      └ 不定式作定语(被动)〔修饰 questions〕：to be raised by technologies yet to come",
+      "          └ 不定式作定语〔修饰 technologies〕：yet to come"
+    ],
+    "logic": "主句 the author produced a work；that 定语从句修饰 work（预示许多伦理问题）；to be raised by… 不定式被动修饰 questions；yet to come 不定式修饰 technologies。",
+    "notes": [
+      "that would foreshadow…：that 定语从句修饰 a work（一部…的作品）。",
+      "many ethical questions to be raised by technologies：to be raised 不定式被动作定语修饰 questions（将被…提出的问题）。",
+      "technologies yet to come：yet to come 不定式作定语（尚未到来的技术）。"
+    ]
+  }
+}

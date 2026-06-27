@@ -1,0 +1,45 @@
+{
+  "2016-T2-P2-S10": {
+    "trunk": "两句（原文漏句点）：① The Liberal Democrats are silent ② Only Ukip … has sided with those …（自由民主党沉默；唯有英国独立党…站在…一边）",
+    "structure": [
+      "句①：The Liberal Democrats are silent",
+      "句②：Only Ukip … has sided with those pleading for a more considered approach to using green land",
+      "  ├ 现在分词作伴随状语：sensing its chance",
+      "  └ 现在分词作定语〔修饰 those〕：pleading for a more considered approach to using green land"
+    ],
+    "logic": "原文漏句点，实为两句；句② Only Ukip has sided with those（sensing… 现在分词状语；pleading… 现在分词定语修饰 those）。",
+    "notes": [
+      "（原文 silent 后漏句点，实为两句；has sides 应为 has sided）。",
+      "sensing its chance：现在分词作伴随状语（嗅到机会）。",
+      "those pleading for…：现在分词作定语修饰 those（那些恳求…的人）；approach to using（to 是介词，后接动名词）。"
+    ]
+  },
+  "2016-T2-P2-S13": {
+    "trunk": "S+V+O：Stirling Ackroyd … identified enough sites for half a million houses …（斯特林·阿克罗伊德…已找出足够建五十万套房的地块）",
+    "structure": [
+      "主句：The London agents Stirling Ackroyd recently identified enough sites for half a million houses in the London area alone",
+      "  ├ 同位语：Stirling Ackroyd（= The London agents 的名字）",
+      "  └ with 复合结构作状语：with no intrusion on green belts"
+    ],
+    "logic": "主句 agents identified enough sites（for half a million houses 作定语）；with no intrusion… 介词独立结构作状语（且不侵占绿化带）。",
+    "notes": [
+      "The London agents Stirling Ackroyd：Stirling Ackroyd 是 The London agents 的同位语。",
+      "enough sites for half a million houses：for… 介词短语作定语（足够建五十万套房的地块）。",
+      "with no intrusion on green belts：with 复合结构作状语（且不侵占绿化带）。"
+    ]
+  },
+  "2016-T2-P2-S1": {
+    "trunk": "S+V+O：Octavia Hill launched the National Trust …（一个世纪前奥克塔维娅·希尔创立了国民信托）",
+    "structure": [
+      "状语：A century ago",
+      "主句：Octavia Hill launched the National Trust",
+      "目的状语(not…but…，并列不定式)：not to rescue stylish houses but to save 「the beauty of natural places for everyone forever」"
+    ],
+    "logic": "主句 launched the National Trust；not to do… but to do… 并列不定式作目的状语（不是为了…而是为了…）。",
+    "notes": [
+      "not to rescue… but to save…：not…but… 并列两个不定式作目的状语（不是为…而是为…）。",
+      "A century ago 时间状语。",
+      "for everyone forever 介词短语（为所有人、永远地）。"
+    ]
+  }
+}

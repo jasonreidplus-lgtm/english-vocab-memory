@@ -1,0 +1,52 @@
+{
+  "2016-T3-P1-S2": {
+    "trunk": "倒装引语 + 让步句：Wrote Milton Friedman 「…」；But even if you accept …, things may not be absolutely clear-cut",
+    "structure": [
+      "倒装句①：Wrote Milton Friedman, a Nobel Prize-winning economist: 「…」（= Milton Friedman wrote: 「…」）",
+      "  └ 同位语：a Nobel Prize-winning economist",
+      "句②（But even if…）：But even if you accept Friedman's premise and regard CSR policies as a waste of shareholders' money, things may not be absolutely clear-cut",
+      "  ├ 让步状语从句(even if)：even if you accept … and regard … as …",
+      "  │   └ 并列谓语：accept Friedman's premise / regard CSR policies as a waste…（regard A as B）",
+      "  └ 主句：things may not be absolutely clear-cut"
+    ],
+    "logic": "① Wrote + 主语 倒装（引语提示语）；② even if 引导让步状语从句（其内并列谓语 accept… and regard A as B），主句 things may not be clear-cut。",
+    "notes": [
+      "Wrote Milton Friedman…：引语提示语的倒装（= Milton Friedman wrote）；a Nobel Prize-winning economist 同位语。",
+      "even if 引导让步状语从句；从句内并列谓语 accept… and regard A as B（把 A 视为 B）。",
+      "（原文 shareholders's 应为 shareholders'，clear-act 应为 clear-cut 明确的）。"
+    ]
+  },
+  "2016-T3-P3-S2": {
+    "trunk": "S+V+O：Their analysis ruled out the possibility that …（他们的分析排除了…的可能）",
+    "structure": [
+      "主句：Their analysis ruled out the possibility …",
+      "  └ 同位语从句〔that，说明 possibility〕：that it was firm's political influence, rather than their CSR stand, that accounted for the leniency",
+      "      ├ 强调句：it was … that …（强调 firm's political influence）",
+      "      └ 插入对比：rather than their CSR stand",
+      "冒号后（证据）：Companies that contributed more to political campaigns did not receive lower fines",
+      "  └ 定语从句〔that，修饰 Companies〕：that contributed more to political campaigns"
+    ],
+    "logic": "主句 ruled out the possibility；that 同位语从句说明 possibility，其内是强调句 it was X that…（强调 political influence，rather than CSR 插入对比）；冒号引出证据，that 定语从句修饰 Companies。",
+    "notes": [
+      "the possibility that…：that 同位语从句说明 possibility（不是定语从句）。",
+      "同位语从句内是强调句 it was … that …（强调 firm's political influence，而非 CSR stand）。",
+      "冒号后 Companies that…：that 定语从句修饰 Companies（捐得多的公司并未获更低罚款）。"
+    ]
+  },
+  "2016-T3-P3-S4": {
+    "trunk": "引语(estimate that…)+倒装提示语：「We estimate that … result in fines …」 says one researcher",
+    "structure": [
+      "引语：We estimate that either eliminating … or increasing corporate giving by about 20% result in fines …",
+      "  └ 宾语从句(that)：either eliminating … or increasing … result in fines …",
+      "      ├ either…or… 并列动名词主语：either eliminating a substantial labour-rights concern … or increasing corporate giving by about 20%",
+      "      └ 定语从句〔that，修饰 fines〕：that generally are 40% lower than the typical punishment for bribing foreign officials（比较级）",
+      "倒装提示语：says one researcher（= one researcher says）"
+    ],
+    "logic": "estimate that…（宾语从句）；从句主语是 either…or… 并列动名词（消除…或增加…），谓语 result in fines；that 定语从句修饰 fines（比…低40%）；says one researcher 倒装。",
+    "notes": [
+      "either eliminating… or increasing… 是 that 从句的并列动名词主语；谓语 result in（按原文）。",
+      "fines that generally are 40% lower than…：that 定语从句修饰 fines + 比较级。",
+      "says one researcher 是引语提示语的倒装；by about 20% 增加约 20%。"
+    ]
+  }
+}

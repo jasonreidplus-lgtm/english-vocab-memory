@@ -1,0 +1,51 @@
+{
+  "2012-T1-P1-S4": {
+    "trunk": "S+V+O：Tina Rosenberg contends that …（罗森伯格主张…）",
+    "structure": [
+      "状语：But in her new book Join the Club",
+      "主句：Tina Rosenberg contends that …",
+      "  └ 宾语从句(that)：peer pressure can also be a positive force through what she calls the social cure",
+      "      ├ 名词性从句(what，作介词 through 的宾语)：what she calls the social cure",
+      "      └ 非限制性定语从句〔in which，修饰 the social cure〕：in which organizations and officials use the power of group dynamics to help individuals improve their lives and possibly the world",
+      "          └ 不定式作目的状语：to help individuals improve their lives and possibly the world"
+    ],
+    "logic": "that 引导 contends 的宾语从句；what she calls the social cure 是 what 名词性从句作介词 through 的宾语；in which 定语从句修饰 the social cure；to help… 表目的。",
+    "notes": [
+      "what she calls the social cure：what 名词性从句作介词 through 的宾语（她所谓的「社会疗法」）。",
+      "in which 引导定语从句修饰 the social cure（= 在这种社会疗法中）。",
+      "help sb (to) do：help individuals improve…；group dynamics 群体动力（学）。"
+    ]
+  },
+  "2012-T1-P2-S1": {
+    "trunk": "S+V+O：Rosenberg … offers a host of examples of the social cure in action（罗森伯格给出大量社会疗法的实例）",
+    "structure": [
+      "主句：Rosenberg … offers a host of examples of the social cure in action",
+      "  └ 同位语〔说明 Rosenberg〕：the recipient of a Pulitzer Prize",
+      "冒号后（举例）：a state-sponsored antismoking program … sets out to make cigarettes uncool",
+      "  ├ 状语：In South Carolina",
+      "  ├ 过去分词作定语〔修饰 program〕：called Rage Against the Haze",
+      "  └ make+宾+宾补：make cigarettes uncool"
+    ],
+    "logic": "主句 Rosenberg offers examples（the recipient… 为同位语）；冒号引出具体例子；called… 过去分词定语修饰 program；set out to do 着手做。",
+    "notes": [
+      "the recipient of a Pulitzer Prize 是 Rosenberg 的同位语（普利策奖得主）。",
+      "called Rage Against the Haze 过去分词作定语修饰 program。",
+      "make cigarettes uncool：make + 宾语 + 宾补；set out to do 着手/开始做。"
+    ]
+  },
+  "2012-T1-P3-S3": {
+    "trunk": "全部倒装：「…」 pleads one billboard campaign（一则广告牌宣传恳求道：「…」）",
+    "structure": [
+      "倒装主句：「Dare to be different, please don't smoke!」 pleads one billboard campaign（= one campaign pleads「…」）",
+      "  └ 过去分词作定语〔修饰 campaign〕：aimed at reducing smoking among teenagers",
+      "破折号后（重复强调 + 修饰）：teenagers",
+      "  └ 非限制性定语从句〔who，修饰 teenagers〕：who desire nothing more than fitting in"
+    ],
+    "logic": "引语前置导致「pleads + 主语」全部倒装；aimed at… 过去分词定语修饰 campaign；破折号后 teenagers 是对前面 teenagers 的重复强调，who 定语从句修饰之。",
+    "notes": [
+      "「…」 pleads one billboard campaign 是全部倒装（= one campaign pleads「…」）。",
+      "aimed at reducing… 过去分词作定语修饰 campaign（旨在…）。",
+      "desire nothing more than fitting in：最想要的莫过于融入；fit in 融入、合群。"
+    ]
+  }
+}

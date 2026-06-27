@@ -1,0 +1,49 @@
+{
+  "2013-T1-P2-S2": {
+    "trunk": "S+并列谓语：it must rely on …, order …, and use …（要做到…，H&M 就必须依赖低薪海外劳工、大批量订货、并使用大量有害化学品）",
+    "structure": [
+      "条件/目的状语（for+名词+to do）：For H&M to offer a $5.95 knit miniskirt in all its 2,300-plus stores around the world",
+      "主句：it must rely on low-wage overseas labor, order in volumes …, and use massive amounts of harmful chemicals",
+      "  ├ 三个并列谓语：rely on… / order in volumes… / use…",
+      "  └ 定语从句〔that，修饰 volumes〕：that strain natural resources"
+    ],
+    "logic": "For H&M to offer… 是「for+名词+to do」作条件/目的状语（H&M 要想…就必须…）；主句 it 带三个并列谓语；that 定语从句修饰 volumes。",
+    "notes": [
+      "For H&M to offer…：「for + 名词 + to do」作条件/目的状语。",
+      "主句三个并列谓语：must rely on…, order…, and use…。",
+      "order in volumes that strain natural resources：that 定语从句修饰 volumes（以消耗自然资源的量来订货）。"
+    ]
+  },
+  "2013-T1-P3-S6": {
+    "trunk": "S+V+O：Cline believes lasting change can only be effected by the customer（克莱恩认为持久的改变只能由顾客促成）",
+    "structure": [
+      "让步状语从句(Though)：Though several fast-fashion companies have made efforts to curb their impact on labor and the environment",
+      "  └ 不定式作定语〔修饰 efforts〕：to curb their impact on labor and the environment",
+      "破折号插入语（举例）：including H&M, with its green Conscious Collection line",
+      "主句：Cline believes lasting change can only be effected by the customer",
+      "  └ 宾语从句(省略 that)：lasting change can only be effected by the customer"
+    ],
+    "logic": "Though 引导让步状语从句；破折号插入举例（including H&M…）；主句 Cline believes (that)…，宾语从句为被动 can only be effected by the customer。",
+    "notes": [
+      "Though 引导让步状语从句（尽管）。",
+      "破折号夹的 including H&M… 是插入语（举例）。",
+      "can only be effected by the customer 被动（只能由顾客促成）；effect 作动词=促成、实现。"
+    ]
+  },
+  "2013-T1-P1-S6": {
+    "trunk": "S+V+O+宾补(to do)：These labels encourage … consumers to see … and to renew …（这些品牌怂恿消费者把衣服当一次性的、并每隔几周更新衣橱）",
+    "structure": [
+      "主句：These labels encourage style-conscious consumers to see clothes as disposable … and to renew their wardrobe every few weeks",
+      "  ├ encourage sb to do（两个并列不定式）：to see clothes as disposable / to renew their wardrobe",
+      "  └ 破折号插入：meant to last only a wash or two, although they don't advertise that",
+      "      ├ 过去分词作定语〔补充 disposable〕：meant to last only a wash or two",
+      "      └ 让步状语从句(although)：although they don't advertise that"
+    ],
+    "logic": "encourage sb to do 结构，两个并列不定式 to see… and to renew…；破折号插入补充 disposable 的含义（meant to last… 过去分词 + although 让步）。",
+    "notes": [
+      "encourage sb to do：两个并列不定式 to see… and to renew…（被破折号插入隔开）。",
+      "meant to last only a wash or two：过去分词作定语补充 disposable（意在只洗一两次就丢）。",
+      "see A as B 把 A 看作 B；although they don't advertise that 让步插入（尽管商家不明说）。"
+    ]
+  }
+}

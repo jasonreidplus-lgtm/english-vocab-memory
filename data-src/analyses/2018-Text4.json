@@ -1,0 +1,57 @@
+{
+  "2018-T4-P1-S5": {
+    "trunk": "S+V+介宾：the USPS is in a historic squeeze between A and B（美国邮政深陷一种历史性的两难夹缝）",
+    "structure": [
+      "状语：Fundamentally",
+      "主句：the USPS is in a historic squeeze between … and …",
+      "  ├ between 项 A：technological change",
+      "  │   └ 定语从句〔that，修饰 technological change〕：that has permanently decreased demand for its bread-and-butter product, first-class mail〔first-class mail 为同位语〕",
+      "  └ between 项 B：a regulatory structure",
+      "      └ 定语从句〔that，修饰 a regulatory structure〕：that denies management the flexibility to adjust its operations to the new reality（不定式 to adjust… 修饰 flexibility）",
+      "（后续独立句 And…）：interest groups … exert self-interested pressure on … Congress — insisting that …",
+      "  ├ 现在分词作定语〔修饰 interest groups〕：ranging from postal unions to greeting-card makers",
+      "  └ 现在分词作伴随状语：insisting that whatever else happens …, aspects of the status quo they depend on get protected",
+      "      ├ 让步状语从句(whatever)：whatever else happens to the Postal Service",
+      "      └ 宾语从句(that)：aspects of the status quo (that) they depend on get protected"
+    ],
+    "logic": "句① the USPS is in a squeeze between A(技术变革，that 定语从句修饰) and B(监管结构，that 定语从句修饰)；句② interest groups（ranging… 现在分词定语）exert pressure（insisting that… 现在分词伴随状语，含 whatever 让步 + that 宾语从句）。",
+    "notes": [
+      "between A and B：A=technological change（that 定语从句修饰）, B=a regulatory structure（that 定语从句修饰）——两个 that 各修饰自己的中心词。",
+      "本条实为两句（reality 后漏句点接 And…）；insisting that… 现在分词作伴随状语；whatever else happens 让步状语从句。",
+      "aspects of the status quo (that) they depend on get protected：status quo 后省略关系词的定语从句；get protected 被动；bread-and-butter product 赖以生存的主营产品。"
+    ]
+  },
+  "2018-T4-P3-S1": {
+    "trunk": "条件+主句：If it clears the House, this measure would still have to get through the Senate（即便过了众议院，该法案仍须闯过参议院）",
+    "structure": [
+      "条件状语从句(If)：If it clears the House",
+      "主句：this measure would still have to get through the Senate",
+      "非限制性定语从句〔where，修饰 the Senate〕：where someone is bound to point out that …",
+      "  └ 宾语从句(that)：that it amounts to the bare, bare minimum necessary to keep the Postal Service afloat, not comprehensive reform",
+      "      ├ 形容词短语作定语〔修饰 minimum〕：necessary to keep the Postal Service afloat",
+      "      └ 对比：…, not comprehensive reform"
+    ],
+    "logic": "If 条件从句；主句 measure would have to get through the Senate；where 定语从句修饰 the Senate（在参议院，有人定会指出…）；that 宾语从句；necessary to keep… afloat 修饰 minimum；not comprehensive reform 对比。",
+    "notes": [
+      "where 引导非限制性定语从句修饰 the Senate（在那里有人定会指出…）。",
+      "be bound to do 必定/势必；point out that… 宾语从句。",
+      "the bare minimum necessary to keep … afloat：necessary to do 作定语修饰 minimum；keep … afloat 使…维持运转；not comprehensive reform 对比（而非全面改革）。"
+    ]
+  },
+  "2018-T4-P2-S1": {
+    "trunk": "完全倒装：Now comes word that …（如今传来消息说…）",
+    "structure": [
+      "完全倒装：Now comes word that …（= word that … comes now）",
+      "  └ 同位语从句〔that，说明 word〕：that everyone involved … has finally agreed on a plan to fix the system",
+      "      ├ 过去分词作定语〔修饰 everyone〕：involved",
+      "      ├ 破折号同位列举〔说明 everyone involved〕：Democrats, Republicans, the Postal Service, the unions and the system's heaviest users",
+      "      └ 不定式作定语〔修饰 a plan〕：to fix the system"
+    ],
+    "logic": "Now comes word…（Now 前置引起完全倒装，真正主语 word）；that 同位语从句说明 word；everyone involved（involved 后置定语）+ 破折号列举同位；has agreed on a plan to fix（to fix 修饰 plan）。",
+    "notes": [
+      "Now comes word that…：Now 前置引起完全倒装（真正主语是 word）。",
+      "word that…：that 同位语从句说明 word（传来消息说…）。",
+      "everyone involved：involved 后置定语；破折号列举是 everyone involved 的同位说明；谓语 has agreed（everyone 视为单数）。"
+    ]
+  }
+}

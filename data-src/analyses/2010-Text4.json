@@ -1,0 +1,50 @@
+{
+  "2010-T4-P4-S3": {
+    "trunk": "S+V+间宾+宾语从句：Charlie McCreevy warned the IASB that … and that …（欧盟委员麦克里维警告 IASB…）",
+    "structure": [
+      "主句：Charlie McCreevy warned the IASB …",
+      "  ├ 同位语〔说明 Charlie McCreevy〕：a European commissioner",
+      "  ├ 宾语从句①(that)：that it did 「not live in a political vacuum」 but 「in the real world」",
+      "  │   └ 并列：not (in a political vacuum) … but (in the real world)",
+      "  └ 宾语从句②(and that)：that Europe could yet develop different rules"
+    ],
+    "logic": "warn sb that… 结构；两个 that 并列作 warned 的宾语从句；从句①内 not…but… 并列（不是在…而是在…）。",
+    "notes": [
+      "warn + 宾语(the IASB) + that 从句；两个 that 并列（and that…），第二个 that 不可省。",
+      "not … but … 并列（不在…而在…）。（原文 word 应为 world，笔误。）",
+      "could yet = 终究可能、仍有可能；commissioner（欧盟）委员。"
+    ]
+  },
+  "2010-T4-P4-S2": {
+    "trunk": "并列双分句(but)：① The IASB says it does not want to act without overall planning ② the pressure … is strong",
+    "structure": [
+      "分句①：The IASB says it does not want to act without overall planning",
+      "  └ 宾语从句(省略 that)：it does not want to act without overall planning",
+      "并列(but)分句②：the pressure … is strong",
+      "  ├ 不定式作定语〔修饰 pressure〕：to fold",
+      "  └ 时间状语从句(when)：when it completes its reconstruction of rules later this year"
+    ],
+    "logic": "but 连接两个对比分句；分句②主语 the pressure 与系动词 is 之间插入 to fold（不定式定语）和 when 时间状语从句，造成主谓分隔。",
+    "notes": [
+      "主谓分隔：分句②主语 the pressure 与谓语 is strong 被 to fold 与 when 从句隔开，读时复位。",
+      "fold 在此=屈服、让步、妥协。",
+      "（原文 it reconstruction 应为 its reconstruction，笔误。）"
+    ]
+  },
+  "2010-T4-P5-S2": {
+    "trunk": "S+V+O：they argue that market prices overstate losses（如今他们辩称市场价格夸大了损失）",
+    "structure": [
+      "状语：Today",
+      "主句：they argue that market prices overstate losses",
+      "  ├ 宾语从句(that)：market prices overstate losses",
+      "  └ 原因状语从句(because)：because they largely reflect the temporary illiquidity of markets, not the likely extent of bad debts",
+      "      └ 并列对比：reflect the temporary illiquidity of markets, not the likely extent of bad debts（反映 A，而非 B）"
+    ],
+    "logic": "that 引导 argue 的宾语从句；because 原因状语从句说明理由；reflect A, not B 对比（反映的是市场暂时性的流动性不足，而非坏账的可能规模）。",
+    "notes": [
+      "because 从句主语 they 指 market prices。",
+      "reflect …, not …：not 引出对比项（反映 A，而非 B）。",
+      "overstate 夸大；illiquidity 流动性不足；bad debts 坏账。"
+    ]
+  }
+}

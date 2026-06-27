@@ -1,0 +1,47 @@
+{
+  "2012-T4-P5-S2": {
+    "trunk": "S+V+介宾：teachers' unions have fought against …（教师工会一直反对…）",
+    "structure": [
+      "让步状语从句(Even though)：Even though there is plenty of evidence that the quality of the teachers is the most important variable",
+      "  ├ there be 结构：there is plenty of evidence",
+      "  └ 同位语从句(that，说明 evidence)：that the quality of the teachers is the most important variable",
+      "主句：teachers' unions have fought against getting rid of bad ones and promoting good ones",
+      "  └ 并列动名词(against 的宾语)：getting rid of bad ones and promoting good ones"
+    ],
+    "logic": "Even though 引导让步状语从句；其中 there be + evidence + that 同位语从句；主句 unions have fought against + 并列动名词。",
+    "notes": [
+      "Even though 引导让步状语从句（尽管）。",
+      "evidence that…：that 同位语从句说明 evidence（不是定语从句）。",
+      "fight against doing：against 后接并列动名词 getting rid of… and promoting…；ones 指 teachers。"
+    ]
+  },
+  "2012-T4-P7-S1": {
+    "trunk": "S+V+O：John Donahue … points out that …（哈佛肯尼迪学院的多纳休指出…）",
+    "structure": [
+      "主句：John Donahue at Harvard's Kennedy School points out that …",
+      "  └ 宾语从句(that)：the norms of culture in Western civil services suit those … but is bad for high achievers",
+      "      ├ 并列谓语(but)：suit those … / is bad for high achievers",
+      "      └ 定语从句〔who，修饰 those〕：who want to stay put"
+    ],
+    "logic": "that 引导 points out 的宾语从句；从句内 but 连接并列谓语 suit…/is bad…；who 定语从句修饰 those。",
+    "notes": [
+      "that 引导 points out 的宾语从句。",
+      "从句内 but 连接并列谓语（suit those… but is bad for…，谓语形式依原文）。",
+      "those who want to stay put：who 定语从句修饰 those；stay put 原地不动、安于现状。"
+    ]
+  },
+  "2012-T4-P7-S3": {
+    "trunk": "并列双分句(but)：① Bankers' fat pay packets have attracted much criticism ② a public-sector system … may be a much bigger problem",
+    "structure": [
+      "分句①：Bankers' fat pay packets have attracted much criticism",
+      "并列(but)分句②：a public-sector system … may be a much bigger problem for America",
+      "  └ 定语从句〔that，修饰 system〕：that does not reward high achievers"
+    ],
+    "logic": "but 连接对比两分句；分句②主语 a public-sector system 被 that 定语从句修饰，谓语 may be a problem。",
+    "notes": [
+      "but 连接两个对比分句。",
+      "分句②：主语 system + that 定语从句（不奖励高绩效者的体制）+ 谓语 may be a problem。",
+      "fat pay packets 丰厚薪酬；high achievers 高绩效/有成就者。"
+    ]
+  }
+}

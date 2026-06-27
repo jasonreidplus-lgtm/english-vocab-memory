@@ -1,0 +1,49 @@
+{
+  "2019-T2-P5-S3": {
+    "trunk": "S+V+O+宾补：anything … will make students … feel …（任何抬高 GPA 的做法 都可能让学生觉得…）",
+    "structure": [
+      "主句：And anything … will likely make students … feel they've gotten a better value for their tuition dollars",
+      "  ├ 定语从句〔that，修饰 anything〕：that raises GPAs",
+      "  ├ make sb do：make students feel…",
+      "  ├ 破折号插入（非限制定语从句，修饰 students）：who, at the end of the day, are paying the bill",
+      "  └ 宾语从句(省略 that，feel 的宾语)：they've gotten a better value for their tuition dollars",
+      "非限制性定语从句〔which，修饰前面整件事〕：which is another big concern for colleges"
+    ],
+    "logic": "主语 anything（that 定语从句修饰）+ make students feel…（make sb do）；破折号夹的 who… 非限制定语从句插入修饰 students（造成动宾分隔）；feel (that)… 宾语从句；which 非限制定语从句修饰前面整件事。",
+    "notes": [
+      "make students … feel …：make + 宾语 + 动词原形（使学生觉得…），中间被 who 从句插入隔开（动宾分隔）。",
+      "破折号夹的 who, at the end of the day, are paying the bill 是修饰 students 的非限制性定语从句。",
+      "which 非限制定语从句修饰前面整件事（这又是大学的一大顾虑）；at the end of the day 归根到底。"
+    ]
+  },
+  "2019-T2-P1-S1": {
+    "trunk": "S+V(被动)+宾补：Grade inflation … is often considered a product of a consumer era …（分数膨胀常被视为高等教育消费时代的产物）",
+    "structure": [
+      "主句：Grade inflation … is often considered a product of a consumer era in higher education",
+      "  ├ 破折号同位语〔说明 Grade inflation〕：the gradual increase in average GPAs (grade-point averages) over the past few decades",
+      "  ├ be considered + 宾补：a product of a consumer era…",
+      "  └ 非限制性定语从句〔in which，修饰 a consumer era〕：in which students are treated like customers to be pleased（to be pleased 修饰 customers）"
+    ],
+    "logic": "主语 Grade inflation（破折号同位语，造成主谓分隔），谓语 is considered a product（be considered + 名词宾补）；in which 定语从句修饰 a consumer era；to be pleased 修饰 customers。",
+    "notes": [
+      "主谓分隔：主语 Grade inflation 与谓语 is often considered 被破折号同位语隔开。",
+      "破折号夹的 the gradual increase… 是 Grade inflation 的同位语（解释何为分数膨胀）。",
+      "in which students are treated like customers：in which 定语从句修饰 a consumer era；to be pleased 不定式修饰 customers（被取悦的顾客）。"
+    ]
+  },
+  "2019-T2-P6-S2": {
+    "trunk": "原因从句+形式主语：Since …, it is in the best interest of a school to turn out graduates …（既然…，培养出尽可能合格的毕业生最符合学校利益）",
+    "structure": [
+      "原因状语从句(Since)：Since students and parents expect a college degree to lead to a job（expect sth to do）",
+      "主句（形式主语 it）：it is in the best interest of a school to turn out graduates …",
+      "  └ 真正主语(不定式)：to turn out graduates who are as qualified as possible—or at least appear to be",
+      "      └ 定语从句〔who，修饰 graduates〕：who are as qualified as possible—or at least appear to be (qualified)"
+    ],
+    "logic": "Since 原因从句（expect sth to do）；主句 it 形式主语，真正主语是 to turn out graduates…；who 定语从句修饰 graduates（as qualified as possible，or at least appear to be 省略 qualified）。",
+    "notes": [
+      "expect sth to do：expect a college degree to lead to a job。",
+      "it is in the best interest of a school to do：it 形式主语，真正主语是 to turn out… 不定式。",
+      "who are as qualified as possible—or at least appear to be：who 定语从句修饰 graduates；appear to be 后省略 qualified（或至少看起来是）。"
+    ]
+  }
+}

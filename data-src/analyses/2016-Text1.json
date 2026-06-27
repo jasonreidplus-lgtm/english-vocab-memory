@@ -1,0 +1,49 @@
+{
+  "2016-T1-P2-S2": {
+    "trunk": "S+V(states 引语) + 另一句(is to deny…)：宪章声明「…」；其主要执行手段是拒绝…进入哥本哈根",
+    "structure": [
+      "主句①：The newly revised Danish Fashion Ethical Charter clearly states: 「…」",
+      "引语：We are aware of and take responsibility for the impact the fashion industry has on body ideals, especially on young people",
+      "  ├ 并列谓语：are aware of / take responsibility for（共享宾语 the impact）",
+      "  └ 定语从句〔省略 that，修饰 impact〕：the fashion industry has on body ideals",
+      "主句②：The charter's main tool of enforcement is to deny access for designers and modeling agencies to Copenhagen",
+      "  └ 不定式作表语：to deny access for … to Copenhagen"
+    ],
+    "logic": "主句① states 引语；引语并列谓语 are aware of and take responsibility for + the impact（(that) the fashion industry has on… 定语从句修饰 impact）；句② is to deny…（不定式作表语）。",
+    "notes": [
+      "are aware of and take responsibility for the impact：并列谓语共享宾语 the impact。",
+      "the impact (that) the fashion industry has on body ideals：impact 后省略关系词的定语从句。",
+      "本条含两句；is to deny access… 不定式作表语（deny access to 拒绝…进入）。"
+    ]
+  },
+  "2016-T1-P1-S8": {
+    "trunk": "S+V+间宾+宾语从句：It tells the fashion industry that …（它告诉时尚业，它必须…负责）",
+    "structure": [
+      "主句：It tells the fashion industry that …",
+      "  └ 宾语从句(that)：it must take responsibility for the signal …",
+      "      └ 定语从句〔省略，修饰 signal〕：it sends women … about the social tape-measure",
+      "          └ 定语从句〔省略，修饰 tape-measure〕：they must use to determine their individual worth",
+      "              └ 不定式作目的：to determine their individual worth"
+    ],
+    "logic": "tell sb that… 结构；宾语从句 take responsibility for the signal；(that) it sends women about… 定语从句修饰 signal；(that) they must use 定语从句修饰 tape-measure；to determine… 目的。",
+    "notes": [
+      "that 引导 tells 的宾语从句（tell sb that…）。",
+      "the signal (that) it sends women about…：signal 后省略关系词的定语从句（send sb sth）。",
+      "the social tape-measure (that) they must use to determine…：再一层省略关系词的定语从句 + to determine 目的（衡量自身价值的社会标尺）。"
+    ]
+  },
+  "2016-T1-P1-S14": {
+    "trunk": "S+V+O(不定式)：it is trying to set voluntary standards for models and fashion images …（它正试图为模特与时尚形象设定自愿标准）",
+    "structure": [
+      "状语：In Denmark, the United States, and a few other countries",
+      "主句：it is trying to set voluntary standard for models and fashion images",
+      "  └ 定语从句〔that，修饰 models and fashion images〕：that rely more on peer pressure for enforcement"
+    ],
+    "logic": "主句 try to do（试图设定自愿标准）；that 定语从句（rely 用复数，按一致应修饰 models and fashion images；语义上亦可指 standards——存疑）。",
+    "notes": [
+      "try to do：试图做…。",
+      "that rely more on peer pressure for enforcement：rely 为复数，按主谓一致修饰 models and fashion images；语义上也可理解为修饰 standards（存疑）。rely on … for … 靠…来…。",
+      "（standard 此处宜为 standards 复数）。"
+    ]
+  }
+}

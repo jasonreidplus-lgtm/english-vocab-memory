@@ -1,0 +1,48 @@
+{
+  "2018-T1-P6-S2": {
+    "trunk": "并列双分句(and) + 冒号总结：Taxes … need to be cut, and wage subsidies … should be expanded：This would …（应减税、扩大补贴：这会…）",
+    "structure": [
+      "分句①：Taxes on low-wage labor need to be cut",
+      "并列(and)分句②：wage subsidies such as the earned income tax credit should be expanded",
+      "冒号后（总结，This + 四个并列谓语）：This would boost incomes, encourage work, reward companies for job creation, and reduce inequality"
+    ],
+    "logic": "and 连接两项政策建议（need to be cut / should be expanded，均被动）；冒号后 This 指代前述措施，带四个并列谓语说明效果。",
+    "notes": [
+      "两分句均为被动：need to be cut / should be expanded（应被削减/扩大）。",
+      "冒号后 This 指代前述措施；四个并列谓语：boost…, encourage…, reward…, and reduce…。",
+      "reward companies for job creation：reward sb for sth（因…奖励）。"
+    ]
+  },
+  "2018-T1-P1-S1": {
+    "trunk": "完全倒装：Among the … challenges … is one …（中产面临的诸多烦心挑战中，有一个…）",
+    "structure": [
+      "完全倒装：Among the annoying challenges facing the middle class is one（= one … is among the challenges）",
+      "  ├ 现在分词作定语〔修饰 challenges〕：facing the middle class",
+      "  └ 定语从句〔that，修饰 one〕：that will probably go unmentioned in the next presidential campaign",
+      "冒号后（设问，解释 one）：What happens when the robots come for their jobs?",
+      "  └ 时间状语从句(when)：when the robots come for their jobs"
+    ],
+    "logic": "Among… is one 是地点状语前置的完全倒装（真正主语 one）；facing… 现在分词定语修饰 challenges；that 定语从句修饰 one；冒号引出该 challenge 的具体内容（设问）。",
+    "notes": [
+      "Among … is one：地点状语前置引起的完全倒装（真正主语是 one）。",
+      "challenges facing the middle class：facing… 现在分词作定语；that will… go unmentioned：that 定语从句修饰 one。",
+      "冒号后是设问句（解释 one 是什么）；come for 来抢夺。"
+    ]
+  },
+  "2018-T1-P7-S1": {
+    "trunk": "并列双分句(yet)：① Technology will improve society … ② this will be little comfort to those …",
+    "structure": [
+      "分句①：Technology will improve society in ways big and small over the next few years",
+      "  └ 后置形容词：ways big and small（= big and small ways）",
+      "并列(yet)分句②：this will be little comfort to those who find their lives and careers upended by automation",
+      "  └ 定语从句〔who，修饰 those〕：who find their lives and careers upended by automation",
+      "      └ find + 宾 + 宾补(过去分词)：find their lives and careers upended"
+    ],
+    "logic": "yet 连接转折两分句；ways big and small 后置形容词修饰 ways；who 定语从句修饰 those；find sth upended（发现…被颠覆，宾补为过去分词）。",
+    "notes": [
+      "ways big and small：形容词后置修饰 ways（大大小小的方式）。",
+      "yet 连接转折分句（然而）。",
+      "those who find their lives and careers upended by automation：who 定语从句修饰 those；find + 宾语 + 过去分词宾补（发现…被自动化颠覆）。"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "2017-T3-P6-S1": {
+    "trunk": "主语从句+be+表语从句：what Kennedy was referring to was that …（肯尼迪所指的是…）",
+    "structure": [
+      "状语：So",
+      "主语从句(what)：what Kennedy was referring to",
+      "系动词：was",
+      "表语从句(that)：that while GDP has been the most common method …, it is no longer enough",
+      "  ├ 让步状语从句(while)：while GDP has been the most common method for measuring the economic activity of nations",
+      "  ├ 插入：as a measure",
+      "  └ 主句（表语从句内）：it is no longer enough"
+    ],
+    "logic": "主语从句 what Kennedy was referring to 作主语；was 系动词；that 引导表语从句；表语从句内含 while 让步从句 + 主句 it is no longer enough。",
+    "notes": [
+      "what Kennedy was referring to：what 主语从句作句子主语（肯尼迪所指的是…）。",
+      "was that…：that 引导表语从句。",
+      "while GDP has been…：表语从句内的让步状语从句；as a measure 插入（作为一种衡量标准）。"
+    ]
+  },
+  "2017-T3-P2-S5": {
+    "trunk": "条件+疑问主句：If everything was going so well, then why did over 17 million people vote for Brexit …?",
+    "structure": [
+      "条件状语从句(If)：If everything was going so well",
+      "主句（特殊疑问句/部分倒装）：then why did over 17 million people vote for Brexit",
+      "让步/介词状语(despite)：despite the warnings about what it could do to their country's economic prospects",
+      "  └ 介词宾语从句(what)：what it could do to their country's economic prospects"
+    ],
+    "logic": "If 条件从句；主句是特殊疑问句（did…vote 部分倒装）；despite + the warnings about what…（what 宾语从句）。",
+    "notes": [
+      "If 引导条件状语从句；主句是疑问句（why did…vote，助动词 did 提前的部分倒装）。",
+      "despite the warnings about…：despite 介词作让步状语（尽管有警告）。",
+      "what it could do to…：what 引导介词 about 的宾语从句（它可能对…造成什么）。"
+    ]
+  },
+  "2017-T3-P5-S1": {
+    "trunk": "S+be+表：This is a lesson that rich countries can learn（这是富国可以汲取的一课）",
+    "structure": [
+      "主句：This is a lesson",
+      "  └ 定语从句〔that，修饰 a lesson〕：that rich countries can learn",
+      "冒号后（展开 lesson 的内容）：",
+      "  ├ 时间状语从句(When)：When GDP is no longer regarded as the sole measure of a country's success",
+      "  └ 主句：the world looks very different"
+    ],
+    "logic": "主句 This is a lesson（that rich countries can learn 定语从句修饰 lesson）；冒号引出 lesson 的内容（When… 时间状语从句 + 主句 the world looks very different）。",
+    "notes": [
+      "a lesson that rich countries can learn：that 定语从句修饰 a lesson。",
+      "be regarded as：被视为；When 引导时间状语从句。",
+      "冒号引出对 lesson 的具体展开（当 GDP 不再被视为唯一标准时，世界大不相同）。"
+    ]
+  }
+}

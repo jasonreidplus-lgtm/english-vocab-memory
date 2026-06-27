@@ -1,0 +1,55 @@
+{
+  "2015-T3-P4-S1": {
+    "trunk": "S+V+O：John Ioannidis … says that the policy is 「a most welcome step forward」 and 「long overdue」（约安尼迪斯说这一政策「极受欢迎、早该如此」）",
+    "structure": [
+      "主句：John Ioannidis … says that the policy is 「a most welcome step forward」 and 「long overdue」",
+      "  ├ 同位语〔说明 John Ioannidis〕：a physician",
+      "  │   └ 定语从句〔who，修饰 a physician〕：who studies research methodology",
+      "  └ 宾语从句(that)：the policy is 「a most welcome step forward」 and 「long overdue」（并列表语）",
+      "（后续引语另为两句）：…damages the quality of what they publish … statistical review is more essential than expert review",
+      "  ├ 名词性从句(what，作 of 的宾语)：what they publish",
+      "  └ 比较级：more essential than expert review"
+    ],
+    "logic": "主句 says that…（同位语 a physician who…）；宾语从句并列表语；后续引语含 what 从句、比较结构、I think that…。",
+    "notes": [
+      "a physician who studies research methodology：a physician 是同位语，who 定语从句再修饰之。",
+      "the quality of what they publish：what 名词性从句作 of 的宾语。",
+      "more essential than：比较级；a most welcome（a + most，「非常受欢迎的一步」）。"
+    ]
+  },
+  "2015-T3-P3-S2": {
+    "trunk": "S+V：He agreed to join（他同意加入）",
+    "structure": [
+      "主句：He agreed to join",
+      "原因状语从句(because)：because he 「found the foresight … to be novel, unique and likely to have a lasting impact …」",
+      "  └ find + 宾 + to be + 宾补：found the foresight … to be novel, unique and likely to have a lasting impact",
+      "（引语后句）：This impact will not only be through the publications in Science itself, but … through a larger group of publishing places …",
+      "  ├ not only … but … 并列：through the publications… / through a larger group of publishing places",
+      "  └ 定语从句〔that，修饰 publishing places〕：that may want to model their approach after Science"
+    ],
+    "logic": "主句 He agreed to join；because 原因从句，find sth to be …（认为…是…）；引语后句 not only…but… 并列，that 定语从句修饰 publishing places。",
+    "notes": [
+      "find sth to be …：found the foresight … to be novel…（认为…具有…）。",
+      "not only … but (also) …：并列两个 through 短语。",
+      "model their approach after Science：仿照《科学》塑造其做法；that 定语从句修饰 publishing places。"
+    ]
+  },
+  "2015-T3-P2-S1": {
+    "trunk": "过去分词状语+主句：Asked whether …, McNutt said: 「…」（被问及是否…时，麦克纳特说：「…」）",
+    "structure": [
+      "过去分词作状语(被动)：Asked whether any particular papers had impelled the change",
+      "  └ 宾语从句(whether)：whether any particular papers had impelled the change",
+      "主句：McNutt said: 「…」",
+      "引语：The creation of the 'statistics board' was motivated by … and is part of Science's overall drive to increase reproducibility in the research we publish",
+      "  ├ 并列谓语：was motivated by … / is part of …",
+      "  ├ 不定式作定语〔修饰 drive〕：to increase reproducibility in the research we publish",
+      "  └ 定语从句〔省略关系词，修饰 research〕：we publish"
+    ],
+    "logic": "Asked whether…（过去分词作状语 = When asked whether…）；主句 McNutt said；引语并列谓语 was motivated by… and is part of…；to increase… 修饰 drive；(that) we publish 定语从句修饰 research。",
+    "notes": [
+      "Asked whether…：过去分词短语作状语（被问及是否…时）。",
+      "引语并列谓语：was motivated by… and is part of…。",
+      "the research (that) we publish：research 后省略关系词的定语从句；reproducibility 可重复性。"
+    ]
+  }
+}

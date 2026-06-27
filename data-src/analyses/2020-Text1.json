@@ -1,0 +1,50 @@
+{
+  "2020-T1-P2-S2": {
+    "trunk": "S+V+O：A cynic might speculate that …（愤世者或许会揣测…）",
+    "structure": [
+      "主句：A cynic might speculate that the UK is on the verge of disappearing into an endless fever of self-celebration in its desperation to reinvent itself for the post-Brexit world",
+      "  └ 宾语从句(that)：the UK is on the verge of disappearing …",
+      "      ├ on the verge of + 动名词：on the verge of disappearing into…（濒临…）",
+      "      └ in its desperation to do：to reinvent itself…（不定式修饰 desperation）",
+      "冒号后（讽刺设问）：after town of culture, who knows what will follow—village of culture?"
+    ],
+    "logic": "speculate that…（宾语从句）；on the verge of disappearing（濒临…）；in its desperation to reinvent…（to 修饰 desperation）；冒号引出讽刺设问。",
+    "notes": [
+      "speculate that…：宾语从句；on the verge of disappearing into…：濒临陷入…（of + 动名词）。",
+      "in its desperation to reinvent itself：to reinvent… 不定式修饰 desperation（急于重塑自我）。",
+      "冒号后是讽刺的设问（原文 who knows that will follow 宜为 what will follow）。"
+    ]
+  },
+  "2020-T1-P3-S6": {
+    "trunk": "it can be done + 冒号展开：Glasgow's year … can certainly be seen as one of … factors …（这是能做到的：格拉斯哥…可被视为诸多因素之一）",
+    "structure": [
+      "主句：But it can be done",
+      "冒号后（展开）：Glasgow's year as European capital of culture can certainly be seen as one of complex series of factors …",
+      "  ├ be seen as：被视为",
+      "  └ 定语从句〔that，修饰 factors〕：that have turned the city into the power of art, music and theatre …",
+      "      └ 定语从句〔that，修饰 the power〕：that it remains today"
+    ],
+    "logic": "主句 it can be done；冒号展开：Glasgow's year can be seen as one of factors（be seen as）；that 定语从句修饰 factors（turn A into B）；其内再套 that 定语从句修饰 the power（它至今仍是的那种…实力）。",
+    "notes": [
+      "be seen as：被视为（one of … factors 诸多因素之一）。",
+      "that have turned the city into…：that 定语从句修饰 factors；turn A into B 把 A 变成 B。",
+      "the power of art… that it remains today：第二个 that 定语从句修饰 the power（它如今依旧是的那种实力）。"
+    ]
+  },
+  "2020-T1-P2-S1": {
+    "trunk": "S+V+O(see A as B)：Some might see the proposal as a booby prize …（有人可能把这一提议看作安慰奖）",
+    "structure": [
+      "主句：Some might see the proposal as a booby prize for the fact …",
+      "  ├ see A as B：see the proposal as a booby prize",
+      "  ├ 同位语从句〔that，说明 the fact〕：that Britain is no longer able to apply for the much more prestigious title of European capital of culture",
+      "  └ 同位语〔说明 title〕：a sought-after award bagged by Glasgow in 1990 and Liverpool in 2008",
+      "      └ 过去分词作定语〔修饰 award〕：bagged by Glasgow in 1990 and Liverpool in 2008"
+    ],
+    "logic": "主句 see A as B（把提议看作安慰奖）；the fact that… 同位语从句说明 the fact；a sought-after award… 是 title 的同位语（bagged… 过去分词定语）。",
+    "notes": [
+      "see A as B：把 A 视为 B（把提议看作安慰奖）。",
+      "the fact that…：that 同位语从句说明 the fact（原文 is no longer be able 应为 is no longer able）。",
+      "a sought-after award bagged by…：title 的同位语，bagged… 过去分词作定语；booby prize 安慰奖。"
+    ]
+  }
+}

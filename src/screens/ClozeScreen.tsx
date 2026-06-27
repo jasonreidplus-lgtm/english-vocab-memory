@@ -5,14 +5,14 @@ import WordPopup from '../components/WordPopup';
 import { annotate, buildLookup } from '../lib/annotate';
 import { resolveTap, isDictLoading, loadDict } from '../lib/dict';
 import { useDict } from '../lib/useDict';
-import { freqOf } from '../lib/freq';
+import { freqOf, isKeyHit } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
 import FreqBadge from '../components/FreqBadge';
 import { shortMeaning } from '../game/quiz';
 import { shuffle } from '../lib/shuffle';
 import { fetchBuiltin } from '../lib/passages';
 import { splitEnSentences } from '../lib/text';
-import type { Word, Sentence, Passage, DictData } from '../types';
+import type { Word, Sentence, Passage } from '../types';
 
 interface ClozeScreenProps {
   pool: Word[];
@@ -38,13 +38,14 @@ export default function ClozeScreen({
   const [order, setOrder] = useState<number[]>([]);
   const [idx, setIdx] = useState(0);
   const [showTrans, setShowTrans] = useState(false);
+  const [showAna, setShowAna] = useState(false); // 长难句拆解展开
   const [picked, setPicked] = useState<Word | null>(null);
   const [rich, setRich] = useState<Word | null>(null);
   const [added, setAdded] = useState<Record<Word['id'], boolean>>({});
   const curId = useRef<Word['id'] | null>(null);
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
-  const dict = useDict();
+  useDict(); // 预加载广义词典：点任意词都能查（但不参与高亮，避免整句全亮）
   const freq = useFreq();
 
   useEffect(() => {
@@ -76,16 +77,17 @@ export default function ClozeScreen({
     : pasteSents;
   const sentence = list[idx] || null;
 
-  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup, dict as DictData | undefined) : []), [sentence, lookup, dict]);
+  // 高亮只认考研核心词库(lookup)；广义词典词不高亮，但点击仍走 resolveTap 可查
+  const segs = useMemo(() => (sentence ? annotate(sentence.en, lookup) : []), [sentence, lookup]);
   // 句中出现的不同考研词（用于点「翻译」后的词义清单）
   const marked = useMemo(() => {
     const seen = new Set<Word['id']>();
     const out: Word[] = [];
-    for (const s of segs) if (s.w && !seen.has(s.w.id)) { seen.add(s.w.id); out.push(s.w); }
+    for (const s of segs) if (isKeyHit(s.w, s.t, lookup, freq) && s.w && !seen.has(s.w.id)) { seen.add(s.w.id); out.push(s.w); }
     return out;
-  }, [segs]);
+  }, [segs, lookup, freq]);
 
-  useEffect(() => { setShowTrans(false); }, [idx, src, pasteText, bank, title]);
+  useEffect(() => { setShowTrans(false); setShowAna(false); }, [idx, src, pasteText, bank, title]);
   useEffect(() => { setIdx(0); }, [src, title]);
   // 句源变化致句数减少时（如把粘贴文本换成更短的），把越界的 idx 收回范围内，避免停在空白句误显示空状态
   useEffect(() => { if (idx > list.length - 1) setIdx(Math.max(0, list.length - 1)); }, [list.length]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -162,17 +164,18 @@ export default function ClozeScreen({
 
           {/* 纯英文句子，考研词高亮（点词看词卡） */}
           <div className="cloze-sent fade" key={idx}>
-            {segs.map((s, i) =>
-              !/^[A-Za-z]/.test(s.t) ? (
-                <span key={i}>{s.t}</span>
-              ) : s.w ? (
-                <button key={i} className={`hl${added[s.w.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
-                  {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
-                </button>
-              ) : (
-                <button key={i} className="tapword" onClick={() => tapWord(s.t)}>{s.t}</button>
-              )
-            )}
+            {segs.map((s, i) => {
+              if (!/^[A-Za-z]/.test(s.t)) return <span key={i}>{s.t}</span>;
+              if (isKeyHit(s.w, s.t, lookup, freq)) {
+                return (
+                  <button key={i} className={`hl${added[s.w!.id] ? ' hl-added' : ''}`} onClick={() => openWord(s.w!)}>
+                    {s.t}<FreqBadge n={freqOf(freq, s.t, lookup)} />
+                  </button>
+                );
+              }
+              // 非重点词（常见核心词 / 广义词典词 / 未收录）：普通文字，点击仍可查
+              return <button key={i} className="tapword" onClick={() => (s.w ? openWord(s.w) : tapWord(s.t))}>{s.t}</button>;
+            })}
           </div>
 
           {showTrans ? (
@@ -198,6 +201,30 @@ export default function ClozeScreen({
             <button className="btn primary block mt16" onClick={() => setShowTrans(true)}>
               <Languages size={17} /> 翻译 · 看词义
             </button>
+          )}
+
+          {/* 长难句拆解：仅当该句有预生成的 analysis 时出现（粘贴句没有） */}
+          {sentence.analysis && (
+            showAna ? (
+              <div className="ana fade">
+                <div className="ana-trunk"><span className="ana-tag">主干</span>{sentence.analysis.trunk}</div>
+                {sentence.analysis.structure && sentence.analysis.structure.length > 0 && (
+                  <pre className="ana-tree">{sentence.analysis.structure.join('\n')}</pre>
+                )}
+                {sentence.analysis.logic && (
+                  <div className="ana-logic"><span className="ana-tag">逻辑</span>{sentence.analysis.logic}</div>
+                )}
+                {sentence.analysis.notes && sentence.analysis.notes.length > 0 && (
+                  <ul className="ana-notes">
+                    {sentence.analysis.notes.map((n, i) => <li key={i}>{n}</li>)}
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <button className="btn ghost block mt8" onClick={() => setShowAna(true)}>
+                🧩 长难句拆解
+              </button>
+            )
           )}
 
           <div className="row gap10 mt12">
