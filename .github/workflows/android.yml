@@ -1,0 +1,49 @@
+name: Build Android APK
+
+# 云端构建完全离线内置的安卓 APK（免本地装 Android Studio）。
+# 触发：仓库 Actions 页手动 Run workflow；或推送 v* 标签。
+# 产物：在该次运行的 Artifacts 里下载「考研词关-apk」，解压得 app-debug.apk，传手机安装(允许未知来源)。
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build web (Vite → dist)
+        run: npm run build
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Sync Capacitor (dist → android)
+        run: npx cap sync android
+
+      - name: Build debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 考研词关-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
