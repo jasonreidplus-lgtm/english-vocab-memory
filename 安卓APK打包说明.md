@@ -11,7 +11,7 @@
 
 1. 打开 GitHub 仓库 → 顶部 **Actions** 标签。
 2. 左侧选 **Build Android APK** → 右侧 **Run workflow**（分支选 `main`）→ 绿色 Run。
-3. 等几分钟跑完 → 点进这次运行 → 页面底部 **Artifacts** → 下载 **考研词关-apk**。
+3. 等几分钟跑完 → 点进这次运行 → 页面底部 **Artifacts** → 下载 **wordquest-apk**。
 4. 解压得到 `app-debug.apk`，传到安卓手机，点击安装（首次需在系统里允许「安装未知来源应用」）。
 
 > 也可以打个 tag 触发：`git tag v1.0 && git push origin v1.0`。

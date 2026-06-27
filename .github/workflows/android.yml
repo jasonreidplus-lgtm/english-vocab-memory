@@ -32,6 +32,12 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Pre-install SDK platform 36 (Capacitor 8 compileSdk)
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0" || true
+
       - name: Sync Capacitor (dist → android)
         run: npx cap sync android
 
@@ -39,11 +45,11 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: 考研词关-apk
+          name: wordquest-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
