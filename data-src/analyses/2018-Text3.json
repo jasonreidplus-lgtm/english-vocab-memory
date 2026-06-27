@@ -35,14 +35,14 @@
     "trunk": "条件+主句：If software promises to save lives …, big data may be expected to behave as big pharma has done",
     "structure": [
       "条件状语从句(If)：If software promises to save lives on the scale that drugs now can",
-      "  └ 定语从句〔that，修饰 the scale〕：that drugs now can (save)〔句末省略 save〕",
+      "  └ 定语从句〔that，修饰 the scale〕：that drugs now can〔句末省略 save〕",
       "主句：big data may be expected to behave as big pharma has done",
       "  ├ be expected to do：被动（可望/被期待）",
       "  └ 方式状语从句(as)：as big pharma has done〔done 替代 behaved〕"
     ],
     "logic": "If 条件从句（that 定语从句修饰 the scale，句末省略 save）；主句 big data may be expected to behave（被动）；as big pharma has done 方式状语从句（如同大药厂那样）。",
     "notes": [
-      "on the scale that drugs now can (save)：that 定语从句修饰 the scale，句末省略 save（达到如今药物所能拯救的规模）。",
+      "on the scale that drugs now can：that 定语从句修饰 the scale，句末省略 save（达到如今药物所能拯救的规模）。",
       "be expected to do：被动（可望/被期待）。",
       "as big pharma has done：as 方式状语从句（如同大型制药业已做的那样），done 替代 behaved。"
     ]

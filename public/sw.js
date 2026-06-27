@@ -3,7 +3,7 @@
    - 导航请求(打开页面)：network-first，断网回退缓存(再回退首页壳)。
    - 其余同源 GET(JS/CSS/词库/字体)：stale-while-revalidate(先给缓存，后台更新)。
    词库虽大，但首访后即入缓存，之后从磁盘读取，断网照背。 */
-const CACHE = 'wordquest-v4'; // bump：长难句拆解(passages.json 含156句分析)+阅读高亮精简，强制刷新缓存
+const CACHE = 'wordquest-v5'; // bump：长难句拆解改为教科书卡片版(原句编号划线/结构树/翻译/词汇/详解/考点)，强制刷新
 
 self.addEventListener('install', () => self.skipWaiting());
 

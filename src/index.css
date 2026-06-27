@@ -880,19 +880,38 @@ body {
   line-height: 1.7;
   color: var(--ink);
 }
-.ana-tree {
-  margin: 0;
-  padding: 12px 14px;
-  border-radius: var(--btn-radius);
-  background: var(--accent-soft);
-  border: var(--line);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--ink);
-  white-space: pre-wrap;
-  overflow-x: auto;
-}
+/* ---------- 长难句拆解 · 卡片版面（仿教科书拆分解析，配色用语义固定色、其余走主题变量） ---------- */
+.rc-trunk  { --rc: var(--accent); }
+.rc-attr   { --rc: #2a9d8f; }
+.rc-noun   { --rc: #4a78d0; }
+.rc-adv    { --rc: #d98324; }
+.rc-appos  { --rc: #9b5de5; }
+.rc-verbal { --rc: #5a9e4f; }
+.rc-cleft  { --rc: #d6455d; }
+.rc-coord, .rc-paren, .rc-misc { --rc: var(--muted); }
+
+.ps-card { padding: 10px 12px; border-radius: var(--btn-radius); background: var(--surface); border: var(--line-strong); text-align: left; }
+.ps-head { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 8px; padding-left: 7px; border-left: 3px solid var(--accent); }
+
+/* 原句 · 编号划线 */
+.ps-sent { margin: 0; line-height: 2.25; font-size: 15px; color: var(--ink); }
+.ps-c { border-bottom: 2px solid var(--rc); padding-bottom: 1px; }
+.ps-num { font-size: 10px; font-weight: 700; color: var(--rc); margin: 0 2px 0 1px; }
+.ps-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 11px; }
+.ps-leg { font-size: 12px; color: var(--ink); display: inline-flex; align-items: center; }
+.ps-leg::before { content: ''; width: 12px; height: 3px; background: var(--rc); border-radius: 2px; margin-right: 5px; }
+.ps-leg .ps-num { color: var(--rc); font-size: 11px; margin-right: 3px; }
+.ps-leg-note { color: var(--muted); }
+
+.ps-trunk { font-size: 15px; line-height: 1.7; color: var(--ink); }
+.ps-cn { font-size: 14px; line-height: 1.85; color: var(--ink); }
+
+/* 结构拆分树：彩色左条 + 角色标签 + 修饰对象 + 英文片段，按层级缩进 */
+.ana-split { display: flex; flex-direction: column; gap: 6px; }
+.ana-seg { border-left: 3px solid var(--rc, var(--line-strong)); padding: 1px 0 3px 9px; line-height: 1.7; }
+.ana-seg__tag { font-family: var(--display); font-size: 11px; font-weight: 700; color: var(--rc, var(--muted)); margin-right: 8px; }
+.ana-seg__note { font-weight: 400; color: var(--muted); margin-left: 2px; }
+.ana-seg__en { font-size: 14px; color: var(--ink); }
 .ana-logic {
   padding: 10px 12px;
   border-radius: var(--btn-radius);

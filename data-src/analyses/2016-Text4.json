@@ -1,18 +1,18 @@
 {
   "2016-T4-P4-S3": {
-    "trunk": "引语：we're going to have questions like that where …；it's better to be more aggressive than less aggressive",
+    "trunk": "引语：we're going to have questions like that where …；it's better to be more aggressive that less aggressive",
     "structure": [
       "句①：we're going to have questions like that where we have things … that don't make sense …",
       "  └ 定语从句〔where，修饰 questions〕：where we have things we're doing that don't make sense when the market changes and the world changes",
       "      ├ 定语从句〔省略关系词，修饰 things〕：we're doing",
       "      └ 定语从句〔that，修饰 things〕：that don't make sense when the market changes and the world changes",
       "          └ 时间状语从句(when)：when the market changes and the world changes",
-      "句②（形式主语 it）：In those situations, it's better to be more aggressive than less aggressive"
+      "句②（形式主语 it）：In those situations, it's better to be more aggressive that less aggressive"
     ],
     "logic": "句① questions … where…（where 定语从句），内含 (that) we're doing 与 that don't make sense（两层定语修饰 things），when… 时间状语；句② it's better to do（it 形式主语）。",
     "notes": [
       "where we have things (that) we're doing that don't make sense：where 定语从句内再套两层修饰 things 的定语从句（一层省略关系词，一层 that）。",
-      "it's better to be more aggressive than less aggressive：it 形式主语；（原文 aggressive that 应为 than）。",
+      "it's better to be more aggressive that less aggressive：it 形式主语；（原文 aggressive that 应为 than）。",
       "when the market changes and the world changes：时间状语从句。"
     ]
   },

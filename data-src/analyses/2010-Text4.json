@@ -4,7 +4,7 @@
     "structure": [
       "主句：Charlie McCreevy warned the IASB …",
       "  ├ 同位语〔说明 Charlie McCreevy〕：a European commissioner",
-      "  ├ 宾语从句①(that)：that it did 「not live in a political vacuum」 but 「in the real world」",
+      "  ├ 宾语从句①(that)：that it did 「not live in a political vacuum」 but 「in the real word」",
       "  │   └ 并列：not (in a political vacuum) … but (in the real world)",
       "  └ 宾语从句②(and that)：that Europe could yet develop different rules"
     ],
@@ -22,7 +22,7 @@
       "  └ 宾语从句(省略 that)：it does not want to act without overall planning",
       "并列(but)分句②：the pressure … is strong",
       "  ├ 不定式作定语〔修饰 pressure〕：to fold",
-      "  └ 时间状语从句(when)：when it completes its reconstruction of rules later this year"
+      "  └ 时间状语从句(when)：when it completes it reconstruction of rules later this year"
     ],
     "logic": "but 连接两个对比分句；分句②主语 the pressure 与系动词 is 之间插入 to fold（不定式定语）和 when 时间状语从句，造成主谓分隔。",
     "notes": [

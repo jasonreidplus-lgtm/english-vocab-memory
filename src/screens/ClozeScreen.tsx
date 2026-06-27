@@ -14,6 +14,119 @@ import { fetchBuiltin } from '../lib/passages';
 import { splitEnSentences } from '../lib/text';
 import type { Word, Sentence, Passage } from '../types';
 
+/* 长难句「就地划线」：复用已有 analysis.structure(角色〔修饰X〕：英文片段)，在原句上叠加彩色下划线，无需改数据。 */
+function segRole(label: string): string {
+  if (/主句|主干/.test(label)) return 'trunk';
+  if (/同位语/.test(label)) return 'appos';
+  if (/定语/.test(label)) return 'attr';
+  if (/宾语从句|主语从句|表语从句|名词性从句|宾语|表语/.test(label)) return 'noun';
+  if (/状语|条件|原因|让步|目的|结果|时间|方式|对比|排除|程度/.test(label)) return 'adv';
+  if (/分词|不定式|动名词|非谓语/.test(label)) return 'verbal';
+  if (/强调|倒装/.test(label)) return 'cleft';
+  if (/并列/.test(label)) return 'coord';
+  if (/插入/.test(label)) return 'paren';
+  return 'misc';
+}
+const ROLE_ABBR: Record<string, string> = { attr: '定', noun: '宾', adv: '状', appos: '同', verbal: '非谓', cleft: '强调', coord: '并列', paren: '插入', misc: '' };
+const qnorm = (s: string) => s.replace(/[「」“”‘’]/g, '"');
+interface FragInfo { role: string; depth: number; label: string; note: string; en: string }
+function parseFrag(line: string): FragInfo {
+  const m = String(line).match(/^([\s│]*)(?:[└├]\s*)?([\s\S]*)$/);
+  const depth = Math.round((m ? m[1].length : 0) / 4);
+  let rest = (m ? m[2] : String(line)).trim();
+  const ci = rest.indexOf('：');
+  let label = ci >= 0 ? rest.slice(0, ci).trim() : rest.trim();
+  let en = ci >= 0 ? rest.slice(ci + 1) : '';
+  let note = '';
+  const nm = label.match(/〔([^〕]*)〕/);
+  if (nm) { note = nm[1]; label = label.replace(/〔[^〕]*〕/, '').trim(); }
+  en = qnorm(en).replace(/（[^）]*）/g, ' ').replace(/〔[^〕]*〕/g, ' ').replace(/\s+/g, ' ').trim(); // 去中文括注〔〕（…）、统一引号
+  return { role: segRole(label), depth, label, note, en };
+}
+// 在原句(已统一引号+小写的 matchEn)里定位片段，返回 [起,止]；索引与原句 1:1。失败回退到截断前缀。
+function locate(matchEn: string, frag: string): [number, number] | null {
+  const f = qnorm(frag).toLowerCase().trim();
+  if (f.replace(/[^a-z]/g, '').length >= 4) {
+    const i = matchEn.indexOf(f);
+    if (i >= 0) return [i, i + f.length];
+  }
+  const pre = f.split(/…|\.\.\./)[0].trim();
+  if (pre.replace(/[^a-z]/g, '').length >= 6) {
+    const i = matchEn.indexOf(pre);
+    if (i >= 0) return [i, i + pre.length];
+  }
+  const core = pre.replace(/^[^a-z0-9]+/, '').replace(/[^a-z0-9]+$/, ''); // 去首尾引号/标点再试(引语、标题等)
+  if (core.length >= 6 && core !== pre) {
+    const i = matchEn.indexOf(core);
+    if (i >= 0) return [i, i + core.length];
+  }
+  return null;
+}
+/* 把原句切成「顶层意群」并编号：从句取最外层非重叠片段，主干=未被覆盖的部分(可不连续)，按出现顺序编号。 */
+function buildComponents(en: string, lines: string[]) {
+  const src = String(en || '');
+  const matchEn = qnorm(src).toLowerCase();
+  const subs: { s: number; e: number; role: string; label: string; note: string }[] = [];
+  for (const line of lines || []) {
+    const fi = parseFrag(line);
+    if (fi.role === 'trunk' || !fi.en) continue;
+    const pos = locate(matchEn, fi.en);
+    if (pos) subs.push({ s: pos[0], e: pos[1], role: fi.role, label: fi.label, note: fi.note });
+  }
+  subs.sort((a, b) => a.s - b.s || b.e - a.e);
+  const top: typeof subs = [];
+  let lastEnd = -1;
+  for (const sp of subs) if (sp.s >= lastEnd) { top.push(sp); lastEnd = sp.e; } // 仅取最外层、不重叠
+  const comps: { role: string; label: string; note: string; text: string }[] = [];
+  const pushGap = (gap: string) => {
+    if (!gap) return;
+    if (gap.replace(/[^A-Za-z]/g, '').length >= 3) comps.push({ role: 'trunk', label: '主干', note: '', text: gap });
+    else if (comps.length) comps[comps.length - 1].text += gap; // 纯标点/连接词并入上一段，避免把逗号也编号
+    else comps.push({ role: 'trunk', label: '主干', note: '', text: gap });
+  };
+  let cur = 0;
+  for (const sp of top) {
+    pushGap(src.slice(cur, sp.s));
+    comps.push({ role: sp.role, label: sp.label || '从句', note: sp.note || '', text: src.slice(sp.s, sp.e) });
+    cur = sp.e;
+  }
+  pushGap(src.slice(cur));
+  return comps.map((c, i) => ({ ...c, n: i + 1 }));
+}
+/** 原句卡：整句照原文 + 各意群彩色下划线 + 圈码 + 下方图例 */
+function AnaSentence({ en, lines }: { en: string; lines: string[] }) {
+  const comps = useMemo(() => buildComponents(en, lines), [en, lines]);
+  if (!comps.length) return <p className="ps-sent">{en}</p>;
+  return (
+    <>
+      <p className="ps-sent">
+        {comps.map((c, k) => (
+          <span key={k} className={`ps-c rc-${c.role}`}><sup className="ps-num">{c.n}</sup>{c.text}</span>
+        ))}
+      </p>
+      <div className="ps-legend">
+        {comps.map((c, k) => (
+          <span key={k} className={`ps-leg rc-${c.role}`}><b className="ps-num">{c.n}</b>{c.label}{c.note && <span className="ps-leg-note">（{c.note}）</span>}</span>
+        ))}
+      </div>
+    </>
+  );
+}
+/** 结构拆分树：按层级缩进的彩色行(角色标签 + 修饰对象 + 英文片段) */
+function AnaTree({ lines }: { lines: string[] }) {
+  const segs = useMemo(() => (lines || []).map(parseFrag), [lines]);
+  return (
+    <div className="ana-split">
+      {segs.map((s, i) => (
+        <div key={i} className={`ana-seg rc-${s.role}`} style={{ marginInlineStart: Math.min(s.depth, 4) * 14 }}>
+          <span className="ana-seg__tag">{s.label}{s.note && <span className="ana-seg__note">（{s.note}）</span>}</span>
+          {s.en && <span className="ana-seg__en">{s.en}</span>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 interface ClozeScreenProps {
   pool: Word[];
   sentences?: Sentence[]; // passage 模式：传 sentences + title + onDone
@@ -207,18 +320,52 @@ export default function ClozeScreen({
           {sentence.analysis && (
             showAna ? (
               <div className="ana fade">
-                <div className="ana-trunk"><span className="ana-tag">主干</span>{sentence.analysis.trunk}</div>
+                <div className="ps-card">
+                  <div className="ps-head">原句 · 拆分</div>
+                  <AnaSentence en={sentence.en} lines={sentence.analysis.structure || []} />
+                </div>
+                <div className="ps-card">
+                  <div className="ps-head">主干</div>
+                  <div className="ps-trunk">{sentence.analysis.trunk}</div>
+                </div>
                 {sentence.analysis.structure && sentence.analysis.structure.length > 0 && (
-                  <pre className="ana-tree">{sentence.analysis.structure.join('\n')}</pre>
+                  <div className="ps-card">
+                    <div className="ps-head">结构拆分</div>
+                    <AnaTree lines={sentence.analysis.structure} />
+                  </div>
+                )}
+                {sentence.cn && (
+                  <div className="ps-card">
+                    <div className="ps-head">句意翻译</div>
+                    <div className="ps-cn">{sentence.cn}</div>
+                  </div>
+                )}
+                {marked.length > 0 && (
+                  <div className="ps-card">
+                    <div className="ps-head">词汇与短语</div>
+                    <div className="gloss">
+                      {marked.map((w) => (
+                        <button key={w.id} className="gloss-item" onClick={() => openWord(w)}>
+                          <span className="gloss-w">{w.word}{w.pos ? <span className="gloss-pos"> {w.pos}</span> : null}</span>
+                          <span className="gloss-m">{shortMeaning(w.base_meaning, 18)}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 )}
                 {sentence.analysis.logic && (
-                  <div className="ana-logic"><span className="ana-tag">逻辑</span>{sentence.analysis.logic}</div>
+                  <div className="ps-card">
+                    <div className="ps-head">结构分析详解</div>
+                    <div className="ps-cn">{sentence.analysis.logic}</div>
+                  </div>
                 )}
                 {sentence.analysis.notes && sentence.analysis.notes.length > 0 && (
-                  <ul className="ana-notes">
-                    {sentence.analysis.notes.map((n, i) => <li key={i}>{n}</li>)}
-                  </ul>
+                  <div className="ps-card">
+                    <div className="ps-head">考点点拨</div>
+                    <ul className="ana-notes">{sentence.analysis.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
+                  </div>
                 )}
+                <button className="btn ghost block mt8" onClick={() => setShowAna(false)}>收起拆解</button>
               </div>
             ) : (
               <button className="btn ghost block mt8" onClick={() => setShowAna(true)}>

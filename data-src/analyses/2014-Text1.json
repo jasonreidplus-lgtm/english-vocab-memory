@@ -6,7 +6,7 @@
       "主句：this was the socially concerned chancellor",
       "  ├ 现在分词作伴随/定语〔修饰 chancellor〕：trying to change lives for the better",
       "  └ 形容词短语作伴随/定语〔修饰 chancellor〕：complete with 「reforms」 to an obviously indulgent system",
-      "      └ 定语从句〔that，修饰 system〕：that demands too little effort from the newly unemployed to find work, and subsidizes laziness",
+      "      └ 定语从句〔that，修饰 system〕：that demands too little effort from the newly unemployed to find work, and subsides laziness",
       "          └ 从句内并列谓语：demands too little effort… and subsidizes laziness"
     ],
     "logic": "主句 this was the chancellor；trying… 现在分词、complete with… 形容词短语都修饰 chancellor（伴随描述）；that 定语从句修饰 system，从句内并列谓语 demands… and subsidizes…。",
@@ -19,7 +19,7 @@
   "2014-T1-P1-S2": {
     "trunk": "部分倒装：Only if … will they be eligible for benefit（只有…他们才有资格领取救济）",
     "structure": [
-      "条件状语从句(Only if，置于句首)：Only if the jobless arrive at the job centre with a CV, register for online job search, and start looking for work",
+      "条件状语从句(Only if，置于句首)：Only if the jobless arrive at the job centre with a CV register for online job search, and start looking for work",
       "  └ 从句内并列谓语：arrive…, register…, and start looking…",
       "主句（部分倒装）：will they be eligible for benefit",
       "and then 补充：then they should report weekly rather than fortnightly"
