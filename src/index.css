@@ -892,6 +892,13 @@ body {
 
 .ps-card { padding: 10px 12px; border-radius: var(--btn-radius); background: var(--surface); border: var(--line-strong); text-align: left; }
 .ps-head { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 8px; padding-left: 7px; border-left: 3px solid var(--accent); }
+/* 折叠卡：默认只展开「原句·拆分」，其余点开 */
+.ps-card > summary.ps-head { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+.ps-card[open] > summary.ps-head { margin-bottom: 9px; }
+.ps-card > summary.ps-head::-webkit-details-marker { display: none; }
+.ps-card > summary.ps-head::after { content: '▾'; color: var(--muted); font-size: 11px; font-weight: 400; }
+.ps-card:not([open]) > summary.ps-head::after { content: '▸'; }
+.ps-sub { color: var(--accent); margin-right: 8px; font-weight: 700; font-size: 12px; }
 
 /* 原句 · 编号划线 */
 .ps-sent { margin: 0; line-height: 2.25; font-size: 15px; color: var(--ink); }

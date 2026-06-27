@@ -320,29 +320,26 @@ export default function ClozeScreen({
           {sentence.analysis && (
             showAna ? (
               <div className="ana fade">
-                <div className="ps-card">
-                  <div className="ps-head">原句 · 拆分</div>
+                <details className="ps-card" open>
+                  <summary className="ps-head">原句 · 拆分</summary>
                   <AnaSentence en={sentence.en} lines={sentence.analysis.structure || []} />
-                </div>
-                <div className="ps-card">
-                  <div className="ps-head">主干</div>
-                  <div className="ps-trunk">{sentence.analysis.trunk}</div>
-                </div>
+                  <div className="ps-trunk"><b className="ps-sub">主干</b>{sentence.analysis.trunk}</div>
+                </details>
                 {sentence.analysis.structure && sentence.analysis.structure.length > 0 && (
-                  <div className="ps-card">
-                    <div className="ps-head">结构拆分</div>
+                  <details className="ps-card">
+                    <summary className="ps-head">结构拆分</summary>
                     <AnaTree lines={sentence.analysis.structure} />
-                  </div>
+                  </details>
                 )}
                 {sentence.cn && (
-                  <div className="ps-card">
-                    <div className="ps-head">句意翻译</div>
+                  <details className="ps-card">
+                    <summary className="ps-head">句意翻译</summary>
                     <div className="ps-cn">{sentence.cn}</div>
-                  </div>
+                  </details>
                 )}
                 {marked.length > 0 && (
-                  <div className="ps-card">
-                    <div className="ps-head">词汇与短语</div>
+                  <details className="ps-card">
+                    <summary className="ps-head">词汇与短语 · {marked.length}</summary>
                     <div className="gloss">
                       {marked.map((w) => (
                         <button key={w.id} className="gloss-item" onClick={() => openWord(w)}>
@@ -351,19 +348,16 @@ export default function ClozeScreen({
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </details>
                 )}
-                {sentence.analysis.logic && (
-                  <div className="ps-card">
-                    <div className="ps-head">结构分析详解</div>
-                    <div className="ps-cn">{sentence.analysis.logic}</div>
-                  </div>
-                )}
-                {sentence.analysis.notes && sentence.analysis.notes.length > 0 && (
-                  <div className="ps-card">
-                    <div className="ps-head">考点点拨</div>
-                    <ul className="ana-notes">{sentence.analysis.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
-                  </div>
+                {(sentence.analysis.logic || (sentence.analysis.notes && sentence.analysis.notes.length > 0)) && (
+                  <details className="ps-card">
+                    <summary className="ps-head">结构分析详解 · 考点</summary>
+                    {sentence.analysis.logic && <div className="ps-cn">{sentence.analysis.logic}</div>}
+                    {sentence.analysis.notes && sentence.analysis.notes.length > 0 && (
+                      <ul className="ana-notes" style={{ marginTop: sentence.analysis.logic ? 8 : 0 }}>{sentence.analysis.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
+                    )}
+                  </details>
                 )}
                 <button className="btn ghost block mt8" onClick={() => setShowAna(false)}>收起拆解</button>
               </div>
