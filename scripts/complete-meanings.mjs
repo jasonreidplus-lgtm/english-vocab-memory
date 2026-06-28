@@ -12,8 +12,22 @@ const dict = JSON.parse(fs.readFileSync('public/data/dict.json', 'utf8'));
 const POSMAP = {
   'n.': 'n.', 'pl.': 'n.', 'vt.': 'v.', 'vi.': 'v.', 'v.': 'v.', 'aux.': 'aux.',
   'a.': 'adj.', 'adj.': 'adj.', 'ad.': 'adv.', 'adv.': 'adv.', 'prep.': 'prep.',
-  'conj.': 'conj.', 'pron.': 'pron.', 'int.': 'int.', 'num.': 'num.', 'art.': 'art.',
+  'conj.': 'conj.', 'pron.': 'pron.', 'int.': 'int.', 'interj.': 'int.', 'intj.': 'int.',
+  'num.': 'num.', 'art.': 'art.',
 };
+
+// 去重义项：同一词里完全相同的「；」义项段 / 段内「，」义项只保留首次出现(只删完全相同项，安全)
+function dedupeMeaning(bm) {
+  const groups = String(bm || '').split('；').map((s) => s.trim()).filter(Boolean);
+  const seen = new Set();
+  const out = [];
+  for (let g of groups) {
+    const parts = g.split('，').map((s) => s.trim()).filter(Boolean);
+    g = [...new Set(parts)].join('，');
+    if (g && !seen.has(g)) { seen.add(g); out.push(g); }
+  }
+  return out.join('；');
+}
 
 // 从含词性前缀的文本(n. …；vt. …)提取规范化词性，去重保序，用 / 连接
 function posFrom(text) {
@@ -63,7 +77,21 @@ for (const w of vocab) {
   }
 }
 
+// 去重义项段(对全部词)
+let dedup = 0;
+const dedupSamples = [];
+for (const w of vocab) {
+  const before = w.base_meaning;
+  const after = dedupeMeaning(before);
+  if (after && after !== before) {
+    if (dedupSamples.length < 6) dedupSamples.push(`${w.word}\n  旧: ${before}\n  新: ${after}`);
+    w.base_meaning = after;
+    dedup++;
+  }
+}
+
 fs.writeFileSync(VOCAB, JSON.stringify(vocab));
-console.log(`补全释义(截断回填): ${fixedMeaning} 词 | 补词性: ${fixedPos} 词 | 截断但 dict 无对应: ${missDict} 词`);
-console.log('\n样例:\n' + samples.join('\n\n'));
+console.log(`补全释义(截断回填): ${fixedMeaning} 词 | 补词性: ${fixedPos} 词 | 截断但 dict 无对应: ${missDict} 词 | 去重义项: ${dedup} 词`);
+console.log('\n回填样例:\n' + samples.join('\n\n'));
+console.log('\n去重样例:\n' + dedupSamples.join('\n\n'));
 console.log('\n已写回 vocab.json。请接着跑: node scripts/split-vocab.cjs');

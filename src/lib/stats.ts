@@ -145,7 +145,8 @@ function dualSeries(nh: Record<string, number> | undefined, rh: Record<string, n
 export function computeStats(progress: Progress, summary: Summary, opts: StatsOpts = {}): StatsResult {
   const now = opts.now ?? new Date();
   const rangeDays = opts.rangeDays ?? 30;
-  const exam = startOfDay(new Date(progress.examDate || DEFAULT_EXAM_DATE));
+  let exam = startOfDay(new Date(progress.examDate || DEFAULT_EXAM_DATE));
+  if (Number.isNaN(exam.getTime())) exam = startOfDay(new Date(DEFAULT_EXAM_DATE)); // 非法考试日兜底，避免 pace 出现 NaN
   const cardEntries = progress.cards || {};
   const cards: SerializedCard[] = Object.values(cardEntries)
     .map((e) => e.card)

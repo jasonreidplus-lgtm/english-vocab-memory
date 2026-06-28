@@ -3,7 +3,7 @@
    - 导航请求(打开页面)：network-first，断网回退缓存(再回退首页壳)。
    - 其余同源 GET(JS/CSS/词库/字体)：stale-while-revalidate(先给缓存，后台更新)。
    词库虽大，但首访后即入缓存，之后从磁盘读取，断网照背。 */
-const CACHE = 'wordquest-v10'; // bump：体验改进第四批(补全76词截断释义+词性 + 自定义记忆法)
+const CACHE = 'wordquest-v11'; // bump：夜间核查修正(去重357词释义+oh词性 + examDate兜底 + 统计页措辞/门控)
 
 self.addEventListener('install', () => self.skipWaiting());
 

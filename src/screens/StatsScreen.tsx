@@ -248,11 +248,11 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onOp
         </div>
       </div>
 
-      {/* —— 错词保持率 —— */}
-      <div className="section-title"><GaugeIcon size={15} /> 错词保持率</div>
+      {/* —— 记忆保持率 —— */}
+      <div className="section-title"><GaugeIcon size={15} /> 记忆保持率</div>
       <div className="card stat-card">
         {retention.reviewedCount === 0 ? (
-          <div className="empty-mod">复习错词后，这里显示记忆保持率 📈</div>
+          <div className="empty-mod">学习/复习后，这里显示记忆保持率 📈</div>
         ) : (
           <div className="retention-wrap">
             <Gauge value={retention.current ?? 0} target={retention.target} />
@@ -294,12 +294,12 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onOp
       </div>
 
       {/* —— 记忆稳定度 —— */}
-      {summary.wrongCount > 0 && (
+      {stabBars.some((b) => b.value > 0) && (
         <>
           <div className="section-title"><Layers size={15} /> 记忆稳定度分布</div>
           <div className="card stat-card">
             <BarChart bars={stabBars} unit=" 词" color="var(--good)" />
-            <div className="muted-line">错词卡按记忆稳定度(下次能撑多久)分桶。</div>
+            <div className="muted-line">已学词按记忆稳定度(下次能撑多久)分桶。</div>
           </div>
         </>
       )}
