@@ -72,7 +72,7 @@ interface BrowseCtx {
 }
 
 export default function App() {
-  const { progress, setTheme, finishLevel, reviewGrade, addXp, recordStudy, setGoal, setPref, markWrong, resetAll } =
+  const { progress, setTheme, finishLevel, reviewGrade, addXp, recordStudy, addStudyTime, setGoal, setPref, markWrong, resetAll } =
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -145,6 +145,27 @@ export default function App() {
     const t = setTimeout(warm, 1500);
     return () => clearTimeout(t);
   }, []);
+
+  // —— 学习时长统计(#10)：仅在学习类页面、页面可见且用户活跃时累计；空闲>60s或切后台自动暂停 ——
+  useEffect(() => {
+    const STUDY_VIEWS = ['learn', 'quiz', 'reviewSession', 'match', 'read', 'cloze', 'browse'];
+    if (!STUDY_VIEWS.includes(view)) return;
+    const TICK = 10000; // 每 10 秒结算
+    const IDLE = 60000; // 超 60 秒无操作视为空闲
+    let last = Date.now();
+    const bump = () => { last = Date.now(); };
+    const evts: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'pointermove', 'wheel', 'touchstart'];
+    evts.forEach((e) => window.addEventListener(e, bump, { passive: true }));
+    const timer = setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      if (Date.now() - last > IDLE) return;
+      addStudyTime(TICK);
+    }, TICK);
+    return () => {
+      clearInterval(timer);
+      evts.forEach((e) => window.removeEventListener(e, bump));
+    };
+  }, [view, addStudyTime]);
 
   const levels: Level[] = vocab.status === 'ready' ? vocab.levels : [];
   const byId = vocab.status === 'ready' ? vocab.byId : new Map<number | string, Word>();

@@ -37,7 +37,9 @@ export function defaultProgress(): Progress {
     cards: {}, // 全词建卡 { [wordId]: { card, miss, lastTs, lapseTs } }；miss>0 即错词
     daily: null, // { date, count, streak, goal } —— 每日目标 / 连续打卡
     history: {}, // { [YYYY-MM-DD]: 当日学习词数 } —— 打卡热力图
-    newHistory: {}, // { [YYYY-MM-DD]: 当日新学(首次通关)词数 } —— 燃尽/配速
+    newHistory: {}, // { [YYYY-MM-DD]: 当日新学(首次通关)词数 } —— 燃尽/配速/学习曲线
+    reviewHistory: {}, // { [YYYY-MM-DD]: 当日复习次数 } —— 学习/复习分色柱
+    timeHistory: {}, // { [YYYY-MM-DD]: 当日学习时长(ms) } —— 学习时长
     revlog: [], // 复习日志(封顶裁剪) —— 真实保持率/趋势
     stats: { answered: 0, correct: 0 }, // 累计答题数 / 答对数 —— 正确率
     sound: true, // 音效朗读开关

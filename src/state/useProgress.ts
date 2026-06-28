@@ -30,6 +30,7 @@ export type Action =
   | { type: 'reviewGrade'; id: number | string; grade: Grade }
   | { type: 'addXp'; amount?: number }
   | { type: 'studyActivity'; words?: number }
+  | { type: 'addStudyTime'; ms: number }
   | { type: 'setGoal'; goal: number }
   | { type: 'setPref'; key: keyof Progress; value: Progress[keyof Progress] }
   | { type: 'markWrong'; ids?: Array<number | string> }
@@ -113,7 +114,11 @@ export function reducer(state: Progress, action: Action): Progress {
       // 记一条复习日志(供真实保持率/趋势)，封顶裁剪最旧
       const revlog = [...(state.revlog || []), { id: action.id, ...log } as RevlogEntry];
       if (revlog.length > REVLOG_CAP) revlog.splice(0, revlog.length - REVLOG_CAP);
-      return { ...state, cards, revlog };
+      // 当日复习次数 +1(学习/复习分色柱)
+      const today = dayKey();
+      const reviewHistory = { ...(state.reviewHistory || {}) };
+      reviewHistory[today] = (reviewHistory[today] || 0) + 1;
+      return { ...state, cards, revlog, reviewHistory };
     }
 
     case 'addXp':
@@ -145,6 +150,16 @@ export function reducer(state: Progress, action: Action): Progress {
         };
       }
       return { ...state, history, daily: { ...prev, count: prev.count + words } };
+    }
+
+    case 'addStudyTime': {
+      // 累加当日学习时长(ms)。空闲/后台不调用(由 App 的学习计时钩子把关)
+      const today = dayKey();
+      const timeHistory = { ...(state.timeHistory || {}) };
+      timeHistory[today] = (timeHistory[today] || 0) + (action.ms || 0);
+      const keys = Object.keys(timeHistory);
+      if (keys.length > 220) for (const k of keys.sort().slice(0, keys.length - 200)) delete timeHistory[k];
+      return { ...state, timeHistory };
     }
 
     case 'setGoal': {
@@ -188,6 +203,7 @@ export function useProgress() {
   const reviewGrade = useCallback((id: number | string, grade: Grade) => dispatch({ type: 'reviewGrade', id, grade }), []);
   const addXp = useCallback((amount: number) => dispatch({ type: 'addXp', amount }), []);
   const recordStudy = useCallback((words: number) => dispatch({ type: 'studyActivity', words }), []);
+  const addStudyTime = useCallback((ms: number) => dispatch({ type: 'addStudyTime', ms }), []);
   const setGoal = useCallback((goal: number) => dispatch({ type: 'setGoal', goal }), []);
   const setPref = useCallback(
     <K extends keyof Progress>(key: K, value: Progress[K]) => dispatch({ type: 'setPref', key, value }),
@@ -206,6 +222,7 @@ export function useProgress() {
     reviewGrade,
     addXp,
     recordStudy,
+    addStudyTime,
     setGoal,
     setPref,
     markWrong,

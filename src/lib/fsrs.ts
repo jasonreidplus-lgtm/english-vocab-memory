@@ -61,9 +61,15 @@ export function gradeWithLog(
   return { card: serialize(next), log: { t: now.getTime(), r: grade, st: log.state, s: next.stability } };
 }
 
-/** 某时刻的可提取性(0-1)。仅对已复习过(state≠New)的卡有意义。 */
+/** 某时刻的可提取性(0-1)。仅对已复习过(state≠New)的卡有意义。
+   脏卡(缺 last_review 等，可能来自旧备份导入)会让 ts-fsrs 抛错——这里兜底，避免拖垮整页统计。 */
 export function retrievability(card: SerializedCard, when: Date = new Date()): number {
-  return scheduler.get_retrievability(deserialize(card), when, false) as number;
+  try {
+    const r = scheduler.get_retrievability(deserialize(card), when, false) as number;
+    return Number.isFinite(r) ? r : 0;
+  } catch {
+    return 0;
+  }
 }
 
 /** 标记为「答错/不认识」：无卡→新建今日到期；有卡→按 Again 失忆重排 */

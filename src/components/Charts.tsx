@@ -156,6 +156,68 @@ export function BarChart({
   );
 }
 
+// —— 每日「学习 + 复习」分色堆叠柱 + 累计学习曲线(一图含两量+曲线) ——
+export interface DualBar { label: string; learn: number; review: number; cum: number; }
+export function DailyStackChart({
+  bars,
+  height = 172,
+  maxTicks = 6,
+  learnColor = 'var(--accent)',
+  reviewColor = 'var(--good)',
+}: {
+  bars: DualBar[];
+  height?: number;
+  maxTicks?: number;
+  learnColor?: string;
+  reviewColor?: string;
+}) {
+  const [active, setActive] = useState<number | null>(null);
+  const W = 320;
+  const H = height;
+  const padT = 18;
+  const padB = 22;
+  const n = Math.max(1, bars.length);
+  const gap = n > 40 ? 1 : 2;
+  const bw = (W - (n - 1) * gap) / n;
+  const maxBar = Math.max(1, ...bars.map((b) => b.learn + b.review));
+  const maxCum = Math.max(1, ...bars.map((b) => b.cum));
+  const step = Math.max(1, Math.ceil(n / maxTicks));
+  const yBar = (v: number) => (v / maxBar) * (H - padT - padB);
+  const cx = (i: number) => i * (bw + gap) + bw / 2;
+  const cy = (v: number) => padT + (1 - v / maxCum) * (H - padT - padB);
+  const cumPath = bars.map((b, i) => `${i === 0 ? 'M' : 'L'}${cx(i)},${cy(b.cum)}`).join(' ');
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="chart" onMouseLeave={() => setActive(null)} role="img" aria-label="每日学习与复习">
+      {bars.map((b, i) => {
+        const xx = i * (bw + gap);
+        const hL = yBar(b.learn);
+        const hR = yBar(b.review);
+        const yR = H - padB - hR;
+        const yL = yR - hL;
+        const dim = active !== null && active !== i;
+        return (
+          <g key={i} onClick={() => setActive(active === i ? null : i)} onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer' }}>
+            <rect x={xx} y={padT} width={bw} height={H - padT - padB} fill="transparent" />
+            {b.review > 0 && <rect x={xx} y={yR} width={bw} height={Math.max(0, hR)} rx={1} fill={reviewColor} opacity={dim ? 0.4 : 1} />}
+            {b.learn > 0 && <rect x={xx} y={yL} width={bw} height={Math.max(0, hL)} rx={1} fill={learnColor} opacity={dim ? 0.4 : 1} />}
+          </g>
+        );
+      })}
+      {maxCum > 1 && <path d={cumPath} fill="none" stroke="var(--ink)" strokeWidth={2} opacity={0.5} />}
+      {bars.map((b, i) =>
+        i % step === 0 ? (
+          <text key={`x${i}`} x={cx(i)} y={H - 6} textAnchor="middle" className="chart-xlabel">{b.label}</text>
+        ) : null
+      )}
+      {active != null && bars[active] && (
+        <text x={Math.min(W - 36, Math.max(36, cx(active)))} y={12} textAnchor="middle" className="chart-tip">
+          {bars[active].label}: 学{bars[active].learn} / 复{bars[active].review} · 累计{bars[active].cum}
+        </text>
+      )}
+    </svg>
+  );
+}
+
 // —— 趋势线(真实保持率/周)：目标线 + 数据点 tap 显详情 ——
 export interface TrendDatum { label: string; value: number | null; extra?: string; }
 export function TrendChart({

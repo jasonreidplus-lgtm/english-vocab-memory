@@ -35,6 +35,7 @@ export type ExportFilter = 'wrong-all' | 'leech' | 'learning' | 'familiar' | 'du
 export interface HistBucket { label: string; count: number; }
 export interface TrendPoint { label: string; reviews: number; trueRet: number | null; }
 export interface DayPoint { key: string; count: number; }
+export interface DualDay { label: string; learn: number; review: number; cum: number; } // 每日新学/复习/累计学习
 
 export interface StatsResult {
   now: Date;
@@ -63,6 +64,7 @@ export interface StatsResult {
   stabilityHist: HistBucket[];
   trend: TrendPoint[];
   activity: DayPoint[];
+  dual: DualDay[]; // 每日「新学/复习」分色柱 + 累计学习曲线
 }
 
 export interface StatsOpts { now?: Date; rangeDays?: number; }
@@ -118,6 +120,24 @@ function activitySeries(h: Record<string, number> | undefined, now: Date, days: 
   for (let i = days - 1; i >= 0; i--) {
     const k = dayKeyOf(t0 - i * DAY);
     out.push({ key: k, count: (h && h[k]) || 0 });
+  }
+  return out;
+}
+
+// 每日「新学(柱A) + 复习(柱B)」+ 累计学习(曲线)。累计含窗口前的历史新学，曲线连续
+function dualSeries(nh: Record<string, number> | undefined, rh: Record<string, number> | undefined, now: Date, days: number): DualDay[] {
+  const t0 = startOfDay(now).getTime();
+  const winStart = t0 - (days - 1) * DAY;
+  let cum = 0;
+  if (nh) for (const k in nh) { const t = new Date(`${k}T00:00:00`).getTime(); if (!Number.isNaN(t) && t < winStart) cum += nh[k] || 0; }
+  const out: DualDay[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const ms = t0 - i * DAY;
+    const k = dayKeyOf(ms);
+    const learn = (nh && nh[k]) || 0;
+    const review = (rh && rh[k]) || 0;
+    cum += learn;
+    out.push({ label: mdLabel(ms), learn, review, cum });
   }
   return out;
 }
@@ -207,5 +227,73 @@ export function computeStats(progress: Progress, summary: Summary, opts: StatsOp
     stabilityHist: histogram(cards.map((c) => c.stability || 0)),
     trend: reviewTrend(revlog, now, rangeDays),
     activity: activitySeries(progress.history, now, rangeDays),
+    dual: dualSeries(progress.newHistory, progress.reviewHistory, now, rangeDays),
+  };
+}
+
+// —— 智能学完预估(前向模拟：复习挤占每日精力，结合 FSRS 间隔，非线性外推) ——
+export interface EstimateResult {
+  remainingNew: number; // 还剩多少新词没学
+  capacity: number; // 每日可处理量(=每日目标，含复习)
+  learnDays: number | null; // 学完所有新词(天)；null=超出上限
+  masterDays: number | null; // 全部「完全学会」(天)
+  learnFinishMs: number | null;
+  masterFinishMs: number | null;
+}
+const GOOD_STEPS = [1, 3, 7, 16, 35]; // Good 路径近似间隔(天)；survived≥21(=35) 即掌握
+/** 每日把「每日目标」当作总精力额度：先清当天到期复习，剩余额度学新词；每学/复习一次按 FSRS 间隔排下次。 */
+export function estimateCompletion(progress: Progress, summary: Summary, opts: StatsOpts = {}): EstimateResult {
+  const now = opts.now ?? new Date();
+  const today0 = startOfDay(now).getTime();
+  const total = summary.totalWords || 0;
+  const capacity = Math.max(1, (progress.daily && progress.daily.goal) || 20);
+  const cards = progress.cards || {};
+  const queue = new Map<number, number[]>(); // dayOffset -> [stepIdx]：该日到期复习(stepIdx=对应间隔下标)
+  let alive = 0;
+  const push = (off: number, idx: number) => { const a = queue.get(off); if (a) a.push(idx); else queue.set(off, [idx]); alive++; };
+  const stepFromStability = (s: number) => { let i = 0; while (i < GOOD_STEPS.length - 1 && GOOD_STEPS[i] < s) i++; return i; };
+  let coreStudied = 0;
+  for (const [id, e] of Object.entries(cards)) {
+    if (String(id).startsWith('d:')) continue;
+    const c = e.card; if (!c) continue;
+    coreStudied++;
+    if (isMastered(c)) continue; // 已掌握不再排复习
+    const off = Math.max(0, Math.round((startOfDay(new Date(c.due)).getTime() - today0) / DAY));
+    push(off, stepFromStability(c.stability || 0));
+  }
+  const remainingNew0 = Math.max(0, total - coreStudied);
+  let remainingNew = remainingNew0;
+  let learnDays: number | null = remainingNew0 === 0 ? 0 : null;
+  const MAX = 3650;
+  let day = 0;
+  while ((remainingNew > 0 || alive > 0) && day <= MAX) {
+    let slots = capacity;
+    const due = queue.get(day);
+    if (due) {
+      queue.delete(day);
+      alive -= due.length;
+      let p = 0;
+      for (; p < due.length && slots > 0; p++, slots--) {
+        const idx = due[p];
+        if (GOOD_STEPS[Math.min(idx, GOOD_STEPS.length - 1)] >= 21) continue; // 撑过≥21天 → 掌握，不再排
+        const ni = Math.min(idx + 1, GOOD_STEPS.length - 1);
+        push(day + GOOD_STEPS[ni], ni);
+      }
+      for (let k = p; k < due.length; k++) push(day + 1, due[k]); // 当天没做完的复习滚到明天
+    }
+    const newToday = Math.min(remainingNew, slots);
+    remainingNew -= newToday;
+    for (let k = 0; k < newToday; k++) push(day + GOOD_STEPS[0], 0); // 新学的词排第一次复习
+    day++;
+    if (remainingNew === 0 && learnDays === null) learnDays = day;
+  }
+  const masterDays = remainingNew === 0 && alive === 0 && day <= MAX ? day : null;
+  return {
+    remainingNew: remainingNew0,
+    capacity,
+    learnDays,
+    masterDays,
+    learnFinishMs: learnDays != null ? today0 + learnDays * DAY : null,
+    masterFinishMs: masterDays != null ? today0 + masterDays * DAY : null,
   };
 }

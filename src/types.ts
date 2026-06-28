@@ -107,7 +107,9 @@ export interface Progress {
   wrong?: Record<string, WrongEntry>; // 旧字段：仅兼容旧存档/备份导入，加载时并入 cards
   daily: Daily | null;
   history: Record<string, number>;
-  newHistory: Record<string, number>; // { day: 当日新学(首次通关)词数 } —— 燃尽/配速
+  newHistory: Record<string, number>; // { day: 当日新学(首次通关)词数 } —— 燃尽/配速/学习曲线
+  reviewHistory?: Record<string, number>; // { day: 当日复习次数 } —— 学习/复习分色柱
+  timeHistory?: Record<string, number>; // { day: 当日学习时长(ms) } —— 学习时长统计
   revlog: RevlogEntry[]; // 复习日志(封顶裁剪)
   stats: Stats;
   sound: boolean;
