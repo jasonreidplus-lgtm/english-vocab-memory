@@ -160,7 +160,8 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
         </button>
       </div>
 
-      {/* 学习自评：不认识 → 加入间隔复习；认识 → 跳过 */}
+      {/* 学习自评：不认识 → 加入间隔复习并前进；认识 → 前进；末词 → 直接开始闯关。
+          这两个键同时承担「下一个」的前进功能，故下方导航不再放独立「下一个」(#8) */}
       {!browse && onMarkWrong && (
         <>
           <div className="row gap10 mt12">
@@ -171,11 +172,16 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
                 if (!marked[word.id]) onMarkWrong(word.id);
                 setMarked((m) => ({ ...m, [word.id]: true }));
                 if (li < total - 1) go(1);
+                else onStart();
               }}
             >
               <HelpCircle size={16} /> 不认识
             </button>
-            <button className="btn ghost grow" style={{ color: 'var(--good)' }} onClick={() => li < total - 1 && go(1)}>
+            <button
+              className="btn ghost grow"
+              style={{ color: 'var(--good)' }}
+              onClick={() => (li < total - 1 ? go(1) : onStart())}
+            >
               <Check size={16} /> 认识
             </button>
           </div>
@@ -187,19 +193,22 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
         </>
       )}
 
-      {/* 上一个 / 下一个 / 开始闯关 */}
+      {/* 导航：始终保留「上一个」。学习模式前进交给上面的 认识/不认识，这里直接给「开始闯关」；
+          浏览模式没有自评键，保留「下一个/完成」 */}
       <div className="row gap10 mt12">
         <button className="btn ghost grow" onClick={() => go(-1)} disabled={li === 0}>
           <ArrowLeft size={17} /> 上一个
         </button>
-        {li < total - 1 ? (
-          <button className="btn grow" onClick={() => go(1)}>
-            下一个 <ArrowRight size={17} />
-          </button>
-        ) : browse ? (
-          <button className="btn primary" style={{ flex: 1.4 }} onClick={onStart}>
-            完成 <Check size={17} />
-          </button>
+        {browse ? (
+          li < total - 1 ? (
+            <button className="btn grow" onClick={() => go(1)}>
+              下一个 <ArrowRight size={17} />
+            </button>
+          ) : (
+            <button className="btn primary" style={{ flex: 1.4 }} onClick={onStart}>
+              完成 <Check size={17} />
+            </button>
+          )
         ) : (
           <button className="btn primary" style={{ flex: 1.4 }} onClick={onStart}>
             开始闯关 <Zap size={17} />

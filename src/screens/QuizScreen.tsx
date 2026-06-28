@@ -6,7 +6,7 @@ import { buildLookup } from '../lib/annotate';
 import { freqOf } from '../lib/freq';
 import { useFreq } from '../lib/useFreq';
 import FreqBadge from '../components/FreqBadge';
-import type { Question, Word } from '../types';
+import type { Question, QuizOption, Word } from '../types';
 
 export interface QuizScreenProps {
   questions: Question[];
@@ -43,10 +43,10 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
     setAnswered(true);
   };
 
-  const answerChoice = (opt: string) => {
+  const answerChoice = (key: string) => {
     if (answered) return;
-    setPicked(opt);
-    record(opt === q.answer);
+    setPicked(key);
+    record(key === q.answer);
   };
 
   const next = () => {
@@ -72,7 +72,7 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
         const opt = q.options[Number(e.key) - 1];
         if (opt != null) {
           e.preventDefault();
-          answerChoice(opt);
+          answerChoice(opt.key);
         }
       }
     };
@@ -80,12 +80,13 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
     return () => window.removeEventListener('keydown', onKey);
   }, [answered, qi]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  let optionDisplay: (o: string) => string | undefined = (o) => o;
+  // 答题前「选义题」的简短释义显示(若截断后仍互不相同则用短版，否则用全文)
+  let choiceLabel: (o: QuizOption) => string = (o) => o.cn;
   if (q.type === 'choice') {
-    const shorts = q.options.map((o) => shortMeaning(o));
+    const shorts = q.options.map((o) => shortMeaning(o.cn));
     if (new Set(shorts).size === shorts.length) {
-      const map = new Map(q.options.map((o, i) => [o, shorts[i]]));
-      optionDisplay = (o) => map.get(o);
+      const map = new Map(q.options.map((o, i) => [o.key, shorts[i]]));
+      choiceLabel = (o) => map.get(o.key) || o.cn;
     }
   }
 
@@ -136,21 +137,43 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
         {q.options.map((o, i) => {
           let cls = q.type === 'cn2en' ? 'opt opt-en' : 'opt';
           if (answered) {
-            if (o === q.answer) cls += ' correct';
-            else if (o === picked) cls += ' wrong';
+            if (o.key === q.answer) cls += ' correct';
+            else if (o.key === picked) cls += ' wrong';
             else cls += ' dim';
           }
           return (
-            <button key={o} className={cls} disabled={answered} onClick={() => answerChoice(o)}>
+            <button key={o.key} className={cls} disabled={answered} onClick={() => answerChoice(o.key)}>
               <span className="opt-left">
                 <span className="opt-key" aria-hidden>{i + 1}</span>
-                <span>{optionDisplay(o)}{q.type === 'cn2en' && <FreqBadge n={freqOf(freq, o, lookup)} />}</span>
+                {answered ? (
+                  // 答完：每个选项都给「英文 + 中文」对照(#6)
+                  <span className="opt-bi">
+                    <b className="opt-bi-en">{o.en}</b>
+                    <span className="opt-bi-cn">{o.cn}</span>
+                  </span>
+                ) : q.type === 'choice' ? (
+                  <span>{choiceLabel(o)}</span>
+                ) : (
+                  <span>{o.en}<FreqBadge n={freqOf(freq, o.en, lookup)} /></span>
+                )}
               </span>
-              {answered && o === q.answer && <Check size={19} />}
-              {answered && o === picked && o !== q.answer && <X size={19} />}
+              {answered && o.key === q.answer && <Check size={19} />}
+              {answered && o.key === picked && o.key !== q.answer && <X size={19} />}
             </button>
           );
         })}
+
+        {/* 答完显示该词记忆方法(#13a)：词根拆解 / 助记 */}
+        {answered && (q.w.roots || q.w.mnemonic) && (
+          <div className="quiz-mem fade">
+            {q.w.roots && (
+              <div className="qm-row"><span className="qm-ic">🧩</span><span>{q.w.roots}</span></div>
+            )}
+            {q.w.mnemonic && (
+              <div className="qm-row"><span className="qm-ic">💡</span><span>{q.w.mnemonic}</span></div>
+            )}
+          </div>
+        )}
 
         {answered && (
           <button className="btn primary block fade mt12" onClick={next}>

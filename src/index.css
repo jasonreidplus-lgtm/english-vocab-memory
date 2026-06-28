@@ -338,6 +338,15 @@ body {
 .opt.correct { background: var(--good-soft); border-color: var(--good); color: var(--good); }
 .opt.wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
 .opt.dim { opacity: 0.45; }
+/* 答完后选项「英文 + 中文」对照(#6) */
+.opt-bi { display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left; }
+.opt-bi-en { font-family: var(--display); font-weight: 700; letter-spacing: 0.01em; }
+.opt-bi-cn { font-size: 0.82em; font-weight: 500; color: var(--muted); line-height: 1.35; }
+.opt.correct .opt-bi-cn, .opt.wrong .opt-bi-cn { color: inherit; opacity: 0.85; }
+/* 闯关答完显示记忆方法(#13a) */
+.quiz-mem { margin-top: 10px; padding: 12px 14px; border-radius: var(--btn-radius); background: var(--surface2); border: var(--line); display: flex; flex-direction: column; gap: 8px; }
+.qm-row { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+.qm-ic { flex-shrink: 0; }
 
 /* ---------- 每日目标卡 ---------- */
 .daily-card {
@@ -648,6 +657,33 @@ body {
   border-radius: var(--pill-radius);
 }
 .seg button.on { background: var(--accent); color: var(--bg2); }
+/* 自定义每日目标输入(#12a) */
+.goal-input {
+  width: 84px;
+  text-align: center;
+  font-family: var(--display);
+  font-size: 15px;
+  padding: 7px 8px;
+  border-radius: var(--pill-radius);
+  border: var(--line);
+  background: var(--surface2);
+  color: var(--ink);
+}
+/* 跨设备备份码粘贴框(#7) */
+.paste-box { padding: 10px 0 4px; }
+.paste-area {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 10px;
+  border-radius: var(--btn-radius);
+  border: var(--line);
+  background: var(--surface2);
+  color: var(--ink);
+}
 
 /* 画风切换器：主题多时横向可滚，避免顶栏溢出 */
 .switcher { min-width: 0; max-width: 62vw; overflow-x: auto; scrollbar-width: none; }
@@ -1228,6 +1264,16 @@ body {
 .pv-mean { font-size: 13px; color: #333; width: 100%; }
 .pv-pos { color: #2a8a5a; font-style: normal; font-size: 11px; margin-right: 4px; }
 .pv-empty { color: #888; padding: 30px; text-align: center; }
+/* 每页固定词数 + 分页(#1) */
+.print-pp { color: #555; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; }
+.print-pp select { font-size: 12px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 6px; background: #fff; color: #222; }
+.pv-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; border-bottom: 2px solid #222; margin-bottom: 8px; }
+.pv-pageno { font-size: 12px; color: #888; white-space: nowrap; }
+@media print {
+  .print-toolbar { display: none; }
+  .print-page { page-break-after: always; padding-top: 8px; }
+  .print-page:last-child { page-break-after: auto; }
+}
 @media (max-width: 560px) { .pv-list { columns: 1; } }
 @media print {
   .page > .vg { display: none !important; }

@@ -155,12 +155,18 @@ export interface Theme {
 }
 
 export type QuizType = 'choice' | 'cn2en';
+/** 选择题的一个选项：key=判分/匹配用主串(选义题=释义,选词题=单词)，en/cn 供答完后中英对照展示(#6) */
+export interface QuizOption {
+  key: string;
+  en: string;
+  cn: string;
+}
 export interface Question {
   id: number | string;
   w: Word;
   type: QuizType;
-  answer: string;
-  options: string[];
+  answer: string; // 正确选项的 key
+  options: QuizOption[];
 }
 
 /** annotate 切片：t=原文片段，w=命中的词条或 null */

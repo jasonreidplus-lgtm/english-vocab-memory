@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { X, Volume2, VolumeX, RotateCcw, LogOut, Download, Upload, CloudDownload } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { X, Volume2, VolumeX, RotateCcw, LogOut, Download, Upload, CloudDownload, Copy, ClipboardPaste } from 'lucide-react';
 import { useModalA11y } from '../lib/useModalA11y';
-import { exportProgress, importProgress } from '../lib/backup';
+import { exportProgress, importProgress, exportProgressCode, importProgressCode } from '../lib/backup';
 import { precacheAudio, type PrecacheProgress } from '../lib/precache';
 import type { Progress } from '../types';
 
@@ -24,6 +24,17 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
   const [msg, setMsg] = useState<string>('');
   const [pc, setPc] = useState<PrecacheProgress | null>(null);
   const ctrl = useRef({ cancelled: false });
+  const [goalInput, setGoalInput] = useState(String(goal));
+  const [pasteOpen, setPasteOpen] = useState(false);
+  const [pasteText, setPasteText] = useState('');
+
+  useEffect(() => { setGoalInput(String(goal)); }, [goal]);
+
+  const commitGoal = () => {
+    const n = Math.max(1, Math.min(999, Math.round(Number(goalInput) || 0)));
+    onSetGoal(n);
+    setGoalInput(String(n));
+  };
 
   const onPickFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -36,6 +47,30 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
       setTimeout(() => location.reload(), 600);
     } else {
       setMsg('文件无效，未导入');
+    }
+  };
+
+  // 跨设备：复制备份码到剪贴板；失败则展示在文本框里手动复制(#7)
+  const onCopyBackup = async () => {
+    try {
+      const code = await exportProgressCode();
+      await navigator.clipboard.writeText(code);
+      setMsg('备份码已复制 ✓ 到另一台设备点「粘贴导入」');
+    } catch {
+      const code = await exportProgressCode();
+      setPasteOpen(true);
+      setPasteText(code);
+      setMsg('已生成备份码，请长按全选复制');
+    }
+  };
+  const onPasteImport = async () => {
+    if (!window.confirm('导入会覆盖当前进度，确定继续？')) return;
+    const ok = await importProgressCode(pasteText.trim());
+    if (ok) {
+      setMsg('导入成功，正在刷新…');
+      setTimeout(() => location.reload(), 600);
+    } else {
+      setMsg('备份码无效，未导入');
     }
   };
 
@@ -88,6 +123,22 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
         </div>
 
         <div className="set-row">
+          <span>自定义目标 / 词</span>
+          <input
+            className="goal-input"
+            type="number"
+            min={1}
+            max={999}
+            inputMode="numeric"
+            value={goalInput}
+            onChange={(e) => setGoalInput(e.target.value)}
+            onBlur={commitGoal}
+            onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
+            aria-label="自定义每日目标词数"
+          />
+        </div>
+
+        <div className="set-row">
           <span>离线发音（{accent === 'uk' ? '英音' : '美音'}）</span>
           <button className={`set-toggle ${pc && !pcRunning ? 'on' : ''}`} onClick={runPrecache} disabled={pcRunning}>
             <CloudDownload size={15} /> {pcLabel}
@@ -95,13 +146,35 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
         </div>
 
         <div className="set-row">
-          <span>数据备份</span>
+          <span>数据备份（文件）</span>
           <div className="seg">
             <button onClick={() => { exportProgress(); setMsg('已导出备份文件'); }}><Download size={14} /> 导出</button>
             <button onClick={() => fileRef.current?.click()}><Upload size={14} /> 导入</button>
           </div>
         </div>
         <input ref={fileRef} type="file" accept="application/json,.json" style={{ display: 'none' }} onChange={onPickFile} />
+
+        <div className="set-row">
+          <span>跨设备同步</span>
+          <div className="seg">
+            <button onClick={onCopyBackup}><Copy size={14} /> 复制</button>
+            <button onClick={() => setPasteOpen((v) => !v)}><ClipboardPaste size={14} /> 粘贴导入</button>
+          </div>
+        </div>
+        {pasteOpen && (
+          <div className="paste-box">
+            <textarea
+              className="paste-area"
+              rows={4}
+              value={pasteText}
+              onChange={(e) => setPasteText(e.target.value)}
+              placeholder="把另一台设备点「复制」得到的备份码整段粘贴到这里"
+            />
+            <button className="btn ghost block mt8" onClick={onPasteImport} disabled={!pasteText.trim()}>
+              确认导入（覆盖当前进度）
+            </button>
+          </div>
+        )}
 
         {msg && <div className="label center mt8" style={{ fontSize: 12, color: 'var(--accent)' }}>{msg}</div>}
 
