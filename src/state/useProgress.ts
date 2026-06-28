@@ -7,7 +7,7 @@ import {
   saveProgress,
   yesterdayKey,
 } from './progress';
-import { markWrongCard, gradeCard, gradeWithLog, isMastered, Rating } from '../lib/fsrs';
+import { markWrongCard, gradeCard, gradeWithLog, Rating } from '../lib/fsrs';
 import type { Progress, Daily, WrongEntry, RevlogEntry } from '../types';
 import type { Grade } from 'ts-fsrs';
 
@@ -54,22 +54,18 @@ export function reducer(state: Progress, action: Action): Progress {
         },
       };
 
-      // 错词池：答错的进池(FSRS 今日到期)，本次答对的移出池(视为已掌握)
-      const wrong: Record<string, WrongEntry> = { ...state.wrong };
+      // 全词建卡：答错→失忆重排(今日到期、标记今天失手)；答对→成功复习(Good)，本就没卡的也新建。
+      // 掌握(≥21天)后仍保留卡(掌握度统计/段位用)，不再删除。不写 revlog(那是专给自评复习的)。
+      const cards: Record<string, WrongEntry> = { ...state.cards };
       const ts = Date.now();
       const now = new Date(ts);
       for (const id of wrongIds) {
-        const w: WrongEntry = wrong[id] || { miss: 0 };
-        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, card: markWrongCard(w.card, now) };
+        const e: WrongEntry = cards[id] || { miss: 0 };
+        cards[id] = { ...e, miss: (e.miss || 0) + 1, lastTs: ts, lapseTs: ts, card: markWrongCard(e.card, now) };
       }
-      // 答对：若该词本就在错词池里，按一次成功复习(Good)交给 FSRS 重排，达毕业(≥21天)才移出——
-      // 与「间隔复习」一致，避免闯关蒙对一次就把仍需巩固的词永久移出。不写 revlog(那是专给自评复习的)。
       for (const id of correctIds) {
-        const e = wrong[id];
-        if (!e) continue; // 不在错词池 → 无需处理
-        const card = gradeCard(e.card, Rating.Good, now);
-        if (isMastered(card)) delete wrong[id];
-        else wrong[id] = { ...e, card, lastTs: ts };
+        const e = cards[id];
+        cards[id] = { ...(e || { miss: 0 }), card: gradeCard(e?.card, Rating.Good, now), lastTs: ts, lapseTs: undefined };
       }
 
       // 首次通关：本关词数计入「当日新学」(燃尽/配速曲线)
@@ -85,7 +81,7 @@ export function reducer(state: Progress, action: Action): Progress {
       return {
         ...state,
         levels,
-        wrong,
+        cards,
         newHistory,
         xp: state.xp + xpGain,
         combo,
@@ -98,26 +94,26 @@ export function reducer(state: Progress, action: Action): Progress {
     }
 
     case 'reviewGrade': {
-      // 间隔复习四档自评：用 FSRS 重排该词的卡；达长间隔(Review 态)即毕业移出错词本
-      const e = state.wrong[action.id];
+      // 自评复习四档：用 FSRS 重排该词的卡。忘了→标记今天失手(lapseTs)、miss+1；
+      // 记得/秒答→攻克，清 lapseTs(移出今日重温)；模糊→保持原样。掌握后仍保留卡。
+      const e = state.cards[action.id];
       if (!e) return state;
       const now = new Date();
       const { card, log } = gradeWithLog(e.card, action.grade, now);
-      const wrong: Record<string, WrongEntry> = { ...state.wrong };
-      if (isMastered(card)) {
-        delete wrong[action.id]; // 已掌握 → 毕业移出
-      } else {
-        wrong[action.id] = {
-          ...e,
-          card,
-          lastTs: now.getTime(),
-          miss: action.grade === Rating.Again ? (e.miss || 0) + 1 : e.miss,
-        };
-      }
+      const failed = action.grade === Rating.Again;
+      const cleared = action.grade === Rating.Good || action.grade === Rating.Easy;
+      const cards: Record<string, WrongEntry> = { ...state.cards };
+      cards[action.id] = {
+        ...e,
+        card,
+        lastTs: now.getTime(),
+        miss: failed ? (e.miss || 0) + 1 : e.miss,
+        lapseTs: failed ? now.getTime() : cleared ? undefined : e.lapseTs,
+      };
       // 记一条复习日志(供真实保持率/趋势)，封顶裁剪最旧
       const revlog = [...(state.revlog || []), { id: action.id, ...log } as RevlogEntry];
       if (revlog.length > REVLOG_CAP) revlog.splice(0, revlog.length - REVLOG_CAP);
-      return { ...state, wrong, revlog };
+      return { ...state, cards, revlog };
     }
 
     case 'addXp':
@@ -160,15 +156,15 @@ export function reducer(state: Progress, action: Action): Progress {
       return { ...state, [action.key]: action.value };
 
     case 'markWrong': {
-      // 把若干词 id 加入错词池(真题精读「加入错词本」/学习卡「不认识」)，今日到期可复习
-      const wrong: Record<string, WrongEntry> = { ...state.wrong };
+      // 把若干词加入错词(真题精读「加入错词本」/学习卡「不认识」)，今日到期、计入今日重温
+      const cards: Record<string, WrongEntry> = { ...state.cards };
       const ts = Date.now();
       const now = new Date(ts);
       for (const id of action.ids || []) {
-        const w: WrongEntry = wrong[id] || { miss: 0 };
-        wrong[id] = { ...w, miss: (w.miss || 0) + 1, lastTs: ts, card: markWrongCard(w.card, now) };
+        const e: WrongEntry = cards[id] || { miss: 0 };
+        cards[id] = { ...e, miss: (e.miss || 0) + 1, lastTs: ts, lapseTs: ts, card: markWrongCard(e.card, now) };
       }
-      return { ...state, wrong };
+      return { ...state, cards };
     }
 
     case 'resetAll':

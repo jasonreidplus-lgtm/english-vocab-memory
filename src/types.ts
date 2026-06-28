@@ -56,10 +56,13 @@ export interface SerializedCard {
   last_review?: string; // ISO
 }
 
+/** 一个学过的词的记忆条目：FSRS 卡 + 失误统计。
+   全词建卡后存进 Progress.cards(每个学过的词一张)；miss>0 即「错词」。 */
 export interface WrongEntry {
   miss: number;
   lastTs?: number;
-  card?: SerializedCard; // FSRS 调度卡(新数据源；间隔由它决定)
+  lapseTs?: number; // 最近一次「未攻克的失误」时间戳：答错/忘了时置，记得/秒答时清。用于「今日重温」
+  card?: SerializedCard; // FSRS 调度卡(间隔/到期/掌握度都由它决定)
   // —— 旧 Leitner 字段，仅用于旧存档兼容读取 ——
   box?: number;
   due?: string; // YYYY-MM-DD
@@ -100,7 +103,8 @@ export interface Progress {
   combo: number;
   bestCombo: number;
   levels: Record<string, LevelProgress>;
-  wrong: Record<string, WrongEntry>;
+  cards: Record<string, WrongEntry>; // 每个学过的词一张 FSRS 卡(全词建卡)；miss>0 即错词
+  wrong?: Record<string, WrongEntry>; // 旧字段：仅兼容旧存档/备份导入，加载时并入 cards
   daily: Daily | null;
   history: Record<string, number>;
   newHistory: Record<string, number>; // { day: 当日新学(首次通关)词数 } —— 燃尽/配速

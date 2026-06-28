@@ -3,7 +3,7 @@
    存:已通关关卡 / 星级 / 累计 XP / 连胜 / 错词池 / 画风选择。
    ============================================================ */
 import { DEFAULT_THEME } from '../config/themes';
-import { isDue } from '../lib/fsrs';
+import { isDue, isMastered } from '../lib/fsrs';
 import type { Progress, LevelState, Summary, Level, WrongEntry } from '../types';
 
 export const STORAGE_KEY = 'wordquest:v1';
@@ -34,7 +34,7 @@ export function defaultProgress(): Progress {
     combo: 0, // 连胜：连续通关数(本关 0 星会清零)
     bestCombo: 0,
     levels: {}, // { [group]: { stars, completed, bestScore, attempts } }
-    wrong: {}, // 错词池 { [wordId]: { miss, lastTs } }
+    cards: {}, // 全词建卡 { [wordId]: { card, miss, lastTs, lapseTs } }；miss>0 即错词
     daily: null, // { date, count, streak, goal } —— 每日目标 / 连续打卡
     history: {}, // { [YYYY-MM-DD]: 当日学习词数 } —— 打卡热力图
     newHistory: {}, // { [YYYY-MM-DD]: 当日新学(首次通关)词数 } —— 燃尽/配速
@@ -52,7 +52,16 @@ export function loadProgress(): Progress {
     if (!raw) return defaultProgress();
     const parsed = JSON.parse(raw) as Partial<Progress>;
     // 浅合并，向后兼容字段新增
-    return { ...defaultProgress(), ...parsed };
+    const p: Progress = { ...defaultProgress(), ...parsed };
+    if (!p.cards) p.cards = {};
+    // 迁移：旧 wrong(错词池) 并入 cards(全词建卡新结构)，并入后清空 wrong
+    if (parsed.wrong && Object.keys(parsed.wrong).length) {
+      for (const [id, e] of Object.entries(parsed.wrong)) {
+        if (e && !p.cards[id]) p.cards[id] = { ...e };
+      }
+    }
+    p.wrong = undefined;
+    return p;
   } catch {
     return defaultProgress();
   }
@@ -134,22 +143,48 @@ export function summarize(levels: Level[], progress: Progress): Summary {
       for (const w of lv.readyWords || []) learnedIds.add(w.id);
     }
   }
-  const wrongCount = Object.keys(progress.wrong || {}).length;
+  // 错词本规模：仍未掌握的错词(miss>0 且未到毕业间隔)
+  let wrongCount = 0;
+  for (const e of Object.values(progress.cards || {})) {
+    if ((e.miss || 0) > 0 && !(e.card && isMastered(e.card))) wrongCount++;
+  }
   return { readyCount, clearedCount, wrongCount, learnedWords, totalWords, totalGroups: levels.length, learnedIds };
 }
 
-// —— 间隔复习：到期待复习的词 id ——
+// 已「完全学会」(掌握)的核心词数：有卡且间隔≥21天进入 Review 态。供段位/预估用
+export function masteredCount(progress: Progress): number {
+  let n = 0;
+  for (const [id, e] of Object.entries(progress.cards || {})) {
+    if (String(id).startsWith('d:')) continue;
+    if (e.card && isMastered(e.card)) n++;
+  }
+  return n;
+}
+
+// —— 复习取词：今日复习(FSRS 到期) / 今日重温(今天失手) ——
 // 新数据看 FSRS card.due；旧存档(无 card)回退看旧 due 日期；按到期早晚排序
 function dueTs(e: WrongEntry | undefined): number {
   if (e?.card) return new Date(e.card.due).getTime();
   if (e?.due) return new Date(`${e.due}T00:00:00`).getTime();
   return 0; // 无任何排期信息 → 视为最早到期
 }
+/** 今日复习：FSRS 到期、且不是「今天刚失手」的词(后者归今日重温，避免重复) */
 export function dueReviewIds(progress: Progress, now: Date = new Date()): string[] {
   const today = dayKey(now);
-  return Object.entries(progress.wrong || {})
-    .filter(([, e]: [string, WrongEntry]) => (e?.card ? isDue(e.card, now) : !e || !e.due || e.due <= today))
+  return Object.entries(progress.cards || {})
+    .filter(([, e]: [string, WrongEntry]) => {
+      if (e?.lapseTs && dayKey(e.lapseTs) === today) return false; // 今天失手 → 走重温
+      return e?.card ? isDue(e.card, now) : !e || !e.due || e.due <= today;
+    })
     .sort((a, b) => dueTs(a[1]) - dueTs(b[1]))
+    .map(([id]) => id);
+}
+/** 今日重温：今天答错/忘了、尚未攻克(记得/秒答会清 lapseTs)的词，不论 FSRS 排到哪天 */
+export function relearnIds(progress: Progress, now: Date = new Date()): string[] {
+  const today = dayKey(now);
+  return Object.entries(progress.cards || {})
+    .filter(([, e]: [string, WrongEntry]) => !!e?.lapseTs && dayKey(e.lapseTs) === today)
+    .sort((a, b) => (a[1].lapseTs || 0) - (b[1].lapseTs || 0))
     .map(([id]) => id);
 }
 

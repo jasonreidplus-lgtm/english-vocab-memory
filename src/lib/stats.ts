@@ -1,9 +1,9 @@
 /* 学习统计：纯函数指标计算。输入 progress + summary + 配置 → 输出所有指标。
-   与 UI / 存储解耦，方便复用与心算核对。口径按本应用「闯关 + 错词本」模型接地：
-   - 掌握分档：未学 / 已掌握(通关稳固) / 熟悉 / 学习中——只有错词带 FSRS 卡，按 stability 细分
-   - 保持率：只对错词卡(已复习过的)算 current / 考试日 / 真实保持率(来自 revlog)
+   与 UI / 存储解耦，方便复用与心算核对。口径按本应用「闯关 + 全词建卡」模型接地：
+   - 掌握分档：未学 / 已掌握(间隔≥21天) / 熟悉(7~21天) / 学习中——每个学过的词都带 FSRS 卡，按 stability/掌握态分
+   - 保持率：对已复习过(state≠New)的卡算 current / 考试日 / 真实保持率(来自 revlog)
    - 配速/燃尽：走通关覆盖(每个词都算)，actual 速率取近 7 日「新学」均值，故随行为变化 */
-import { retrievability, State } from './fsrs';
+import { retrievability, isMastered, State } from './fsrs';
 import type { Progress, Summary, SerializedCard, RevlogEntry } from '../types';
 
 export const FSRS_TARGET = 0.9; // ts-fsrs 默认目标保持率
@@ -126,8 +126,8 @@ export function computeStats(progress: Progress, summary: Summary, opts: StatsOp
   const now = opts.now ?? new Date();
   const rangeDays = opts.rangeDays ?? 30;
   const exam = startOfDay(new Date(progress.examDate || DEFAULT_EXAM_DATE));
-  const wrong = progress.wrong || {};
-  const cards: SerializedCard[] = Object.values(wrong)
+  const cardEntries = progress.cards || {};
+  const cards: SerializedCard[] = Object.values(cardEntries)
     .map((e) => e.card)
     .filter((c): c is SerializedCard => !!c);
 
@@ -148,27 +148,23 @@ export function computeStats(progress: Progress, summary: Summary, opts: StatsOp
   const deficit = Math.max(0, Math.round((neededPerDay - actualPerDay) * daysToExam));
   const pace = { daysToExam, remaining, neededPerDay, actualPerDay, onTrack, finishMs, willFinishBeforeExam, deficit };
 
-  // —— 掌握分档 ——
-  // 只统计考研核心词宇宙：排除广义词典 d: 词；用 learnedIds 精确区分错词是否属于「已通关词」，
-  // 这样「查词/真题里手动加入错词本、但还没通关」的词只算「在学」，不会从 solid 里被错误扣减。
-  const learnedIds = summary.learnedIds;
+  // —— 掌握分档(全词建卡：按每张核心卡的真实 FSRS 状态分) ——
+  // 只统计考研核心词宇宙(排除广义词典 d: 词)。已掌握=间隔≥21天进 Review 态；熟悉=7~21天；学习中=新/学习/<7天。
   let learning = 0;
   let familiar = 0;
+  let solid = 0;
   let leech = 0;
-  let coreWrong = 0; // 在词库内(非 d:)且有卡的错词数
-  let wrongInLearned = 0; // 其中属于已通关词的数量
-  for (const [id, e] of Object.entries(wrong)) {
+  let coreStudied = 0; // 词库内(非 d:)有卡的词数
+  for (const [id, e] of Object.entries(cardEntries)) {
     const c = e.card;
     if (!c || String(id).startsWith('d:')) continue; // 无卡 / 广义词典词不计入词库分档
-    coreWrong++;
+    coreStudied++;
     if ((c.lapses || 0) >= LEECH_LAPSES) leech++;
-    if (isLearningTier(c)) learning++;
-    else familiar++; // 7 天以上(含罕见 ≥21 未毕业)归熟悉
-    if (!learnedIds || learnedIds.has(Number(id)) || learnedIds.has(id)) wrongInLearned++;
+    if (isMastered(c)) solid++;
+    else if (isLearningTier(c)) learning++;
+    else familiar++; // 7~21 天归熟悉
   }
-  const coreWrongNotLearned = coreWrong - wrongInLearned; // 加入错词本但未通关的词：算「在学」，不从 solid 扣
-  const seen = Math.min(total, learned + coreWrongNotLearned); // 已接触过的词
-  const solid = Math.max(0, learned - wrongInLearned); // 已通关且当前不在错词池 = 稳固掌握
+  const seen = Math.min(total, coreStudied); // 已接触过的核心词
   const unseen = Math.max(0, total - seen);
   const tiers: Record<Tier, number> = { solid, familiar, learning, unseen };
   const mastery = { tiers, matureCoverage: total ? solid / total : 0, leech };

@@ -5,11 +5,13 @@ import { useProgress } from './state/useProgress';
 import {
   computeLevelStates,
   dueReviewIds,
+  relearnIds,
   nextEnterableGroup,
   starsFor,
   summarize,
   xpFor,
 } from './state/progress';
+import { isMastered } from './lib/fsrs';
 import { buildQuiz, tallyResult } from './game/quiz';
 import { playWord } from './lib/audio';
 import { shuffle } from './lib/shuffle';
@@ -157,10 +159,9 @@ export default function App() {
   const levelStates = useMemo(() => computeLevelStates(levels, progress), [levels, progress]);
   const summary = useMemo(() => summarize(levels, progress), [levels, progress]);
   // 只数能解析出词条的到期错词（过滤旧存档/词库变动遗留的「幽灵 id」，与实际可复习数一致）
-  const reviewDue = useMemo(
-    () => dueReviewIds(progress).filter((id) => byId.has(id) || byId.has(Number(id)) || String(id).startsWith('d:')).length,
-    [progress, byId]
-  );
+  const resolvable = (id: string) => byId.has(id) || byId.has(Number(id)) || String(id).startsWith('d:');
+  const reviewDue = useMemo(() => dueReviewIds(progress).filter(resolvable).length, [progress, byId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const relearnDue = useMemo(() => relearnIds(progress).filter(resolvable).length, [progress, byId]); // eslint-disable-line react-hooks/exhaustive-deps
   const allReady = useMemo(() => levels.flatMap((l) => l.readyWords), [levels]);
 
   const currentLevel = useMemo(
@@ -231,9 +232,8 @@ export default function App() {
     setView('quiz');
   };
 
-  // 间隔复习(FSRS)：取今日到期的错词，补齐富字段后进入四档自评复习
-  const startReview = async () => {
-    const ids = dueReviewIds(progress);
+  // 自评复习：补齐富字段后进入四档自评。今日复习(到期)与今日重温(今天失手)共用此流程
+  const enterReviewSession = async (ids: string[]) => {
     if (!ids.length) return;
     // 错词本里若有词典词(d: 前缀)，先确保词典加载，getWord 才能解析
     if (ids.some((id) => typeof id === 'string' && id.startsWith('d:'))) await loadDict();
@@ -241,11 +241,13 @@ export default function App() {
     const hydrated = await hydrate(words);
     const items: ReviewItem[] = shuffle(hydrated)
       .slice(0, REVIEW_LIMIT)
-      .map((w) => ({ word: w, card: progress.wrong[String(w.id)]?.card }));
+      .map((w) => ({ word: w, card: progress.cards[String(w.id)]?.card }));
     if (!items.length) return;
     setReviewItems(items);
     setView('reviewSession');
   };
+  const startReview = () => enterReviewSession(dueReviewIds(progress)); // 今日复习
+  const startRelearn = () => enterReviewSession(relearnIds(progress)); // 今日重温(今天没记牢的)
 
   // 间隔复习结束：按复习词数给 XP + 计入打卡，返回复习页
   const finishReview = (reviewed: number) => {
@@ -272,15 +274,17 @@ export default function App() {
       words = levels.filter((l) => progress.levels[l.group]?.completed).flatMap((l) => l.readyWords);
     } else {
       const now = Date.now();
-      const ids = Object.entries(progress.wrong)
+      const ids = Object.entries(progress.cards || {})
         .filter(([, e]) => {
           const c = e.card;
-          if (!c) return filter === 'wrong-all';
+          const isWrong = (e.miss || 0) > 0; // 错词本各档只看「错过的词」
+          if (filter === 'wrong-all') return isWrong && !(c && isMastered(c));
+          if (!c) return false;
           if (filter === 'leech') return (c.lapses || 0) >= LEECH_LAPSES;
-          if (filter === 'learning') return isLearningTier(c);
-          if (filter === 'familiar') return !isLearningTier(c);
-          if (filter === 'due') return new Date(c.due).getTime() <= now + 2 * 86400000; // 含今天 + 2 天
-          return true; // wrong-all
+          if (filter === 'learning') return isWrong && isLearningTier(c) && !isMastered(c);
+          if (filter === 'familiar') return isWrong && !isLearningTier(c) && !isMastered(c);
+          if (filter === 'due') return isWrong && new Date(c.due).getTime() <= now + 2 * 86400000; // 含今天 + 2 天
+          return isWrong;
         })
         .map(([id]) => id);
       if (ids.some((id) => id.startsWith('d:'))) await loadDict();
@@ -351,7 +355,10 @@ export default function App() {
   };
   const endBrowse = () => setView(browseCtx?.ret || tab);
   const browseWrong = () => {
-    const pool = Object.keys(progress.wrong).map(getWord).filter(Boolean) as Word[];
+    const ids = Object.entries(progress.cards || {})
+      .filter(([, e]) => (e.miss || 0) > 0 && !(e.card && isMastered(e.card)))
+      .map(([id]) => id);
+    const pool = ids.map(getWord).filter(Boolean) as Word[];
     startBrowse(pool, '错词本', tab);
   };
 
@@ -514,8 +521,10 @@ export default function App() {
         themeKey={theme.key}
         onTheme={setTheme}
         reviewDue={reviewDue}
+        relearnDue={relearnDue}
         wrongCount={summary.wrongCount}
         onReview={startReview}
+        onRelearn={startRelearn}
         onBrowseWrong={browseWrong}
         onMatch={startMatch}
         onOpenSettings={() => setSettingsOpen(true)}
