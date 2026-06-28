@@ -18,9 +18,10 @@ export interface QuizScreenProps {
   onBack: () => void;
   onComplete: (flags: boolean[]) => void;
   onSpeak?: (t: string) => void;
+  userNotes?: Record<string, string>;
 }
 
-export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak }: QuizScreenProps) {
+export default function QuizScreen({ questions, group, heading, pool, themeKey, onTheme, onBack, onComplete, onSpeak, userNotes }: QuizScreenProps) {
   const title = heading || `第 ${group} 关`;
   const total = questions.length;
   const lookup = useMemo(() => buildLookup(pool), [pool]);
@@ -163,14 +164,17 @@ export default function QuizScreen({ questions, group, heading, pool, themeKey, 
           );
         })}
 
-        {/* 答完显示该词记忆方法(#13a)：词根拆解 / 助记 */}
-        {answered && (q.w.roots || q.w.mnemonic) && (
+        {/* 答完显示该词记忆方法(#13a)：词根拆解 / 助记 / 我的记忆法(#13b) */}
+        {answered && (q.w.roots || q.w.mnemonic || userNotes?.[q.w.id]) && (
           <div className="quiz-mem fade">
             {q.w.roots && (
               <div className="qm-row"><span className="qm-ic">🧩</span><span>{q.w.roots}</span></div>
             )}
             {q.w.mnemonic && (
               <div className="qm-row"><span className="qm-ic">💡</span><span>{q.w.mnemonic}</span></div>
+            )}
+            {userNotes?.[q.w.id] && (
+              <div className="qm-row"><span className="qm-ic">✍️</span><span>{userNotes[q.w.id]}</span></div>
             )}
           </div>
         )}

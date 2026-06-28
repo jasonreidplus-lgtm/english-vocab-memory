@@ -283,6 +283,10 @@ body {
 }
 .layer__body .en { font-family: var(--display); }
 .layer__body .cnex { color: var(--muted); }
+/* 我的记忆法(#13b) */
+.layer.mynote { border-color: var(--accent); }
+.mynote-btn { border: 1px solid var(--accent); background: transparent; color: var(--accent); font-size: 12px; padding: 3px 12px; border-radius: var(--pill-radius); cursor: pointer; }
+.mynote-area { width: 100%; box-sizing: border-box; resize: vertical; font-family: var(--body); font-size: 14px; line-height: 1.6; padding: 9px 10px; border-radius: var(--btn-radius); border: var(--line-strong); background: var(--surface2, var(--surface)); color: var(--ink); }
 .chev { transition: transform 0.2s; color: var(--muted); }
 .chev.open { transform: rotate(90deg); }
 
@@ -1223,6 +1227,26 @@ body {
 .pace-grid > div { background: var(--surface2, var(--accent-soft)); border-radius: 10px; padding: 8px 4px; }
 .pace-grid b { display: block; font-family: var(--display); font-size: 17px; color: var(--ink); }
 .pace-grid span { font-size: 10px; color: var(--muted); }
+/* 智能学完预估(#12b) */
+.est-line { margin-top: 8px; font-size: 12.5px; color: var(--ink); line-height: 1.6; padding: 8px 10px; border-radius: 10px; background: var(--surface2, var(--accent-soft)); }
+.est-line b { font-family: var(--display); color: var(--accent); }
+/* 学习时长(#10) */
+.time-line { margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.time-line b { font-family: var(--display); color: var(--accent); font-size: 15px; }
+/* 段位(#9) */
+.rank-card { display: flex; align-items: center; gap: 14px; }
+.rank-badge { font-size: 38px; line-height: 1; flex: none; }
+.rank-body { flex: 1; min-width: 0; }
+.rank-name { font-family: var(--display); font-size: 19px; color: var(--ink); }
+.rank-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.rank-sub b { color: var(--accent); }
+.rank-bar { margin-top: 8px; height: 7px; border-radius: 99px; background: var(--accent-soft); overflow: hidden; }
+.rank-bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .5s cubic-bezier(.4,1.4,.5,1); }
+/* 每日学习/复习 图例(#4) */
+.stack-legend { display: flex; gap: 14px; justify-content: center; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.stack-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.stack-legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.stack-legend i.ln { width: 14px; height: 0; border-top: 2px solid var(--ink); opacity: 0.6; border-radius: 0; }
 
 .donut-wrap { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
 .legend { display: flex; flex-direction: column; gap: 5px; min-width: 140px; flex: 1; }

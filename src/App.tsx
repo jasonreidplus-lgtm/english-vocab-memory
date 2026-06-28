@@ -72,7 +72,7 @@ interface BrowseCtx {
 }
 
 export default function App() {
-  const { progress, setTheme, finishLevel, reviewGrade, addXp, recordStudy, addStudyTime, setGoal, setPref, markWrong, resetAll } =
+  const { progress, setTheme, finishLevel, reviewGrade, addXp, recordStudy, addStudyTime, setGoal, setPref, markWrong, setUserNote, resetAll } =
     useProgress();
   const theme = getTheme(progress.themeKey);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -418,6 +418,8 @@ export default function App() {
         onStart={startQuiz}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
+        userNotes={progress.userNotes}
+        onSetUserNote={setUserNote}
       />
     );
   } else if (view === 'quiz' && questions.length) {
@@ -431,6 +433,7 @@ export default function App() {
         onBack={goHome}
         onComplete={completeQuiz}
         onSpeak={onSpeak}
+        userNotes={progress.userNotes}
       />
     );
   } else if (view === 'reviewSession') {
@@ -508,6 +511,8 @@ export default function App() {
         onBack={endBrowse}
         onStart={endBrowse}
         onSpeak={onSpeak}
+        userNotes={progress.userNotes}
+        onSetUserNote={setUserNote}
       />
     );
   } else if (view === 'result' && result) {

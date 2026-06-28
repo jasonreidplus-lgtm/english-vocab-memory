@@ -45,6 +45,7 @@ export function defaultProgress(): Progress {
     sound: true, // 音效朗读开关
     accent: 'us', // 发音口音 us | uk
     examDate: '2026-12-21', // 目标考试日(可在统计页修改)
+    userNotes: {}, // 用户自定义记忆法 { wordId: 文本 }
   };
 }
 

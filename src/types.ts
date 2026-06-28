@@ -115,6 +115,7 @@ export interface Progress {
   sound: boolean;
   accent: 'us' | 'uk';
   examDate?: string; // 目标考试日(YYYY-MM-DD)，配速/燃尽用
+  userNotes?: Record<string, string>; // 用户自定义记忆法 { wordId: 文本 }
 }
 
 export interface Summary {

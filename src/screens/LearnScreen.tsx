@@ -58,6 +58,41 @@ function Layer({ sec, open, onToggle }: LayerProps) {
   );
 }
 
+// 用户自定义记忆法(#13b)：查看 / 添加 / 编辑，存进 progress.userNotes
+function MyNote({ value, onSave }: { value: string; onSave: (t: string) => void }) {
+  const [editing, setEditing] = useState(false);
+  const [text, setText] = useState(value);
+  useEffect(() => { setText(value); setEditing(false); }, [value]);
+  return (
+    <div className="layer mynote">
+      <div className="layer__head" style={{ cursor: 'default' }}>
+        <span className="lh-left"><span>✍️</span>我的记忆法</span>
+        {!editing && (
+          <button className="mynote-btn" onClick={() => setEditing(true)}>{value ? '编辑' : '添加'}</button>
+        )}
+      </div>
+      {editing ? (
+        <div className="layer__body">
+          <textarea
+            className="mynote-area"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="写个帮你记住它的联想/拆解/例句…"
+            rows={3}
+            autoFocus
+          />
+          <div className="row gap8" style={{ marginTop: 8 }}>
+            <button className="btn ghost grow" onClick={() => { setText(value); setEditing(false); }}>取消</button>
+            <button className="btn primary grow" onClick={() => { onSave(text); setEditing(false); }}>保存</button>
+          </div>
+        </div>
+      ) : (
+        value && <div className="layer__body">{value}</div>
+      )}
+    </div>
+  );
+}
+
 export interface LearnScreenProps {
   words: Word[];
   group?: number | null;
@@ -69,9 +104,11 @@ export interface LearnScreenProps {
   onStart: () => void;
   onSpeak?: (t: string) => void;
   onMarkWrong?: (id: number | string) => void;
+  userNotes?: Record<string, string>;
+  onSetUserNote?: (id: number | string, text: string) => void;
 }
 
-export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong }: LearnScreenProps) {
+export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong, userNotes, onSetUserNote }: LearnScreenProps) {
   const browse = mode === 'browse';
   const heading = title || `第 ${group} 关`;
   const [li, setLi] = useState(0);
@@ -145,6 +182,9 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
                   onToggle={() => setOpen((o) => ({ ...o, [sec.key]: !o[sec.key] }))}
                 />
               ))}
+              {onSetUserNote && word && (
+                <MyNote key={word.id} value={userNotes?.[word.id] || ''} onSave={(t) => onSetUserNote(word.id, t)} />
+              )}
             </div>
           </div>
         </div>

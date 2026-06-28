@@ -34,6 +34,7 @@ export type Action =
   | { type: 'setGoal'; goal: number }
   | { type: 'setPref'; key: keyof Progress; value: Progress[keyof Progress] }
   | { type: 'markWrong'; ids?: Array<number | string> }
+  | { type: 'setUserNote'; id: number | string; text: string }
   | { type: 'resetAll' };
 
 export function reducer(state: Progress, action: Action): Progress {
@@ -182,6 +183,14 @@ export function reducer(state: Progress, action: Action): Progress {
       return { ...state, cards };
     }
 
+    case 'setUserNote': {
+      const userNotes = { ...(state.userNotes || {}) };
+      const t = (action.text || '').trim();
+      if (t) userNotes[action.id] = t;
+      else delete userNotes[action.id];
+      return { ...state, userNotes };
+    }
+
     case 'resetAll':
       return { ...defaultProgress(), themeKey: state.themeKey };
 
@@ -213,6 +222,7 @@ export function useProgress() {
     (ids: number | string | Array<number | string>) => dispatch({ type: 'markWrong', ids: Array.isArray(ids) ? ids : [ids] }),
     []
   );
+  const setUserNote = useCallback((id: number | string, text: string) => dispatch({ type: 'setUserNote', id, text }), []);
   const resetAll = useCallback(() => dispatch({ type: 'resetAll' }), []);
 
   return {
@@ -226,6 +236,7 @@ export function useProgress() {
     setGoal,
     setPref,
     markWrong,
+    setUserNote,
     resetAll,
   };
 }
