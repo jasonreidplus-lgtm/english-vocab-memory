@@ -5,6 +5,7 @@ import { useProgress } from './state/useProgress';
 import {
   computeLevelStates,
   dueReviewIds,
+  dayKey,
   relearnIds,
   nextEnterableGroup,
   starsFor,
@@ -20,7 +21,7 @@ import LevelSelect from './screens/LevelSelect'; // 首屏：保持同步导入�
 import ReviewScreen from './screens/ReviewScreen';
 import ReadingScreen from './screens/ReadingScreen';
 import TabBar from './components/TabBar';
-import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied } from './lib/passages';
+import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied, resetPassageStudy } from './lib/passages';
 import { loadDict, dictEntry } from './lib/dict';
 import LoginScreen from './screens/LoginScreen';
 import { isAuthed, logout } from './lib/auth';
@@ -79,6 +80,16 @@ export default function App() {
   const [authed, setAuthed] = useState(isAuthed);
   const [confirmReset, setConfirmReset] = useState(false);
   const [tab, setTab] = useState<TabKey>('levels'); // 底部主标签：levels|review|reading|stats
+  const [todayKey, setTodayKey] = useState(() => dayKey());
+
+  // 平板若整夜不关闭 APP，也在本地午夜主动刷新「今天」相关状态。
+  useEffect(() => {
+    const now = new Date();
+    const next = new Date(now);
+    next.setHours(24, 0, 1, 0);
+    const timer = setTimeout(() => setTodayKey(dayKey()), next.getTime() - now.getTime());
+    return () => clearTimeout(timer);
+  }, [todayKey]);
 
   // —— 词库加载 ——
   const [vocab, setVocab] = useState<VocabState>({ status: 'loading' });
@@ -181,9 +192,13 @@ export default function App() {
   const summary = useMemo(() => summarize(levels, progress), [levels, progress]);
   // 只数能解析出词条的到期错词（过滤旧存档/词库变动遗留的「幽灵 id」，与实际可复习数一致）
   const resolvable = (id: string) => byId.has(id) || byId.has(Number(id)) || String(id).startsWith('d:');
-  const reviewDue = useMemo(() => dueReviewIds(progress).filter(resolvable).length, [progress, byId]); // eslint-disable-line react-hooks/exhaustive-deps
-  const relearnDue = useMemo(() => relearnIds(progress).filter(resolvable).length, [progress, byId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const reviewDue = useMemo(() => dueReviewIds(progress).filter(resolvable).length, [progress, byId, todayKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const relearnDue = useMemo(() => relearnIds(progress).filter(resolvable).length, [progress, byId, todayKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const allReady = useMemo(() => levels.flatMap((l) => l.readyWords), [levels]);
+  const savedTodayIds = useMemo(
+    () => new Set((progress.savedWordHistory?.[todayKey] || []).map(String)),
+    [progress.savedWordHistory, todayKey]
+  );
 
   const currentLevel = useMemo(
     () => levels.find((l) => l.group === group) || null,
@@ -227,7 +242,12 @@ export default function App() {
   };
 
   const handleReset = () => { setSettingsOpen(false); setConfirmReset(true); };
-  const doReset = () => { resetAll(); setConfirmReset(false); };
+  const doReset = () => {
+    resetPassageStudy();
+    resetAll();
+    loadPassages().then(setPassages);
+    setConfirmReset(false);
+  };
 
   // 进入某一关：打乱该关 10 词，先用轻量数据秒开，再补齐富字段(懒加载)
   const enterLevel = (g: number) => {
@@ -270,14 +290,8 @@ export default function App() {
   const startReview = () => enterReviewSession(dueReviewIds(progress)); // 今日复习
   const startRelearn = () => enterReviewSession(relearnIds(progress)); // 今日重温(今天没记牢的)
 
-  // 间隔复习结束：按复习词数给 XP + 计入打卡，返回复习页
-  const finishReview = (reviewed: number) => {
-    if (reviewed > 0) {
-      addXp(reviewed * 2);
-      recordStudy(reviewed);
-    }
-    goHome();
-  };
+  // 每次评分已即时结算；结束按钮只负责返回，避免中途退出漏统计或完成时重复计数。
+  const finishReview = (_reviewed: number) => goHome();
 
   // —— 统计：改考试日 / 导出 PDF ——
   const onExamDate = (iso: string) => setPref('examDate', iso);
@@ -289,7 +303,19 @@ export default function App() {
     due: '即将到期（错词）',
     'learned-all': '全部已学单词',
   };
-  const onExport = async (filter: ExportFilter) => {
+  const openPrintWords = async (title: string, words: Word[]): Promise<number> => {
+    if (!words.length) return 0;
+    const hydrated = await hydrate(words);
+    setPrintData({ title, words: hydrated });
+    return hydrated.length;
+  };
+  const openPrintIds = async (title: string, ids: Array<number | string>): Promise<number> => {
+    const uniqueIds = [...new Set(ids.map(String))];
+    if (uniqueIds.some((id) => id.startsWith('d:'))) await loadDict();
+    const words = uniqueIds.map(getWord).filter(Boolean) as Word[];
+    return openPrintWords(title, words);
+  };
+  const onExport = async (filter: ExportFilter): Promise<number> => {
     let words: Word[] = [];
     if (filter === 'learned-all') {
       words = levels.filter((l) => progress.levels[l.group]?.completed).flatMap((l) => l.readyWords);
@@ -308,13 +334,12 @@ export default function App() {
           return isWrong;
         })
         .map(([id]) => id);
-      if (ids.some((id) => id.startsWith('d:'))) await loadDict();
-      words = ids.map(getWord).filter(Boolean) as Word[];
+      return openPrintIds(EXPORT_LABELS[filter], ids);
     }
-    if (!words.length) return;
-    const hydrated = await hydrate(words);
-    setPrintData({ title: EXPORT_LABELS[filter], words: hydrated });
+    return openPrintWords(EXPORT_LABELS[filter], words);
   };
+  const onDailyExport = (date: string): Promise<number> =>
+    openPrintIds(`每日生词 · ${date}`, progress.savedWordHistory?.[date] || []);
 
   const completeQuiz = (flags: boolean[]) => {
     const tally = tallyResult(questions, flags); // { correct, total, wrongIds, correctIds }
@@ -335,7 +360,8 @@ export default function App() {
     });
     // 本关通关后，下一关若是新解锁则标记，回到关卡页时高亮
     if (stars >= 1) {
-      const ng = nextEnterableGroup(levelStates, group!);
+      const currentIdx = levels.findIndex((l) => l.group === group);
+      const ng = levels.slice(currentIdx + 1).find((l) => l.ready)?.group ?? null;
       if (ng != null && !(progress.levels[ng] && progress.levels[ng].completed)) {
         setJustUnlocked(ng);
       }
@@ -375,10 +401,12 @@ export default function App() {
     });
   };
   const endBrowse = () => setView(browseCtx?.ret || tab);
-  const browseWrong = () => {
+  const browseWrong = async () => {
     const ids = Object.entries(progress.cards || {})
       .filter(([, e]) => (e.miss || 0) > 0 && !(e.card && isMastered(e.card)))
       .map(([id]) => id);
+    // 广义词典词首次打开错词本时也要先载入词典，否则 getWord 会把它们漏掉。
+    if (ids.some((id) => id.startsWith('d:'))) await loadDict();
     const pool = ids.map(getWord).filter(Boolean) as Word[];
     startBrowse(pool, '错词本', tab);
   };
@@ -418,6 +446,8 @@ export default function App() {
         onStart={startQuiz}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
+        todayKey={todayKey}
+        savedTodayIds={savedTodayIds}
         userNotes={progress.userNotes}
         onSetUserNote={setUserNote}
       />
@@ -468,6 +498,8 @@ export default function App() {
         onBack={goHome}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
+        todayKey={todayKey}
+        savedTodayIds={savedTodayIds}
         hydrateWord={hydrateWord}
       />
     );
@@ -483,6 +515,8 @@ export default function App() {
         onBack={activePassage ? backToPassages : goHome}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
+        todayKey={todayKey}
+        savedTodayIds={savedTodayIds}
         hydrateWord={hydrateWord}
       />
     );
@@ -511,6 +545,7 @@ export default function App() {
         onBack={endBrowse}
         onStart={endBrowse}
         onSpeak={onSpeak}
+        todayKey={todayKey}
         userNotes={progress.userNotes}
         onSetUserNote={setUserNote}
       />
@@ -525,7 +560,7 @@ export default function App() {
         onReplay={replay}
         onNext={goNext}
         onHome={goHome}
-        hasNext={nextGroup != null}
+        hasNext={result.stars >= 1 && nextGroup != null}
         onBrowse={() => startBrowse(sessionWords, `第 ${group} 关`, 'result')}
       />
     );
@@ -538,6 +573,8 @@ export default function App() {
         onBack={goHome}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
+        todayKey={todayKey}
+        savedTodayIds={savedTodayIds}
         hydrateWord={hydrateWord}
       />
     );
@@ -578,6 +615,7 @@ export default function App() {
         onOpenSettings={() => setSettingsOpen(true)}
         onExamDate={onExamDate}
         onExport={onExport}
+        onDailyExport={onDailyExport}
       />
     );
   } else {
@@ -624,7 +662,7 @@ export default function App() {
           <ConfirmDialog
             danger
             title="重置全部进度？"
-            message="XP / 通关 / 错词本将被清空（画风保留）。此操作无法撤销。"
+            message="XP / 单词关卡 / 阅读完成标记 / 生词本将被清空（画风和导入文章保留）。此操作无法撤销。"
             confirmText="重置"
             cancelText="取消"
             onConfirm={doReset}

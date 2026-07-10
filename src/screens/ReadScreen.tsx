@@ -17,6 +17,8 @@ interface ReadScreenProps {
   onBack: () => void;
   onSpeak: (word: string) => void;
   onMarkWrong: (id: Word['id']) => void;
+  todayKey: string;
+  savedTodayIds?: ReadonlySet<string>;
   hydrateWord: (w: Word) => Promise<Word>;
 }
 
@@ -24,11 +26,11 @@ interface ReadScreenProps {
 const SAMPLE =
   'The unprecedented surge in remote work has compelled many companies to reconsider how they evaluate productivity. Critics argue that the prevailing emphasis on visible activity is misleading, and that a more nuanced approach would acknowledge the diverse circumstances of individual employees.';
 
-export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }: ReadScreenProps) {
+export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, todayKey, savedTodayIds, hydrateWord }: ReadScreenProps) {
   const [text, setText] = useState('');
   const [picked, setPicked] = useState<Word | null>(null); // 轻量词条
   const [rich, setRich] = useState<Word | null>(null); // 懒加载补齐后的词条
-  const [added, setAdded] = useState<Record<Word['id'], boolean>>({}); // id -> 已加入错词本
+  const [added, setAdded] = useState<Record<Word['id'], string>>({}); // id -> 本次记入日期
   const curId = useRef<Word['id'] | null>(null); // 防止快速切词时旧的 hydrate 覆盖
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
@@ -114,12 +116,12 @@ export default function ReadScreen({ pool, themeKey, onTheme, onBack, onSpeak, o
       <WordPopup
         entry={picked}
         rich={rich}
-        added={picked ? !!added[picked.id] : false}
+        added={picked ? added[picked.id] === todayKey || !!savedTodayIds?.has(String(picked.id)) : false}
         onSpeak={onSpeak}
         onAddWrong={() => {
           if (!picked) return;
           onMarkWrong && onMarkWrong(picked.id);
-          setAdded((a) => ({ ...a, [picked.id]: true }));
+          setAdded((a) => ({ ...a, [picked.id]: todayKey }));
         }}
         onClose={close}
       />

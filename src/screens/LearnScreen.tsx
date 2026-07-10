@@ -104,18 +104,20 @@ export interface LearnScreenProps {
   onStart: () => void;
   onSpeak?: (t: string) => void;
   onMarkWrong?: (id: number | string) => void;
+  todayKey: string;
+  savedTodayIds?: ReadonlySet<string>;
   userNotes?: Record<string, string>;
   onSetUserNote?: (id: number | string, text: string) => void;
 }
 
-export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong, userNotes, onSetUserNote }: LearnScreenProps) {
+export default function LearnScreen({ words, group, title, mode = 'learn', themeKey, onTheme, onBack, onStart, onSpeak, onMarkWrong, todayKey, savedTodayIds, userNotes, onSetUserNote }: LearnScreenProps) {
   const browse = mode === 'browse';
   const heading = title || `第 ${group} 关`;
   const [li, setLi] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [open, setOpen] = useState<Record<string, boolean>>({});
-  const [marked, setMarked] = useState<Record<string, boolean>>({}); // 本次「不认识」标记 { [id]: true }
-  const markedCount = Object.keys(marked).length;
+  const [marked, setMarked] = useState<Record<string, string>>({}); // 本次「不认识」标记 { [id]: YYYY-MM-DD }
+  const markedCount = Object.values(marked).filter((date) => date === todayKey).length;
 
   const total = words.length;
   const word = words[li];
@@ -209,8 +211,8 @@ export default function LearnScreen({ words, group, title, mode = 'learn', theme
               className="btn ghost grow"
               style={{ color: 'var(--bad)' }}
               onClick={() => {
-                if (!marked[word.id]) onMarkWrong(word.id);
-                setMarked((m) => ({ ...m, [word.id]: true }));
+                if (marked[word.id] !== todayKey && !savedTodayIds?.has(String(word.id))) onMarkWrong(word.id);
+                setMarked((m) => ({ ...m, [word.id]: todayKey }));
                 if (li < total - 1) go(1);
                 else onStart();
               }}

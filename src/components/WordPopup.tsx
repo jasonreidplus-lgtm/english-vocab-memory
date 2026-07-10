@@ -74,9 +74,9 @@ function WordPopupModal({ entry, rich, added, onSpeak, onAddWrong, onClose }: Wo
           {!entry._missing && (
             <button className="btn grow" disabled={!!added} onClick={onAddWrong}>
               {added ? (
-                <><Check size={16} /> 已加入错词本</>
+                <><Check size={16} /> 今天已记入生词本</>
               ) : (
-                <><BookmarkPlus size={16} /> 加入错词本</>
+                <><BookmarkPlus size={16} /> 记入生词本</>
               )}
             </button>
           )}

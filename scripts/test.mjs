@@ -4,7 +4,8 @@ import { shortMeaning, tallyResult, buildQuiz } from '../src/game/quiz';
 import { shuffle, sample } from '../src/lib/shuffle';
 import { emptyCard, gradeCard, markWrongCard, isMastered, isDue, previewDays, intervalLabel, Rating } from '../src/lib/fsrs';
 import { computeStats } from '../src/lib/stats';
-import { starsFor, xpFor, summarize, dueReviewIds } from '../src/state/progress';
+import { starsFor, xpFor, summarize, dueReviewIds, dayKey, computeLevelStates, nextEnterableGroup } from '../src/state/progress';
+import { splitEnSentences } from '../src/lib/text';
 import { reducer } from '../src/state/useProgress';
 
 let pass = 0;
@@ -198,11 +199,61 @@ t('答错→建卡(New 态/今日到期)并标记今日重温', () => {
   assert.equal(next.cards[9].miss, 1);
   assert.ok(next.cards[9].lapseTs, '答错应置 lapseTs(进今日重温)');
 });
+t('0 星失败不通关、不解锁、不计首次新学', () => {
+  const today = dayKey();
+  const next = reducer(baseProgress({}), { type: 'finishLevel', payload: { group: 1, correct: 4, total: 10, stars: 0, xpGain: 40, wrongIds: [1], correctIds: [2] } });
+  assert.equal(next.levels[1].completed, false);
+  assert.equal(next.levels[1].attempts, 1);
+  assert.equal(next.newHistory[today] || 0, 0);
+  const states = computeLevelStates(levels, next);
+  assert.equal(states[0].state, 'unlocked');
+  assert.equal(states[1].state, 'locked');
+});
+
+console.log('手动生词按天记录:');
+t('主动记入按本地日期去重，重复点击不虚增 miss', () => {
+  const today = dayKey();
+  const once = reducer(baseProgress({}), { type: 'markWrong', ids: [5, 5, 'd:context'] });
+  assert.deepEqual(once.savedWordHistory[today], ['5', 'd:context']);
+  assert.equal(once.cards[5].miss, 1);
+  const twice = reducer(once, { type: 'markWrong', ids: [5] });
+  assert.equal(twice.cards[5].miss, 1);
+  assert.deepEqual(twice.savedWordHistory[today], ['5', 'd:context']);
+});
+
+console.log('阅读切句:');
+t('末句没有句号也不会被丢弃', () => {
+  const s = splitEnSentences('This is the first complete sentence. This final sentence has no punctuation');
+  assert.equal(s.length, 2);
+  assert.equal(s[1], 'This final sentence has no punctuation');
+});
+
+t('下一关选择不会越过锁定状态', () => {
+  const states = computeLevelStates(levels, baseProgress({}));
+  assert.equal(nextEnterableGroup(states, 1), null);
+});
+
+t('复习评分立即结算 XP 和今日词次', () => {
+  const today = dayKey();
+  const card = markWrongCard(undefined, NOW);
+  const next = reducer(baseProgress({ cards: { 5: { miss: 1, card } } }), { type: 'reviewGrade', id: 5, grade: Rating.Good });
+  assert.equal(next.xp, 2);
+  assert.equal(next.history[today], 1);
+  assert.equal(next.reviewHistory[today], 1);
+});
+
+t('新用户先改每日目标，首次学习仍从连续 1 天开始', () => {
+  const goalSet = reducer(baseProgress({}), { type: 'setGoal', goal: 30 });
+  assert.equal(goalSet.daily.streak, 0);
+  const studied = reducer(goalSet, { type: 'studyActivity', words: 1 });
+  assert.equal(studied.daily.streak, 1);
+  assert.equal(studied.daily.count, 1);
+});
 
 function baseProgress(over) {
   return {
     v: 1, themeKey: 'mo', xp: 0, combo: 0, bestCombo: 0,
-    levels: {}, cards: {}, daily: null, history: {}, newHistory: {}, reviewHistory: {}, timeHistory: {},
+    levels: {}, cards: {}, daily: null, history: {}, newHistory: {}, reviewHistory: {}, timeHistory: {}, savedWordHistory: {},
     revlog: [], stats: { answered: 0, correct: 0 }, sound: true, accent: 'us', examDate: '2026-12-21', userNotes: {},
     ...over,
   };

@@ -1271,6 +1271,11 @@ body {
 .export-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .export-btn { padding: 10px 6px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface2, var(--surface)); color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer; }
 .export-btn:active { transform: translateY(1px); }
+.daily-export { display: flex; flex-direction: column; gap: 10px; }
+.daily-export__date { display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 700; font-size: 14px; }
+.daily-export__date input { min-height: 36px; padding: 5px 8px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface2, var(--surface)); color: var(--ink); font: inherit; }
+.export-divider { height: 1px; margin: 14px 0; background: var(--line); }
+.export-msg { margin-top: 10px; padding: 8px 10px; border-radius: 8px; background: var(--accent-soft); color: var(--ink); font-size: 12px; }
 
 /* —— 打印 / PDF 导出 —— */
 .print-root { position: fixed; inset: 0; background: #fff; color: #111; z-index: 100; overflow: auto; }

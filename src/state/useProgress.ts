@@ -45,12 +45,13 @@ export function reducer(state: Progress, action: Action): Progress {
     case 'finishLevel': {
       const { group, correct, total = 0, stars, xpGain, wrongIds = [], correctIds = [] } = action.payload;
       const prev = state.levels[group] || {};
-      const firstClear = !(prev && prev.completed); // 首次通关才记「新学」
+      const passed = stars >= 1;
+      const firstClear = passed && !(prev && prev.completed); // 至少 1 星的首次通关才记「新学」
       const levels = {
         ...state.levels,
         [group]: {
           stars: Math.max(prev.stars || 0, stars),
-          completed: true,
+          completed: !!prev.completed || passed,
           bestScore: Math.max(prev.bestScore || 0, correct),
           attempts: (prev.attempts || 0) + 1,
         },
@@ -77,7 +78,6 @@ export function reducer(state: Progress, action: Action): Progress {
         newHistory[today] = (newHistory[today] || 0) + total;
       }
 
-      const passed = stars >= 1;
       const combo = passed ? state.combo + 1 : 0;
 
       return {
@@ -119,7 +119,8 @@ export function reducer(state: Progress, action: Action): Progress {
       const today = dayKey();
       const reviewHistory = { ...(state.reviewHistory || {}) };
       reviewHistory[today] = (reviewHistory[today] || 0) + 1;
-      return { ...state, cards, revlog, reviewHistory };
+      // 每次评分立即结算，用户中途返回也不会漏 XP / 今日学习统计。
+      return reducer({ ...state, cards, revlog, reviewHistory, xp: state.xp + 2 }, { type: 'studyActivity', words: 1 });
     }
 
     case 'addXp':
@@ -150,7 +151,8 @@ export function reducer(state: Progress, action: Action): Progress {
           },
         };
       }
-      return { ...state, history, daily: { ...prev, count: prev.count + words } };
+      const startsStreak = prev.count <= 0 && words > 0 && prev.streak <= 0;
+      return { ...state, history, daily: { ...prev, count: prev.count + words, streak: startsStreak ? 1 : prev.streak } };
     }
 
     case 'addStudyTime': {
@@ -164,7 +166,7 @@ export function reducer(state: Progress, action: Action): Progress {
     }
 
     case 'setGoal': {
-      const prev: Daily = state.daily || { date: dayKey(), count: 0, streak: 1, goal: DAILY_GOAL };
+      const prev: Daily = state.daily || { date: dayKey(), count: 0, streak: 0, goal: DAILY_GOAL };
       return { ...state, daily: { ...prev, goal: action.goal } };
     }
 
@@ -172,15 +174,23 @@ export function reducer(state: Progress, action: Action): Progress {
       return { ...state, [action.key]: action.value };
 
     case 'markWrong': {
-      // 把若干词加入错词(真题精读「加入错词本」/学习卡「不认识」)，今日到期、计入今日重温
+      // 用户主动记入生词本：今日到期、计入今日重温，并保留按日记录供导出。
+      // 同一个词同一天只记一次，避免离开页面再进入后重复点击造成 miss 虚增/反复重排。
       const cards: Record<string, WrongEntry> = { ...state.cards };
       const ts = Date.now();
       const now = new Date(ts);
+      const today = dayKey(ts);
+      const savedWordHistory = { ...(state.savedWordHistory || {}) };
+      const savedToday = new Set((savedWordHistory[today] || []).map(String));
       for (const id of action.ids || []) {
-        const e: WrongEntry = cards[id] || { miss: 0 };
-        cards[id] = { ...e, miss: (e.miss || 0) + 1, lastTs: ts, lapseTs: ts, card: markWrongCard(e.card, now) };
+        const key = String(id);
+        if (savedToday.has(key)) continue;
+        const e: WrongEntry = cards[key] || { miss: 0 };
+        cards[key] = { ...e, miss: (e.miss || 0) + 1, lastTs: ts, lapseTs: ts, card: markWrongCard(e.card, now) };
+        savedToday.add(key);
       }
-      return { ...state, cards };
+      savedWordHistory[today] = [...savedToday];
+      return { ...state, cards, savedWordHistory };
     }
 
     case 'setUserNote': {

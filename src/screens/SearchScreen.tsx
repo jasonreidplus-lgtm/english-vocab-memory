@@ -14,15 +14,17 @@ interface SearchScreenProps {
   onBack?: () => void;
   onSpeak?: (word: string) => void;
   onMarkWrong?: (id: Word['id']) => void;
+  todayKey: string;
+  savedTodayIds?: ReadonlySet<string>;
   hydrateWord?: (entry: Word) => Promise<Word> | Word;
 }
 
 /* 全局查词：考研核心词(释义丰富) + 广义词典(59k 词)即时检索，点结果看词卡。 */
-export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord }: SearchScreenProps) {
+export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak, onMarkWrong, todayKey, savedTodayIds, hydrateWord }: SearchScreenProps) {
   const [q, setQ] = useState('');
   const [picked, setPicked] = useState<Word | null>(null);
   const [rich, setRich] = useState<Word | null>(null);
-  const [added, setAdded] = useState<Record<string, boolean>>({});
+  const [added, setAdded] = useState<Record<string, string>>({});
   const curId = useRef<Word['id'] | null>(null);
 
   const dict = useDict();
@@ -120,12 +122,12 @@ export default function SearchScreen({ pool, themeKey, onTheme, onBack, onSpeak,
       <WordPopup
         entry={picked}
         rich={rich}
-        added={picked ? !!added[picked.id] : false}
+        added={picked ? added[picked.id] === todayKey || !!savedTodayIds?.has(String(picked.id)) : false}
         onSpeak={onSpeak}
         onAddWrong={() => {
           if (!picked) return;
           onMarkWrong && onMarkWrong(picked.id);
-          setAdded((a) => ({ ...a, [picked.id]: true }));
+          setAdded((a) => ({ ...a, [picked.id]: todayKey }));
         }}
         onClose={closePop}
       />

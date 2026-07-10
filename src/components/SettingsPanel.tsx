@@ -40,7 +40,7 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
     const f = e.target.files?.[0];
     e.target.value = '';
     if (!f) return;
-    if (!window.confirm('导入会覆盖当前进度，确定继续？')) return;
+    if (!window.confirm('导入会覆盖当前学习进度和阅读库，确定继续？')) return;
     const ok = await importProgress(f);
     if (ok) {
       setMsg('导入成功，正在刷新…');
@@ -64,7 +64,7 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
     }
   };
   const onPasteImport = async () => {
-    if (!window.confirm('导入会覆盖当前进度，确定继续？')) return;
+    if (!window.confirm('导入会覆盖当前学习进度和阅读库，确定继续？')) return;
     const ok = await importProgressCode(pasteText.trim());
     if (ok) {
       setMsg('导入成功，正在刷新…');
@@ -171,7 +171,7 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
               placeholder="把另一台设备点「复制」得到的备份码整段粘贴到这里"
             />
             <button className="btn ghost block mt8" onClick={onPasteImport} disabled={!pasteText.trim()}>
-              确认导入（覆盖当前进度）
+              确认导入（覆盖进度和阅读库）
             </button>
           </div>
         )}
@@ -188,7 +188,7 @@ export default function SettingsPanel({ progress, onClose, onSetPref, onSetGoal,
           <RotateCcw size={15} /> 重置全部进度
         </button>
         <div className="label center mt12" style={{ fontSize: 11, opacity: 0.7 }}>
-          进度仅存本机浏览器 · 建议定期「导出备份」防丢失
+          进度和导入文章仅存本机 · 建议定期「导出备份」防丢失
         </div>
       </div>
     </div>

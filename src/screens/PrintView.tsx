@@ -1,8 +1,10 @@
-/* 打印 / 导出 PDF 视图：全屏覆盖，渲染所选单词列表；挂载后自动唤起打印对话框，
-   用户在框里「另存为 PDF」。中文走系统字体零乱码；每条 break-inside:avoid 防跨页截断。
+/* 打印 / 导出 PDF 视图：全屏覆盖，渲染所选单词列表。
+   Android 由原生 PrintManager 唤起系统打印，Web/PWA 回退 window.print()。
+   中文走系统字体零乱码；每条 break-inside:avoid 防跨页截断。
    每页固定词数(默认 30)，每满一页插分页符(#1)。 */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Printer, ArrowLeft } from 'lucide-react';
+import { isNativeAndroid, printDocument } from '../lib/nativePrint';
 import type { Word } from '../types';
 
 interface PrintViewProps {
@@ -21,12 +23,29 @@ function chunk<T>(arr: T[], size: number): T[][] {
 
 export default function PrintView({ title, words, onClose }: PrintViewProps) {
   const [perPage, setPerPage] = useState(30);
+  const [printing, setPrinting] = useState(false);
+  const [printError, setPrintError] = useState('');
   const pages = useMemo(() => chunk(words, perPage), [words, perPage]);
 
   useEffect(() => {
-    const t = setTimeout(() => window.print(), 450); // 等渲染完再唤起打印
+    if (isNativeAndroid()) return; // Android WebView 不能用 JS 自动触发打印
+    const t = setTimeout(() => window.print(), 450); // Web/PWA 保留原有自动打印
     return () => clearTimeout(t);
   }, []);
+
+  const handlePrint = async () => {
+    if (printing) return;
+    setPrintError('');
+    setPrinting(true);
+    try {
+      await printDocument(title);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error || '');
+      setPrintError(detail || '无法打开打印服务，请稍后重试');
+    } finally {
+      setPrinting(false);
+    }
+  };
 
   return (
     <div className="print-root">
@@ -44,10 +63,16 @@ export default function PrintView({ title, words, onClose }: PrintViewProps) {
           </select>
           词
         </span>
-        <button className="pill print-go" onClick={() => window.print()}>
-          <Printer size={16} /> 打印 / 存 PDF
+        <button className="pill print-go" onClick={handlePrint} disabled={printing} aria-busy={printing}>
+          <Printer size={16} /> {printing ? '正在打开…' : '打印 / 存 PDF'}
         </button>
       </div>
+
+      {printError && (
+        <div role="alert" className="pv-empty" style={{ color: '#b42318', padding: '10px 24px' }}>
+          打印失败：{printError}
+        </div>
+      )}
 
       {pages.map((pageWords, pi) => (
         <div className="print-page" key={pi}>
