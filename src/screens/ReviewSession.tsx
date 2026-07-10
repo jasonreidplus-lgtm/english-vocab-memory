@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
-import { GRADES, previewDays, intervalLabel, Rating } from '../lib/fsrs';
+import { GRADES, previewDays, intervalLabel, Rating, gradeCard } from '../lib/fsrs';
 import type { Word, SerializedCard } from '../types';
 import type { Grade } from 'ts-fsrs';
 
@@ -45,7 +45,9 @@ export default function ReviewSession({ items, themeKey, onTheme, onBack, onGrad
     // 「忘了」当场排到队尾再练一次(每词最多补一次，避免无限循环)
     if (g === Rating.Again && !requeued.current.has(item.word.id)) {
       requeued.current.add(item.word.id);
-      setQueue((q) => [...q, item]);
+      // 队尾复现时用本次评分后的卡预览间隔，避免仍显示旧排期。
+      const nextItem = { ...item, card: gradeCard(item.card, g, new Date()) };
+      setQueue((q) => [...q, nextItem]);
     }
     setRevealed(false);
     setIdx((i) => i + 1);

@@ -137,12 +137,14 @@ interface ClozeScreenProps {
   onBack: () => void;
   onSpeak: (word: string) => void;
   onMarkWrong: (id: Word['id']) => void;
+  todayKey: string;
+  savedTodayIds?: ReadonlySet<string>;
   hydrateWord: (w: Word) => Promise<Word>;
 }
 
 export default function ClozeScreen({
   pool, sentences, title, onDone, // passage 模式：传 sentences + title + onDone
-  themeKey, onTheme, onBack, onSpeak, onMarkWrong, hydrateWord,
+  themeKey, onTheme, onBack, onSpeak, onMarkWrong, todayKey, savedTodayIds, hydrateWord,
 }: ClozeScreenProps) {
   const passageMode = Array.isArray(sentences);
   const [bank, setBank] = useState<Sentence[] | null>(null);
@@ -154,7 +156,7 @@ export default function ClozeScreen({
   const [showAna, setShowAna] = useState(false); // 长难句拆解展开
   const [picked, setPicked] = useState<Word | null>(null);
   const [rich, setRich] = useState<Word | null>(null);
-  const [added, setAdded] = useState<Record<Word['id'], boolean>>({});
+  const [added, setAdded] = useState<Record<Word['id'], string>>({});
   const curId = useRef<Word['id'] | null>(null);
 
   const lookup = useMemo(() => buildLookup(pool), [pool]);
@@ -388,12 +390,12 @@ export default function ClozeScreen({
       <WordPopup
         entry={picked}
         rich={rich}
-        added={picked ? !!added[picked.id] : false}
+        added={picked ? added[picked.id] === todayKey || !!savedTodayIds?.has(String(picked.id)) : false}
         onSpeak={onSpeak}
         onAddWrong={() => {
           if (!picked) return;
           onMarkWrong && onMarkWrong(picked.id);
-          setAdded((a) => ({ ...a, [picked.id]: true }));
+          setAdded((a) => ({ ...a, [picked.id]: todayKey }));
         }}
         onClose={closePop}
       />

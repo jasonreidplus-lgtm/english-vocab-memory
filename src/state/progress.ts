@@ -40,6 +40,7 @@ export function defaultProgress(): Progress {
     newHistory: {}, // { [YYYY-MM-DD]: 当日新学(首次通关)词数 } —— 燃尽/配速/学习曲线
     reviewHistory: {}, // { [YYYY-MM-DD]: 当日复习次数 } —— 学习/复习分色柱
     timeHistory: {}, // { [YYYY-MM-DD]: 当日学习时长(ms) } —— 学习时长
+    savedWordHistory: {}, // { [YYYY-MM-DD]: 当日主动记入生词本的 wordId[] } —— 按天导出
     revlog: [], // 复习日志(封顶裁剪) —— 真实保持率/趋势
     stats: { answered: 0, correct: 0 }, // 累计答题数 / 答对数 —— 正确率
     sound: true, // 音效朗读开关
@@ -57,6 +58,7 @@ export function loadProgress(): Progress {
     // 浅合并，向后兼容字段新增
     const p: Progress = { ...defaultProgress(), ...parsed };
     if (!p.cards) p.cards = {};
+    if (!p.savedWordHistory || typeof p.savedWordHistory !== 'object') p.savedWordHistory = {};
     // 迁移：旧 wrong(错词池) 并入 cards(全词建卡新结构)，并入后清空 wrong
     if (parsed.wrong && Object.keys(parsed.wrong).length) {
       for (const [id, e] of Object.entries(parsed.wrong)) {
@@ -125,7 +127,7 @@ export function computeLevelStates(levels: Level[], progress: Progress): LevelSt
 export function nextEnterableGroup(levelStates: LevelState[], currentGroup: number): number | null {
   const idx = levelStates.findIndex((l) => l.group === currentGroup);
   for (let i = idx + 1; i < levelStates.length; i++) {
-    if (levelStates[i].ready) return levelStates[i].group;
+    if (levelStates[i].ready && levelStates[i].enterable) return levelStates[i].group;
   }
   return null;
 }

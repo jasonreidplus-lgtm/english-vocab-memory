@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flame } from 'lucide-react';
-import { DAILY_GOAL } from '../state/progress';
+import { DAILY_GOAL, dayKey, yesterdayKey } from '../state/progress';
 import type { Daily } from '../types';
 
 const GOAL_OPTIONS = [10, 20, 30, 50];
@@ -13,9 +13,12 @@ interface DailyCardProps {
 }
 
 export default function DailyCard({ daily, onSetGoal }: DailyCardProps) {
-  const count = daily?.count || 0;
+  const today = dayKey();
+  const isToday = daily?.date === today;
+  const streakIsCurrent = isToday || daily?.date === yesterdayKey();
+  const count = isToday ? daily?.count || 0 : 0;
   const goal = daily?.goal || DAILY_GOAL;
-  const streak = daily?.streak || 0;
+  const streak = streakIsCurrent ? daily?.streak || 0 : 0;
   const progress = Math.min(1, goal > 0 ? count / goal : 0);
   const reached = count >= goal;
 

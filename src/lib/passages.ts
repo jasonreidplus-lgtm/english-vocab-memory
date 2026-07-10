@@ -9,7 +9,7 @@
 import { splitEnSentences } from './text';
 import type { Passage, Sentence } from '../types';
 
-const KEY = 'wordquest:passages';
+export const PASSAGES_STORAGE_KEY = 'wordquest:passages';
 
 /** 用户导入文章的本机原始结构(尚未切句) */
 interface ImportedPassage {
@@ -60,14 +60,14 @@ const DEMO: Passage[] = [
 
 function read(): Store {
   try {
-    return JSON.parse(localStorage.getItem(KEY) || 'null') || {};
+    return JSON.parse(localStorage.getItem(PASSAGES_STORAGE_KEY) || 'null') || {};
   } catch {
     return {};
   }
 }
 function write(o: Store): void {
   try {
-    localStorage.setItem(KEY, JSON.stringify(o));
+    localStorage.setItem(PASSAGES_STORAGE_KEY, JSON.stringify(o));
   } catch {
     /* 本机存储不可用则静默 */
   }
@@ -187,5 +187,12 @@ export function markStudied(id: string): void {
   const o = read();
   o.studied = o.studied || {};
   o.studied[id] = true;
+  write(o);
+}
+
+/** 重置学习进度时只清阅读完成标记，保留用户导入的文章正文。 */
+export function resetPassageStudy(): void {
+  const o = read();
+  o.studied = {};
   write(o);
 }

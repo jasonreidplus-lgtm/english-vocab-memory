@@ -7,14 +7,15 @@
 
 ---
 
-## 方式 A：云端构建（推荐，免装任何开发工具）
+## 方式 A：从 GitHub Release 下载（推荐）
 
-1. 打开 GitHub 仓库 → 顶部 **Actions** 标签。
-2. 左侧选 **Build Android APK** → 右侧 **Run workflow**（分支选 `main`）→ 绿色 Run。
-3. 等几分钟跑完 → 点进这次运行 → 页面底部 **Artifacts** → 下载 **wordquest-apk**。
-4. 解压得到 `app-debug.apk`，传到安卓手机，点击安装（首次需在系统里允许「安装未知来源应用」）。
+1. 打开仓库的 **Releases**：<https://github.com/jasonreidplus-lgtm/english-vocab-memory/releases/latest>。
+2. 在 **Assets** 里直接下载 `wordquest-v*.apk`（无需解压）。
+3. 传到安卓平板并点击安装；首次需在系统里允许「安装未知来源应用」。
 
-> 也可以打个 tag 触发：`git tag v1.0 && git push origin v1.0`。
+推送 `v*` 标签会自动构建并创建 Release；推送 `main` 也会构建，临时产物仍可在 Actions 的 `wordquest-apk` 下载。
+
+> 从旧版临时 CI 签名切换到 v1.1.0 时，旧 APK 可能无法直接覆盖。请先在 APP 设置中点「跨设备同步 → 复制」，把完整备份码存到微信收藏/记事本，再卸载旧版、安装 v1.1.0，最后粘贴导回。工作流从 v1.1.0 起会缓存并每周保活同一把调试签名，后续版本可直接覆盖安装。
 
 ---
 
@@ -42,7 +43,7 @@ android/app/build/outputs/apk/debug/app-debug.apk
 
 ## 说明
 
-- **debug 签名**：用调试密钥签名，可直接侧载安装，个人/分发自用足够。若要正式签名（上应用商店或长期分发），需另生成 keystore 做 release 签名——需要时再加。
+- **debug 签名**：当前为个人侧载用调试签名，CI 会复用并定期保活同一签名。若要上应用商店，仍需改成由 GitHub Secrets 注入的正式 release keystore。
 - **体积**：约 150MB，因为把全词库真人发音都内置了。若想要**小体积版**（不内置发音、首次联网后用 app 内「一键缓存发音」离线），告诉我，可改 Capacitor 配置排除 `audio/`。
 - **更新**：APK 是某次构建的快照，不会自动更新；改了内容后重新构建一个新 APK 安装即可。
 - 改动配置：[`capacitor.config.ts`](capacitor.config.ts)（包名 `com.wordquest.kaoyan`、应用名「考研词关」）。

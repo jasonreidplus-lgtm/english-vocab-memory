@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Trophy, Flame, Target, BookCheck, Zap, CalendarDays, Brain, Settings, TrendingUp, CalendarClock, Layers, Gauge as GaugeIcon, FileDown, AlertTriangle, BarChart3, Clock, Medal } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
-import { accuracy, dayKey } from '../state/progress';
+import { accuracy, dayKey, yesterdayKey } from '../state/progress';
 import { useStats } from '../lib/useStats';
 import { TIER_ORDER, TIER_META, estimateCompletion, type ExportFilter } from '../lib/stats';
 import { Donut, BurndownChart, BarChart, TrendChart, Gauge, DailyStackChart, type DonutSeg, type Bar, type TrendDatum, type DualBar } from '../components/Charts';
@@ -92,20 +92,35 @@ interface StatsScreenProps {
   onTheme: (k: string) => void;
   onOpenSettings?: () => void;
   onExamDate: (iso: string) => void;
-  onExport: (filter: ExportFilter) => void;
+  onExport: (filter: ExportFilter) => Promise<number>;
+  onDailyExport: (date: string) => Promise<number>;
 }
 
-export default function StatsScreen({ progress, summary, themeKey, onTheme, onOpenSettings, onExamDate, onExport }: StatsScreenProps) {
+export default function StatsScreen({ progress, summary, themeKey, onTheme, onOpenSettings, onExamDate, onExport, onDailyExport }: StatsScreenProps) {
   const history = progress.history || {};
   const goal = (progress.daily && progress.daily.goal) || 20;
   const [range, setRange] = useState(30);
   const [tier, setTier] = useState<string | null>(null);
+  const [exportDate, setExportDate] = useState(dayKey());
+  const [exportMsg, setExportMsg] = useState('');
   const stats = useStats(progress, summary, range);
+  const dailySavedCount = (progress.savedWordHistory?.[exportDate] || []).length;
+
+  const runExport = async (label: string, task: () => Promise<number>) => {
+    setExportMsg('正在整理单词表…');
+    try {
+      const count = await task();
+      setExportMsg(count ? `${label}：已整理 ${count} 词` : `${label}：暂无可导出的单词`);
+    } catch {
+      setExportMsg('导出准备失败，请返回后重试。');
+    }
+  };
 
   const { cells, lead } = useMemo(() => buildGrid(history), [history]);
   const studyDays = useMemo(() => Object.values(history).filter((n: number) => n > 0).length, [history]);
   const totalWordsCnt = useMemo(() => Object.values(history).reduce((a: number, b: number) => a + (b || 0), 0), [history]);
-  const streak = (progress.daily && progress.daily.streak) || 0;
+  const streakDate = progress.daily?.date;
+  const streak = streakDate === dayKey() || streakDate === yesterdayKey() ? progress.daily?.streak || 0 : 0;
 
   const { coverage, pace, mastery, retention, futureDue, stabilityHist, trend } = stats;
 
@@ -329,12 +344,38 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onOp
       {/* —— 导出 PDF —— */}
       <div className="section-title"><FileDown size={15} /> 导出 / 打印</div>
       <div className="card stat-card">
+        <div className="daily-export">
+          <div className="row between wrap" style={{ gap: 8 }}>
+            <label className="daily-export__date">
+              按天导出生词
+              <input
+                type="date"
+                value={exportDate}
+                max={dayKey()}
+                onChange={(e) => { setExportDate(e.target.value); setExportMsg(''); }}
+              />
+            </label>
+            <b>{dailySavedCount} 词</b>
+          </div>
+          <button
+            className="btn primary block"
+            disabled={!dailySavedCount}
+            onClick={() => runExport(`${exportDate} 生词`, () => onDailyExport(exportDate))}
+          >
+            <FileDown size={16} /> 导出当天生词 PDF
+          </button>
+          <div className="muted-line">
+            只收录你主动点「不认识 / 记入生词本」的词；同一天重复点击不会重复。按天记录从本版本开始。
+          </div>
+        </div>
+        <div className="export-divider" />
         <div className="export-grid">
           {EXPORTS.map((e) => (
-            <button key={e.key} className="export-btn" onClick={() => onExport(e.key)}>{e.label}</button>
+            <button key={e.key} className="export-btn" onClick={() => runExport(e.label, () => onExport(e.key))}>{e.label}</button>
           ))}
         </div>
-        <div className="muted-line">选一类导出单词表 → 打印对话框「另存为 PDF」。困难词最适合考前突击。</div>
+        <div className="muted-line">选一类导出单词表 → 在系统打印页选择「另存为 PDF」。困难词最适合考前突击。</div>
+        {exportMsg && <div className="export-msg" role="status" aria-live="polite">{exportMsg}</div>}
       </div>
 
       {studyDays === 0 && (
