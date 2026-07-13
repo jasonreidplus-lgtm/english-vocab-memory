@@ -1,6 +1,7 @@
 /* 纯函数单测，用 tsx 跑 TS 源：npm test (= tsx scripts/test.mjs) */
 import assert from 'node:assert';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { shortMeaning, tallyResult, buildQuiz } from '../src/game/quiz';
 import { shuffle, sample } from '../src/lib/shuffle';
 import { emptyCard, gradeCard, markWrongCard, isMastered, isDue, previewDays, intervalLabel, Rating } from '../src/lib/fsrs';
@@ -8,13 +9,33 @@ import { computeStats } from '../src/lib/stats';
 import { starsFor, xpFor, summarize, dueReviewIds, dayKey, computeLevelStates, nextEnterableGroup } from '../src/state/progress';
 import { splitEnSentences } from '../src/lib/text';
 import { reducer } from '../src/state/useProgress';
-import { pdfSaveInstructions, sanitizePdfDocumentName } from '../src/lib/nativePrint';
+import { choosePdfWebMethod, makePdfFileName, pdfSaveInstructions, sanitizePdfDocumentName } from '../src/lib/pdfSave';
+import {
+  PDF_SC_FALLBACK_CODEPOINTS,
+  generateVocabularyPdfBlob,
+  generateVocabularyPdfBytes,
+  pdfColumnsFor,
+  pdfFontNameForCharacter,
+  pdfPageCount,
+  sanitizePdfText,
+} from '../src/lib/pdfDocument';
 
 let pass = 0;
 let fail = 0;
 function t(name, fn) {
   try {
     fn();
+    pass++;
+    console.log('  ✓', name);
+  } catch (e) {
+    fail++;
+    console.log('  ✗', name, '\n     ', e.message);
+  }
+}
+
+async function ta(name, fn) {
+  try {
+    await fn();
     pass++;
     console.log('  ✓', name);
   } catch (e) {
@@ -293,13 +314,147 @@ t('导出标题会清理跨平台非法文件名字符', () => {
   assert.equal(sanitizePdfDocumentName('  2026/错词:*?"<>|.pdf  '), '2026-错词');
   assert.equal(sanitizePdfDocumentName('CON'), '_CON');
   assert.equal(sanitizePdfDocumentName('...'), '考研词关');
+  assert.equal(makePdfFileName('每日生词.pdf'), '每日生词.pdf');
 });
-t('电脑、Android、iPhone/iPad、移动浏览器均提示选择保存位置', () => {
+t('电脑、Android、iPhone/iPad、移动浏览器均说明直接生成 PDF', () => {
   for (const platform of ['desktop-web', 'android-native', 'ios-web', 'mobile-web']) {
     const help = pdfSaveInstructions(platform);
     assert.match(help, /PDF/);
-    assert.match(help, /选择|位置|文件夹/);
+    assert.match(help, /直接生成/);
+    assert.doesNotMatch(help, /打印/);
   }
+});
+t('Web 保存能力按电脑选择器、移动分享、真实下载依次降级', () => {
+  assert.equal(choosePdfWebMethod('desktop-web', { filePicker: true, shareFiles: true }), 'file-picker');
+  assert.equal(choosePdfWebMethod('ios-web', { filePicker: false, shareFiles: true }), 'share');
+  assert.equal(choosePdfWebMethod('mobile-web', { filePicker: false, shareFiles: false }), 'download');
+  assert.equal(choosePdfWebMethod('desktop-web', { filePicker: false, shareFiles: false }), 'download');
+});
+t('PDF 分页和栏数覆盖 0/1/30/31/100 边界', () => {
+  assert.equal(pdfPageCount(0, 30), 0);
+  assert.equal(pdfPageCount(1, 30), 1);
+  assert.equal(pdfPageCount(30, 30), 1);
+  assert.equal(pdfPageCount(31, 30), 2);
+  assert.equal(pdfPageCount(100, 100), 1);
+  assert.deepEqual([20, 30, 50, 100].map(pdfColumnsFor), [2, 3, 4, 5]);
+});
+t('PDF 文本清理控制符但保留中文和 IPA', () => {
+  assert.equal(sanitizePdfText('  影响\u0000  /ɪnfluəns/  '), '影响 /ɪnfluəns/');
+});
+t('PDF 字体按实际 cmap 回退，构建清单无运行时缺字', () => {
+  const manifest = JSON.parse(readFileSync(new URL('../public/fonts/pdf/font-subset-manifest.json', import.meta.url), 'utf8'));
+  const manifestFallback = manifest.scFallbackCodepoints.map((value) => Number.parseInt(value.slice(2), 16));
+  assert.deepEqual(manifestFallback, [...PDF_SC_FALLBACK_CODEPOINTS]);
+  assert.deepEqual(manifest.runtimeMissingCodepoints, []);
+  assert.equal(pdfFontNameForCharacter('A'), 'WordQuestSans');
+  assert.equal(pdfFontNameForCharacter('│'), 'WordQuestSansSC');
+  assert.equal(pdfFontNameForCharacter('①'), 'WordQuestSansSC');
+  assert.equal(pdfFontNameForCharacter('中'), 'WordQuestSansSC');
+});
+await ta('真实 PDF 可解析、两页、含中文/IPA 且文件头正确', async () => {
+  const fontNames = ['WordQuestSansSC-Regular.ttf', 'WordQuestSans-Regular.ttf', 'WordQuestSans-Bold.ttf'];
+  const vfs = Object.fromEntries(fontNames.map((name) => [
+    name,
+    readFileSync(new URL(`../public/fonts/pdf/${name}`, import.meta.url)).toString('base64'),
+  ]));
+  const vocab = JSON.parse(readFileSync(new URL('../public/data/vocab-index.json', import.meta.url), 'utf8')).slice(0, 31);
+  vocab[0] = { ...vocab[0], word: 'influence', phonetic: '/ˈɪnfluəns/', pos: 'n./v.', base_meaning: '影响；势力；│肢；有影响的人或事' };
+  const bytes = await generateVocabularyPdfBytes({ title: '每日生词 · 解析验收', words: vocab, perPage: 30 }, vfs);
+  assert.equal(new TextDecoder('ascii').decode(bytes.subarray(0, 5)), '%PDF-');
+  assert.ok(bytes.length > 50_000);
+  const loadingTask = getDocument({ data: bytes });
+  const pdf = await loadingTask.promise;
+  try {
+    assert.equal(pdf.numPages, 2);
+    let extracted = '';
+    for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
+      const content = await (await pdf.getPage(pageNo)).getTextContent();
+      extracted += content.items.map((item) => 'str' in item ? item.str : '').join(' ');
+    }
+    const compact = extracted.replace(/\s+/g, '');
+    assert.match(compact, /每日生词/);
+    assert.match(compact, /influence/);
+    assert.match(compact, /ɪnfluəns/);
+    assert.match(compact, /影响/);
+    assert.match(compact, /│肢/);
+  } finally {
+    await pdf.destroy();
+  }
+});
+
+await ta('多页连续生成时页数、全局序号与末词不丢失', async () => {
+  const fontNames = ['WordQuestSansSC-Regular.ttf', 'WordQuestSans-Regular.ttf', 'WordQuestSans-Bold.ttf'];
+  const vfs = Object.fromEntries(fontNames.map((name) => [
+    name,
+    readFileSync(new URL(`../public/fonts/pdf/${name}`, import.meta.url)).toString('base64'),
+  ]));
+  const words = Array.from({ length: 301 }, (_, index) => ({
+    id: index + 1,
+    word: `batchword${index + 1}`,
+    phonetic: '/test/',
+    pos: 'n.',
+    base_meaning: `多页释义${index + 1}`,
+  }));
+  const blob = await generateVocabularyPdfBlob({ title: '多页连续验收', words, perPage: 30 }, vfs);
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  assert.equal(new TextDecoder('ascii').decode(bytes.subarray(0, 5)), '%PDF-');
+  const pdf = await getDocument({ data: bytes }).promise;
+  try {
+    assert.equal(pdf.numPages, 11);
+    const lastPage = await (await pdf.getPage(pdf.numPages)).getTextContent();
+    const compact = lastPage.items.map((item) => 'str' in item ? item.str : '').join('').replace(/\s+/g, '');
+    assert.match(compact, /301\.batchword301/);
+    assert.match(compact, /多页释义301/);
+  } finally {
+    await pdf.destroy();
+  }
+});
+
+await ta('离开导出页后可取消尚未开始的 PDF 生成', async () => {
+  const fontNames = ['WordQuestSansSC-Regular.ttf', 'WordQuestSans-Regular.ttf', 'WordQuestSans-Bold.ttf'];
+  const vfs = Object.fromEntries(fontNames.map((name) => [
+    name,
+    readFileSync(new URL(`../public/fonts/pdf/${name}`, import.meta.url)).toString('base64'),
+  ]));
+  const controller = new AbortController();
+  controller.abort();
+  await assert.rejects(
+    generateVocabularyPdfBlob({
+      title: '取消验收',
+      words: [{ id: 1, word: 'cancel', phonetic: '/ˈkænsəl/', pos: 'v.', base_meaning: '取消' }],
+      perPage: 30,
+      signal: controller.signal,
+    }, vfs),
+    (error) => error?.name === 'AbortError',
+  );
+});
+
+t('PWA 安装阶段明确预缓存 PDF 动态分包和三套字体', () => {
+  const workerSource = readFileSync(new URL('../public/sw.js', import.meta.url), 'utf8');
+  const viteSource = readFileSync(new URL('../vite.config.js', import.meta.url), 'utf8');
+  assert.match(viteSource, /manifest:\s*['"]asset-manifest\.json['"]/);
+  assert.match(workerSource, /precachePdfExporter/);
+  assert.match(workerSource, /src\/lib\/pdfDocument\.ts/);
+  assert.equal((workerSource.match(/WordQuestSans(?:SC)?-(?:Regular|Bold)\.ttf/g) || []).length, 3);
+});
+
+t('导出主流程已彻底移除打印 API，Android 使用创建文档选择器', () => {
+  const saveSource = readFileSync(new URL('../src/lib/pdfSave.ts', import.meta.url), 'utf8');
+  const viewSource = readFileSync(new URL('../src/screens/PrintView.tsx', import.meta.url), 'utf8');
+  const androidSource = readFileSync(new URL('../android/app/src/main/java/com/wordquest/kaoyan/NativePdfSavePlugin.java', import.meta.url), 'utf8');
+  assert.doesNotMatch(saveSource + viewSource, /window\.print\s*\(/);
+  assert.doesNotMatch(androidSource, /PrintManager|\.print\s*\(/);
+  assert.doesNotMatch(androidSource, /call\.getLong\s*\(/);
+  assert.match(androidSource, /ACTION_CREATE_DOCUMENT/);
+  assert.match(androidSource, /application\/pdf/);
+  assert.match(androidSource, /instanceof Number/);
+  assert.match(androidSource, /MAX_BASE64_CHARS/);
+  assert.match(androidSource, /AtomicBoolean/);
+  assert.match(androidSource, /openOutputStream\(target, "rwt"\)/);
+  assert.match(androidSource, /DocumentsContract\.deleteDocument/);
+  assert.match(viewSource, /disabled=\{saving \|\| generating\}/);
+  assert.equal(existsSync(new URL('../src/lib/nativePrint.ts', import.meta.url)), false);
+  assert.equal(existsSync(new URL('../android/app/src/main/java/com/wordquest/kaoyan/NativePrintPlugin.java', import.meta.url)), false);
 });
 
 function baseProgress(over) {

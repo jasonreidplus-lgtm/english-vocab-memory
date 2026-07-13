@@ -342,7 +342,7 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onOp
       </div>
 
       {/* —— 导出 PDF —— */}
-      <div className="section-title"><FileDown size={15} /> 导出 / 打印</div>
+      <div className="section-title"><FileDown size={15} /> 导出 PDF</div>
       <div className="card stat-card">
         <div className="daily-export">
           <div className="row between wrap" style={{ gap: 8 }}>
@@ -374,7 +374,7 @@ export default function StatsScreen({ progress, summary, themeKey, onTheme, onOp
             <button key={e.key} className="export-btn" onClick={() => runExport(e.label, () => onExport(e.key))}>{e.label}</button>
           ))}
         </div>
-        <div className="muted-line">选一类导出单词表 → 调整分页 → 点「选择位置 / 打印 PDF」；系统界面可选择文件夹和文件名。困难词最适合考前突击。</div>
+        <div className="muted-line">选一类单词表 → 调整每页词数 → 点「保存 PDF」。应用会直接生成 PDF 文件，不经过打印；困难词最适合考前突击。</div>
         {exportMsg && <div className="export-msg" role="status" aria-live="polite">{exportMsg}</div>}
       </div>
 

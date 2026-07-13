@@ -1,11 +1,9 @@
-/* 打印 / 导出 PDF 视图：全屏覆盖，渲染所选单词列表。
-   Android 由原生 PrintManager 唤起系统打印，Web/PWA 回退 window.print()；
-   所有平台都只响应用户点击，避免移动端拦截自动打印。
-   中文走系统字体零乱码；每条 break-inside:avoid 防跨页截断。
-   每页固定词数(默认 30)，每满一页插分页符(#1)。 */
-import React, { useMemo, useState } from 'react';
-import { Printer, ArrowLeft } from 'lucide-react';
-import { pdfSaveInstructions, printDocument } from '../lib/nativePrint';
+/* PDF 导出视图：先在本机直接生成真实 PDF，再按平台保存或下载。
+   不调用浏览器或系统打印服务；电脑、手机、平板共用同一份矢量 PDF 排版。 */
+import React, { useEffect, useMemo, useState } from 'react';
+import { ArrowLeft, FileDown } from 'lucide-react';
+import { generateVocabularyPdfBlob } from '../lib/pdfDocument';
+import { makePdfFileName, pdfSaveInstructions, savePdfBlob } from '../lib/pdfSave';
 import type { Word } from '../types';
 
 interface PrintViewProps {
@@ -16,32 +14,86 @@ interface PrintViewProps {
 
 const PER_PAGE_OPTIONS = [20, 30, 50, 100];
 
-function chunk<T>(arr: T[], size: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
-  return out;
-}
-
 export default function PrintView({ title, words, onClose }: PrintViewProps) {
   const [perPage, setPerPage] = useState(30);
-  const [printing, setPrinting] = useState(false);
-  const [printError, setPrintError] = useState('');
-  const pages = useMemo(() => chunk(words, perPage), [words, perPage]);
+  const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
+  const [pdfUrl, setPdfUrl] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState('正在准备 PDF…');
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const pageCount = Math.ceil(words.length / perPage);
+  const previewWords = useMemo(() => words.slice(0, perPage), [words, perPage]);
   const saveHelp = useMemo(() => pdfSaveInstructions(), []);
+  const fileName = useMemo(() => makePdfFileName(title), [title]);
 
-  const handlePrint = async () => {
-    if (printing) return;
-    setPrintError('');
-    setPrinting(true);
+  useEffect(() => {
+    let active = true;
+    let createdUrl = '';
+    const controller = new AbortController();
+    setPdfBlob(null);
+    setPdfUrl('');
+    setProgress(0);
+    setStatus('正在准备 PDF…');
+    setError('');
+
+    if (!words.length) {
+      setStatus('没有可导出的单词');
+      return () => undefined;
+    }
+
+    generateVocabularyPdfBlob({
+      title,
+      words,
+      perPage,
+      signal: controller.signal,
+      onProgress: (value, label) => {
+        if (!active) return;
+        setProgress(value);
+        setStatus(label);
+      },
+    }).then((blob) => {
+      if (!active) return;
+      createdUrl = URL.createObjectURL(blob);
+      setPdfBlob(blob);
+      setPdfUrl(createdUrl);
+      setProgress(1);
+      setStatus(`PDF 已生成 · ${(blob.size / 1024).toFixed(0)} KB`);
+    }).catch((reason) => {
+      if (!active) return;
+      const detail = reason instanceof Error ? reason.message : String(reason || '');
+      setError(detail || 'PDF 生成失败，请重试');
+      setStatus('PDF 生成失败');
+    });
+
+    return () => {
+      active = false;
+      controller.abort();
+      if (createdUrl) URL.revokeObjectURL(createdUrl);
+    };
+  }, [title, words, perPage]);
+
+  const handleSave = async () => {
+    if (!pdfBlob || saving) return;
+    setSaving(true);
+    setError('');
     try {
-      await printDocument(title);
-    } catch (error) {
-      const detail = error instanceof Error ? error.message : String(error || '');
-      setPrintError(detail || '无法打开打印服务，请稍后重试');
+      const result = await savePdfBlob(pdfBlob, title, pdfUrl, (value, label) => {
+        setProgress(value);
+        setStatus(label);
+      });
+      setProgress(1);
+      setStatus(result.message);
+    } catch (reason) {
+      const detail = reason instanceof Error ? reason.message : String(reason || '');
+      setError(detail || 'PDF 保存失败，请点下方链接直接下载');
+      setStatus('PDF 保存失败');
     } finally {
-      setPrinting(false);
+      setSaving(false);
     }
   };
+
+  const generating = !pdfBlob && !error && words.length > 0;
 
   return (
     <div className="print-root">
@@ -49,66 +101,67 @@ export default function PrintView({ title, words, onClose }: PrintViewProps) {
         <button className="pill" onClick={onClose} aria-label="返回">
           <ArrowLeft size={16} /> 返回
         </button>
-        <span className="label">{title} · {words.length} 词 · {pages.length} 页</span>
+        <span className="label">{title} · {words.length} 词 · {pageCount} 页</span>
         <span className="print-pp">
           每页
-          <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))}>
-            {PER_PAGE_OPTIONS.map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
+          <select value={perPage} disabled={saving || generating} onChange={(event) => setPerPage(Number(event.target.value))}>
+            {PER_PAGE_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}
           </select>
           词
         </span>
         <button
           className="pill print-go"
-          onClick={handlePrint}
-          disabled={printing || !words.length}
-          aria-busy={printing}
-          aria-label="选择保存位置或打印 PDF"
+          onClick={handleSave}
+          disabled={!pdfBlob || saving || !words.length}
+          aria-busy={generating || saving}
+          aria-label="保存 PDF 文件"
         >
-          <Printer size={16} /> {printing ? '正在打开系统界面…' : '选择位置 / 打印 PDF'}
+          <FileDown size={16} /> {generating ? '正在生成 PDF…' : saving ? '正在保存 PDF…' : '保存 PDF'}
         </button>
       </div>
 
       <div className="pdf-save-help" role="note">
-        <b>保存位置：</b>{saveHelp}
+        <b>直接 PDF：</b>{saveHelp}
+        <div className="pdf-progress" aria-hidden="true"><i style={{ width: `${Math.round(progress * 100)}%` }} /></div>
+        <div className="pdf-status" role="status" aria-live="polite">{status}</div>
+        {pdfUrl && (
+          <a className="pdf-direct-link" href={pdfUrl} download={fileName}>
+            微信没有自动下载？点这里直接下载 PDF
+          </a>
+        )}
       </div>
 
-      {printError && (
-        <div role="alert" className="pv-empty" style={{ color: '#b42318', padding: '10px 24px' }}>
-          打印失败：{printError}
+      {error && (
+        <div role="alert" className="pv-empty pdf-error">
+          {error}
+          {pdfUrl && <>；也可点上方“直接下载 PDF”</>}
         </div>
       )}
 
-      {pages.map((pageWords, pi) => (
-        <div className="print-page" key={pi}>
+      {!!words.length && (
+        <div className="print-page">
           <div className="pv-head">
             <h1 className="pv-title">{title}</h1>
-            <span className="pv-pageno">{pi + 1} / {pages.length}</span>
+            <span className="pv-pageno">1 / {pageCount}</span>
           </div>
-          {pi === 0 && (
-            <div className="pv-meta">
-              考研背单词 · 共 {words.length} 词 · 每页 {perPage} 词 · 通过系统界面选择 PDF 保存位置
-            </div>
-          )}
-          <ol className="pv-list" start={pi * perPage + 1}>
-            {pageWords.map((w, i) => (
-              <li key={`${w.id}-${i}`} className="pv-item">
-                <span className="pv-word">{w.word}</span>
-                {w.phonetic && <span className="pv-ph">{w.phonetic}</span>}
+          <div className="pv-meta">
+            考研背单词 · 共 {words.length} 词 · 每页 {perPage} 词 · 已在本机直接生成 PDF
+          </div>
+          <ol className="pv-list">
+            {previewWords.map((word, index) => (
+              <li key={`${word.id}-${index}`} className="pv-item">
+                <span className="pv-word">{word.word}</span>
+                {word.phonetic && <span className="pv-ph">{word.phonetic}</span>}
                 <span className="pv-mean">
-                  {w.pos && <em className="pv-pos">{w.pos}</em>} {w.base_meaning}
+                  {word.pos && <em className="pv-pos">{word.pos}</em>} {word.base_meaning}
                 </span>
               </li>
             ))}
           </ol>
-        </div>
-      ))}
-      {!words.length && (
-        <div className="print-page">
-          <div className="pv-empty">没有符合条件的单词。</div>
+          {pageCount > 1 && <div className="pdf-preview-note">页面仅预览第 1 页；保存的 PDF 包含全部 {pageCount} 页。</div>}
         </div>
       )}
+      {!words.length && <div className="print-page"><div className="pv-empty">没有符合条件的单词。</div></div>}
     </div>
   );
 }

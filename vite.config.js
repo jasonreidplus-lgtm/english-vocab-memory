@@ -9,5 +9,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    // Service Worker 读取该清单，精确预缓存带哈希的 PDF 动态分包。
+    manifest: 'asset-manifest.json',
   },
 });

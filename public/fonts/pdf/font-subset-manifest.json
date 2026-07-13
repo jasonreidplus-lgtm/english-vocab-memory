@@ -1,0 +1,23 @@
+{
+  "sourceCharacters": 4812,
+  "scGlyphs": 4793,
+  "latinRegularGlyphs": 161,
+  "latinBoldGlyphs": 161,
+  "missingCodepoints": [],
+  "scFallbackCodepoints": [
+    "U+2160",
+    "U+2191",
+    "U+2460",
+    "U+2461",
+    "U+2462",
+    "U+2502",
+    "U+2510",
+    "U+251A",
+    "U+2529",
+    "U+252D",
+    "U+252E",
+    "U+2542",
+    "U+25A0"
+  ],
+  "runtimeMissingCodepoints": []
+}

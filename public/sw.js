@@ -3,9 +3,41 @@
    - 导航请求(打开页面)：network-first，断网回退缓存(再回退首页壳)。
    - 其余同源 GET(JS/CSS/词库/字体)：stale-while-revalidate(先给缓存，后台更新)。
    词库虽大，但首访后即入缓存，之后从磁盘读取，断网照背。 */
-const CACHE = 'wordquest-v12'; // bump：英语一/英语二双入口 + 英语二历年阅读与长难句分库
+const CACHE = 'wordquest-v121'; // bump：直接生成/保存 PDF，不再经过打印服务
+const PDF_STATIC_ASSETS = [
+  './fonts/pdf/WordQuestSansSC-Regular.ttf',
+  './fonts/pdf/WordQuestSans-Regular.ttf',
+  './fonts/pdf/WordQuestSans-Bold.ttf',
+];
 
-self.addEventListener('install', () => self.skipWaiting());
+function collectManifestFiles(manifest, key, files, visited) {
+  if (!key || visited.has(key)) return;
+  visited.add(key);
+  const entry = manifest[key];
+  if (!entry) return;
+  if (entry.file) files.add(`./${entry.file}`);
+  for (const dependency of [...(entry.imports || []), ...(entry.dynamicImports || [])]) {
+    collectManifestFiles(manifest, dependency, files, visited);
+  }
+}
+
+async function precachePdfExporter() {
+  const manifestUrl = new URL('./asset-manifest.json', self.registration.scope);
+  const response = await fetch(manifestUrl, { cache: 'no-cache' });
+  if (!response.ok) throw new Error(`PDF asset manifest ${response.status}`);
+  const manifest = await response.json();
+  const entryKey = Object.keys(manifest).find((key) => key.endsWith('src/lib/pdfDocument.ts'));
+  if (!entryKey) throw new Error('PDF exporter missing from asset manifest');
+
+  const files = new Set(PDF_STATIC_ASSETS);
+  collectManifestFiles(manifest, entryKey, files, new Set());
+  const cache = await caches.open(CACHE);
+  await cache.addAll([manifestUrl, ...[...files].map((path) => new URL(path, self.registration.scope))]);
+}
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(precachePdfExporter().then(() => self.skipWaiting()));
+});
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(

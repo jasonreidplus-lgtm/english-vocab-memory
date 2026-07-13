@@ -151,6 +151,7 @@ export default function App() {
       import('./screens/SearchScreen');
       import('./screens/StatsScreen');
       import('./components/SettingsPanel');
+      import('./lib/pdfDocument').then((module) => module.warmPdfExporter()).catch(() => undefined);
     };
     if (typeof requestIdleCallback === 'function') {
       const id = requestIdleCallback(warm);
