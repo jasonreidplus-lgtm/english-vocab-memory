@@ -28,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      WORDQUEST_DEBUG_KEYSTORE: ${{ runner.temp }}/wordquest-signing/debug.keystore
+      WORDQUEST_DEBUG_KEYSTORE: ${{ github.workspace }}/.wordquest-signing/debug.keystore
     steps:
       - uses: actions/checkout@v4
 
