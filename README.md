@@ -1,6 +1,6 @@
 # 考研词关 · WordQuest
 
-考研 5500 词「闯关学习」web app。Vite + React 单页，**纯前端、可安装（PWA）、离线可用、进度存本地**。v1.2.0 加入考研英语一 / 英语二双入口及分库阅读精读。
+考研 5500 词「闯关学习」web app。Vite + React 单页，**纯前端、可安装（PWA）、离线可用、进度存本地**。v1.2.0 加入考研英语一 / 英语二双入口及分库阅读精读；v1.2.1 改为应用直接生成、保存真正的 PDF，不再依赖打印服务。
 数据来自 `public/data/vocab.json`，每 10 词一组共约 550 关。手机/电脑通用，移动端优先。
 
 ## 运行 / 构建 / 测试
@@ -48,6 +48,8 @@ public/
   data/vocab-index.json    （自动生成）懒加载用的轻量索引
   data/groups/g{N}.json    （自动生成）各关的富字段（词根/例句/辨析…）
   manifest.webmanifest     PWA 清单     sw.js  service worker（离线缓存）
+  fonts/pdf/               PDF 内嵌中英文/音标字体子集及 SIL OFL 许可证
+  licenses/                PDF 引擎等随包开源组件许可证
   icon-*.png               应用图标（朱印风，scripts/generate-icons.cjs 生成）
 data-src/
   拆句_JSONL/              英语一逐句源（保留既有 ID）
@@ -71,8 +73,19 @@ scripts/
   merge-enrich.cjs         把 enrich*.json 的助记/词根合并进 vocab.json
   generate-icons.cjs       手写 PNG 编码器生成应用图标
   test.mjs                 纯函数自测
+  build-pdf-fonts.py       从 Noto 字体生成离线 PDF 专用子集
   enrich*.json             手写的趣味助记（14 个批次，1579 条）
 ```
+
+## 直接导出 PDF
+
+统计页可按日期或分类整理单词，进入导出页后选择每页 20 / 30 / 50 / 100 词。应用会在本机生成可搜索、可复制的 A4 PDF：
+
+- Android APK：打开系统“保存到”文件选择器，可选文件夹和文件名，不需要存储权限。
+- 电脑浏览器：支持时打开“另存为”；微信等内置浏览器不支持时提供真实 `.pdf` 下载链接。
+- iPhone / iPad / 手机网页：优先共享真实 PDF，可在系统面板选“存储到文件”，并保留直接下载入口。
+
+导出过程不会调用打印机或打印预览；PDF 引擎和字体随 PWA / APK 离线内置。
 
 ## 数据契约
 
