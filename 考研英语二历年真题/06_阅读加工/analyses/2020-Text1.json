@@ -1,0 +1,50 @@
+{
+  "E2-2020-T1-P1-S2": {
+    "trunk": "S+V+O从句：Laleh Quinn and her colleagues tested whether rats can detect...（奎因及其同事测试老鼠能否识别……）",
+    "structure": [
+      "目的不定式：To find out",
+      "  └ 宾语从句(if)：if this extends to non-living beings",
+      "主句：Laleh Quinn ... and her colleagues tested",
+      "  └ 宾语从句(whether)：whether rats can detect social signals from robotic rats"
+    ],
+    "logic": "句首不定式交代研究目的，其中 if 引出待确认的问题；主句用 whether 从句说明实际测试内容。",
+    "notes": [
+      "extend to：延伸到、适用于。",
+      "non-living beings：非生命体。",
+      "whether 引导名词性从句，表示“是否”。"
+    ]
+  },
+  "E2-2020-T1-P1-S11": {
+    "trunk": "S+V+O：This could lead to the rats remembering... and wanting...（这可能使老鼠记住……并希望……）",
+    "structure": [
+      "主句：This could lead to",
+      "  ├ 动名词复合结构①：the rats better remembering having freed it earlier",
+      "  └ 并列动名词复合结构②：wanting the robot to return the favour",
+      "      └ 时间状语从句(when)：when they get trapped",
+      "插入式报道语：she says"
+    ],
+    "logic": "lead to 后接两个并列的动名词内容，分别表示记忆和预期回报；when 从句限定回报发生的情形。",
+    "notes": [
+      "lead to 中 to 是介词，后接动名词。",
+      "remember having done：记得曾经做过。",
+      "return the favour：回报帮助。"
+    ]
+  },
+  "E2-2020-T1-P1-S15": {
+    "trunk": "引语复句：We'd assumed..., but that wasn't necessary（我们原以为……，但那并无必要）",
+    "structure": [
+      "引语分句①：We'd assumed",
+      "  └ 宾语从句〔省略 that〕：we'd have to give it..., and put a scent on it",
+      "      └ 目的不定式：to make it smell like a real rat",
+      "转折分句(but)：that wasn't necessary",
+      "报道语：says Janet Wiles",
+      "  └ 非限制性定语从句(who)：who helped with the research"
+    ],
+    "logic": "assumed 后的从句列出原本以为必需的拟真特征，but 否定这种必要性；who 补充说明怀尔斯与研究的关系。",
+    "notes": [
+      "would have to：将不得不。",
+      "make it smell like...：使它闻起来像……。",
+      "that 指代前面整套拟真设计。"
+    ]
+  }
+}

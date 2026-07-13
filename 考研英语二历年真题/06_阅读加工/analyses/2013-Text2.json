@@ -1,0 +1,48 @@
+{
+  "E2-2013-T2-P1-S2": {
+    "trunk": "倒装主干：Along with A came those ...（与A一同到来的还有那些人）",
+    "structure": [
+      "句首介词短语：Along with the many folks looking to make a permanent home in the United States",
+      "完全倒装：came those（正常语序为 those came）",
+      "定语从句①(who，修饰 those)：who had no intention to stay",
+      "并列定语从句②(and who)：who would make some money and then go home"
+    ],
+    "logic": "作者用 along with 引出的倒装，把永久定居者与赚够钱便返乡的短期移民并置，突出历史移民形态的多样性。",
+    "notes": [
+      "句首较长的 Along with 短语触发完全倒装，真正主语是 those。",
+      "looking to... 是现在分词短语，修饰 folks。",
+      "have no intention to do 表示“无意做某事”。"
+    ]
+  },
+  "E2-2013-T2-P1-S19": {
+    "trunk": "主干：We need them to imagine the United States as a place（我们需要他们把美国想象成一个地方）",
+    "structure": [
+      "need + 宾语 + 不定式：need them to imagine ...",
+      "imagine A as B：把 the United States 设想为 a place",
+      "定语从句(where，修饰 place)：where they can be productive for a while",
+      "伴随状语(without)：without committing themselves to staying forever"
+    ],
+    "logic": "句子提出一种新的移民预期：允许移民阶段性贡献，而不把永久定居作为获得接纳的前提。",
+    "notes": [
+      "need them to do 是“需要他们做”，不是“需要他们来做某物”。",
+      "commit oneself to 中 to 是介词，后接 staying。",
+      "productive 在此指“从事生产性工作、作出贡献”。"
+    ]
+  },
+  "E2-2013-T2-P1-S22": {
+    "trunk": "主干：Looking beyond ... means opening up ... and understanding ...",
+    "structure": [
+      "动名词短语作主语：Looking beyond the culture war logic of right or wrong",
+      "并列宾语①：opening up the middle ground",
+      "并列宾语②：understanding that managing immigration today requires ...",
+      "that 宾语从句内，动名词短语 managing immigration today 作主语",
+      "including 后置补充 outcomes；定语从句(that)：that are not easy to accomplish legally in the existing system"
+    ],
+    "logic": "本句把“超越二元对立”具体化为两步：开辟中间地带，并接受移民治理需要多路径、多结果。",
+    "notes": [
+      "look beyond 意为“越过表面框架来看”。",
+      "means 后的 opening 与 understanding 平行。",
+      "including some 中 some 指代 outcomes；定语从句说明部分结果在现行制度下难以合法实现。"
+    ]
+  }
+}

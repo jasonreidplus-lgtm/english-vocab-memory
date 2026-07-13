@@ -1,0 +1,48 @@
+{
+  "E2-2014-T4-P1-S14": {
+    "trunk": "主干：Don Foster has hinted that George Osborne may introduce more flexibility to the current cap",
+    "structure": [
+      "同位语①：The communities minister，说明 Don Foster 身份",
+      "宾语从句(that)：George Osborne ... may introduce more flexibility to the current cap",
+      "同位语②：Chancellor of the Exchequer，说明 George Osborne 身份",
+      "介词短语：on the amount",
+      "定语从句(that，修饰 amount)：that local authorities can borrow against their housing stock debt"
+    ],
+    "logic": "句子通过两处同位语交代官员身份，再把政策变化具体限定为地方政府住房债务融资上限的灵活化。",
+    "notes": [
+      "hint that 表示“暗示可能……”。",
+      "cap on the amount 指“金额上限”。",
+      "borrow against 表示以某项资产或债务安排为依据融资。"
+    ]
+  },
+  "E2-2014-T4-P1-S15": {
+    "trunk": "主干：Evidence shows that 60,000 extra new homes could be built",
+    "structure": [
+      "宾语从句(that)：60,000 extra new homes could be built over the next five years",
+      "条件状语从句(if)：if the cap were lifted",
+      "现在分词短语作结果状语：increasing GDP by 0.6%"
+    ],
+    "logic": "本句用量化证据建立政策链条：取消借款上限→新增住房建设→GDP增长。",
+    "notes": [
+      "could be built 是情态动词加被动语态。",
+      "lift the cap 表示“取消/解除上限”。",
+      "increasing 的逻辑主语是前面整个新增住房建设结果，而非 homes 本身。"
+    ]
+  },
+  "E2-2014-T4-P1-S18": {
+    "trunk": "主干：we must face up to the fact",
+    "structure": [
+      "让步状语从句(While)：While these measures would be welcome in the short term",
+      "主句：we must face up to the fact",
+      "同位语从句(that，解释 fact)：the existing £4.5bn programme ... is unlikely to be extended beyond then",
+      "介词短语修饰 programme：of grants to fund new affordable housing",
+      "过去分词短语作后置定语：set to expire in 2015"
+    ],
+    "logic": "作者先承认短期措施有益，再用 while 转折，强调公共拨款计划到期且难以续期这一长期财政现实。",
+    "notes": [
+      "face up to 表示“正视、勇敢面对”。",
+      "set to do 表示“预计/安排将……”。",
+      "beyond then 中 then 指2015年计划到期之时。"
+    ]
+  }
+}

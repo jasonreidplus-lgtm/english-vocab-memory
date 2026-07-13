@@ -1,5 +1,6 @@
 /* 纯函数单测，用 tsx 跑 TS 源：npm test (= tsx scripts/test.mjs) */
 import assert from 'node:assert';
+import { readFileSync } from 'node:fs';
 import { shortMeaning, tallyResult, buildQuiz } from '../src/game/quiz';
 import { shuffle, sample } from '../src/lib/shuffle';
 import { emptyCard, gradeCard, markWrongCard, isMastered, isDue, previewDays, intervalLabel, Rating } from '../src/lib/fsrs';
@@ -7,6 +8,7 @@ import { computeStats } from '../src/lib/stats';
 import { starsFor, xpFor, summarize, dueReviewIds, dayKey, computeLevelStates, nextEnterableGroup } from '../src/state/progress';
 import { splitEnSentences } from '../src/lib/text';
 import { reducer } from '../src/state/useProgress';
+import { pdfSaveInstructions, sanitizePdfDocumentName } from '../src/lib/nativePrint';
 
 let pass = 0;
 let fail = 0;
@@ -248,6 +250,56 @@ t('新用户先改每日目标，首次学习仍从连续 1 天开始', () => {
   const studied = reducer(goalSet, { type: 'studyActivity', words: 1 });
   assert.equal(studied.daily.streak, 1);
   assert.equal(studied.daily.count, 1);
+});
+
+console.log('真题阅读双分库:');
+const passageData = JSON.parse(readFileSync(new URL('../public/data/passages.json', import.meta.url), 'utf8'));
+t('篇目 ID 唯一且英语一/二都存在', () => {
+  const ids = passageData.map((p) => p.id);
+  assert.equal(new Set(ids).size, ids.length);
+  assert.ok(passageData.some((p) => p.exam === 'english1'));
+  assert.ok(passageData.some((p) => p.exam === 'english2'));
+});
+t('英语一保留既有 52 个完成记录 ID', () => {
+  const expectedYears = [...Array.from({ length: 11 }, (_, i) => 2010 + i), 2022, 2023];
+  const expectedIds = expectedYears.flatMap((year) => [1, 2, 3, 4].map((text) => `ky-${year}-t${text}`));
+  const actualIds = passageData.filter((p) => p.exam === 'english1').map((p) => p.id);
+  assert.deepEqual(actualIds, expectedIds);
+});
+t('英语二 2010-2026 共 68 篇且逐句译文完整', () => {
+  const english2 = passageData.filter((p) => p.exam === 'english2');
+  assert.equal(english2.length, 68);
+  assert.deepEqual([...new Set(english2.map((p) => p.year))], Array.from({ length: 17 }, (_, i) => 2010 + i));
+  for (const year of Array.from({ length: 17 }, (_, i) => 2010 + i)) {
+    const yearly = english2.filter((p) => p.year === year);
+    assert.deepEqual(yearly.map((p) => p.text), [1, 2, 3, 4]);
+    assert.deepEqual(yearly.map((p) => p.id), [1, 2, 3, 4].map((text) => `ky-e2-${year}-t${text}`));
+  }
+  assert.ok(english2.every((p) => p.sents.length > 0 && p.sents.every((s) => s.cn)));
+});
+t('exam 与内置篇目 ID 严格对应，英语一逐句译文完整', () => {
+  assert.ok(passageData.every((p) => p.exam === 'english2' ? p.id.startsWith('ky-e2-') : /^ky-\d{4}-t[1-4]$/.test(p.id)));
+  const english1 = passageData.filter((p) => p.exam === 'english1');
+  assert.equal(english1.length, 52);
+  assert.ok(english1.every((p) => p.sents.length > 0 && p.sents.every((s) => s.cn)));
+});
+t('英语二每篇正好 3 个长难句拆解', () => {
+  const english2 = passageData.filter((p) => p.exam === 'english2');
+  assert.ok(english2.every((p) => p.sents.filter((s) => s.analysis).length === 3));
+});
+
+console.log('跨平台 PDF 保存:');
+t('导出标题会清理跨平台非法文件名字符', () => {
+  assert.equal(sanitizePdfDocumentName('  2026/错词:*?"<>|.pdf  '), '2026-错词');
+  assert.equal(sanitizePdfDocumentName('CON'), '_CON');
+  assert.equal(sanitizePdfDocumentName('...'), '考研词关');
+});
+t('电脑、Android、iPhone/iPad、移动浏览器均提示选择保存位置', () => {
+  for (const platform of ['desktop-web', 'android-native', 'ios-web', 'mobile-web']) {
+    const help = pdfSaveInstructions(platform);
+    assert.match(help, /PDF/);
+    assert.match(help, /选择|位置|文件夹/);
+  }
 });
 
 function baseProgress(over) {

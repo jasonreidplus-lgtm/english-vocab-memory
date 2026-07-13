@@ -1,0 +1,49 @@
+{
+  "E2-2015-T2-P1-S4": {
+    "trunk": "主干：This has created 'a paradox'",
+    "structure": [
+      "解释结构(in that)：in that recruiting first-generation students, but then watching many of them fail, means that ...",
+      "动名词并列主语：recruiting ... but then watching ...",
+      "means 的宾语从句(that)：higher education has continued to reproduce and widen ... an achievement gap",
+      "插入对比：rather than close",
+      "来源状语：according to the depressing beginning of a paper forthcoming ..."
+    ],
+    "logic": "悖论在于，高校一边扩大第一代学生招生，一边未能帮助许多人成功，结果反而复制并扩大阶层成就差距。",
+    "notes": [
+      "in that 用来具体解释 paradox，意为“因为/体现在”。",
+      "recruiting 与 watching 共同构成长主语，谓语用单数 means。",
+      "forthcoming 表示论文“即将发表”。"
+    ]
+  },
+  "E2-2015-T2-P1-S5": {
+    "trunk": "主干：the article is actually quite optimistic",
+    "structure": [
+      "原因状语从句(as)：as it outlines a potential solution to this problem",
+      "现在分词短语作进一步说明：suggesting that an approach ... can close 63 percent of the achievement gap",
+      "定语从句(which，修饰 approach)：which involves a one-hour, next-to-no-cost program",
+      "过去分词括注：measured by such factors as grades，修饰 achievement gap",
+      "介词结构：between first-generation and other students"
+    ],
+    "logic": "先以 optimistic 反转上一句的悲观基调，再逐层说明方案的低成本、短时长与可量化效果。",
+    "notes": [
+      "as 在此表原因。",
+      "next-to-no-cost 表示“几乎零成本”。",
+      "suggesting 的逻辑主语是前面整件“文章提出方案”的事实。"
+    ]
+  },
+  "E2-2015-T2-P1-S8": {
+    "trunk": "对比主干：Most of the first-generation students were recipients of Pell Grants, while this was true only for 8.6 percent ...",
+    "structure": [
+      "主句①：Most ... (59.1 percent) were recipients of Pell Grants",
+      "同位语解释：a federal grant for undergraduates with financial need",
+      "对比并列从句(while)：while this was true only for 8.6 percent of the students",
+      "介词宾语扩展：with at least one parent with a four-year degree"
+    ],
+    "logic": "59.1%与8.6%的鲜明对比，用经济资助数据呈现第一代大学生更明显的阶层劣势。",
+    "notes": [
+      "while 在此表示对比“而”，不是时间。",
+      "this was true 指“领取 Pell Grants”这一情况。",
+      "两个 with 分别表示“学生具有某父母条件”和“父母具有某学位”。"
+    ]
+  }
+}

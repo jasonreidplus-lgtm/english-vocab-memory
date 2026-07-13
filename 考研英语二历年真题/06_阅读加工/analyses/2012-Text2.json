@@ -1,0 +1,48 @@
+{
+  "E2-2012-T2-P1-S2": {
+    "trunk": "转折主干：It is not that pink is bad, but it is a tiny slice and it fuses identity to appearance（并非粉红色不好，而是它范围狭窄并把身份与外表捆绑）",
+    "structure": [
+      "结构①：It is not that pink is intrinsically bad",
+      "转折结构②(but)：it is such a tiny slice of the rainbow",
+      "并列结构③(and)：it also repeatedly and firmly fuses girls' identity to appearance",
+      "  └ 让步状语从句(though)：though it may celebrate girlhood in one way"
+    ],
+    "logic": "not that...but... 先排除对颜色本身的道德判断，再指出问题；though 插入承认其积极一面，主句用 also 转回更深层的负面影响。",
+    "notes": [
+      "intrinsically 指“本质上、内在地”。",
+      "a tiny slice of the rainbow 比喻女孩可选择的色彩和想象空间被压缩。",
+      "fuse A to B：把A牢牢连接/捆绑到B上。"
+    ]
+  },
+  "E2-2012-T2-P1-S6": {
+    "trunk": "S+V：Children were not colour-coded until the early 20th century（直到20世纪初才按颜色区分儿童性别）",
+    "structure": [
+      "主句：Children were not colour-coded at all until the early 20th century",
+      "冒号后解释：in the era before domestic washing machines all babies wore white as a practical matter",
+      "  └ 原因状语从句(since)：since the only way of getting clothes clean was to boil them"
+    ],
+    "logic": "not...until... 表示“直到……才”；冒号后的历史事实解释此前为什么婴儿统一穿白色，since 再给出便于煮洗的原因。",
+    "notes": [
+      "colour-code 在此指用不同颜色标记或区分性别。",
+      "as a practical matter 指出于实际、实用考虑。",
+      "getting clothes clean 是使衣服变干净。"
+    ]
+  },
+  "E2-2012-T2-P1-S10": {
+    "trunk": "强调句：It was not until the mid-1980s that pink fully came into its own（直到20世纪80年代中期，粉红色才真正流行起来）",
+    "structure": [
+      "not until 强调结构：It was not until the mid-1980s ... that pink fully came into its own",
+      "  └ 时间定语从句(when)：when amplifying age and sex differences became a dominant children's marketing strategy",
+      "补充时间从句(when)：when it began to seem inherently attractive to girls",
+      "  ├ 同位补充：part of what defined them as female",
+      "  │   └ 宾语从句(what)：what defined them as female",
+      "  └ 范围状语：at least for the first few critical years"
+    ],
+    "logic": "主轴是 not until...that...；第一个 when 界定80年代中期的营销变化，第二个 when 说明粉红色“大行其道”的具体表现。",
+    "notes": [
+      "come into one's own 指开始充分展现影响力、真正走红。",
+      "amplifying differences 指人为放大差异。",
+      "what defined them as female 中 what 同时作 define 的主语并引导名词性从句。"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "E2-2021-T4-P1-S1": {
+    "trunk": "并列复句：We're good at judging people..., and deliberation can be extraneous and intrusive（我们擅长凭短暂经验判断人，而深思可能多余且有干扰）",
+    "structure": [
+      "分句①：We're fairly good at judging people based on first impressions",
+      "  └ 同位解释：thin slices of experience",
+      "      └ 现在分词短语：ranging from a glimpse of a photo to five-minute interaction",
+      "并列分句(and)：deliberation can be not only extraneous but intrusive"
+    ],
+    "logic": "前半句定义基于“薄片经验”的判断，后半句用 not only...but...提出核心观点：刻意思考不但没必要，还可能妨碍判断。",
+    "notes": [
+      "be good at doing：擅长做某事。",
+      "thin slices of experience：极短的经验片段。",
+      "not only extraneous but intrusive：不仅多余，而且会造成干扰。"
+    ]
+  },
+  "E2-2021-T4-P1-S8": {
+    "trunk": "S+V+O从句：Ambady suspected that deliberation focused them on cues rather than letting signals form an impression（安巴迪怀疑深思让人关注线索，而非形成整体印象）",
+    "structure": [
+      "主句：Ambady suspected",
+      "  └ 宾语从句(that)：deliberation focused them on vivid but misleading cues",
+      "      ├ 举例：such as certain gestures or utterances",
+      "      └ 对比结构(rather than)：rather than letting the complex interplay of subtle signals form a holistic impression"
+    ],
+    "logic": "that 从句说明准确率下降的原因；rather than 对比刻意抓取显眼线索和让细微信号整体作用两种处理方式。",
+    "notes": [
+      "focus somebody on：使某人把注意力集中于。",
+      "interplay：相互作用。",
+      "holistic impression：整体印象。"
+    ]
+  },
+  "E2-2021-T4-P1-S16": {
+    "trunk": "S+V+O：people made decisions that were better and more satisfying（人们作出的决定更好且更令人满意）",
+    "structure": [
+      "主句：people made car-buying decisions",
+      "  └ 定语从句(that)：that were both objectively better and more personally satisfying",
+      "时间/条件省略结构：when asked to focus on their feelings rather than on details",
+      "限制转折：but only if the decision was complex",
+      "  └ 破折号解释：when they had a lot of information to process"
+    ],
+    "logic": "that 说明决定质量，when 交代实验要求；but only if 把直觉优势限制在复杂决策中，破折号再定义何为复杂。",
+    "notes": [
+      "objectively better：在客观标准上更好。",
+      "rather than on details：而不是关注细节。",
+      "only if：只有在……情况下才。"
+    ]
+  }
+}

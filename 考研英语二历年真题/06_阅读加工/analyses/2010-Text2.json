@@ -1,0 +1,48 @@
+{
+  "E2-2010-T2-P1-S10": {
+    "trunk": "S+V+O：This episode crystallizes the irony（这段插曲鲜明揭示了反差）",
+    "structure": [
+      "主句：This episode crystallizes the irony",
+      "  └ 同位语从句(that)〔说明 irony 的内容〕：that ... they often talk less at home",
+      "      └ 让步状语从句(although)：although American men tend to talk more than women in public situations",
+      "      └ 主句：they often talk less at home"
+    ],
+    "logic": "that 从句具体说明 irony 是什么；从句内部用 although 构成“公共场合说得更多—家里说得更少”的反差。",
+    "notes": [
+      "crystallize 在此意为“使清楚呈现、使具体化”。",
+      "that 引导的是解释 irony 内容的同位语从句。",
+      "more than women 与 less at home 的比较维度不同，翻译时要保留场景对照。"
+    ]
+  },
+  "E2-2010-T2-P1-S14": {
+    "trunk": "S+V+O：That amounts to millions of cases（那相当于数百万起案例）",
+    "structure": [
+      "背景状语：Given the current divorce rate of nearly 50 percent",
+      "主句：that amounts to millions of cases in the United States every year",
+      "  └ 破折号同位说明：a virtual epidemic of failed conversation"
+    ],
+    "logic": "Given... 提供计算背景；that 回指上一句所说因缺乏沟通而离婚的情况；破折号后的名词短语对数百万案例作总结性评价。",
+    "notes": [
+      "given 作介词，意为“考虑到、鉴于”。",
+      "amount to 在此意为“总计达到、相当于”。",
+      "virtual epidemic 是比喻，表示问题普遍得如同流行病。"
+    ]
+  },
+  "E2-2010-T2-P1-S15": {
+    "trunk": "S+V：Complaints ... focused not on tangible inequities（抱怨并不主要集中在有形的不平等上）",
+    "structure": [
+      "范围状语：In my own research",
+      "主句：complaints from women about their husbands most often focused not on tangible inequities",
+      "  └ 举例(such as)并列①：having given up the chance for a career",
+      "      └ 目的状语(to)：to accompany a husband to his〔his 后省略 career〕",
+      "  └ 举例并列②(or)：doing far more than their share of daily life-support work",
+      "      └ 举例(like)：cleaning, cooking and social arrangements"
+    ],
+    "logic": "not on... 与下一句 Instead... 形成跨句对照；such as 后有两个动名词结构，由 or 并列，分别说明职业牺牲和家务负担。",
+    "notes": [
+      "his 是名词性替代，完整含义为 his career。",
+      "far more than their share 指“远超她们应承担的份额”。",
+      "life-support work 在此不是医疗“生命支持”，而是维持日常生活运转的劳动。"
+    ]
+  }
+}

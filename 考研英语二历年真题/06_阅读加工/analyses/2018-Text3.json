@@ -1,0 +1,50 @@
+{
+  "E2-2018-T3-P1-S1": {
+    "trunk": "并列主干：The power and ambition…is astonishing - Amazon has announced…, but Facebook paid even more…（数字巨头的力量令人震惊：亚马逊宣布收购，而脸书此前支付得更多）",
+    "structure": [
+      "总起句：The power and ambition of the giants of the digital economy is astonishing",
+      "破折号后例证分句①：Amazon has just announced the purchase of the upmarket grocery chain Whole Foods for $13.5bn",
+      "并列转折分句②(but)：two years ago Facebook paid even more than that",
+      "  └ 目的状语：to acquire the WhatsApp messaging service",
+      "      └ 非限制性定语从句(which)：which doesn't have any physical product at all"
+    ],
+    "logic": "首句先作总体评价，破折号后用两笔巨额收购作证；but通过金额比较突出没有实体产品的数字服务也能获得更高估值。",
+    "notes": [
+      "主语power and ambition在此被视作整体概念，因此原文使用is。",
+      "upmarket表示“面向高端市场的”。",
+      "even more than that中的that指亚马逊收购全食超市所付的135亿美元。"
+    ]
+  },
+  "E2-2018-T3-P1-S12": {
+    "trunk": "并列句：Competition law deals with financial disadvantage, and this is not obvious when users don't pay（竞争法处理经济损害，但免费服务中的损害并不明显）",
+    "structure": [
+      "分句①：Competition law as presently interpreted deals with financial disadvantage to consumers",
+      "  └ 过去分词省略结构：as presently interpreted〔修饰/限定 Competition law〕",
+      "并列分句②(and)：this is not obvious",
+      "  └ 时间/条件状语从句(when)：when the users of these services don't pay for them"
+    ],
+    "logic": "第一分句界定现行竞争法关注的损害类型；第二分句指出用户不付费时，传统的经济损害标准难以显现。",
+    "notes": [
+      "as presently interpreted可补全为as it is presently interpreted。",
+      "this指前面的financial disadvantage to consumers。",
+      "pay for them中的them指these services。"
+    ]
+  },
+  "E2-2018-T3-P1-S16": {
+    "trunk": "类比结构：Just as ants farm aphids…, so Google farms us…（正如蚂蚁饲养蚜虫，谷歌也“饲养”我们）",
+    "structure": [
+      "类比分句(just as)：Just as some ants farm the bugs called aphids for the honeydew",
+      "  ├ 过去分词作后置定语：called aphids〔修饰 bugs〕",
+      "  └ 定语从句(that，修饰 honeydew)：they produce when they feed",
+      "      └ 时间状语从句(when)：when they feed",
+      "对应主句(so)：so Google farms us for the data",
+      "  └ 定语从句(that，修饰 data)：that our digital lives yield"
+    ],
+    "logic": "just as…so…建立严格类比：蚂蚁保护并利用蚜虫获取蜜露，谷歌则维护服务并利用用户获取数据。",
+    "notes": [
+      "just as A, so B表示“正如A，B也同样”。",
+      "farm在此是带批判意味的比喻用法，意为“饲养并从中获利”。",
+      "yield作动词表示“产生、产出”。"
+    ]
+  }
+}

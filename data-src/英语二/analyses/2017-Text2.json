@@ -1,0 +1,52 @@
+{
+  "E2-2017-T2-P1-S8": {
+    "trunk": "并列句：Infants are wired to look at parents' faces…, and if those faces are blank…, it can be disconcerting（婴儿天生观察父母面孔；若面孔无回应，孩子会不安）",
+    "structure": [
+      "分句①：Infants are wired to look at parents' faces",
+      "  └ 目的状语：to try to understand their world",
+      "并列分句②(and)：if those faces are blank and unresponsive, it can be extremely disconcerting for the children",
+      "  ├ 条件状语从句(if)：if those faces are blank and unresponsive",
+      "  │   └ 插入性方式从句(as)：as they often are when absorbed in a device",
+      "  └ 主句：it can be extremely disconcerting for the children"
+    ],
+    "logic": "第一分句说明婴儿观察面孔的本能；第二分句以if推出父母沉浸设备、面无回应时给孩子造成的后果。",
+    "notes": [
+      "be wired to do表示“天生/生理上被设定为会做某事”。",
+      "as they often are中的are后省略blank and unresponsive。",
+      "when absorbed in a device是when they are absorbed的省略形式。"
+    ]
+  },
+  "E2-2017-T2-P1-S10": {
+    "trunk": "主干：a mother is asked to interact… before putting on…; the child becomes increasingly distressed（母亲先互动再面无表情；孩子越来越痛苦）",
+    "structure": [
+      "主句①：a mother is asked to interact with her child in a normal way",
+      "  └ 时间状语(before)：before putting on a blank expression and not giving them any visual social feedback",
+      "冒号后结果分句：The child becomes increasingly distressed",
+      "  └ 时间状语从句(as)：as she tries to capture her mother's attention"
+    ],
+    "logic": "before连接实验的两个阶段；冒号后的独立分句描述母亲停止反馈后，孩子试图重新获得注意并逐渐痛苦的结果。",
+    "notes": [
+      "be asked to do是被动结构“被要求做”。",
+      "putting与giving共享before，且由and并列。",
+      "capture one's attention意为“吸引某人的注意”。"
+    ]
+  },
+  "E2-2017-T2-P1-S12": {
+    "trunk": "主句：Tronick is concerned that the worries are born out of an ideology（特罗尼克担心这些忧虑源于一种观念）",
+    "structure": [
+      "转折状语：On the other hand",
+      "主句：Tronick himself is concerned",
+      "  └ 宾语从句(that)：that the worries about kids' use of screens are born out of an oppressive ideology",
+      "      └ 定语从句(that，修饰 ideology)：that demands that parents should always be interacting with their children",
+      "冒号后直接引语：It's based on a somewhat fantasised…ideology",
+      "  └ 定语从句(that)：that says",
+      "      └ 宾语从句：if you're failing to expose your child to 30,000 words, you are neglecting them"
+    ],
+    "logic": "前半指出忧虑背后的意识形态来源；冒号后引语进一步批评这种意识形态的阶层与族群局限，并概括其条件式判断。",
+    "notes": [
+      "be born out of表示“源于、产生于”。",
+      "第一个that引导concerned的宾语从句；第二个that引导修饰ideology的定语从句。",
+      "expose a child to words指“让孩子接触语言输入”。"
+    ]
+  }
+}

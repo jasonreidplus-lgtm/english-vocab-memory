@@ -1,0 +1,48 @@
+{
+  "E2-2023-T1-P1-S4": {
+    "trunk": "S+V+O：The RHS says it has introduced the ban（英国皇家园艺学会表示已实施禁令）",
+    "structure": [
+      "主句：The Royal Horticultural Society (RHS) says",
+      "  ├ 非限制性定语从句(which)：which runs the annual show in west London",
+      "  └ 宾语从句：it has introduced the ban",
+      "      └ 原因状语(because of)：because of the damage",
+      "          └ 定语从句：plastic grass does to the environment and biodiversity〔修饰 damage〕"
+    ],
+    "logic": "which 从句补充学会身份；says 后给出其决定；because of 说明禁令缘由，其中 damage 后省略关系代词的定语从句指出受害对象。",
+    "notes": [
+      "run the show 意为主办、运营花展。",
+      "do damage to 是固定搭配，表示对……造成损害。",
+      "biodiversity 指生物多样性。"
+    ]
+  },
+  "E2-2023-T1-P1-S9": {
+    "trunk": "S+V+O：It is trying to encourage people to sign two petitions（该账号正鼓励人们签署两份请愿书）",
+    "structure": [
+      "主句：It is trying to encourage people to sign two petitions",
+      "同位解释1：one calling for a ban on the sale of plastic grass",
+      "并列同位解释2：another calling for an \"ecological damage\" tax on such lawns"
+    ],
+    "logic": "主句先给出行动目标；逗号后用 one...another...分别说明两份请愿书的诉求，两个 calling 均是现在分词后置修饰 petition。",
+    "notes": [
+      "It 指上文的 Twitter account。",
+      "call for 意为呼吁、要求。",
+      "one...another... 对应“两者中的一份……另一份……”。"
+    ]
+  },
+  "E2-2023-T1-P1-S16": {
+    "trunk": "S+V；S+V：The use must comply..., while measures should serve...（人造草使用必须合规，而相关措施应起到促进作用）",
+    "structure": [
+      "分句1：the use of artificial grass must comply with the legal and policy safeguards",
+      "  ├ 过去分词短语：in place〔修饰 safeguards〕",
+      "  └ 目的状语(to)：to protect biodiversity and ensure sustainable drainage",
+      "分句2(while)：while measures such as the strengthened biodiversity duty should serve",
+      "  └ 不定式：to encourage public authorities to consider sustainable alternatives"
+    ],
+    "logic": "前半句规定使用人造草的合规底线；while 连接另一层政策引导，强调措施还应促使公共机构主动选择可持续方案。",
+    "notes": [
+      "safeguards in place 指已经生效或设置好的保障措施。",
+      "serve to do 表示“起到……作用”。",
+      "sustainable drainage 指减少积水和径流风险的可持续排水。"
+    ]
+  }
+}

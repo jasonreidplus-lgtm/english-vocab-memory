@@ -1,0 +1,51 @@
+{
+  "E2-2011-T4-P1-S5": {
+    "trunk": "S+V+O：Markets have lost faith that the economies will converge（市场已不再相信各经济体会趋同）",
+    "structure": [
+      "主句：Markets have lost faith",
+      "  └ 同位语从句(that)〔说明 faith 的内容〕：that the euro zone's economies ... will one day converge",
+      "      ├ 插入概括：weaker or stronger",
+      "      ├ 原因状语：thanks to the discipline of sharing a single currency",
+      "      └ 非限制性定语从句〔which，修饰 sharing a single currency 这一安排〕：which denies uncompetitive members the quick fix of devaluation"
+    ],
+    "logic": "that 说明市场失去的是何种信心；thanks to 提出原本被寄望的趋同机制；which 补充单一货币如何约束竞争力不足的成员。",
+    "notes": [
+      "lose faith that... 可译为“不再相信……”。",
+      "weaker or stronger 是插入语，表示无论经济强弱。",
+      "quick fix 指快速但往往治标不治本的解决办法。"
+    ]
+  },
+  "E2-2011-T4-P1-S10": {
+    "trunk": "S+V+O：It insists that co-ordination should involve all 27 members（德国坚持经济协调应包括全部27国）",
+    "structure": [
+      "主句：It〔Germany〕 insists",
+      "  └ 宾语从句(that)：economic co-ordination should involve all 27 members of the EU club",
+      "      └ 非限制性定语从句(among whom)〔修饰 members〕：among whom there is a small majority for free-market liberalism and economic rigour",
+      "分号后对比分句：in the inner core alone, ... a small majority favour French interference",
+      "  └ 插入语：Germany fears"
+    ],
+    "logic": "句子用分号对比两个范围：欧盟27国整体中自由市场派占微弱多数，而仅限核心国家时法国式干预派可能占多数。",
+    "notes": [
+      "It 回指上一句的 Germany。",
+      "among whom 是“在这些成员中”，whom 指27个成员国。",
+      "Germany fears 是插入评注，主句仍是 a small majority favour...。"
+    ]
+  },
+  "E2-2011-T4-P1-S12": {
+    "trunk": "S+V+C：That means A and B（那意味着A以及B）",
+    "structure": [
+      "评注状语：Translated〔换句话说〕",
+      "主句：that means",
+      "  ├ 宾语①：politicians intervening in monetary policy",
+      "  └ 宾语②：a system of redistribution from richer to poorer members",
+      "      └ 方式状语(via)：via cheaper borrowing for governments ... or complete fiscal transfers",
+      "          └ 方式状语(through)：through common Eurobonds"
+    ],
+    "logic": "means 后并列“政治干预货币政策”和“成员间再分配制度”；via 后再并列两种再分配路径：共同欧债带来的低成本借款，或直接财政转移。",
+    "notes": [
+      "Translated 是省略式评注，可译为“换句话说”。",
+      "intervening 与 redistribution 在语义上是并列内容。",
+      "Eurobonds 在此指由成员共同承担的欧洲债券。"
+    ]
+  }
+}

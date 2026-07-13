@@ -1,0 +1,50 @@
+{
+  "E2-2016-T1-P1-S4": {
+    "trunk": "主句：they learn that it is not just A but B（他们认识到，计算机科学不只是A，而是B）",
+    "structure": [
+      "时间状语从句(when)：When younger kids learn computer science",
+      "主句：they learn",
+      "  └ 宾语从句(that)：that it's not just a confusing, endless string of letters and numbers - but a tool",
+      "      └ 不定式并列作后置定语〔修饰 tool〕：to build apps, or create artwork, or test hypotheses"
+    ],
+    "logic": "when交代条件与时间；that从句用not just…but…纠正对计算机科学的误解；三个并列不定式说明工具的用途。",
+    "notes": [
+      "not just A but B 表示“不只是A，而是B”。",
+      "build、create、test由or连接，结构平行。",
+      "hypothesis意为“假设”，复数为hypotheses。"
+    ]
+  },
+  "E2-2016-T1-P1-S8": {
+    "trunk": "主句：Students also benefit from learning something about coding（学生也会从先学一点编程中受益）",
+    "structure": [
+      "主句：Students also benefit from learning something about coding",
+      "  └ 时间状语从句(before)：before they get to college",
+      "  └ 非限制性定语从句(where，修饰 college)：where introductory computer-science classes are packed to the brim",
+      "      └ 非限制性定语从句(which，指代前述拥挤情形)：which can drive the less-experienced or -determined students away"
+    ],
+    "logic": "句子先给出“提前学编程有益”的结论，再用where说明大学入门课拥挤，并用which补充这一情况可能造成的后果。",
+    "notes": [
+      "be packed to the brim意为“挤得满满当当、爆满”。",
+      "which在此指代前面整个“课程爆满”的事实，而非只指classes。",
+      "less-experienced or -determined中第二个连字符表示省略less，即less experienced or less determined。"
+    ]
+  },
+  "E2-2016-T1-P1-S18": {
+    "trunk": "关联比较结构：The younger…, the earlier…, the better（越早……就越早……也就越好）",
+    "structure": [
+      "第一层the+比较级：The younger they learn",
+      "  ├ 宾语从句①(how)：how computers think",
+      "  └ 宾语从句②(how)：how to coax the machine into producing what they want",
+      "      └ 宾语从句(what)：what they want",
+      "第二层the+比较级：the earlier they learn",
+      "  └ 宾语从句(that)：that they have the power to do that",
+      "结论：the better"
+    ],
+    "logic": "连续使用the+比较级构成递进关系：越早理解计算机并学会操控机器，就越早意识到自身能力，结果也越有利。",
+    "notes": [
+      "coax A into doing B意为“诱导/设法使A做B”。",
+      "how to coax是“疑问词+不定式”，与how computers think并列作learn的宾语。",
+      "最后的the better省略了完整主句，属于固定的比较级关联结构。"
+    ]
+  }
+}

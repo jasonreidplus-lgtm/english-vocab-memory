@@ -1,0 +1,50 @@
+{
+  "E2-2015-T1-P1-S2": {
+    "trunk": "并列谓语主干：Researchers measured people's cortisol ... and found it higher ...",
+    "structure": [
+      "非限制性定语从句(which，修饰 cortisol)：which is a stress marker",
+      "两个并列时间状语从句：while they were at work / while they were at home",
+      "并列谓语：measured ... and found ...",
+      "宾语补足结构：found it higher",
+      "介词宾语从句(what)：at what is supposed to be a place of refuge"
+    ],
+    "logic": "研究在工作与家庭两种场景测量同一压力指标，结果却发现本应是避风港的家中数值更高。",
+    "notes": [
+      "it 指 cortisol 的水平。",
+      "find + 宾语 + 形容词 是宾补结构。",
+      "what = the place that；be supposed to 表示“按理应当”。"
+    ]
+  },
+  "E2-2015-T1-P1-S12": {
+    "trunk": "主干：it's not surprising that women are more stressed at home",
+    "structure": [
+      "句首 with 复合背景①：With the blurring of roles",
+      "并列背景②：and the fact",
+      "同位语从句(that，解释 fact)：that the home front lags well behind the workplace ...",
+      "现在分词短语：in making adjustments for working women",
+      "it 作形式主语；真正主语为 that women are more stressed at home"
+    ],
+    "logic": "句子把家庭压力归因于两层背景：角色边界模糊，以及家庭制度对职业女性的适应远落后于职场。",
+    "notes": [
+      "home front 在此指家庭生活这一面。",
+      "lag behind ... in doing 表示“在某方面落后于……”。",
+      "working women 指职业女性，不是“正在工作的女性”这一临时状态。"
+    ]
+  },
+  "E2-2015-T1-P1-S19": {
+    "trunk": "主干：Your home colleagues have no clear rewards for their labor",
+    "structure": [
+      "破折号同位语：your family，解释 home colleagues",
+      "分号连接后续结果：they need to be talked into it",
+      "被动结构：need to be talked into it",
+      "选择并列(or)：or ... (need to be) threatened with complete removal ...",
+      "条件插入(if)：if they're teenagers"
+    ],
+    "logic": "作者把家人比作同事，说明家庭协作缺乏明确激励，只能靠劝说，甚至用没收电子设备来威胁青少年。",
+    "notes": [
+      "talk someone into something 表示“说服某人做某事”；被动后施事省略。",
+      "it 指参与家务劳动。",
+      "threaten someone with something 表示“以某事威胁某人”。"
+    ]
+  }
+}

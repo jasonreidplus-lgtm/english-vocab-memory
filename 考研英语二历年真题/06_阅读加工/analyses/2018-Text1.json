@@ -1,0 +1,50 @@
+{
+  "E2-2018-T1-P1-S4": {
+    "trunk": "疑问主干：When did it become accepted wisdom that…?（何时……成了公认的道理？）",
+    "structure": [
+      "特殊疑问句：When did it become accepted wisdom",
+      "  └ 同位/内容从句(that)：that students should be able to name the 13th president of the United States but be utterly overwhelmed by a broken bike chain",
+      "      ├ 并列谓语①：should be able to name…",
+      "      └ 并列谓语②(but)：〔should〕be utterly overwhelmed by…"
+    ],
+    "logic": "it作形式主语或泛指情形，that从句给出所谓“公认道理”的具体内容；but并列强烈反差，构成反问。",
+    "notes": [
+      "accepted wisdom指“普遍接受的看法、公认道理”。",
+      "but后省略与前面共享的should。",
+      "be overwhelmed by在此表示“面对……完全不知所措”。"
+    ]
+  },
+  "E2-2018-T1-P1-S16": {
+    "trunk": "主句：the push…and the devaluing…miss an important point（对学位的盲目追逐和对其他选择的贬低忽略了一个要点）",
+    "structure": [
+      "并列主语①：the headlong push into bachelor's degrees for all",
+      "并列主语②：and the subtle devaluing of anything less",
+      "谓语宾语：misses an important point",
+      "冒号后解释point：That's not the only thing",
+      "  └ 定语从句〔省略that，修饰 thing〕：the American economy needs"
+    ],
+    "logic": "两个并列名词短语共同指出教育取向的偏差；冒号后的句子解释被忽略的要点，即经济需求并非只有学士学位。",
+    "notes": [
+      "headlong表示“轻率而迅猛的、不顾一切的”。",
+      "anything less指低于学士学位的教育或资格。",
+      "the only thing the economy needs中省略了关系代词that。"
+    ]
+  },
+  "E2-2018-T1-P1-S20": {
+    "trunk": "主句：one obvious solution is staring us in the face（一个显而易见的解决方案就摆在眼前）",
+    "structure": [
+      "衔接语：In other words",
+      "时间状语从句：at a time when the working class has turned the country on its political head",
+      "  ├ 定语从句(when，修饰 a time)：when the working class has turned the country on its political head",
+      "  └ 过去分词短语补充working class：frustrated that the opportunity…is vanishing",
+      "      └ 定语从句(that，修饰 opportunity)：that once defined America",
+      "主句：one obvious solution is staring us in the face"
+    ],
+    "logic": "at a time when交代政治背景，frustrated进一步解释工人阶层改变政治格局的原因，最后主句强调解决方案其实显而易见。",
+    "notes": [
+      "turn something on its head意为“彻底颠覆、完全改变”。",
+      "frustrated that…是过去分词短语，补充说明working class的状态。",
+      "stare sb in the face是习语，指“明摆在某人眼前”。"
+    ]
+  }
+}

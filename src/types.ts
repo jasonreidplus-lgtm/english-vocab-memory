@@ -145,10 +145,13 @@ export interface Sentence {
   analysis?: SentenceAnalysis;
 }
 
+export type ExamType = 'english1' | 'english2';
+
 export interface Passage {
   id: string;
   title: string;
   sents: Sentence[];
+  exam?: ExamType;
   demo?: boolean;
   studied?: boolean;
   year?: number;

@@ -1,0 +1,49 @@
+{
+  "E2-2017-T3-P1-S1": {
+    "trunk": "主句：social pressure…often causes students to overlook the possibility（社会压力常使学生忽略这种可能性）",
+    "structure": [
+      "主语：widespread social pressure to immediately go to college",
+      "  ├ 不定式作后置定语：to immediately go to college",
+      "  └ 介词结构：in conjunction with increasingly high expectations in a fast-moving world",
+      "谓语：often causes",
+      "宾语+宾补：students to completely overlook the possibility of taking a gap year"
+    ],
+    "logic": "长主语由“立即上大学的社会压力”构成，并用in conjunction with加入高期望这一共同因素；cause A to do B说明二者造成的结果。",
+    "notes": [
+      "in conjunction with意为“与……共同、结合”。",
+      "cause sb to do sth表示“导致某人做某事”。",
+      "the possibility of doing中的of taking a gap year具体说明possibility。"
+    ]
+  },
+  "E2-2017-T3-P1-S8": {
+    "trunk": "主句：a gap year pushes them ahead by preparing them for…（间隔年通过让学生做好准备来推动他们前进）",
+    "structure": [
+      "对比状语：Rather than pulling students back",
+      "主句：a gap year pushes them ahead",
+      "  └ 方式状语(by)：by preparing them for independence, new responsibilities and environmental changes",
+      "同位概括：all things",
+      "  └ 定语从句(that)：that first-year students often struggle with the most"
+    ],
+    "logic": "rather than先否定“拖后腿”的误解，主句转而说明间隔年的推进作用；破折号后的all things概括前三项并补充其现实难度。",
+    "notes": [
+      "rather than doing表示“不是……而是……”，句中与pushes形成语义对照。",
+      "prepare sb for sth意为“使某人为……做好准备”。",
+      "struggle with的介词with被保留在定语从句末尾。"
+    ]
+  },
+  "E2-2017-T3-P1-S15": {
+    "trunk": "主句：you would have to complete an extra year（你将不得不多读一年）",
+    "structure": [
+      "举例状语：At Boston College, for example",
+      "主句：you would have to complete an extra year",
+      "倒装条件句：were you to switch to the nursing school from another department",
+      "  └ 还原：if you were to switch to the nursing school from another department"
+    ],
+    "logic": "句子先给出转专业的额外成本，随后用省略if的虚拟条件倒装限定这一结果发生的条件。",
+    "notes": [
+      "were you to do是正式语体的虚拟条件句，等于if you were to do。",
+      "have to complete an extra year表示“必须额外修读一年”。",
+      "switch to A from B表示“从B转入A”。"
+    ]
+  }
+}

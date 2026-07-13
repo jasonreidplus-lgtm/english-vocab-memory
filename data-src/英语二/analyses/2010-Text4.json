@@ -1,0 +1,49 @@
+{
+  "E2-2010-T4-P1-S1": {
+    "trunk": "S+V+O+C：Many Americans regard the jury system as an expression of values（许多美国人把陪审团制度视为民主价值观的体现）",
+    "structure": [
+      "主句：Many Americans regard the jury system as a concrete expression of crucial democratic values",
+      "  └ 补充说明(including)：including the principles",
+      "      ├ 同位语从句①(that)：all citizens who meet minimal qualifications ... are equally competent to serve on juries",
+      "      ├ 同位语从句②(that)：jurors should be selected randomly from a representative cross section of the community",
+      "      ├ 同位语从句③(that)：no citizen should be denied the right ... on account of race, religion, sex, or national origin",
+      "      ├ 同位语从句④(that)：defendants are entitled to trial by their peers",
+      "      └ 同位语从句⑤(that)：verdicts should represent the conscience of the community and not just the letter of the law"
+    ],
+    "logic": "主干之后由 including 引出 principles，五个平行的 that 从句逐项说明民主原则；分号是并列项目的分隔标志。",
+    "notes": [
+      "regard A as B：把A视为B。",
+      "who meet... 是修饰 all citizens 的定语从句。",
+      "the conscience of the community 与 the letter of the law 构成“社会良知—法律字面”的对照。"
+    ]
+  },
+  "E2-2010-T4-P1-S6": {
+    "trunk": "让步复句主干：Although the Supreme Court had prohibited discrimination, the practice provided a way around laws（尽管最高法院已禁止歧视，这种做法仍提供了规避法律的途径）",
+    "structure": [
+      "让步状语从句(Although)：the Supreme Court of the United States had prohibited intentional racial discrimination in jury selection",
+      "  └ 时间/案件背景：as early as the 1880 case of Strauder v. West Virginia",
+      "主句：the practice ... provided a convenient way around this and other antidiscrimination laws",
+      "  └ 动名词短语作后置说明〔修饰 practice〕：of selecting so-called elite or blue-ribbon juries"
+    ],
+    "logic": "Although 建立“法律已明令禁止—实际仍可绕开”的让步转折；主句真正的施事是 the practice，而不是 juries。",
+    "notes": [
+      "as early as 强调“早在……”。",
+      "a way around laws 指规避法律的方法，并非围绕法律。",
+      "blue-ribbon jury 指由所谓优秀或精英人士组成的陪审团。"
+    ]
+  },
+  "E2-2010-T4-P1-S13": {
+    "trunk": "S+V+O：The Supreme Court extended the requirement to the state level（最高法院把该要求扩展到州一级）",
+    "structure": [
+      "背景状语：In the landmark 1975 decision Taylor v. Louisiana",
+      "主句：the Supreme Court extended the requirement ... to the state level",
+      "  └ 同位语从句(that)〔说明 requirement〕：that juries be representative of all parts of the community"
+    ],
+    "logic": "句首介词短语交代案件；that 从句不是普通宾语从句，而是说明 requirement 的具体内容；extend A to B 表示把要求适用到州层面。",
+    "notes": [
+      "landmark decision 指具有里程碑意义的判决。",
+      "requirement 后的 that 从句使用 be 原形，体现要求/规定类名词后的虚拟语气。",
+      "all parts of the community 指社区各个群体或阶层。"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "E2-2022-T2-P1-S3": {
+    "trunk": "S+V+C：Even more surprising is that more than half... said...（更令人惊讶的是，超过半数的人表示……）",
+    "structure": [
+      "主句：Even more surprising is that-clause",
+      "  └ 表语从句(that)：more than half of \"unretirees\" said",
+      "      ├ 同位解释：those who plan to work in retirement or went back to work after retiring",
+      "      ├ 宾语从句：they would be employed in their later years",
+      "      └ 让步条件从句(even if)：even if they had enough money to settle down",
+      "句末插入语：the survey showed"
+    ],
+    "logic": "that 从句承载“令人惊讶”的具体内容；破折号解释 unretirees；said 后的宾语从句给出选择，even if 则排除“缺钱才工作”这一单一解释。",
+    "notes": [
+      "unretirees 是文中造词，指退休后继续或重新工作的人。",
+      "settle down 在此指经济无忧地安顿下来、停止奔波。",
+      "the survey showed 是信息来源插入语，可前置翻译。"
+    ]
+  },
+  "E2-2022-T2-P1-S15": {
+    "trunk": "S+V+O：Americans are boosting their savings（美国人正在增加储蓄）",
+    "structure": [
+      "原因状语：Because of longer life spans",
+      "主句：Americans are also boosting their savings",
+      "  └ 目的状语(to)：to preserve their nest eggs",
+      "插入式来源：the TD Ameritrade study showed",
+      "  └ 非限制性定语从句(which)：which surveyed 2,000 adults between 40 to 79"
+    ],
+    "logic": "because of 给出行为动因，不定式说明增加储蓄的目的；后半部分补充研究来源和样本信息，阅读时应先抓住 Americans are boosting... 的主干。",
+    "notes": [
+      "nest egg 指为将来尤其是退休准备的储蓄。",
+      "preserve 在此不是一般的“保护”，而是“保住、不消耗”。",
+      "which 语义上指 TD Ameritrade study。"
+    ]
+  },
+  "E2-2022-T2-P1-S17": {
+    "trunk": "倒装：Among the most popular ways... is by reducing..., securing... or maximizing...（最常见的方式包括……）",
+    "structure": [
+      "前置介词短语：Among the most popular ways they are doing this",
+      "插入语：the company said",
+      "系表主干：is by reducing their overall expenses, securing life insurance or maximizing their contributions",
+      "  └ 介词短语：to retirement accounts〔修饰 contributions〕"
+    ],
+    "logic": "为承接上文，Among... 被置于句首；真正列举方法的是 by 后三个并列动名词 reducing、securing、maximizing。单数 is 与形式上的中心表达保持一致。",
+    "notes": [
+      "do this 指上文的 increasing their savings。",
+      "make/maximize contributions to retirement accounts 指向退休账户缴款。",
+      "secure life insurance 可译为“购买/获得人寿保险”。"
+    ]
+  }
+}

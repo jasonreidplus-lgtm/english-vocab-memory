@@ -1,0 +1,49 @@
+{
+  "E2-2026-T2-P1-S3": {
+    "trunk": "Many of us share sensitive information, even though people don't realise the risk（许多人分享敏感信息，尽管人们没有意识到风险）",
+    "structure": [
+      "转折主句：But ... many of us share sensitive, sometimes highly confidential information",
+      "  ├ with介词短语〔背景〕：with this newfound connection",
+      "  └ 让步状语从句(even though)：even though over a third of people don't realise",
+      "      └ 宾语从句(that)：that AI platforms may not be very good at keeping our secrets ... secret"
+    ],
+    "logic": "主句指出亲密感促使人们分享机密；even though揭示认知落差，that从句具体说明许多人没有意识到平台保密能力有限。",
+    "notes": [
+      "newfound connection 指刚建立起来的亲近感。",
+      "over a third of 意为“超过三分之一的”。",
+      "secrets...secret 用重复和省略号制造强调效果。"
+    ]
+  },
+  "E2-2026-T2-P1-S6": {
+    "trunk": "It gains Microsoft broad rights; it can share the data（它让微软获得广泛权利，微软甚至可以分享数据）",
+    "structure": [
+      "分号前分句：It gains Microsoft broad rights to the data",
+      "  ├ 过去分词短语〔修饰 data〕：inputted or outputted by any user",
+      "  └ 破折号同位说明(rights)：rights to use this data in any way",
+      "      └ 定语从句〔省略that，修饰 way〕：it sees fit",
+      "分号后分句：it can even share it with third parties"
+    ],
+    "logic": "第一分句提出广泛数据权利，破折号后解释权利范围；分号后进一步递进，指出数据还可能被分享给第三方。",
+    "notes": [
+      "inputted or outputted 指用户输入给AI或AI输出的数据。",
+      "see fit 意为“认为合适”。",
+      "third parties 指服务双方以外的第三方。"
+    ]
+  },
+  "E2-2026-T2-P1-S16": {
+    "trunk": "It's up to us to navigate its usage cautiously（谨慎把握人工智能的使用方式取决于我们）",
+    "structure": [
+      "with复合背景：With AI's potential to simplify ..., do ... and enhance ...",
+      "  └ 三个并列不定式：to simplify / (to) do / (to) enhance",
+      "主句〔形式主语〕：it's up to us",
+      "  └ 真正主语不定式：to navigate its usage cautiously",
+      "      └ 目的/结果从句(so)：so it supports us without compromising our privacy"
+    ],
+    "logic": "With先列出AI的三项潜力，主句把责任落到使用者身上，so从句给出谨慎使用应达到的目标：获得支持但不牺牲隐私。",
+    "notes": [
+      "do the admin 指处理行政性、事务性工作。",
+      "it's up to us 表示“责任或决定权在我们”。",
+      "without compromising 意为“不以损害……为代价”。"
+    ]
+  }
+}

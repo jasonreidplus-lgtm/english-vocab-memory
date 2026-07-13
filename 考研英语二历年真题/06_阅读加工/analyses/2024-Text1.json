@@ -1,0 +1,50 @@
+{
+  "E2-2024-T1-P1-S3": {
+    "trunk": "S+V+C：An economy will not be politically sustainable（这样一种经济在政治上不可持续）",
+    "structure": [
+      "主句：An economy ... will not be politically sustainable",
+      "  ├ of介词短语〔修饰 economy〕：of tech millionaires or billionaires and gig workers",
+      "  └ with复合结构〔补充该经济的状态〕：with middle-income jobs undercut by automation",
+      "      └ 过去分词短语〔修饰 jobs〕：undercut by automation"
+    ],
+    "logic": "主干先判断这种经济不可持续；of短语说明经济中的人群构成，with结构再补充中等收入岗位遭自动化削弱这一背景。",
+    "notes": [
+      "gig workers 指依靠短期任务或平台接单的零工劳动者。",
+      "undercut 在此不是“从下方切割”，而是“削弱、挤压”。",
+      "politically sustainable 指在政治和社会层面能够长期维持。"
+    ]
+  },
+  "E2-2024-T1-P1-S14": {
+    "trunk": "Not only will this foster unrest, but it could hold back technologies（这不仅会滋生动荡，还可能阻碍技术）",
+    "structure": [
+      "并列分句一〔not only置首，部分倒装〕：Not only will this foster political and social unrest",
+      "并列分句二：but it could hold back the sorts of AI technologies",
+      "  ├ 插入语：as Coyle suggests",
+      "  └ 过去分词短语〔修饰 technologies〕：needed for regional economies to grow",
+      "      └ 不定式复合结构：for regional economies to grow"
+    ],
+    "logic": "not only...but...递进列出两重后果；第一分句因not only置首而倒装，第二分句的needed短语限定被阻碍的是地区经济增长所需的技术。",
+    "notes": [
+      "foster 在此意为“促成、滋生”。",
+      "hold back 意为“阻碍、抑制”。",
+      "the sorts of 不应机械译成“种类的”，可处理为“那些……的技术”。"
+    ]
+  },
+  "E2-2024-T1-P1-S17": {
+    "trunk": "A response is to broaden our imaginations（更直接的应对办法是拓展我们的想象）",
+    "structure": [
+      "主句：A more immediate response is to broaden our digital imaginations",
+      "  └ 目的状语(to)：to conceive of AI technologies",
+      "      └ 定语从句(that)：that don't simply replace jobs but expand opportunities",
+      "          ├ 并列谓语：don't simply replace ... but expand ...",
+      "          └ 定语从句〔修饰 sectors〕：that different parts of the country care most about",
+      "              └ 举例：like health care, education, and manufacturing"
+    ],
+    "logic": "句子从“拓展想象”推进到“构想技术”，再用两个that从句分别界定技术的作用和各地重视的行业；not...but...突出从替代岗位转向扩大机会。",
+    "notes": [
+      "conceive of 意为“设想、构想”。",
+      "digital imaginations 是对数字技术可能用途的想象空间。",
+      "care most about 的宾语是关系代词that，指前面的 sectors。"
+    ]
+  }
+}

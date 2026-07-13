@@ -1,0 +1,55 @@
+{
+  "E2-2016-T4-P1-S4": {
+    "trunk": "主句：Young people were more likely than older adults to…（年轻人比年长者更可能……）",
+    "structure": [
+      "主语：Young people",
+      "  └ 定语从句(who)：who are still getting started in life",
+      "谓语：were more likely than older adults",
+      "  ├ 并列不定式①：to prioritize personal fulfillment in their work",
+      "  ├ 并列不定式②：to believe〔that〕they will advance their careers most by regularly changing jobs",
+      "  ├ 并列不定式③：to favor communities with more public services and a faster pace of life",
+      "  ├ 并列不定式④：to agree that couples should be financially secure before getting married or having children",
+      "  └ 并列不定式⑤：and to maintain that children are best served by two parents working outside the home",
+      "插入性来源说明：the survey found"
+    ],
+    "logic": "more likely than构成代际比较，后接五个平行不定式，系统列举年轻人在工作、社区、婚育和育儿方面的不同取向。",
+    "notes": [
+      "主句很长的原因是五个to do结构平行，而非多层从属。",
+      "advance their careers by doing表示“通过……推进职业发展”。",
+      "be best served by在此意为“由……最能保障其利益”。"
+    ]
+  },
+  "E2-2016-T4-P1-S5": {
+    "trunk": "主句：these contrasts suggest that…（这些差异表明……）",
+    "structure": [
+      "范围状语：From career to community and family",
+      "主句：these contrasts suggest",
+      "  └ 宾语从句(that)：those just starting out in life are defining priorities and expectations",
+      "      ├ 时间/背景状语：in the aftermath of the searing Great Recession",
+      "      └ 定语从句(that，修饰 priorities and expectations)：that will increasingly spread through virtually all aspects of American life",
+      "          └ 范围列举：from consumer preferences to housing patterns to politics"
+    ],
+    "logic": "句首概括差异覆盖的领域；that从句给出趋势判断；定语从句继续说明这些新观念未来的扩散范围。",
+    "notes": [
+      "those just starting out in life指“刚刚开始独立生活/初入社会的人”。",
+      "in the aftermath of表示“在……之后及其影响下”。",
+      "searing在此强调大衰退造成的剧烈、痛苦影响。"
+    ]
+  },
+  "E2-2016-T4-P1-S7": {
+    "trunk": "主句：big majorities in both groups believe…（两个群体中的绝大多数人都认为……）",
+    "structure": [
+      "让步状语从句(while)：While younger people are somewhat more optimistic than their elders about the prospects for those starting out today",
+      "主句：big majorities in both groups believe",
+      "  └ 宾语从句〔省略that〕：those 'just getting started in life' face a tougher climb than earlier generations",
+      "      └ 方面状语：in reaching such signpost achievements",
+      "          └ 举例(as)：as securing a good-paying job, starting a family, managing debt, and finding affordable housing"
+    ],
+    "logic": "while先承认年轻人相对乐观，主句随后转折指出两代中的多数仍认同当代年轻人的人生起步更加艰难。",
+    "notes": [
+      "prospects for…表示“……的前景”。",
+      "face a tougher climb是比喻，指“面临更艰难的奋斗过程”。",
+      "such…as…用于列举，后面四个动名词短语结构平行。"
+    ]
+  }
+}

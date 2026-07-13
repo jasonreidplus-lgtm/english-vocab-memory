@@ -1,0 +1,53 @@
+{
+  "E2-2022-T4-P1-S1": {
+    "trunk": "S+V+C；S+V+C：Scientists are unsure...; evidence is weak（科学家并不确定……；证据很薄弱）",
+    "structure": [
+      "让步状语从句(Although)：Although ethics classes are common around the world",
+      "主分句1：scientists are unsure",
+      "  └ 宾语从句(if)：if their lessons can actually change behavior",
+      "分号并列分句2：evidence either way is weak",
+      "  └ 现在分词状语：relying on contrived laboratory tests or sometimes unreliable self-reports"
+    ],
+    "logic": "Although 先承认伦理课普遍存在，再转出效果未知；分号后的分句解释判断依据不足，relying on...进一步指出现有证据的方法缺陷。",
+    "notes": [
+      "either way 指支持或反对两种方向。",
+      "contrived 表示人为安排、脱离自然情境。",
+      "self-report 指受试者对自身行为的报告。"
+    ]
+  },
+  "E2-2022-T4-P1-S4": {
+    "trunk": "S+V+O：They chose this behavior for three reasons（他们因三个理由选择这种行为）",
+    "structure": [
+      "主句：They chose this particular behavior for three reasons",
+      "插入来源：according to study co-author Eric Schwitzgebel",
+      "  └ 同位语：a philosopher at the University of California, Riverside",
+      "冒号后并列理由1：students' attitudes on the topic are variable and unstable",
+      "并列理由2：behavior is easily measurable",
+      "并列理由3：ethics literature largely agrees",
+      "  └ 宾语从句(that)：that eating less meat is good",
+      "      └ 原因状语(because)：because it reduces environmental harm and animal suffering"
+    ],
+    "logic": "冒号明确引出三个并列原因；第三个原因内部再嵌套 that 宾语从句和 because 原因从句，是全句层级最深的部分。",
+    "notes": [
+      "variable and unstable 强调态度存在差异且容易变化。",
+      "ethics literature 指伦理学领域的研究文献。",
+      "it 在 because 从句中指 eating less meat。"
+    ]
+  },
+  "E2-2022-T4-P1-S14": {
+    "trunk": "S+V+O：Schwitzgebel suspects the impact came from social influence（施维茨格贝尔认为最大影响来自社会影响）",
+    "structure": [
+      "主句：Schwitzgebel suspects",
+      "  └ 宾语从句：the greatest impact came from social influence",
+      "破折号后解释：classmates or teaching assistants leading the discussions may have shared their own vegetarianism",
+      "  ├ 现在分词短语：leading the discussions〔修饰 classmates or teaching assistants〕",
+      "  └ 现在分词结果/伴随状语：showing it as achievable or more common"
+    ],
+    "logic": "破折号后的内容具体解释 social influence 如何发生：主持讨论者分享素食经历，从而改变素食在学生眼中的可行性和普遍性。",
+    "notes": [
+      "vegetarianism 在此指吃素的生活方式或实践。",
+      "show A as B 表示“使A显得/被看作B”。",
+      "it 指代 vegetarianism，而非 discussion。"
+    ]
+  }
+}

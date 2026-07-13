@@ -1,0 +1,52 @@
+{
+  "E2-2016-T2-P1-S8": {
+    "trunk": "主句：they called for forging closer collaborations（他们呼吁建立更紧密的合作）",
+    "structure": [
+      "状语：In particular",
+      "主句：they called for forging closer collaborations",
+      "  ├ 介词宾语①：with western state governments",
+      "  │   └ 非限制性定语从句(which)：which are often uneasy with federal action",
+      "  └ 介词宾语②：and with the private landowners",
+      "      └ 定语从句(who)：who control an estimated 95% of the prairie chicken's habitat"
+    ],
+    "logic": "collaborations之后用两个with并列列出合作对象；两个定语从句分别解释州政府的顾虑和私人地主的重要性。",
+    "notes": [
+      "call for doing表示“呼吁/要求做某事”。",
+      "be uneasy with表示“对……感到不安或有顾虑”。",
+      "an estimated 95%意为“估计约95%”。"
+    ]
+  },
+  "E2-2016-T2-P1-S9": {
+    "trunk": "主句：the agency said it would not prosecute landowners or businesses（该机构称不会起诉土地所有者或企业）",
+    "structure": [
+      "状语：Under the plan, for example",
+      "主句：the agency said",
+      "  └ 宾语从句〔省略that〕：it would not prosecute landowners or businesses",
+      "      └ 定语从句(that，修饰 landowners or businesses)：that unintentionally kill, harm, or disturb the bird",
+      "条件状语从句(as long as)：as long as they had signed a range-wide management plan",
+      "  └ 不定式作后置定语〔修饰 plan〕：to restore prairie chicken habitat"
+    ],
+    "logic": "主句转述机构承诺；that从句限定不起诉的对象；as long as提出豁免起诉的前提条件。",
+    "notes": [
+      "prosecute表示“起诉”，不是一般的“迫害”。",
+      "as long as在此表示条件“只要”。",
+      "range-wide指覆盖该物种整个分布范围。"
+    ]
+  },
+  "E2-2016-T2-P1-S10": {
+    "trunk": "主句：the plan requires individuals and businesses to pay into a fund（该计划要求个人和企业向基金缴款）",
+    "structure": [
+      "过去分词短语作状语：Negotiated by USFWS and the states",
+      "主句：the plan requires individuals and businesses to pay into a fund",
+      "  └ 定语从句(that，修饰 individuals and businesses)：that damage habitat as part of their operations",
+      "  └ 不定式作目的状语：to replace every acre destroyed with 2 new acres of suitable habitat",
+      "      └ 过去分词作后置定语：destroyed〔修饰 every acre〕"
+    ],
+    "logic": "句首分词说明计划由谁协商制定；require A to do B给出义务；末尾不定式说明基金用途及二比一补偿规则。",
+    "notes": [
+      "require sb to do sth表示“要求某人做某事”。",
+      "pay into a fund意为“向基金缴款”。",
+      "replace A with B表示“用B替代/补偿A”。"
+    ]
+  }
+}

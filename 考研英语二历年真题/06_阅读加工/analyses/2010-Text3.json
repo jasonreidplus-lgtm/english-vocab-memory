@@ -1,0 +1,55 @@
+{
+  "E2-2010-T3-P1-S3": {
+    "trunk": "引语主干：There are public health problems that remain killers（有些公共卫生问题仍会致命）",
+    "structure": [
+      "直接引语主句：There are fundamental public health problems",
+      "  ├ 举例插入语：like dirty hands instead of a soap habit",
+      "  └ 定语从句〔that，修饰 problems〕：that remain killers",
+      "      └ 原因状语从句(only because)：only because we can't figure out",
+      "          └ 疑问词+不定式作宾语：how to change people's habits",
+      "引语后的报告语：said Dr. Curtis",
+      "  └ 同位语：the director of the Hygiene Center at the London School of Hygiene & Tropical Medicine"
+    ],
+    "logic": "核心因果是“问题仍致命，只因不会改变习惯”；that 限定 problems，only because 强调原因单一。",
+    "notes": [
+      "remain killers 表示“仍然是致命因素”，不是“杀手仍存在”。",
+      "figure out how to... 意为“弄明白如何……”。",
+      "instead of a soap habit 表示缺少使用肥皂的习惯。"
+    ]
+  },
+  "E2-2010-T3-P1-S5": {
+    "trunk": "S+V+O：The companies had invested hundreds of millions of dollars（这些公司已投入数亿美元）",
+    "structure": [
+      "主句：The companies ... had invested hundreds of millions of dollars",
+      "  ├ 定语从句〔that，修饰 companies〕：that Dr. Curtis turned to",
+      "  ├ 破折号同位列举：Procter & Gamble, Colgate-Palmolive and Unilever",
+      "  └ 方式/内容状语：finding the subtle cues in consumers' lives",
+      "      └ 定语从句〔that，修饰 cues〕：that corporations could use to introduce new routines",
+      "          └ 目的状语(to)：to introduce new routines"
+    ],
+    "logic": "第一个 that 说明她求助于哪些公司；第二个 that 说明公司要寻找什么样的 cues；finding 表明巨额投入用于寻找线索。",
+    "notes": [
+      "turn to somebody 意为“向某人求助”。",
+      "invest money doing 在此表示“投入资金做某事”。",
+      "cue 指触发习惯行为的“提示、信号”。"
+    ]
+  },
+  "E2-2010-T3-P1-S13": {
+    "trunk": "引语主干：Our products succeed when they become part of patterns（产品成为惯例的一部分时就成功了）",
+    "structure": [
+      "直接引语：Our products succeed",
+      "  └ 时间状语从句(when)：when they become part of daily or weekly patterns",
+      "报告语：said Carol Berning",
+      "  └ 同位语：a consumer psychologist",
+      "      └ 定语从句〔who，修饰 psychologist〕：who recently retired from Procter & Gamble",
+      "          └ Procter & Gamble 的同位说明：the company",
+      "              └ 定语从句〔that，修饰 company〕：that sold $76 billion of Tide, Crest and other products last year"
+    ],
+    "logic": "引语给出产品成功的条件；said 后人物身份通过同位语和两层定语关系连续补充，阅读时应先抓住引语和报告语。",
+    "notes": [
+      "patterns 在语境中指反复发生的日常/每周惯例。",
+      "$76 billion of... 表示价值760亿美元的产品销售额。",
+      "who 修饰 Carol Berning 的职业身份，that 则修饰 Procter & Gamble。"
+    ]
+  }
+}

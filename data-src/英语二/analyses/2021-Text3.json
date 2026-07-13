@@ -1,0 +1,48 @@
+{
+  "E2-2021-T3-P1-S4": {
+    "trunk": "S+V：Their teams stayed on, making them two of the acqui-hires（团队留下，使两笔交易成为人才收购案例）",
+    "structure": [
+      "主句：Their teams of engineers stayed on",
+      "  └ 结果分词：making them two of the many acqui-hires",
+      "      └ 定语从句(that，修饰 acqui-hires)：that the biggest companies have used",
+      "          └ 目的不定式：to feed their great hunger for tech talent"
+    ],
+    "logic": "making 表示团队留下所产生的结果；that 从句说明大型公司如何利用这类人才收购，to 表示目的。",
+    "notes": [
+      "stay on：继续留下任职。",
+      "acqui-hire：以获取团队人才为目的的收购。",
+      "feed a hunger for：满足对……的强烈需求。"
+    ]
+  },
+  "E2-2021-T3-P1-S13": {
+    "trunk": "让步状语 + 主句：Although only a research project, the request has raised the prospect...（尽管只是研究，该要求已带来某种可能）",
+    "structure": [
+      "让步省略结构：Although only a research project at this stage",
+      "主句：the request has raised the prospect",
+      "  └ 介词宾语复合结构(of)：of regulators wading into early-stage tech markets",
+      "      └ 定语从句(that)：that until now have been beyond their reach"
+    ],
+    "logic": "Although 降低当前行动的正式程度，主句却强调其潜在监管意义；that 从句说明这些市场过去为何特殊。",
+    "notes": [
+      "raise the prospect of：带来……的可能性。",
+      "wade into：介入、着手处理。",
+      "beyond their reach：超出其触及或管辖范围。"
+    ]
+  },
+  "E2-2021-T3-P1-S15": {
+    "trunk": "S+V+O：the five companies have spent $3.4 billion a year（五家公司平均每年花费34亿美元）",
+    "structure": [
+      "主句：the five biggest tech companies have spent an average of only $3.4 billion a year",
+      "  ├ 范围状语：on sub-$1 billion acquisitions over the past five years",
+      "  └ 破折号同位评价：a drop in the ocean",
+      "      └ 比较结构(compared with)：their massive financial reserves, and the more than $130 billion of venture capital",
+      "          └ 定语从句(that)：that was invested in the US last year"
+    ],
+    "logic": "主句给出小额收购支出，破折号后的比喻通过两项比较基准说明这一数字在大公司整体资金规模中很小。",
+    "notes": [
+      "sub-$1 billion acquisitions：金额低于10亿美元的收购。",
+      "a drop in the ocean：沧海一粟。",
+      "venture capital：风险投资。"
+    ]
+  }
+}

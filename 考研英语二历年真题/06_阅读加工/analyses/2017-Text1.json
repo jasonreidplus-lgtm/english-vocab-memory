@@ -1,0 +1,48 @@
+{
+  "E2-2017-T1-P1-S7": {
+    "trunk": "主句：Planning documents pledged that the great legacy would be to lever a nation…away from their couches（规划文件承诺，重要遗产将是让全民离开沙发去运动）",
+    "structure": [
+      "主句：Planning documents pledged",
+      "  └ 宾语从句(that)：that the great legacy of the Games would be to lever a nation of sport lovers away from their couches",
+      "      ├ 主语：the great legacy of the Games",
+      "      └ 表语不定式：to lever a nation of sport lovers away from their couches"
+    ],
+    "logic": "pledged后接that从句说明奥运规划的承诺；从句用不定式定义所谓“重要遗产”的具体内容。",
+    "notes": [
+      "lever在此作动词，意为“撬动、促使”。",
+      "lever A away from B可理解为“把A从B处拉开”。",
+      "a nation of sport lovers是集合性表达，指整个热爱体育的民族。"
+    ]
+  },
+  "E2-2017-T1-P1-S18": {
+    "trunk": "比较结构：There is as much joy over A as there is about B（人们为A感到的喜悦与为B感到的一样多）",
+    "structure": [
+      "主句前半：There is as much joy over a puffed-out first-timer being clapped over the line",
+      "  └ 动名词复合结构：a puffed-out first-timer being clapped over the line",
+      "比较从句(as)：as there is about top talent shining",
+      "  └ 动名词复合结构：top talent shining"
+    ],
+    "logic": "as much…as…把初跑者完赛与高手出彩带来的喜悦等量比较，突出活动不只重视精英成绩。",
+    "notes": [
+      "puffed-out意为“上气不接下气的”。",
+      "clap sb over the line指“鼓掌为某人加油，直到其越过终点”。",
+      "being clapped是被动动名词，first-timer是其逻辑主语。"
+    ]
+  },
+  "E2-2017-T1-P1-S22": {
+    "trunk": "条件句主干：If there is a role for government, it should be getting involved in providing common goods（如果政府有角色，就应参与提供公共资源）",
+    "structure": [
+      "条件状语从句(if)：If there is a role for government",
+      "主句：it should really be getting involved in providing common goods",
+      "破折号后具体解释providing common goods：",
+      "  ├ making sure there is space for playing fields and the money to pave tennis and netball courts",
+      "  └ and encouraging the provision of all these activities in schools"
+    ],
+    "logic": "if先限定政府介入的前提与边界；破折号后的两个并列动名词说明政府应提供哪些基础条件。",
+    "notes": [
+      "common goods在此指公共资源或公共产品。",
+      "make sure后接两个由and连接的存在句成分：space与money。",
+      "the money to pave…中的不定式修饰money，说明资金用途。"
+    ]
+  }
+}

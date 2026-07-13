@@ -1,0 +1,47 @@
+{
+  "E2-2025-T3-P1-S3": {
+    "trunk": "Nagpur's plan calls for hospitals to set aside wards and advises builders to give laborers a break（那格浦尔计划要求医院预留病房，并建议建筑商让工人休息）",
+    "structure": [
+      "主句并列谓语一：Nagpur's plan calls for hospitals to set aside cold wards",
+      "  ├ 时间状语：in the summer",
+      "  └ 目的状语(for)：for treating heatstroke patients",
+      "并列谓语二：and advises builders to give construction laborers a break from work",
+      "  └ 时间状语：on very hot days"
+    ],
+    "logic": "plan作共同主语，通过calls for和advises并列提出医疗与劳动保护两类措施；两个不定式分别说明医院和建筑商应采取的行动。",
+    "notes": [
+      "call for sb to do 意为“要求某人做某事”。",
+      "set aside 在此意为“留出、预留”。",
+      "heatstroke 指中暑，尤指严重热射病。"
+    ]
+  },
+  "E2-2025-T3-P1-S11": {
+    "trunk": "The effects were amplified by humidity and the lack of shade（高温影响因湿度和缺少遮阴而加剧）",
+    "structure": [
+      "主句：the effects of the heat were amplified by humidity and the lack of shade",
+      "  ├ 同位插入说明〔修饰 humidity〕：an often neglected factor in heat alert systems",
+      "  └ 介词短语〔修饰 lack of shade〕：at the late-morning outdoor ceremony"
+    ],
+    "logic": "被动主干指出两项放大高温影响的因素；破折号之间的同位语专门解释湿度为何容易被现行预警忽略。",
+    "notes": [
+      "amplify 在此意为“加剧、放大影响”。",
+      "neglected factor 指常被忽视的因素。",
+      "late-morning 指上午较晚、接近中午的时段。"
+    ]
+  },
+  "E2-2025-T3-P1-S18": {
+    "trunk": "HAPs shouldn't just include responses but also recommend measures（行动计划不应只含应急响应，还应提出中长期措施）",
+    "structure": [
+      "主句：HAPs shouldn't just include short-term emergency responses but also recommend medium- to long-term measures",
+      "  ├ 并列结构：not just include A but also recommend B",
+      "  └ 定语从句(that)：that could make communities cooler",
+      "插入引述来源：researchers say"
+    ],
+    "logic": "not just...but also...把计划从应急处置扩展到长期降温；that从句进一步界定中长期措施的目标。",
+    "notes": [
+      "medium- to long-term 是共享term的省略写法。",
+      "emergency responses 指突发高温时的应急响应。",
+      "make communities cooler 包括绿化、建筑改造等结构性措施。"
+    ]
+  }
+}

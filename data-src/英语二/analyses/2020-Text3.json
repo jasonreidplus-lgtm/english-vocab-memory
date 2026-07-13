@@ -1,0 +1,51 @@
+{
+  "E2-2020-T3-P1-S7": {
+    "trunk": "表语从句：That's because they put the costs on drivers rather than manufacturers（这是因为成本被强加给司机而非制造商）",
+    "structure": [
+      "主句：That is",
+      "  └ 表语从句(because)：they inevitably put the costs of cleaning the air on to individual drivers",
+      "      ├ 非限制性定语从句(who)：who must pay fees or buy better vehicles",
+      "      └ 对比结构：rather than on to the car manufacturers",
+      "          └ 定语从句(whose)：whose cheating is the real cause of our toxic pollution"
+    ],
+    "logic": "because 解释措施为何脆弱；rather than 对比实际承担成本者与应负责任者，who 和 whose 分别补充两方信息。",
+    "notes": [
+      "put the costs on to somebody：把成本转嫁给某人。",
+      "rather than：而不是。",
+      "whose cheating：这些制造商的作弊行为。"
+    ]
+  },
+  "E2-2020-T3-P1-S10": {
+    "trunk": "条件复句：If Sadiq Khan wins and extends it..., it is sure to spark opposition（如果汗获胜并扩区，必将引发反对）",
+    "structure": [
+      "条件状语从句(if)：Sadiq Khan wins and extends it to ... roads in 2021",
+      "  └ 方式状语从句(as)：as he intends",
+      "主句：it is sure to spark intense opposition",
+      "  └ 介词短语：from the far larger number of motorists",
+      "      └ 定语从句(who)：who will then be affected"
+    ],
+    "logic": "if 给出扩区假设，as 插入说明这是既定意图；主句预测结果，who 解释反对者为何会反对。",
+    "notes": [
+      "be sure to：必定会。",
+      "spark opposition：引发反对。",
+      "the far larger number of：数量大得多的……。"
+    ]
+  },
+  "E2-2020-T3-P1-S18": {
+    "trunk": "S+系动词+表语：Restrictions ... are a response to the absence of a larger effort（限制措施是对更大行动缺失的回应）",
+    "structure": [
+      "主语：Restrictions",
+      "  └ 定语从句(that)：that keep highly polluting cars out of certain areas",
+      "      └ 破折号举例：city centres, school streets, even individual roads",
+      "系表结构：are a response to the absence of a larger effort",
+      "  ├ 不定式①：to properly enforce existing regulations",
+      "  └ 并列不定式②：(to) require auto companies to bring their vehicles into compliance"
+    ],
+    "logic": "that 界定限制措施内容；两个并列不定式说明缺失的全国性行动本应做什么。",
+    "notes": [
+      "keep cars out of：禁止车辆进入。",
+      "bring...into compliance：使……达到规定要求。",
+      "absence of an effort：相关行动的缺失。"
+    ]
+  }
+}

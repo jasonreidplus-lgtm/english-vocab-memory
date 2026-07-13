@@ -18,9 +18,13 @@ public class NativePrintPlugin extends Plugin {
     @PluginMethod
     public void print(PluginCall call) {
         String requestedName = call.getString("documentName");
-        final String documentName = requestedName == null || requestedName.trim().isEmpty()
-            ? "考研词关"
-            : requestedName.trim();
+        String rawName = requestedName == null ? "" : requestedName.trim();
+        String cleanedName = rawName
+            .replaceAll("[\\\\/:*?\"<>|\\p{Cntrl}]", "-")
+            .replaceAll("\\s+", " ")
+            .replaceAll("[.\\s-]+$", "");
+        if (cleanedName.isEmpty()) cleanedName = "考研词关";
+        final String documentName = cleanedName.length() > 80 ? cleanedName.substring(0, 80) : cleanedName;
         Activity activity = getActivity();
 
         if (activity == null) {
@@ -38,7 +42,10 @@ public class NativePrintPlugin extends Plugin {
                 }
 
                 PrintDocumentAdapter adapter = webView.createPrintDocumentAdapter(documentName);
-                PrintAttributes attributes = new PrintAttributes.Builder().build();
+                PrintAttributes attributes = new PrintAttributes.Builder()
+                    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                    .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                    .build();
                 printManager.print(documentName, adapter, attributes);
                 call.resolve();
             } catch (Exception error) {

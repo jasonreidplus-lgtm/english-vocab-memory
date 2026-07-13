@@ -1,0 +1,51 @@
+{
+  "E2-2012-T4-P1-S9": {
+    "trunk": "S+V+O：Benjamin Friedman argues that lengthy periods have left society..., and have stopped or reversed...（弗里德曼指出，长期停滞会使社会……并阻碍或逆转……）",
+    "structure": [
+      "出处状语：In The Moral Consequences of Economic Growth",
+      "主句：the economic historian Benjamin Friedman argues",
+      "  └ 宾语从句(that)：both inside and outside the U.S., lengthy periods of economic stagnation or decline have ...",
+      "      ├ 并列谓语①：have almost always left society more mean-spirited and less inclusive",
+      "      └ 并列谓语②(and)：have usually stopped or reversed the advance of rights and freedoms"
+    ],
+    "logic": "that 从句是整句论点；主语 lengthy periods 带两个并列谓语，分别描述社会性格恶化和权利自由进程受阻。",
+    "notes": [
+      "leave + 宾语 + 形容词：使社会处于某种状态。",
+      "mean-spirited 指刻薄、缺乏善意。",
+      "the advance of rights and freedoms 指权利与自由的发展进程。"
+    ]
+  },
+  "E2-2012-T4-P1-S13": {
+    "trunk": "S+V+O：The research suggests that not all graduates see their chances dimmed（研究表明并非所有毕业生的机会都会变差）",
+    "structure": [
+      "主句：The research of Till Von Wachter ... suggests",
+      "  ├ 同位语插入：the economist at Columbia University",
+      "  └ 宾语从句(that)：not all people graduating into a recession see their life chances dimmed",
+      "冒号后分项解释①：those with degrees from elite universities catch up fairly quickly",
+      "  └ 地点/程度从句(where)：to where they otherwise would have been",
+      "      └ 条件状语从句(if)：if they had graduated in better times",
+      "分号后强调解释②：it is the masses beneath them that are left behind"
+    ],
+    "logic": "not all 是部分否定；冒号后解释哪些人能追上、哪些人会掉队；末尾用 it is...that... 强调真正受损的是普通大众。",
+    "notes": [
+      "graduating into a recession 指毕业时恰逢经济衰退。",
+      "would have been if... 是对过去相反情况的虚拟假设。",
+      "see their life chances dimmed 可理解为“发现人生机会变得黯淡”。"
+    ]
+  },
+  "E2-2012-T4-P1-S16": {
+    "trunk": "并列主干：The U.S. was more tolerant..., and polls have shown mixed results（美国当时更宽容，但多项调查结果不一）",
+    "structure": [
+      "范围状语：In many respects",
+      "分句①：the U.S. was more socially tolerant ... than at any time in its history",
+      "  └ 时间状语：entering this recession",
+      "并列分句②(and)：a variety of national polls on social conflict since then have shown mixed results"
+    ],
+    "logic": "前半句给出进入衰退时较高的社会宽容基线，后半句说明衰退后的调查并未呈现单一方向，因此影响仍难判断。",
+    "notes": [
+      "entering this recession 是时间压缩表达，相当于 when it entered this recession。",
+      "more...than at any time in its history 表示高于历史上任何时候。",
+      "mixed results 指结果有好有坏、没有一致结论。"
+    ]
+  }
+}

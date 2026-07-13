@@ -1,20 +1,20 @@
 import React from 'react';
-import { Newspaper, ScrollText, Lightbulb, Search, Settings } from 'lucide-react';
+import { BookOpenCheck, GraduationCap, Search, Settings } from 'lucide-react';
 import HeaderBar from '../components/HeaderBar';
 import MenuEntry from '../components/MenuEntry';
+import type { ExamType } from '../types';
 
 interface ReadingScreenProps {
   themeKey: string;
   onTheme: (key: string) => void;
-  onPassages: () => void;
-  onRead: () => void;
-  onCloze: () => void;
+  onExam: (exam: ExamType) => void;
+  counts: Record<ExamType, number>;
   onSearch: () => void;
   onOpenSettings?: () => void;
 }
 
-/* 「阅读·查词」标签页：真题阅读闯关 / 真题精读 / 句子精读 / 查词。 */
-export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, onCloze, onSearch, onOpenSettings }: ReadingScreenProps) {
+/* 「阅读·查词」总入口：英语一、英语二严格分库，再进入各自的阅读/长难句流程。 */
+export default function ReadingScreen({ themeKey, onTheme, onExam, counts, onSearch, onOpenSettings }: ReadingScreenProps) {
   return (
     <>
       <HeaderBar
@@ -30,22 +30,16 @@ export default function ReadingScreen({ themeKey, onTheme, onPassages, onRead, o
       <div className="section-title">阅读 · 查词</div>
       <div className="stack gap8 mt8">
         <MenuEntry
-          icon={<Newspaper size={20} color="var(--accent)" />}
-          title="真题阅读 · 闯关"
-          sub="历年真题，逐句精读、标考研词、看译文"
-          onClick={onPassages}
+          icon={<GraduationCap size={20} color="var(--accent)" />}
+          title="考研英语一"
+          sub={`内置真题 ${counts.english1} 篇 · 逐句翻译、长难句拆解`}
+          onClick={() => onExam('english1')}
         />
         <MenuEntry
-          icon={<ScrollText size={20} color="var(--accent)" />}
-          title="真题精读"
-          sub="粘贴任意真题原文，自动高亮、点词看卡"
-          onClick={onRead}
-        />
-        <MenuEntry
-          icon={<Lightbulb size={20} color="var(--accent)" />}
-          title="句子精读"
-          sub="整句英文 + 翻译 + 词义讲解"
-          onClick={onCloze}
+          icon={<BookOpenCheck size={20} color="var(--accent)" />}
+          title="考研英语二"
+          sub={`内置真题 ${counts.english2} 篇 · 2010—2026 分类与长难句`}
+          onClick={() => onExam('english2')}
         />
         <MenuEntry
           icon={<Search size={20} color="var(--accent)" />}

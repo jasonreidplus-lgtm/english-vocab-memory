@@ -1,0 +1,48 @@
+{
+  "E2-2014-T1-P1-S8": {
+    "trunk": "主干：It is far better to spend money on experiences",
+    "structure": [
+      "It 作形式主语，真正主语是不定式：to spend money on experiences",
+      "比较评价：far better，far 强化比较级",
+      "插入语：say Ms Dunn and Mr Norton",
+      "举例同位说明：like interesting trips, unique meals or even going to the cinema"
+    ],
+    "logic": "句子把研究结论先明确提出，再用插入语标明观点来源，并列举三类体验型消费。",
+    "notes": [
+      "spend money on 表示“把钱花在……上”。",
+      "say ... 是报道式倒装插入语，不是句子主干。",
+      "like 在此表示“例如”，后列名词短语和动名词短语。"
+    ]
+  },
+  "E2-2014-T1-P1-S11": {
+    "trunk": "主干：It seems (that) most people would be better off if ...",
+    "structure": [
+      "It seems 后省略连接词 that，后接主语从句内容",
+      "条件从句(if)：if they could shorten ..., spend more time ... and less of it watching television",
+      "三个并列动作：shorten / spend more / (spend) less",
+      "括号内同位说明 something，指 watching television",
+      "定语从句〔省略 that，修饰 something〕：the average American spends ... doing, and is hardly jollier for it"
+    ],
+    "logic": "主句提出改善幸福感的条件，括号则用美国人的看电视时长与低幸福收益形成反讽式证据。",
+    "notes": [
+      "be better off 表示“处境更好”。",
+      "less of it 中 it 指 time。",
+      "spend time doing 是固定结构；be jollier for it 表示“因此更快乐”。"
+    ]
+  },
+  "E2-2014-T1-P1-S16": {
+    "trunk": "并列主干：the link ... can be seen ..., and scarcity enhances the pleasure ...",
+    "structure": [
+      "主句①主语：the link between feeling good and spending money on others",
+      "被动谓语：can be seen among rich and poor people around the world",
+      "并列主句②(and)：scarcity enhances the pleasure of most things",
+      "范围状语：for most people"
+    ],
+    "logic": "句子并列给出两项跨人群规律：利他消费与良好感受相关，稀缺性则会提升享用事物的愉悦。",
+    "notes": [
+      "between A and B 连接 feeling 与 spending 两个动名词结构。",
+      "among rich and poor people 强调该联系并不限于富人。",
+      "scarcity 在此指供应有限或不常获得。"
+    ]
+  }
+}

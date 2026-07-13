@@ -20,6 +20,7 @@ import { shuffle } from './lib/shuffle';
 import LevelSelect from './screens/LevelSelect'; // 首屏：保持同步导入，避免首次白屏
 import ReviewScreen from './screens/ReviewScreen';
 import ReadingScreen from './screens/ReadingScreen';
+import ExamReadingScreen from './screens/ExamReadingScreen';
 import TabBar from './components/TabBar';
 import { loadPassages, addPassage, addPassagesBulk, parseBulk, removePassage, markStudied, resetPassageStudy } from './lib/passages';
 import { loadDict, dictEntry } from './lib/dict';
@@ -27,7 +28,7 @@ import LoginScreen from './screens/LoginScreen';
 import { isAuthed, logout } from './lib/auth';
 import ConfirmDialog from './components/ConfirmDialog';
 
-import type { Word, Level, Question, Passage } from './types';
+import type { ExamType, Word, Level, Question, Passage } from './types';
 import type { VocabPack, GroupDetail } from './data/loadVocab';
 import type { Result } from './screens/ResultScreen';
 import type { ReviewItem } from './screens/ReviewSession';
@@ -58,6 +59,7 @@ type View =
   | 'reviewSession'
   | 'match'
   | 'read'
+  | 'readingExam'
   | 'cloze'
   | 'passages'
   | 'browse'
@@ -130,6 +132,7 @@ export default function App() {
   const [justUnlocked, setJustUnlocked] = useState<number | null>(null); // 刚解锁的关卡(用于高亮动画)
   const [browseCtx, setBrowseCtx] = useState<BrowseCtx | null>(null); // 浏览模式 { words, title, ret }
   const [passages, setPassages] = useState<Passage[]>([]); // 真题阅读关卡库(本机)
+  const [activeExam, setActiveExam] = useState<ExamType>('english1');
   const [activePassage, setActivePassage] = useState<Passage | null>(null); // 正在精读的篇目
   const [printData, setPrintData] = useState<{ title: string; words: Word[] } | null>(null); // PDF 导出覆盖层
   useEffect(() => { let alive = true; loadPassages().then((p) => alive && setPassages(p)); return () => { alive = false; }; }, []);
@@ -374,13 +377,15 @@ export default function App() {
   const startRead = () => setView('read');
   const startCloze = () => { setActivePassage(null); setView('cloze'); };
   const openSearch = () => setView('search');
+  const openExam = (exam: ExamType) => { setActiveExam(exam); setView('readingExam'); };
+  const backToReadingExam = () => setView('readingExam');
 
   // —— 真题阅读关卡库 ——
   const openPassages = () => setView('passages');
   const backToPassages = () => { setActivePassage(null); setView('passages'); };
   const openPassage = (p: Passage) => { setActivePassage(p); setView('cloze'); };
-  const importPassage = (title: string, en: string, cn: string) => { addPassage(title, en, cn); loadPassages().then(setPassages); };
-  const bulkImportPassages = (text: string) => { addPassagesBulk(parseBulk(text)); loadPassages().then(setPassages); };
+  const importPassage = (title: string, en: string, cn: string) => { addPassage(title, en, cn, activeExam); loadPassages().then(setPassages); };
+  const bulkImportPassages = (text: string) => { addPassagesBulk(parseBulk(text), activeExam); loadPassages().then(setPassages); };
   const deletePassage = (id: string) => { removePassage(id); loadPassages().then(setPassages); };
   const finishPassage = (p: Passage) => {
     markStudied(p.id);
@@ -495,7 +500,7 @@ export default function App() {
         pool={allReady}
         themeKey={theme.key}
         onTheme={setTheme}
-        onBack={goHome}
+        onBack={backToReadingExam}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
         todayKey={todayKey}
@@ -507,12 +512,13 @@ export default function App() {
     screen = (
       <ClozeScreen
         pool={allReady}
+        exam={activeExam}
         sentences={activePassage ? activePassage.sents : undefined}
         title={activePassage ? activePassage.title : undefined}
         onDone={activePassage ? () => finishPassage(activePassage) : undefined}
         themeKey={theme.key}
         onTheme={setTheme}
-        onBack={activePassage ? backToPassages : goHome}
+        onBack={activePassage ? backToPassages : backToReadingExam}
         onSpeak={onSpeak}
         onMarkWrong={markWrong}
         todayKey={todayKey}
@@ -523,11 +529,12 @@ export default function App() {
   } else if (view === 'passages') {
     screen = (
       <PassageScreen
-        passages={passages}
+        exam={activeExam}
+        passages={passages.filter((p) => (p.exam || 'english1') === activeExam)}
         pool={allReady}
         themeKey={theme.key}
         onTheme={setTheme}
-        onBack={goHome}
+        onBack={backToReadingExam}
         onOpen={openPassage}
         onImport={importPassage}
         onBulkImport={bulkImportPassages}
@@ -598,11 +605,27 @@ export default function App() {
       <ReadingScreen
         themeKey={theme.key}
         onTheme={setTheme}
+        onExam={openExam}
+        counts={{
+          english1: passages.filter((p) => (p.exam || 'english1') === 'english1' && p.id.startsWith('ky-')).length,
+          english2: passages.filter((p) => p.exam === 'english2' && p.id.startsWith('ky-e2-')).length,
+        }}
+        onSearch={openSearch}
+        onOpenSettings={() => setSettingsOpen(true)}
+      />
+    );
+  } else if (view === 'readingExam') {
+    const count = passages.filter((p) => (p.exam || 'english1') === activeExam && p.id.startsWith('ky-')).length;
+    screen = (
+      <ExamReadingScreen
+        exam={activeExam}
+        passageCount={count}
+        themeKey={theme.key}
+        onTheme={setTheme}
+        onBack={() => setView('reading')}
         onPassages={openPassages}
         onRead={startRead}
         onCloze={startCloze}
-        onSearch={openSearch}
-        onOpenSettings={() => setSettingsOpen(true)}
       />
     );
   } else if (view === 'stats') {

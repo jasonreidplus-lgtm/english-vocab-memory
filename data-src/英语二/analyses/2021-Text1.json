@@ -1,0 +1,51 @@
+{
+  "E2-2021-T1-P1-S1": {
+    "trunk": "S+系动词+表语：Reskilling is something but is actually a requirement（技能再培训看似某物，实则是一项必要举措）",
+    "structure": [
+      "主语：Reskilling",
+      "  ├ 系表结构①：is something",
+      "  │   └ 定语从句(that)：that sounds like a buzzword",
+      "  └ 转折并列系表结构②：but is actually a requirement",
+      "      └ 条件状语从句(if)：if we plan to have a future",
+      "          └ 定语从句(where)：where a lot of would-be workers do not get left behind"
+    ],
+    "logic": "but 把表面印象和实际必要性对照；if 给出必要性的前提，where 从句具体描述所期望的未来。",
+    "notes": [
+      "buzzword：流行术语、时髦说法。",
+      "would-be workers：潜在劳动者。",
+      "get left behind：被落下、无法跟上变化。"
+    ]
+  },
+  "E2-2021-T1-P1-S11": {
+    "trunk": "并列谓语：Efforts have been languid and have given us a situation（相关努力迟缓，并造成一种局面）",
+    "structure": [
+      "主语：Efforts in Canada and elsewhere",
+      "  ├ 谓语①：have been arguably languid at best",
+      "  └ 并列谓语②：have given us a situation",
+      "      └ 定语从句(where)：where we frequently hear of employers begging for workers",
+      "          └ 让步状语：even at times and in regions where unemployment is high"
+    ],
+    "logic": "两个并列谓语先评价政策努力，再说明其后果；两个 where 分别限定“局面”和“地区”，构成高失业与缺工并存的反差。",
+    "notes": [
+      "languid at best：充其量只能说进展迟缓。",
+      "hear of somebody doing：听说某人正在做某事。",
+      "beg for workers：迫切寻找工人。"
+    ]
+  },
+  "E2-2021-T1-P1-S18": {
+    "trunk": "That seems to be the case: Scandinavian Airlines decided to start a program（情况似乎正是如此：航空公司决定启动计划）",
+    "structure": [
+      "引导句：That seems to be the case in Sweden",
+      "冒号后主句：Scandinavian Airlines decided",
+      "  ├ 时间/条件省略结构：When forced to furlough 90 per cent of their cabin staff",
+      "  └ 宾语不定式：to start up a short retraining program",
+      "      └ 定语从句(that)：that reskilled the laid-off workers to support hospital staff"
+    ],
+    "logic": "冒号后的瑞典案例解释 that 指代的可弥合技能缺口情形；when 说明触发背景，that 从句说明培训计划的作用。",
+    "notes": [
+      "furlough：让员工暂时停职。",
+      "laid-off workers：被裁撤或停职的员工。",
+      "reskill somebody to do：为某人再培训，使其能够做某事。"
+    ]
+  }
+}

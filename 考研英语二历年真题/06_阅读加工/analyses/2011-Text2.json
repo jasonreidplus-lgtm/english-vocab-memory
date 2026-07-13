@@ -1,0 +1,44 @@
+{
+  "E2-2011-T2-P1-S12": {
+    "trunk": "S+V：Even American newspapers have not only survived but returned to profit（即使美国报纸也不仅存活下来，而且恢复盈利）",
+    "structure": [
+      "主句：Even American newspapers have not only survived but often returned to profit",
+      "  └ 非限制性定语从句〔which，修饰 American newspapers〕：which inhabit the most troubled corner of the global industry"
+    ],
+    "logic": "主句用 not only...but... 并列两个谓语；which 从句插入说明美国报纸处境最艰难，因而强化 even 所表达的出乎意料。",
+    "notes": [
+      "inhabit the most troubled corner 是比喻，意为处在行业困境最严重的部分。",
+      "return to profit 指恢复盈利。",
+      "not only 与 but 后分别对应 survived 和 returned。"
+    ]
+  },
+  "E2-2011-T2-P1-S19": {
+    "trunk": "并列主干：These measures have proved the right ones, and they can be pushed further（这些措施已证明正确，而且还可进一步实施）",
+    "structure": [
+      "分句①：Yet these desperate measures have proved the right ones",
+      "并列分句②(and)：they can be pushed further",
+      "  └ 评注插入语：sadly for many journalists"
+    ],
+    "logic": "Yet 承接前文那些令人不快的削减措施并转折评价其有效；and 后继续指出还有进一步削减空间，插入语点出记者将承担代价。",
+    "notes": [
+      "prove + 名词补语：事实证明是……。",
+      "the right ones 中 ones 替代 measures。",
+      "push measures further 指把措施进一步推进或加码。"
+    ]
+  },
+  "E2-2011-T2-P1-S25": {
+    "trunk": "转折复句：The whirlwind harmed everybody, but much damage has been concentrated in areas（风暴伤害所有人，但损失集中在一些领域）",
+    "structure": [
+      "分句①：The whirlwind harmed everybody",
+      "  └ 定语从句〔that，修饰 whirlwind〕：that swept through newsrooms",
+      "转折分句②(but)：much of the damage has been concentrated in areas",
+      "  └ 定语从句(where)〔修饰 areas〕：where newspapers are least distinctive"
+    ],
+    "logic": "先用 whirlwind 比喻行业裁员冲击，再用 but 缩小范围：受损最重的是报纸最没有独特优势的内容领域。",
+    "notes": [
+      "sweep through 表示迅速席卷。",
+      "newsroom 指新闻编辑部，不只是实体房间。",
+      "least distinctive 指最缺少报纸独有价值，而不是最不显眼。"
+    ]
+  }
+}

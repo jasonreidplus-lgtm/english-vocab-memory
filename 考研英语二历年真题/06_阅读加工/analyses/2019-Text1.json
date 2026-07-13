@@ -1,0 +1,51 @@
+{
+  "E2-2019-T1-P1-S7": {
+    "trunk": "引语 + says Amrisha Vaish, adding that...（瓦伊什说……，并补充指出……）",
+    "structure": [
+      "直接引语主干：There has been a kind of revival or a rethinking",
+      "  ├ 介词宾语从句①(about what)：what guilt is",
+      "  └ 并列宾语从句②(what)：what role guilt can serve",
+      "主句倒装：says Amrisha Vaish",
+      "  └ 伴随分词：adding that this revival is part of a larger recognition",
+      "      └ 同位语从句(that)：emotions aren't binary",
+      "          └ 破折号解释：feelings advantageous in one context may be harmful in another"
+    ],
+    "logic": "直接引语先说明对内疚的重新认识；adding 引出作者对这股变化的归类，两个 that 层层说明“更广泛认识”的具体内容。",
+    "notes": [
+      "what guilt is 与 what role guilt can serve 都是 about 的宾语从句。",
+      "binary 在此指非好即坏的二元划分。",
+      "advantageous in one context 与 harmful in another 形成情境对比。"
+    ]
+  },
+  "E2-2019-T1-P1-S16": {
+    "trunk": "S+V+O：Some kids may make up for that shortfall（一些孩子可能弥补这一不足）",
+    "structure": [
+      "主句：Some kids may make up for that shortfall",
+      "  ├ 定语从句(who，修饰 kids)：who are low in sympathy",
+      "  ├ 方式状语(by)：by experiencing more guilt",
+      "  └ 非限制性定语从句(which，指 guilt)：which can rein in their nastier impulses"
+    ],
+    "logic": "who 指明孩子的特征，by 说明弥补不足的方式，which 再解释更多内疚为何能够发挥补偿作用。",
+    "notes": [
+      "make up for：弥补、补偿。",
+      "be low in sympathy：同情心不足。",
+      "rein in：约束、控制。"
+    ]
+  },
+  "E2-2019-T1-P1-S19": {
+    "trunk": "S+V+O1+O2：she rated each child's level and tendency（她评定了每个孩子的水平和倾向）",
+    "structure": [
+      "方式分词短语：Using caregiver assessments and the children's self-observations",
+      "主句：she rated",
+      "  ├ 并列宾语①：each child's overall sympathy level",
+      "  └ 并列宾语②：his or her tendency to feel negative emotions",
+      "      └ 时间状语(after)：after moral transgressions"
+    ],
+    "logic": "句首分词交代评定依据；主句的两个并列宾语分别对应同情水平和违规后产生负面情绪的倾向。",
+    "notes": [
+      "caregiver assessment：照护者评估。",
+      "tendency to do：做某事的倾向。",
+      "moral transgression：违背道德规范的行为。"
+    ]
+  }
+}

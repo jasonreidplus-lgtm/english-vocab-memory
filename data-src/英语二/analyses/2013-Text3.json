@@ -1,0 +1,49 @@
+{
+  "E2-2013-T3-P1-S1": {
+    "trunk": "主干：Scientists have found that we can reduce or eliminate the negative effects ...",
+    "structure": [
+      "宾语从句(that)：that ... we can reduce or even eliminate ...",
+      "让步状语从句(although)：although we are prone to snap overreactions",
+      "条件状语从句(if)：if we take a moment and think about ...",
+      "宾语从句(how)：how we are likely to react",
+      "介词短语：of our quick, hard-wired responses，修饰 negative effects"
+    ],
+    "logic": "although 先承认人类容易本能过度反应，if 再提出“暂停并预判”的条件，主句给出可减轻负面影响的结果。",
+    "notes": [
+      "be prone to 意为“容易/倾向于”，to 后接名词。",
+      "take a moment 不是“花很久”，而是“稍作停顿”。",
+      "hard-wired 比喻“天生设定的、本能的”。"
+    ]
+  },
+  "E2-2013-T3-P1-S13": {
+    "trunk": "主干：John Gottman explains that we ... 'thin slice' information reliably only after ...",
+    "structure": [
+      "同位语插入：the marriage expert，补充说明 John Gottman",
+      "宾语从句(that)：that we quickly 'thin slice' information reliably",
+      "时间限制：only after we ground such snap reactions in ... long-term study",
+      "ground A in B：把 such snap reactions 建立在 'thick sliced' long-term study 之上"
+    ],
+    "logic": "only after 限定“快速判断可靠”的前提：长期、充分观察先提供基础，随后形成的瞬间判断才可信。",
+    "notes": [
+      "thin slice 作动词，指凭少量信息快速判断。",
+      "thick sliced 与 thin slice 构成概念对照，强调长期、丰富的信息基础。",
+      "only after 位于句中，因此这里不发生主谓倒装。"
+    ]
+  },
+  "E2-2013-T3-P1-S15": {
+    "trunk": "主干：Our ability ... is what differentiates us from animals",
+    "structure": [
+      "主语中心：Our ability",
+      "不定式作后置定语：to mute our hard-wired reactions",
+      "方式状语：by pausing",
+      "表语从句(what)：what differentiates us from animals",
+      "冒号后解释说明：dogs can think about the future only intermittently or for a few minutes"
+    ],
+    "logic": "冒号前提出人与动物的关键差异是“暂停并抑制本能反应”，冒号后以狗对未来思考能力有限作为具体对照。",
+    "notes": [
+      "what = the thing that，在表语从句中兼作 differentiates 的主语。",
+      "differentiate A from B 表示“把A与B区分开”。",
+      "by pausing 是手段，不是时间状语。"
+    ]
+  }
+}
