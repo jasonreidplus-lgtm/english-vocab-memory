@@ -7,7 +7,7 @@
   "scripts": {
     "predev": "node scripts/build-passages.mjs && node scripts/split-vocab.cjs",
     "dev": "vite",
-    "prebuild": "node scripts/build-passages.mjs && tsx scripts/test.mjs && node scripts/split-vocab.cjs",
+    "prebuild": "node scripts/build-passages.mjs && node scripts/split-vocab.cjs && tsx scripts/test.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "test": "tsx scripts/test.mjs"
