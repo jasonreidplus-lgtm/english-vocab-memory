@@ -1,0 +1,49 @@
+{
+  "E2-2026-T3-P1-S5": {
+    "trunk": "This is why the delays have thrown the industry into chaos（这就是这些延误使铁路业陷入混乱的原因）",
+    "structure": [
+      "主句：This is why the recent severe delays ... have thrown the rail industry into chaos",
+      "  ├ 过去分词短语〔修饰 delays〕：caused by numerous maintenance works",
+      "  ├ 时间状语从句(when)：at a time when most people head on holiday",
+      "  └ 非限制性定语从句(which)：which matters for business in a country",
+      "      └ 定语从句(where)：where tourism accounts for 10 percent of GDP"
+    ],
+    "logic": "why从句承接上文铁路受欢迎的背景；两个从句继续说明延误恰逢度假期，并在旅游业占比高的国家具有商业影响。",
+    "notes": [
+      "throw ... into chaos 意为“使……陷入混乱”。",
+      "head on holiday 指启程度假。",
+      "account for 意为“占据某一比例”。"
+    ]
+  },
+  "E2-2026-T3-P1-S7": {
+    "trunk": "Ferrovie said 23 percent of trains were late（意大利国家铁路公司称23%的列车晚点）",
+    "structure": [
+      "主句：Ferrovie dello Stato Italiane said",
+      "  ├ 同位语：the publicly controlled group",
+      "  │   └ 定语从句(that)：that owns train operator Trenitalia and the national train network RFI",
+      "  └ 宾语从句〔省略that〕：23 percent of all high-speed trains ... were late in 2023",
+      "      └ 定语从句〔省略that，修饰 trains〕：it operated"
+    ],
+    "logic": "两个嵌套的定语从句分别交代集团资产和晚点列车范围，去掉后主干只是“公司称23%的高铁晚点”。",
+    "notes": [
+      "publicly controlled 指由公共部门控股或控制。",
+      "train operator 与 train network 分别是列车运营商和铁路网运营主体。",
+      "it operated 中it指Ferrovie。"
+    ]
+  },
+  "E2-2026-T3-P1-S18": {
+    "trunk": "It will allow for a reduction of the distance（它将使列车间隔缩短）",
+    "structure": [
+      "主句：It will allow for a reduction of the distance between high-speed trains",
+      "  └ 现在分词短语〔修饰 trains〕：travelling on the same line at any given time",
+      "非限制性定语从句(which)：which should mean a significant increase in capacity and traffic fluidity",
+      "引述来源：according to Giuricin"
+    ],
+    "logic": "主句说明技术可缩短同线列车间隔，which概括这一整件事并推出运力和流畅度提高的结果。",
+    "notes": [
+      "allow for 在此意为“使……成为可能”。",
+      "distance 实际指安全运行间隔。",
+      "traffic fluidity 指交通或列车运行的流畅程度。"
+    ]
+  }
+}

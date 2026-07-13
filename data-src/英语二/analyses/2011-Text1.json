@@ -1,0 +1,50 @@
+{
+  "E2-2011-T1-P1-S3": {
+    "trunk": "分号连接两部分：Ms. Simmons was under fire; how could she have let payouts pass unremarked?（西蒙斯受抨击；她怎能对奖金发放不置一词？）",
+    "structure": [
+      "陈述句：Ms. Simmons was under fire",
+      "  ├ 时间状语：by the end of 2009",
+      "  └ 原因状语(for)：for having sat on Goldman's compensation committee",
+      "分号后反问句：how could she have let those enormous bonus payouts pass unremarked?",
+      "  └ 使役结构：let + payouts + pass + unremarked"
+    ],
+    "logic": "前半句交代遭批评的事实和原因，分号后的反问把批评内容直接说出；could have done 表示对过去行为的质疑。",
+    "notes": [
+      "be under fire 意为“受到猛烈批评”。",
+      "having sat on... 是完成式动名词，说明因曾担任委员会成员而受批评。",
+      "let...pass unremarked 指任由某事发生而不评论、不质疑。"
+    ]
+  },
+  "E2-2011-T1-P1-S12": {
+    "trunk": "S+V+O：They found that the probability increases（他们发现这种概率会上升）",
+    "structure": [
+      "主句：They found",
+      "  └ 宾语从句(that)：the probability ... increases by nearly 20%",
+      "      ├ 时间状语：after a surprise departure",
+      "      └ 同位语从句〔that，说明 probability 的内容〕：that the company will subsequently have to restate earnings"
+    ],
+    "logic": "外层 that 引导 found 的宾语；内层 that 紧跟 probability，说明“哪件事发生的概率”，真正谓语 increases 位于较后位置。",
+    "notes": [
+      "不要把 company 误当作 increases 的主语，主语是 probability。",
+      "restate earnings 指更正并重新公布收益数据。",
+      "subsequently 表示董事离任之后的后续时间。"
+    ]
+  },
+  "E2-2011-T1-P1-S17": {
+    "trunk": "S+V+O：The researchers believe that outside directors have an easier time（研究人员认为外部董事会更容易……）",
+    "structure": [
+      "主句：the researchers believe",
+      "  └ 宾语从句(that)：outside directors have an easier time of avoiding a blow to their reputations",
+      "      ├ 条件状语从句(if)：if they leave a firm before bad news breaks",
+      "      └ 让步状语从句(even if)：even if a review of history shows",
+      "          └ 宾语从句〔省略 that〕：they were on the board at the time",
+      "              └ 定语从句〔省略 when，修饰 time〕：any wrongdoing occurred"
+    ],
+    "logic": "核心判断是“提前离开可更容易保住声誉”；if 给出实现条件，even if 再补充让步：历史记录仍可能证明其当时在任。",
+    "notes": [
+      "have an easier time of doing：做某事更容易。",
+      "bad news breaks 指坏消息突然传出。",
+      "a blow to one's reputation 指声誉受到打击。"
+    ]
+  }
+}

@@ -12,7 +12,7 @@ import { shortMeaning } from '../game/quiz';
 import { shuffle } from '../lib/shuffle';
 import { fetchBuiltin } from '../lib/passages';
 import { splitEnSentences } from '../lib/text';
-import type { Word, Sentence, Passage } from '../types';
+import type { ExamType, Word, Sentence, Passage } from '../types';
 
 /* 长难句「就地划线」：复用已有 analysis.structure(角色〔修饰X〕：英文片段)，在原句上叠加彩色下划线，无需改数据。 */
 function segRole(label: string): string {
@@ -129,6 +129,7 @@ function AnaTree({ lines }: { lines: string[] }) {
 
 interface ClozeScreenProps {
   pool: Word[];
+  exam?: ExamType;
   sentences?: Sentence[]; // passage 模式：传 sentences + title + onDone
   title?: string;
   onDone?: () => void;
@@ -143,7 +144,7 @@ interface ClozeScreenProps {
 }
 
 export default function ClozeScreen({
-  pool, sentences, title, onDone, // passage 模式：传 sentences + title + onDone
+  pool, exam, sentences, title, onDone, // passage 模式：传 sentences + title + onDone
   themeKey, onTheme, onBack, onSpeak, onMarkWrong, todayKey, savedTodayIds, hydrateWord,
 }: ClozeScreenProps) {
   const passageMode = Array.isArray(sentences);
@@ -167,22 +168,32 @@ export default function ClozeScreen({
     if (passageMode) return;
     let alive = true;
     const base = import.meta.env.BASE_URL;
-    Promise.all([
-      fetch(`${base}data/sentences.json`).then((r) => r.json()),
-      // 复用真题关卡库(共享 fetchBuiltin 的模块级缓存，避免重复下载 passages.json)：
-      // 把每篇的 sents 摊平当作句库，逐句已带 cn 译文
-      fetchBuiltin(),
-    ])
-      .then(([self, passages]: [Sentence[], Passage[]]) => {
+    const load = async () => {
+      // 分考试时只依赖真题库；通用句库仅供未指定考试的旧入口使用。
+      const passages = await fetchBuiltin();
+      let self: Sentence[] = [];
+      if (!exam) {
+        const response = await fetch(`${base}data/sentences.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        self = await response.json();
+      }
+      return { self, passages };
+    };
+    load()
+      .then(({ self, passages }: { self: Sentence[]; passages: Passage[] }) => {
         if (!alive) return;
-        const real = Array.isArray(passages) ? passages.flatMap((p) => p.sents || []) : [];
-        const all = [...(Array.isArray(self) ? self : []), ...real];
+        const real = Array.isArray(passages)
+          ? passages
+              .filter((p) => !exam || (p.exam || 'english1') === exam)
+              .flatMap((p) => p.sents || [])
+          : [];
+        const all = exam ? real : [...(Array.isArray(self) ? self : []), ...real];
         setBank(all);
         setOrder(shuffle(all.map((_, i) => i)));
       })
       .catch(() => alive && setBank([]));
     return () => { alive = false; };
-  }, [passageMode]);
+  }, [passageMode, exam]);
 
   const pasteSents = useMemo<Sentence[]>(() => splitEnSentences(pasteText).map((en) => ({ en })), [pasteText]);
   const list = passageMode
@@ -237,7 +248,7 @@ export default function ClozeScreen({
       <HeaderBar onBack={onBack} themeKey={themeKey} onTheme={onTheme} />
 
       <div className="section-title">
-        {passageMode ? title : '句子精读'}
+        {passageMode ? title : `${exam === 'english2' ? '英语二' : exam === 'english1' ? '英语一' : ''}句子精读`}
         {!passageMode && (
           <span className="seg" style={{ marginLeft: 'auto' }}>
             <button className={src === 'bank' ? 'on' : ''} onClick={() => setSrc('bank')}><Library size={13} /> 句库</button>

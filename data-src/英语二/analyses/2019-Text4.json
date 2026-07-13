@@ -1,0 +1,50 @@
+{
+  "E2-2019-T4-P1-S7": {
+    "trunk": "S+V+C：They could even be detrimental（这些行动甚至可能有害）",
+    "structure": [
+      "主句：They could even be detrimental",
+      "  └ 结果/伴随分词：satisfying a need",
+      "      ├ 不定式作后置定语：to have done our bit",
+      "      └ without 介词结构：without ever progressing onto bigger... actions",
+      "同位解释：a kind of moral licensing",
+      "  └ 定语从句(that)：that allays our concerns and stops us doing more and asking more of those in charge"
+    ],
+    "logic": "句子先判断小行动可能有害，再用分词和 without 说明其心理机制，最后用同位语定义“道德许可”，并由 that 从句展开后果。",
+    "notes": [
+      "do our bit：尽自己的一份力。",
+      "allay concerns：缓解担忧。",
+      "those in charge：掌权者、负责人。"
+    ]
+  },
+  "E2-2019-T4-P1-S8": {
+    "trunk": "时间/让步复句：While the conversation remains centered..., we're ignoring the balance of power（当讨论仍聚焦……时，我们忽视了权力关系）",
+    "structure": [
+      "while 状语从句：the conversation ... remains centered on shopping bags and straws",
+      "主句：we're ignoring the balance of power",
+      "  └ 定语从句(that)：that implies",
+      "      └ 宾语从句(that)：as consumers we must shop sustainably, rather than as citizens hold our governments and industries to account",
+      "          └ 目的不定式：to push for real systemic change"
+    ],
+    "logic": "while 把表层环保讨论与被忽视的权力结构对照；两个 that 依次修饰 balance 并给出其隐含要求，rather than 对比消费者和公民两种身份。",
+    "notes": [
+      "remain centered on：仍以……为中心。",
+      "hold somebody to account：要求某人承担责任。",
+      "systemic change：系统性变革。"
+    ]
+  },
+  "E2-2019-T4-P1-S11": {
+    "trunk": "S+V+O从句：Elizabeth R. DeSombre argues that...（德松布尔主张……）",
+    "structure": [
+      "主句：Wellesley College professor Elizabeth R. DeSombre argues",
+      "  └ 宾语从句(that)：the best way ... is for the change to be structural",
+      "      ├ 不定式作后置定语：to collectively change the behavior of large numbers of people",
+      "      └ 表语：for the change to be structural"
+    ],
+    "logic": "that 从句使用“the best way is...”框架；两个不定式分别说明要改变什么，以及最佳方式的结构性本质。",
+    "notes": [
+      "large numbers of people：大量人群。",
+      "structural change：通过制度或结构实现的改变。",
+      "for + 名词 + to do 是不定式的逻辑主语结构。"
+    ]
+  }
+}

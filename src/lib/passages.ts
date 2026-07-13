@@ -2,12 +2,12 @@
    真题阅读「关卡库」数据层。三个来源合并(新→旧)：
    1) 用户自己导入的文章(本机 localStorage，不上传)；
    2) 内置真题：public/data/passages.json —— 由 scripts/build-passages.mjs
-      从 data-src/拆句_JSONL 生成(2010–2023，缺 2021，约 52 篇)，标 demo 不可删；
+      分别从英语一、英语二 data-src 生成，并通过 exam 字段严格分库，标 demo 不可删；
    3) 2 篇自写示例文章(对标真题难度，带逐句翻译)。
    版权：内置真题原文仅供本人备考自用，请勿公开分发。
    ============================================================ */
 import { splitEnSentences } from './text';
-import type { Passage, Sentence } from '../types';
+import type { ExamType, Passage, Sentence } from '../types';
 
 export const PASSAGES_STORAGE_KEY = 'wordquest:passages';
 
@@ -17,6 +17,7 @@ interface ImportedPassage {
   title: string;
   en: string;
   cn: string;
+  exam?: ExamType;
 }
 
 /** localStorage 中持久化的整体结构 */
@@ -37,6 +38,7 @@ const DEMO: Passage[] = [
   {
     id: 'demo-automation',
     title: '示例 · 自动化与就业',
+    exam: 'english1',
     demo: true,
     sents: [
       { en: 'The rapid advance of automation has rekindled an old anxiety: that machines will eventually render human labor obsolete.', cn: '自动化的迅猛发展重新点燃了一种古老的忧虑——机器终将使人类劳动变得多余。' },
@@ -48,6 +50,7 @@ const DEMO: Passage[] = [
   {
     id: 'demo-education',
     title: '示例 · 教育与机会',
+    exam: 'english1',
     demo: true,
     sents: [
       { en: 'Access to quality education has long been regarded as the most reliable ladder of social mobility.', cn: '获得优质教育长期以来被视为社会流动最可靠的阶梯。' },
@@ -109,14 +112,14 @@ export async function loadPassages(): Promise<Passage[]> {
   const userP: Passage[] = imported.map((p) => ({
     id: p.id,
     title: p.title,
+    exam: p.exam || 'english1',
     sents: makeSents(p.en, p.cn),
     studied: !!studied[p.id],
   }));
   // 内置真题标 demo:true → 不可误删，复用现有「内置篇目」逻辑
   const builtinP: Passage[] = builtin.map((p) => ({
-    id: p.id,
-    title: p.title,
-    sents: p.sents,
+    ...p,
+    exam: p.exam || 'english1',
     demo: true,
     studied: !!studied[p.id],
   }));
@@ -124,11 +127,11 @@ export async function loadPassages(): Promise<Passage[]> {
   return [...userP, ...builtinP, ...demoP];
 }
 
-export function addPassage(title: string, en: string, cn?: string): string {
+export function addPassage(title: string, en: string, cn?: string, exam: ExamType = 'english1'): string {
   const o = read();
   o.imported = o.imported || [];
   const id = 'u' + Date.now();
-  o.imported.unshift({ id, title: (title || '').trim() || '未命名真题', en: String(en || ''), cn: String(cn || '') });
+  o.imported.unshift({ id, title: (title || '').trim() || '未命名真题', en: String(en || ''), cn: String(cn || ''), exam });
   write(o);
   return id;
 }
@@ -159,7 +162,7 @@ export function parseBulk(text: string): BulkItem[] {
   return out;
 }
 
-export function addPassagesBulk(items: BulkItem[]): number {
+export function addPassagesBulk(items: BulkItem[], exam: ExamType = 'english1'): number {
   const o = read();
   o.imported = o.imported || [];
   let n = 0;
@@ -169,6 +172,7 @@ export function addPassagesBulk(items: BulkItem[]): number {
       title: (it.title || '').trim() || '未命名真题',
       en: String(it.en || ''),
       cn: String(it.cn || ''),
+      exam,
     });
     n++;
   }

@@ -1,0 +1,48 @@
+{
+  "E2-2013-T1-P1-S3": {
+    "trunk": "主干：Davidson's article is one of a number of pieces（戴维森的文章是众多文章之一）",
+    "structure": [
+      "定语从句(that，修饰 pieces)：that have recently appeared",
+      "现在分词短语作伴随/结果说明：making the point",
+      "同位语从句(that，解释 point)：the reason ... is largely because of A, but it is also because of B",
+      "定语从句(which，指代 advances)：which are ... replacing labor with machines or foreign workers"
+    ],
+    "logic": "句子先界定文章类别，再用 point 的同位语从句提出“双重原因”：大衰退导致需求下降，同时全球化和信息技术进步加速替代劳动。",
+    "notes": [
+      "the reason ... is because ... 在原文口语化论述中用于解释原因。",
+      "which 的先行内容是 advances，而不是 revolution 单独一词。",
+      "stubbornly high 表示“居高不下”；replace A with B 表示“用B取代A”。"
+    ]
+  },
+  "E2-2013-T1-P1-S7": {
+    "trunk": "主干：It can't（普通水平不可能再带来过去的回报）",
+    "structure": [
+      "It 承接上一句 Being average，can't 后省略 earn you what it used to",
+      "时间/原因状语从句(when)：when so many more employers have ... access to ...",
+      "宾语中心：cheap foreign labor, robotics, software, automation and genius",
+      "above average 同时限定后列的高水平资源，多个 so much more 强化数量和可获得性"
+    ],
+    "logic": "本句用 when 给出“普通不再值钱”的现实条件：雇主能在全球范围内低成本取得更多、更优秀的人力与技术。",
+    "notes": [
+      "can't 是省略表达，理解时要从上一句补出完整谓语。",
+      "have access to 意为“能够获得/使用”。",
+      "cheap genius 并非贬低天才，而是强调高端才智的获取成本下降。"
+    ]
+  },
+  "E2-2013-T1-P1-S14": {
+    "trunk": "并列主干：there are many things ..., but nothing would be more important than passing ...",
+    "structure": [
+      "地点/背景状语：In a world where average is officially over",
+      "定语从句(where，修饰 world)：where average is officially over",
+      "定语从句〔省略 that，修饰 things〕：we need to do",
+      "比较结构：nothing would be more important than passing some kind of G.I. Bill",
+      "定语从句(that，修饰 Bill)：that ensures that every American has access to post-high school education"
+    ],
+    "logic": "but 把“许多可做之事”收束到最优先的一项；nothing ... more important than 是最高级含义，强调教育法案最重要。",
+    "notes": [
+      "G.I. Bill 原指美国为退伍军人提供教育等福利的法案，此处借指全民继续教育支持。",
+      "where 引导定语从句，不是单纯地点状语从句。",
+      "ensure 后的 that 从句是宾语从句；have access to 表示“有机会获得”。"
+    ]
+  }
+}

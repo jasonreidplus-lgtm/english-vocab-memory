@@ -1,0 +1,52 @@
+{
+  "E2-2024-T3-P1-S3": {
+    "trunk": "The Association advises physicians that it is desirable and ethical to notify the DMV（医学会建议医生：通知机动车部门是可取且合乎伦理的）",
+    "structure": [
+      "引述主句：The American Medical Association advises physicians",
+      "  └ 宾语从句(that)：that ... it is desirable and ethical to notify the Department of Motor Vehicles",
+      "      ├ 条件/情境从句(where)：where clear evidence ... implies a strong threat ...",
+      "      ├ 并列情境从句(and where)：where the physician's advice ... is ignored",
+      "      └ 形式主语结构：it is desirable and ethical to notify ...",
+      "引述来源：Menke wrote"
+    ],
+    "logic": "that从句承载建议内容；两个where并列限定何种情境下应上报，真正主语是后置不定式to notify，it只是形式主语。",
+    "notes": [
+      "driving impairment 指驾驶能力受损。",
+      "discontinue driving privileges 指停止驾驶资格或权利。",
+      "Department of Motor Vehicles 是美国州级机动车管理部门。"
+    ]
+  },
+  "E2-2024-T3-P1-S6": {
+    "trunk": "Part of the problem is that the difficulties are addressed piecemeal（部分问题在于这些困难被零散处理）",
+    "structure": [
+      "主句：Part of the problem in keeping older drivers safe is",
+      "  └ 表语从句(that)：that the difficulties are addressed piecemeal",
+      "      ├ 方式/施事：by different professions with different focuses",
+      "      └ 举例分词结构：including gerontologists, highway administration officials, automotive engineers and others",
+      "引述来源：said gerontologist Elizabeth Dugan"
+    ],
+    "logic": "表语从句解释problem的具体内容：不同专业各有重点，导致问题被割裂处理；including列出profession的例子。",
+    "notes": [
+      "piecemeal 意为“零散地、缺少统筹地”。",
+      "with different focuses 修饰 professions。",
+      "keeping older drivers safe 是problem的介词补足成分。"
+    ]
+  },
+  "E2-2024-T3-P1-S13": {
+    "trunk": "Providers may not be able to follow through with patients（基层医疗人员可能无法继续跟进患者）",
+    "structure": [
+      "并列分句一：Primary care providers have their hands full",
+      "并列分句二：and may not be able to follow through with patients",
+      "  └ 定语从句(who)：who have trouble driving",
+      "      └ 原因状语从句(because)：because they can't turn their heads or remember ... or have gotten shorter ...",
+      "          ├ 并列原因一：can't turn their heads or remember where they are going",
+      "          └ 并列原因二：have gotten shorter and haven't changed their seat settings sufficiently to reach ..."
+    ],
+    "logic": "主句先说明基层医疗人员忙碌并难以跟进；who锁定需要跟进的患者，because后以并列结构列出身体、认知和座椅调整方面的驾驶困难。",
+    "notes": [
+      "have one's hands full 意为“忙得不可开交”。",
+      "follow through with patients 指继续跟进并落实照护。",
+      "where they are going 是remember的宾语从句。"
+    ]
+  }
+}

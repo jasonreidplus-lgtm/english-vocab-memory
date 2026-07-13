@@ -1,0 +1,52 @@
+{
+  "E2-2011-T3-P1-S5": {
+    "trunk": "S+V：The phrase was first popularized by a German（这句话最先由一位德国人推广）",
+    "structure": [
+      "主句：The phrase \"less is more\" was actually first popularized by a German",
+      "  └ 同位语：the architect Ludwig Mies van der Rohe",
+      "      └ 非限制性定语从句〔who，修饰 Mies〕：who ... emigrated to the United States ... and took up posts at American architecture schools",
+      "          ├ 比较/伴随插入语：like other people associated with the Bauhaus",
+      "          │   ├ 过去分词短语〔修饰 people〕：associated with the Bauhaus",
+      "          │   └ the Bauhaus 的同位语：a school of design",
+      "          └ 并列谓语：emigrated ... and took up posts ..."
+    ],
+    "logic": "主句被动说明名言的推广者；German 后以同位语点名密斯，再由 who 从句补充其移民和任教经历。",
+    "notes": [
+      "popularize 指“使普及、推广开来”。",
+      "like other people... 是插入比较，不是 who 的谓语。",
+      "take up posts 指就任职位。"
+    ]
+  },
+  "E2-2011-T3-P1-S11": {
+    "trunk": "S+V+C：The apartments were smaller than those（这些公寓比那些公寓更小）",
+    "structure": [
+      "主句：The apartments ... were smaller ... than those in their older neighbors along the city's Gold Coast",
+      "  ├ 地点定语：in the elegant towers",
+      "  │   └ 定语从句〔省略 that，修饰 towers〕：Mies built on Chicago's Lake Shore Drive",
+      "  ├ 插入语：for example",
+      "  └ 破折号同位说明：two-bedroom units under 1,000 square feet"
+    ],
+    "logic": "比较主干是 apartments were smaller than those；those 替代 apartments，避免重复；两个破折号间补充说明其面积。",
+    "notes": [
+      "Mies built... 是省略关系代词的定语从句，不能把 Mies 当主句主语。",
+      "those 指 older neighboring buildings 中的公寓，而不是建筑本身。",
+      "under 1,000 square feet 表示不足1000平方英尺。"
+    ]
+  },
+  "E2-2011-T3-P1-S17": {
+    "trunk": "转折主干：Ralph Rapson may have mispredicted..., but his belief was widely shared（拉普森或许误判了……，但他的信念广受认同）",
+    "structure": [
+      "分句①：Ralph Rapson may have mispredicted",
+      "  └ 宾语从句(how)：how the mechanical revolution would impact everyday life",
+      "  └ 破折号插入例证：few American families acquired helicopters, though most eventually got clothes dryers",
+      "转折分句②(but)：his belief ... was widely shared",
+      "  └ 同位语从句(that)〔说明 belief〕：that self-sufficiency was both desirable and inevitable"
+    ],
+    "logic": "may have done 对过去判断作保留性批评；破折号用现实结果举证；but 转向作者真正肯定的信念内容。",
+    "notes": [
+      "mispredict how... 指对……将如何发展作出错误预测。",
+      "though 在插入例证内部形成“直升机少见—干衣机普及”的让步对照。",
+      "both desirable and inevitable：既值得追求，又不可避免。"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "E2-2019-T3-P1-S3": {
+    "trunk": "S+V+O：Congress has obstructed efforts（国会阻挠了相关努力）",
+    "structure": [
+      "主句：Congress has obstructed efforts",
+      "  └ 不定式作后置定语：to create a more straightforward visa",
+      "      ├ 介词短语作后置定语：for agricultural workers",
+      "      └ 定语从句(that，修饰 visa)：that would let foreign workers stay longer in the U.S. and change jobs within the industry"
+    ],
+    "logic": "不定式说明 efforts 的目标，that 从句继续说明这种签证能够赋予外国工人的两项并列便利。",
+    "notes": [
+      "obstruct efforts to do：阻挠做某事的努力。",
+      "straightforward 在此指程序直接、简明。",
+      "let somebody do 中不定式不带 to。"
+    ]
+  },
+  "E2-2019-T3-P1-S7": {
+    "trunk": "S+系动词+并列表语：Today's farm laborers are more likely to be settled and more likely to be married（如今的农业劳工更可能定居且已婚）",
+    "structure": [
+      "主句主语：Today's farm laborers",
+      "  ├ 让步插入语：while still predominantly born in Mexico",
+      "  ├ 表语①：are more likely to be settled rather than migrating",
+      "  └ 并列表语②：and more likely to be married than single"
+    ],
+    "logic": "while 插入语保留劳工来源未变这一背景，两个 more likely 对称比较，突出迁移方式和婚姻状态的变化。",
+    "notes": [
+      "predominantly：主要地。",
+      "settled rather than migrating：定居而非迁徙。",
+      "more likely to... than... 表示相对可能性。"
+    ]
+  },
+  "E2-2019-T3-P1-S18": {
+    "trunk": "S+V+O：The H-2A visa has no numerical cap（H-2A签证没有数量上限）",
+    "structure": [
+      "主句：The H-2A visa has no numerical cap",
+      "  └ 比较插入语：unlike the H-2B visa for nonagricultural work",
+      "      └ 非限制性定语从句(which)：which is limited to 66,000 a year"
+    ],
+    "logic": "主句陈述H-2A无上限，unlike 引入H-2B作对比，which 从句给出后者的具体年度限额。",
+    "notes": [
+      "numerical cap：数量上限。",
+      "nonagricultural work：非农业工作。",
+      "be limited to：被限制在……。"
+    ]
+  }
+}

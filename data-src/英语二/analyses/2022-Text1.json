@@ -1,0 +1,50 @@
+{
+  "E2-2022-T1-P1-S4": {
+    "trunk": "S+V：This all seems random, but it's by design（这一切看似随意，其实是有意安排的）",
+    "structure": [
+      "并列分句1：This all seems random",
+      "并列分句2：but it's by design",
+      "  └ 同位语：part of what the $6.1 billion U.S. egg industry bets will be its next big thing",
+      "      └ 同位语：climate-friendly eggs〔解释 next big thing〕"
+    ],
+    "logic": "but 先完成“看似随机—实为设计”的转折；part of...补充说明这种设计属于行业布局的一部分，what 从句作 of 的宾语，内部又含省略引导词的宾语从句。",
+    "notes": [
+      "by design 意为“有意安排”，与 by accident 相对。",
+      "what the industry bets will be... 可理解为“该行业押注将成为……的事物”。",
+      "$6.1 billion 修饰 U.S. egg industry，表示行业规模。"
+    ]
+  },
+  "E2-2022-T1-P1-S5": {
+    "trunk": "S+V+C：These eggs are still labeled..., but they're also from birds（这些鸡蛋仍被贴上……标签，但也来自……禽类）",
+    "structure": [
+      "主句分句1：These eggs are still labeled organic and animal-friendly",
+      "  └ 非限制性定语从句(which)：which are making their debut now on shelves for as much as $8 a dozen",
+      "并列分句2(but)：they're also from birds",
+      "  └ 定语从句(that)：that live on farms using regenerative agriculture",
+      "      └ 同位语：special techniques to cultivate rich soils",
+      "          └ 定语从句(that)：that can trap greenhouse gases"
+    ],
+    "logic": "句子先给传统的“有机、动物友好”属性，再用 but 增加“再生农业”这一新卖点；破折号后的名词短语解释再生农业，最后的 that 从句说明土壤的功能。",
+    "notes": [
+      "make one's debut 意为“首次亮相”。",
+      "for as much as $8 a dozen 表示售价最高可达每打8美元。",
+      "rich soils 在此是肥沃、富含有机质的土壤。"
+    ]
+  },
+  "E2-2022-T1-P1-S17": {
+    "trunk": "S+V+O：Surveys show that..., and some success can be chalked up to...（调查显示……，而部分成功可归因于……）",
+    "structure": [
+      "分句1：Surveys show",
+      "  └ 宾语从句(that)：that younger generations are more concerned about climate change",
+      "并列分句2(and)：some of the success of plant-based meat can be chalked up to shoppers wanting to signal their desire",
+      "  └ 动名词复合结构：shoppers wanting to signal their desire",
+      "      └ 不定式后置定语：to protect the environment〔修饰 desire〕"
+    ],
+    "logic": "and 连接两条相互支撑的证据：年轻人更关注气候，以及消费者用购买行为表达环保立场；第二分句用被动短语 be chalked up to 表示原因归属。",
+    "notes": [
+      "chalk A up to B 意为“把A归因于B”。",
+      "signal one's desire 不是发出字面信号，而是“表明愿望/立场”。",
+      "shoppers wanting... 是介词 to 的宾语，不是完整从句。"
+    ]
+  }
+}

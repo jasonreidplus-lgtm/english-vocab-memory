@@ -1,0 +1,48 @@
+{
+  "E2-2022-T3-P1-S5": {
+    "trunk": "S+V+C：\"Dark patterns\" is a catch-all term（“暗黑模式”是一个统称）",
+    "structure": [
+      "过去分词状语：First coined in 2010 by user experience expert Harry Brignull",
+      "主句：\"dark patterns\" is a catch-all term for practices",
+      "  └ 定语从句(that)：that manipulate user interfaces",
+      "      └ 目的状语(to)：to influence the decision-making ability of users"
+    ],
+    "logic": "句首过去分词补充术语的提出背景；主句定义概念；that 从句说明这些 practices 做什么，不定式进一步说明操纵界面的目的。",
+    "notes": [
+      "coin 作动词表示“创造、首创（新词）”。",
+      "catch-all term 指覆盖多种现象的概括性名称。",
+      "decision-making ability 是复合名词，指作出决定的能力。"
+    ]
+  },
+  "E2-2022-T3-P1-S11": {
+    "trunk": "S+V：Businesses should engage..., and include...（企业应展开讨论，并让相关人员参与）",
+    "structure": [
+      "谓语1：should engage in conversations with IT, compliance, risk, and legal teams",
+      "  └ 目的状语(to)：to review their privacy policy",
+      "并列谓语2(and)：include in the discussion the customer/user experience designers and coders",
+      "  ├ 形容词短语：responsible for the company's user interface",
+      "  └ 并列宾语(as well as)：the marketers and advertisers",
+      "      └ 形容词短语：responsible for sign-ups, checkout baskets, pricing, and promotions"
+    ],
+    "logic": "should 同时支配 engage 与 include 两个动作；后半句宾语很长，被两个 responsible for 短语分别限定。识别两个并列谓语和两组人员即可拆开长句。",
+    "notes": [
+      "compliance 在企业语境中指合规职能。",
+      "include in the discussion... 是宾语后移结构。",
+      "as well as 在此补充第二组参与者。"
+    ]
+  },
+  "E2-2022-T3-P1-S17": {
+    "trunk": "S+V：Dark patterns can be addressed, but only if organizations hold themselves accountable（暗黑模式可以治理，但前提是组织自我负责）",
+    "structure": [
+      "主句：Dark patterns also can be addressed on a self-regulatory basis",
+      "限制条件(but only if)：but only if organizations hold themselves accountable",
+      "  └ 相关对象并列：not just to legal requirements but also to industry best practices and standards"
+    ],
+    "logic": "主句提出行业自律这一途径；but only if 强化必要条件；not just...but also...把责任范围从最低法律要求扩展到更高的行业实践和标准。",
+    "notes": [
+      "on a self-regulatory basis 意为“以行业自律方式”。",
+      "hold oneself accountable 表示主动承担责任、接受问责。",
+      "not just A but also B 是递进并列，不应漏译 B。"
+    ]
+  }
+}

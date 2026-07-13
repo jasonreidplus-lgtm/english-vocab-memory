@@ -5,15 +5,16 @@ import ConfirmDialog from '../components/ConfirmDialog';
 import { buildLookup, annotate } from '../lib/annotate';
 import { parseBulk } from '../lib/passages';
 import { useModalA11y } from '../lib/useModalA11y';
-import type { Word, Passage } from '../types';
+import type { ExamType, Word, Passage } from '../types';
 
 interface ImportModalProps {
+  examLabel: string;
   onClose: () => void;
   onSave: (title: string, en: string, cn: string) => void;
   onBulk: (text: string) => void;
 }
 
-function ImportModal({ onClose, onSave, onBulk }: ImportModalProps) {
+function ImportModal({ examLabel, onClose, onSave, onBulk }: ImportModalProps) {
   const [mode, setMode] = useState<'one' | 'bulk'>('one'); // one | bulk
   const [title, setTitle] = useState('');
   const [en, setEn] = useState('');
@@ -49,7 +50,7 @@ function ImportModal({ onClose, onSave, onBulk }: ImportModalProps) {
             <input
               className="jump-input"
               style={{ width: '100%', height: 40, textAlign: 'left', padding: '0 12px', marginBottom: 8 }}
-              placeholder="标题（如 2023 英语一 Text 1）"
+              placeholder={`标题（如 2023 ${examLabel} Text 1）`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -104,6 +105,7 @@ interface PassageStat {
 }
 
 interface PassageScreenProps {
+  exam: ExamType;
   passages: Passage[];
   pool: Word[];
   themeKey: string;
@@ -115,7 +117,7 @@ interface PassageScreenProps {
   onDelete: (id: string) => void;
 }
 
-export default function PassageScreen({ passages, pool, themeKey, onTheme, onBack, onOpen, onImport, onBulkImport, onDelete }: PassageScreenProps) {
+export default function PassageScreen({ exam, passages, pool, themeKey, onTheme, onBack, onOpen, onImport, onBulkImport, onDelete }: PassageScreenProps) {
   const [importing, setImporting] = useState(false);
   const [delTarget, setDelTarget] = useState<Passage | null>(null);
   const lookup = useMemo(() => buildLookup(pool), [pool]);
@@ -130,16 +132,31 @@ export default function PassageScreen({ passages, pool, themeKey, onTheme, onBac
     return m;
   }, [passages, lookup]);
 
+  const grouped = useMemo(() => {
+    const map = new Map<string, { label: string; order: number; items: Passage[] }>();
+    for (const passage of passages) {
+      const key = passage.year ? String(passage.year) : passage.demo ? 'examples' : 'imports';
+      const label = passage.year ? `${passage.year} 年` : passage.demo ? '示例文章' : '我的导入';
+      const order = passage.year || (passage.demo ? -2 : -1);
+      if (!map.has(key)) map.set(key, { label, order, items: [] });
+      map.get(key)!.items.push(passage);
+    }
+    return [...map.values()]
+      .sort((a, b) => b.order - a.order)
+      .map((group) => ({ ...group, items: group.items.sort((a, b) => (a.text || 0) - (b.text || 0)) }));
+  }, [passages]);
+
   const doneCount = passages.filter((p) => p.studied).length;
+  const examLabel = exam === 'english2' ? '英语二' : '英语一';
 
   return (
     <>
       <HeaderBar onBack={onBack} themeKey={themeKey} onTheme={onTheme} />
 
       <div className="section-title">
-        真题阅读 · 闯关
+        {examLabel} · 真题阅读
         <span className="label" style={{ marginLeft: 'auto', fontSize: 12 }}>
-          已通 {doneCount}/{passages.length}
+          全部已通 {doneCount}/{passages.length}
         </span>
       </div>
 
@@ -148,37 +165,46 @@ export default function PassageScreen({ passages, pool, themeKey, onTheme, onBac
       </button>
 
       <div className="stack gap8 mt12">
-        {passages.map((p) => {
-          const st = stats[p.id] || { sentences: p.sents.length, words: 0 };
-          return (
-            <div key={p.id} className={`passage-card${p.studied ? ' is-done' : ''}`}>
-              <button className="passage-main" onClick={() => onOpen(p)}>
-                <span className="re-icon">
-                  {p.studied ? <Check size={20} color="var(--accent)" /> : <BookMarked size={20} color="var(--accent)" />}
-                </span>
-                <span className="re-text">
-                  <span className="re-title">{p.title}</span>
-                  <span className="re-sub">{st.sentences} 句 · {st.words} 考研词{p.studied ? ' · 已通关' : ''}</span>
-                </span>
-                <ChevronRight size={18} className="muted" />
-              </button>
-              {!p.demo && (
-                <button className="passage-del" aria-label="删除" onClick={() => setDelTarget(p)}>
-                  <Trash2 size={15} />
-                </button>
-              )}
+        {grouped.map((group) => (
+          <section key={group.label} className="stack gap8">
+            <div className="row between label" style={{ marginTop: 6 }}>
+              <b>{group.label}</b>
+              <span>{group.items.filter((p) => p.studied).length}/{group.items.length} 篇</span>
             </div>
-          );
-        })}
+            {group.items.map((p) => {
+              const st = stats[p.id] || { sentences: p.sents.length, words: 0 };
+              return (
+                <div key={p.id} className={`passage-card${p.studied ? ' is-done' : ''}`}>
+                  <button className="passage-main" onClick={() => onOpen(p)}>
+                    <span className="re-icon">
+                      {p.studied ? <Check size={20} color="var(--accent)" /> : <BookMarked size={20} color="var(--accent)" />}
+                    </span>
+                    <span className="re-text">
+                      <span className="re-title">{p.title}</span>
+                      <span className="re-sub">{st.sentences} 句 · {st.words} 考研词{p.studied ? ' · 已通关' : ''}</span>
+                    </span>
+                    <ChevronRight size={18} className="muted" />
+                  </button>
+                  {!p.demo && (
+                    <button className="passage-del" aria-label="删除" onClick={() => setDelTarget(p)}>
+                      <Trash2 size={15} />
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </section>
+        ))}
       </div>
 
       <div className="label center" style={{ marginTop: 18, fontSize: 12, opacity: 0.8, lineHeight: 1.8 }}>
         每篇 = 一关：逐句把考研词挖空，自测 → 揭晓单词+翻译 → 过完通关。<br />
-        把近十年 40 篇真题导进来，就是 40 关语境闯关。
+        当前只显示{examLabel}，英语一与英语二的篇目、完成进度和句库不会混在一起。
       </div>
 
       {importing && (
         <ImportModal
+          examLabel={examLabel}
           onClose={() => setImporting(false)}
           onSave={(t, e, c) => {
             onImport(t, e, c);

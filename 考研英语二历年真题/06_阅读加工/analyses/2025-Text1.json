@@ -1,0 +1,46 @@
+{
+  "E2-2025-T1-P1-S14": {
+    "trunk": "Tipping has been a vital source of income（小费一直是重要收入来源）",
+    "structure": [
+      "主句：Tipping has always been a vital source of income for workers",
+      "  ├ 介词短语〔限定 workers〕：in historically tipped services",
+      "  ├ 举例：like restaurants",
+      "  └ 非限制性定语从句(where)：where the tipped minimum wage can be as low as US$2.13 an hour"
+    ],
+    "logic": "主句说明小费的重要性；in短语限定传统依赖小费的行业，where从句再用极低的法定时薪解释为什么小费对这些劳动者至关重要。",
+    "notes": [
+      "tipped services 指按惯例会给从业者小费的服务行业。",
+      "tipped minimum wage 指适用于领取小费劳动者的最低工资。",
+      "as low as 强调数额低至某一水平。"
+    ]
+  },
+  "E2-2025-T1-P1-S17": {
+    "trunk": "Some restaurants banned tipping and increased prices, but this movement has fizzled out（一些餐厅禁收小费并涨价，但这场运动已式微）",
+    "structure": [
+      "目的状语(to)：To ensure that all employees were paid fair wages",
+      "  └ 宾语从句(that)：that all employees were paid fair wages",
+      "并列分句一：some restaurants banned tipping and increased prices",
+      "转折分句二(but)：this movement towards no-tipping services has largely fizzled out"
+    ],
+    "logic": "不定式先说明改革目的，主句给出禁小费和涨价两项做法，but随后指出这一改革趋势最终没有延续。",
+    "notes": [
+      "ensure that 意为“确保……”。",
+      "movement towards 指“向某种模式转变的运动或趋势”。",
+      "fizzle out 意为“逐渐失败、不了了之”。"
+    ]
+  },
+  "E2-2025-T1-P1-S20": {
+    "trunk": "Tipping seems to be more coercive, less generous, and dissociated from service quality（付小费似乎更具强迫性、更少出于慷慨且与服务质量脱节）",
+    "structure": [
+      "主句：tipping now seems to be more coercive, less generous, and often completely dissociated from service quality",
+      "  ├ 插入状语：as our research emphasizes",
+      "  └ 并列表语：more coercive / less generous / dissociated from service quality"
+    ],
+    "logic": "句子用三个并列表语概括现代小费制度的变化：压力增强、慷慨意味减弱、与服务质量失去联系；插入语标明这是研究结论。",
+    "notes": [
+      "coercive 指带有强迫或施压性质。",
+      "dissociated from 意为“与……分离、脱节”。",
+      "less generous 描述给小费不再主要是自愿慷慨行为。"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "E2-2016-T3-P1-S7": {
+    "trunk": "引语主干：The modern mind is overwhelmingly inclined toward communication（现代人的头脑极度倾向于交流）",
+    "structure": [
+      "引语主语：The modern mind",
+      "插入语：Tim Parks, a novelist and critic, writes",
+      "引语谓语：is overwhelmingly inclined toward communication",
+      "解释性并列：It is not simply that one is interrupted; it is that one is actually inclined to interruption"
+    ],
+    "logic": "作者署名插在主语和谓语之间；后半用not simply that A; it is that B强调问题不只是被动受扰，更是主动倾向于中断。",
+    "notes": [
+      "读句时先移开插入语，把The modern mind与is复位。",
+      "be inclined toward表示“倾向于”。",
+      "interrupted强调被动事件，inclined to interruption强调心理倾向。"
+    ]
+  },
+  "E2-2016-T3-P1-S10": {
+    "trunk": "主句：Thinking of time as a resource means you approach it instrumentally（把时间看成资源意味着以工具性方式对待时间）",
+    "structure": [
+      "动名词短语作主语：Thinking of time as a resource",
+      "  └ 不定式作后置定语：to be maximised〔修饰 resource〕",
+      "谓语：means",
+      "宾语从句〔省略that〕：you approach it instrumentally",
+      "  └ 现在分词作伴随状语：judging any given moment as well spent",
+      "      └ 条件限制：only in so far as it advances progress toward some goal"
+    ],
+    "logic": "动名词主语提出一种时间观；means引出后果；judging补充说明这种工具性态度如何评价每一刻。",
+    "notes": [
+      "think of A as B意为“把A看作B”。",
+      "judge A as well spent意为“认为A没有虚度/花得值得”。",
+      "in so far as相当于insofar as，表示“在……范围内；只要”。"
+    ]
+  },
+  "E2-2016-T3-P1-S13": {
+    "trunk": "两段引语并列：The future comes at us… and we feel a pressure to fill…（未来向我们涌来，我们因而感到必须填满时间）",
+    "structure": [
+      "引语①：The future comes at us like empty bottles along an unstoppable and nearly infinite conveyor belt",
+      "插入性引述：writes Gary Eberle in his book Sacred Time",
+      "并列引语②：and we feel a pressure to fill these different-sized bottles",
+      "  ├ 同位说明：(days, hours, minutes)",
+      "  ├ 时间状语从句(as)：as they pass",
+      "  └ 原因状语从句(for)：for if they get by without being filled, we will have wasted them",
+      "      └ 条件状语从句(if)：if they get by without being filled"
+    ],
+    "logic": "整句以传送带上的空瓶比喻不断流逝的时间；第二段引语用as说明瓶子经过，用for if解释人们急于填满它们的原因。",
+    "notes": [
+      "come at sb表示“向某人逼近/涌来”。",
+      "get by在此表示“经过、过去”，不是“勉强度日”。",
+      "for是并列连词，表示补充原因；其内部又包含if条件句。"
+    ]
+  }
+}

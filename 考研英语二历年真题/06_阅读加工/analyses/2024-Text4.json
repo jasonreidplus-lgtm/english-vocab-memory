@@ -1,0 +1,49 @@
+{
+  "E2-2024-T4-P1-S5": {
+    "trunk": "Existing health privacy law is focused on the way（现行健康隐私法主要关注这种方式）",
+    "structure": [
+      "主句：Existing health privacy law is primarily focused on the way",
+      "  ├ 插入举例：such as the Health Insurance Portability and Accountability Act",
+      "  └ 定语从句〔省略that/in which，修饰 way〕：hospitals, doctors' offices, clinics and insurance companies store health records online"
+    ],
+    "logic": "句子核心是法律关注the way；中间such as给出法律实例，末尾从句具体说明受监管主体如何在线保存健康记录。",
+    "notes": [
+      "be focused on 意为“重点关注”。",
+      "the way 后的关系词常被省略。",
+      "Health Insurance Portability and Accountability Act 常简称HIPAA。"
+    ]
+  },
+  "E2-2024-T4-P1-S10": {
+    "trunk": "Flo Health and the FTC settled the matter with a Consent Order（Flo Health与联邦贸易委员会以同意令和解）",
+    "structure": [
+      "主句：Flo Health and the FTC settled the matter with a Consent Order",
+      "  └ 现在分词短语〔修饰 Consent Order〕：requiring the company",
+      "      ├ 宾补一：to get app users' express affirmative consent before sharing ...",
+      "      └ 宾补二：as well as to instruct the third parties to delete the data",
+      "          └ 定语从句(that)：they had obtained"
+    ],
+    "logic": "主干交代和解方式；requiring说明同意令的两项要求，as well as连接取得同意和指示删数，that从句限定已被第三方获取的数据。",
+    "notes": [
+      "Consent Order 是监管和解中的“同意令”。",
+      "express affirmative consent 指明确、主动作出的同意。",
+      "before sharing 的逻辑主语是 company。"
+    ]
+  },
+  "E2-2024-T4-P1-S12": {
+    "trunk": "The rate demonstrates how immense a challenge this is（这种速度表明挑战极其艰巨）",
+    "structure": [
+      "让步状语从句(While)：While the FTC is doing what it can",
+      "  ├ 目的状语(to)：to ensure",
+      "  └ 宾语从句：apps are keeping their promises to consumers around the handling of ... information",
+      "主句：the rate ... demonstrates",
+      "  ├ 定语从句(at which)：at which these health apps are hitting the market",
+      "  └ 宾语从句：just how immense of a challenge this is"
+    ],
+    "logic": "While承认监管机构正在尽力，主句随后转折指出应用上市速度揭示了问题规模；at which把rate与上市动作连接起来。",
+    "notes": [
+      "do what it can 指“尽其所能”。",
+      "keep one's promises 指“兑现承诺”。",
+      "hit the market 意为“进入市场、上市”。"
+    ]
+  }
+}

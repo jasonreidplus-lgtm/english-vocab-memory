@@ -1,0 +1,50 @@
+{
+  "E2-2020-T4-P1-S1": {
+    "trunk": "时间状语从句 + 主句：Now that Generation Z are graduating..., the attention has been rising（既然Z世代正在毕业，关注度持续上升）",
+    "structure": [
+      "原因/时间状语从句(Now that)：members of Generation Z are graduating college this spring",
+      "  └ 破折号插入：the most commonly accepted definition says",
+      "      └ 宾语从句(that)：this generation was born after 1995, give or take a year",
+      "主句：the attention has been rising steadily in recent weeks"
+    ],
+    "logic": "Now that 给出关注增加的现实背景；两个破折号之间插入Z世代的出生年份定义，主句落到近期关注趋势。",
+    "notes": [
+      "now that：既然、由于现在已经。",
+      "give or take a year：上下相差一年左右。",
+      "steadily：持续稳定地。"
+    ]
+  },
+  "E2-2020-T4-P1-S5": {
+    "trunk": "条件对比句：If 'entitled' is the adjective applied to millennials, the catchwords for Generation Z are practical and cautious（如果千禧一代的标签是……，Z世代的关键词则是……）",
+    "structure": [
+      "条件从句(if)：entitled is the most common adjective applied to millennials",
+      "  ├ 评注插入：fairly or not",
+      "  └ 同位解释：those born between 1981 and 1995",
+      "主句：the catchwords for Generation Z are practical and cautious"
+    ],
+    "logic": "if 在这里并非真实条件，而是建立代际标签对比；插入语承认对千禧一代评价可能不公。",
+    "notes": [
+      "entitled：自认为理应获得特殊待遇的。",
+      "applied to：用于描述。",
+      "catchword：关键词、流行标签。"
+    ]
+  },
+  "E2-2020-T4-P1-S16": {
+    "trunk": "引语 + notes Tanya Michelsen + 定语从句（米克尔森指出……，并补充其调查背景）",
+    "structure": [
+      "直接引语：Millennials wanted more flexibility in their lives",
+      "报道语：notes Tanya Michelsen",
+      "  ├ 同位语：Associate Director of YouthSight",
+      "  └ 同位语扩展：a UK-based brand manager",
+      "      └ 定语从句(that)：that conducts regular 60-day surveys of British youth",
+      "句末介词结构：in findings",
+      "  └ 定语从句(that)：that might just as well apply to American youth"
+    ],
+    "logic": "核心是引语及其说话人；两个同位语和两个 that 从句交代机构性质、调查方式及结论的适用范围。",
+    "notes": [
+      "might just as well apply to：很可能同样适用于。",
+      "UK-based：总部或业务基础在英国的。",
+      "findings 在此指调查结果。"
+    ]
+  }
+}

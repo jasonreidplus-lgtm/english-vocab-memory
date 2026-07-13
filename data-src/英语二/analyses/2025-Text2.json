@@ -1,0 +1,48 @@
+{
+  "E2-2025-T2-P1-S4": {
+    "trunk": "Healthcare is becoming inaccessible; the cost is squeezing investment（医疗服务愈发难以获得，成本正挤压其他投入）",
+    "structure": [
+      "with复合背景：With more than 6.8 million on waitlists",
+      "并列分句一：healthcare is becoming increasingly inaccessible for those",
+      "  └ 定语从句(who)：who cannot opt to pay for private treatment",
+      "并列分句二：and the cost of providing healthcare is increasingly squeezing our investment in other public services"
+    ],
+    "logic": "With先给出候诊规模，分号两侧再并列说明可及性下降和公共资金被挤压两种后果；who限定无法购买私立医疗的人群。",
+    "notes": [
+      "waitlist 指等待接受医疗服务的名单。",
+      "opt to do 意为“选择做某事”。",
+      "squeeze investment 指成本压力压缩可用于其他领域的投资。"
+    ]
+  },
+  "E2-2025-T2-P1-S12": {
+    "trunk": "We are calling for a conversation and an urgent rethink（我们呼吁开展讨论并紧急反思）",
+    "structure": [
+      "主句：Together, we are calling for a much more open and honest conversation ... and an urgent rethink ...",
+      "  ├ 并列宾语一：a ... conversation about the future of health in the UK",
+      "  └ 并列宾语二：an urgent rethink of the hospital-centric model",
+      "      └ 定语从句〔省略that，修饰 model〕：we retain"
+    ],
+    "logic": "call for后并列两个名词中心：conversation和rethink；末尾省略关系代词的从句说明需要反思的是英国仍在保留的模式。",
+    "notes": [
+      "call for 意为“呼吁、要求”。",
+      "hospital-centric 指“以医院为中心的”。",
+      "retain 在此意为“继续保留、沿用”。"
+    ]
+  },
+  "E2-2025-T2-P1-S18": {
+    "trunk": "What functions should remain, and what should be given to local leaders?（哪些职能应保留，哪些应交给地方领导者？）",
+    "structure": [
+      "并列疑问分句一：What health functions should remain at the centre",
+      "并列疑问分句二：and what should be given to local leaders",
+      "  ├ 分词短语〔补充 local leaders〕：often responsible for services",
+      "  │   └ 定语从句(that)：that create health",
+      "  └ 并列补充：and with a much better understanding of the needs of their populations"
+    ],
+    "logic": "两个what疑问分句对照中央和地方的职能分配；后面的responsible和with结构补充说明地方领导者更适合承接部分职能的理由。",
+    "notes": [
+      "at the centre 在本文语境中指中央层级。",
+      "services that create health 指能改善健康决定因素的公共服务。",
+      "their populations 指各地方领导者所服务的当地居民。"
+    ]
+  }
+}

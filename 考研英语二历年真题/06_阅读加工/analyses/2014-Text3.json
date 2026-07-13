@@ -1,0 +1,46 @@
+{
+  "E2-2014-T3-P1-S4": {
+    "trunk": "主干：this phenomenon will continue to restructure our economy",
+    "structure": [
+      "原因状语从句(Since)：Since technology has such an insatiable appetite for eating up human jobs",
+      "主句谓语：will continue to restructure",
+      "方式介词短语：in ways",
+      "定语从句〔省略 that，修饰 ways〕：we cannot immediately foresee"
+    ],
+    "logic": "Since 给出持续重构的动力——技术不断吞噬岗位；主句进一步强调这种重构方式目前难以预见。",
+    "notes": [
+      "since 在此表示原因，不是“自从”。",
+      "have an appetite for 是比喻性表达，指强烈且持续的需求。",
+      "eat up human jobs 指技术大量取代就业岗位。"
+    ]
+  },
+  "E2-2014-T3-P1-S6": {
+    "trunk": "主干：This argument has attracted a lot of attention",
+    "structure": [
+      "方式/原因补充：via the success of the book Race Against the Machine",
+      "同位作者信息：by Erik Brynjolfsson and Andrew McAfee",
+      "非限制性定语从句(who，修饰两位作者)：who both hail from MIT's Center for Digital Business"
+    ],
+    "logic": "句子先说明论点受到关注，再把关注度归因于相关著作的成功，最后补充两位作者的机构背景以增强权威性。",
+    "notes": [
+      "via 表示“通过、凭借”。",
+      "by ... 说明书的作者。",
+      "hail from 在此意为“来自”，并非“向……欢呼”。"
+    ]
+  },
+  "E2-2014-T3-P1-S9": {
+    "trunk": "宾语从句主干：Hagel says (that) we have designed jobs in the U.S.",
+    "structure": [
+      "says 后省略连接词 that",
+      "定语从句①(that，修饰 jobs)：that tend to be 'tightly scripted' and 'highly standardized' ones",
+      "并列表语：tightly scripted / highly standardized",
+      "定语从句②(that，修饰 ones/jobs)：that leave no room for individual initiative or creativity"
+    ],
+    "logic": "哈格尔把岗位易被机器替代的根源归于岗位设计本身：流程被严密规定并高度标准化，排除了人的主动性和创造性。",
+    "notes": [
+      "scripted 在此不是“写了剧本”，而是“按预设流程执行”。",
+      "leave no room for 表示“不给……留下空间”。",
+      "ones 回指 jobs，用于承接后面的定语从句。"
+    ]
+  }
+}

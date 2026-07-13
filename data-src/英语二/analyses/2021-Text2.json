@@ -1,0 +1,49 @@
+{
+  "E2-2021-T2-P1-S1": {
+    "trunk": "独立主格背景 + 主句：food security is increasingly making headlines（在两项人口与产量预测背景下，粮食安全日益成为焦点）",
+    "structure": [
+      "with 复合结构①：With the global population predicted to hit close to 10 billion by 2050",
+      "并列名词背景②：and forecasts",
+      "  └ 同位语从句(that)：that agricultural production in some regions will need to nearly double to keep pace",
+      "主句：food security is increasingly making headlines"
+    ],
+    "logic": "with 复合结构和 forecasts 并列交代人口、产量压力，主句给出这些压力带来的公共议题变化。",
+    "notes": [
+      "population predicted to hit... 是“宾语+过去分词”结构。",
+      "keep pace：跟上需求或发展速度。",
+      "make headlines：成为新闻焦点。"
+    ]
+  },
+  "E2-2021-T2-P1-S10": {
+    "trunk": "S+V+O：the UK would need to reduce consumption and farm more intensively（英国需要减少消费并提高集约化程度）",
+    "structure": [
+      "目的不定式：To become much more self-sufficient",
+      "主句：the UK would need",
+      "  ├ 不定式①：to drastically reduce its consumption of animal foods",
+      "  └ 并列不定式②：(to) probably also farm more intensively",
+      "      └ 破折号解释：meaning fewer green fields and more factory-style production"
+    ],
+    "logic": "句首说明目标，主句列出实现目标的两项代价；meaning 分词短语把“更集约”具体化为景观和生产方式变化。",
+    "notes": [
+      "self-sufficient：自给自足的。",
+      "farm intensively：采用集约化方式耕作。",
+      "factory-style production：工厂化生产。"
+    ]
+  },
+  "E2-2021-T2-P1-S14": {
+    "trunk": "让步条件复句：Even if we converted all suitable land..., we would achieve only a 30% boost（即便改造全部适宜土地，也只能增产30%）",
+    "structure": [
+      "让步条件从句(Even if)：we converted all the suitable land to fields of fruit and veg",
+      "  └ 非限制性定语从句(which，指前述做法)：which would involve",
+      "      ├ 动名词①：taking out all the nature reserves",
+      "      └ 并列动名词②：removing thousands of people from their homes",
+      "主句：we would achieve only a 30 per cent boost in crop production"
+    ],
+    "logic": "Even if 构造最极端假设，which 补充其巨大社会和生态代价，主句用 only 强调收益仍然有限。",
+    "notes": [
+      "convert land to fields：把土地改造成田地。",
+      "take out nature reserves：取消或占用自然保护区。",
+      "a boost in production：产量增长。"
+    ]
+  }
+}

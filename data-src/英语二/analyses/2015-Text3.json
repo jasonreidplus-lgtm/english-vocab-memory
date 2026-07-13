@@ -1,0 +1,51 @@
+{
+  "E2-2015-T3-P1-S1": {
+    "trunk": "引语主干：the lingua franca of corporate America has gotten much more emotional and much more right-brained",
+    "structure": [
+      "让步范围状语：Even in traditional offices",
+      "引语主语：the lingua franca of corporate America",
+      "并列表语比较：much more emotional and much more right-brained",
+      "比较从句(than)：than it was 20 years ago",
+      "引语后的信息来源：said Harvard Business School professor Nancy Koehn"
+    ],
+    "logic": "句子借科恩的判断建立全文主题：企业语言在二十年间从理性、任务导向转向更情绪化、更重直觉的表达。",
+    "notes": [
+      "lingua franca 原指通用语，此处指企业共同使用的话语体系。",
+      "get + 形容词表示状态变化。",
+      "right-brained 是比喻说法，指更直觉、情感化。"
+    ]
+  },
+  "E2-2015-T3-P1-S12": {
+    "trunk": "主干：The 'mommy wars' of the 1990s are still going on today",
+    "structure": [
+      "现在分词短语作结果/伴随：prompting arguments ... and books ...",
+      "并列宾语：arguments about ... / books like Sheryl Sandberg's Lean In",
+      "介词宾语从句(why)：why women still can't have it all",
+      "非限制性定语从句(whose，修饰 Lean In)：whose title has become a buzzword",
+      "状语：in its own right"
+    ],
+    "logic": "“妈妈之战”延续至今，并产生两类文化结果：关于女性能否兼得一切的争论，以及以《向前一步》为代表的畅销话语。",
+    "notes": [
+      "have it all 指事业、家庭等“兼得一切”。",
+      "whose title 中 whose 指这本书。",
+      "in its own right 表示“凭自身、就其本身而言”。"
+    ]
+  },
+  "E2-2015-T3-P1-S17": {
+    "trunk": "主干：office speak can help you figure out A and B",
+    "structure": [
+      "地点背景：In a workplace",
+      "定语从句(that，修饰 workplace)：that's fundamentally indifferent to your life and its meaning",
+      "help + 宾语 + 动词原形：help you figure out",
+      "宾语从句①(how)：how you relate to your work",
+      "并列宾语从句②(and how)：how your work defines who you are",
+      "defines 的宾语从句(who)：who you are"
+    ],
+    "logic": "在组织本身不提供人生意义的前提下，办公室话语反而帮助个人解释自己与工作的关系，并借工作建构身份。",
+    "notes": [
+      "be indifferent to 表示“对……漠不关心”。",
+      "relate to 在此指“与……形成何种关系”。",
+      "who you are 不是疑问句，而是名词性从句。"
+    ]
+  }
+}

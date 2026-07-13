@@ -1,6 +1,6 @@
 # 考研词关 · WordQuest
 
-考研 5500 词「闯关学习」web app。Vite + React 单页，**纯前端、可安装（PWA）、离线可用、进度存本地**。
+考研 5500 词「闯关学习」web app。Vite + React 单页，**纯前端、可安装（PWA）、离线可用、进度存本地**。v1.2.0 加入考研英语一 / 英语二双入口及分库阅读精读。
 数据来自 `public/data/vocab.json`，每 10 词一组共约 550 关。手机/电脑通用，移动端优先。
 
 ## 运行 / 构建 / 测试
@@ -10,10 +10,10 @@ npm install
 npm run dev       # 本地开发 http://localhost:5173
 npm run build     # 产出静态文件到 dist/
 npm run preview   # 预览构建产物（PWA / service worker 只在这里和线上生效，dev 不缓存）
-npm test          # 纯函数自测（quiz / shuffle，16 条）
+npm test          # 逻辑、进度、双分库阅读数据的全量自测
 ```
 
-> `predev` / `prebuild` 会自动跑 `scripts/split-vocab.cjs`，把 `vocab.json` 拆成懒加载用的轻量索引 + 分组文件（见下文「性能」）。
+> `predev` / `prebuild` 会先把英语一、英语二逐句源合并成 `passages.json`，再运行 `scripts/split-vocab.cjs` 拆分词库（见下文「性能」）。
 
 ### 部署到 GitHub Pages（推代码即自动发布）
 
@@ -49,19 +49,23 @@ public/
   data/groups/g{N}.json    （自动生成）各关的富字段（词根/例句/辨析…）
   manifest.webmanifest     PWA 清单     sw.js  service worker（离线缓存）
   icon-*.png               应用图标（朱印风，scripts/generate-icons.cjs 生成）
+data-src/
+  拆句_JSONL/              英语一逐句源（保留既有 ID）
+  英语二/                  英语二逐句源、翻译、长难句分析（2010—2026）
 src/
-  config/themes.jsx        ★ 画风配置（唯一的视觉差异来源）+ decos.jsx 背景装饰
-  data/loadVocab.js        加载（先索引、进关懒加载详情，缺拆分则回退整包）
-  game/quiz.js             出题（英选中/中选英）、判分、长释义取首义
-  state/progress.js        进度模型 + 选择器（解锁/星级/XP/打卡/偏好）
-  state/useProgress.js     localStorage 持久化 hook
+  config/themes.tsx        ★ 画风配置（唯一的视觉差异来源）+ decos.tsx 背景装饰
+  data/loadVocab.ts        加载（先索引、进关懒加载详情，缺拆分则回退整包）
+  game/quiz.ts             出题（英选中/中选英）、判分、长释义取首义
+  state/progress.ts        进度模型 + 选择器（解锁/星级/XP/打卡/偏好）
+  state/useProgress.ts     localStorage 持久化 hook
   lib/                     speech / shuffle / annotate(词形还原标注) / passages(真题阅读关卡库,本机存储)
   components/              HeaderBar / ThemeSwitcher / Stars / DailyCard / SettingsPanel / ErrorBoundary / WordPopup
   screens/                 LevelSelect / Learn / Quiz / Result / Match / Read(真题精读) / Cloze(句子猜词) / Passage(真题阅读闯关) 八屏
   ../public/data/sentences.json  内置句子猜词句库（自写，带翻译）
-  App.jsx                  串起数据、进度、画风、流程（含懒加载 hydrate）
+  App.tsx                  串起数据、进度、画风、流程（含懒加载 hydrate）
   index.css                全局样式（只用变量，不出现画风名）
 scripts/
+  build-passages.mjs       合并英语一/二并生成带 exam 字段的 passages.json
   split-vocab.cjs          vocab.json → 索引 + 分组文件（predev/prebuild 自动跑）
   build-vocab.cjs          从 kajweb/dict 词表重建 vocab.json
   merge-enrich.cjs         把 enrich*.json 的助记/词根合并进 vocab.json
@@ -128,11 +132,12 @@ scripts/
   - **桌面键盘**：选择题 `1-4` 选、`Enter` 下一题。
   - **设置面板**：音效开关 / 美英音切换 / 每日目标 / 重置进度。
   - **健壮性**：ErrorBoundary 防白屏；`npm test` 纯函数自测全绿。
-- **真题语境背词**：在阅读原文里背单词，三种玩法：
-  - **真题阅读 · 闯关**（[`PassageScreen.jsx`](src/screens/PassageScreen.jsx) + [`passages.js`](src/lib/passages.js)）：**每篇文章 = 一关**，自动拆成句子。每句**整句英文直接显示、考研词高亮**；点「翻译 · 看词义」一次给出**整句中文 + 这些词的词义清单**，点具体词再看完整词卡（词根/例句/助记）、可加错词本。过完通关（计 XP/打卡，库内显示「已通 N/M」）。文章由你**自己导入**：单篇（标题+原文+可选译文），或**批量**（一次粘多篇、用 `# 标题` 行分隔，自动切成 N 关）。只存本机 localStorage、不上传；十几年真题一次导进去就是几十关。内置 2 篇**自写示例文章**开箱即用。
-  - **句子精读**（[`ClozeScreen.jsx`](src/screens/ClozeScreen.jsx)）：同上的逐句精读体验，跑在内置自写句库或你粘贴的真题上。
-  - **真题精读**（[`ReadScreen.jsx`](src/screens/ReadScreen.jsx)）：粘贴段落 → 自动高亮考研词 → 点词弹卡（释义/词根/例句/助记）。
-  - 三者共用词形还原引擎 [`src/lib/annotate.js`](src/lib/annotate.js)（纯规则去屈折+小不规则表，命中词库即标注，**离线毫秒级、不用 NLP 库、只读词库**）与点词弹层 [`WordPopup.jsx`](src/components/WordPopup.jsx)。
-  - **版权**：内置文章/句子均为自写；**绝不内置任何真题原文**（公开部署=公开复制版权文章），真题由你用自己合法持有的材料导入、仅存本机。
+- **真题语境背词**：在阅读原文里背单词，英语一、英语二先分入口再进入三种玩法：
+  - **真题阅读 · 闯关**（[`PassageScreen.tsx`](src/screens/PassageScreen.tsx) + [`passages.ts`](src/lib/passages.ts)）：**每篇文章 = 一关**，按年份 / Text 分类。每句英文直接显示并高亮考研词；点「翻译 · 看词义」查看整句译文和词义，点词可打开完整词卡。英语二内置 2010—2026 共 68 篇、逐句译文完整，每篇正好 3 条长难句拆解；英语一保留原有数据及 ID，不破坏旧完成记录。
+  - **句子精读**（[`ClozeScreen.tsx`](src/screens/ClozeScreen.tsx)）：只载入当前考试分库的逐句语料，可查看翻译、主干、结构和考点，也可粘贴自己的原文。
+  - **粘贴精读**（[`ReadScreen.tsx`](src/screens/ReadScreen.tsx)）：粘贴段落 → 自动高亮考研词 → 点词弹卡（释义/词根/例句/助记）。
+  - 三者共用词形还原引擎 [`src/lib/annotate.ts`](src/lib/annotate.ts)（纯规则去屈折+小不规则表，命中词库即标注，**离线毫秒级、不用 NLP 库、只读词库**）与点词弹层 [`WordPopup.tsx`](src/components/WordPopup.tsx)。
+  - **自行导入**：两个分库都仍支持单篇或批量导入；导入内容只存本机 localStorage，不上传，并自动归入当前选择的英语一或英语二。
+  - **版权**：内置历年阅读仅用于个人学习、研究与整理；试题版权归原权利人所有，不用于商业销售。
 
 > 全部功能已在浏览器端到端验证；`npm run build` 通过，`npm test` 全绿。

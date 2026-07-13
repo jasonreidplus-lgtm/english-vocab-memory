@@ -1,0 +1,50 @@
+{
+  "E2-2014-T2-P1-S3": {
+    "trunk": "并列谓语主干：Social psychologists have amassed ... and shown that ...",
+    "structure": [
+      "谓语①：have amassed oceans of research into what they call ...",
+      "what 宾语从句：what they call the 'above average effect' or 'illusory superiority'",
+      "谓语②(and)：(have) shown that ...",
+      "that 从句列举三项自评比例：70% ... leadership, 93% ... driving, 85% ... getting on well with others",
+      "破折号总结：all obviously statistical impossibilities"
+    ],
+    "logic": "先说明研究积累，再用三组不可能同时成立的高比例，实证展示人们普遍高估自己的“虚幻优越感”。",
+    "notes": [
+      "what = the phenomenon that，同时作 call 的宾语。",
+      "rate ourselves as above average 意为“把自己评为高于平均水平”。",
+      "oceans of 是夸张表达，意为“海量的”。"
+    ]
+  },
+  "E2-2014-T2-P1-S8": {
+    "trunk": "主干：he asked them to identify an original photograph of themselves",
+    "structure": [
+      "取舍状语：Rather than have people simply rate their beauty compared with others",
+      "主句结构：ask + 宾语 them + 不定式 to identify",
+      "来源范围：from a lineup",
+      "现在分词短语修饰 lineup：including versions",
+      "定语从句(that，修饰 versions)：that had been altered to appear more and less attractive"
+    ],
+    "logic": "研究设计避开主观打分，改用看似更自动的照片识别任务，以检验受试者是否真的把美化后的形象当作自己。",
+    "notes": [
+      "rather than 后与主句形成“不是……而是……”的选择。",
+      "have people rate 中 have 是使役动词。",
+      "had been altered 是过去完成时的被动，表示照片在识别前已被处理。"
+    ]
+  },
+  "E2-2014-T2-P1-S13": {
+    "trunk": "主干：those ... directly corresponded with those ...",
+    "structure": [
+      "主语：those who thought that the images higher up the attractiveness scale were real",
+      "定语从句①(who，修饰前一 those)：who thought that ...",
+      "thought 的宾语从句(that)：the images ... were real",
+      "谓语：directly corresponded with",
+      "宾语：those who showed other markers for having higher self-esteem；who 引导定语从句"
+    ],
+    "logic": "两组“those”其实指同一趋势：越把更美化照片认作真实自我的人，也越表现出其他高自尊指标。",
+    "notes": [
+      "higher up the attractiveness scale 是后置修饰 images。",
+      "correspond with 在此表示“与……相对应”。",
+      "markers for having higher self-esteem 指显示较高自尊的其他指标。"
+    ]
+  }
+}
