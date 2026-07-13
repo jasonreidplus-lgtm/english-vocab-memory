@@ -5,6 +5,11 @@ name: Build Android APK
 # 产物：Artifacts 始终保留；v* 标签还会创建 GitHub Release，直接附上 APK。
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '可选：重新构建并替换指定已有 Release 的 APK（如 v1.2.1）'
+        required: false
+        type: string
   push:
     branches: [main]
     tags: ['v*']
@@ -22,6 +27,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WORDQUEST_DEBUG_KEYSTORE: ${{ runner.temp }}/wordquest-signing/debug.keystore
     steps:
       - uses: actions/checkout@v4
 
@@ -49,10 +56,30 @@ jobs:
       # GitHub runner 是临时机；保留同一把 debug key，避免每次 APK 签名变化而无法覆盖安装。
       # 每周两次定时运行会持续访问该缓存，降低因长期未使用被回收的风险。
       - name: Restore stable debug signing key
+        id: signing-key-cache
         uses: actions/cache@v4
         with:
-          path: ~/.android/debug.keystore
-          key: wordquest-android-debug-keystore-v1
+          path: ${{ env.WORDQUEST_DEBUG_KEYSTORE }}
+          key: wordquest-android-debug-keystore-v2
+
+      - name: Create stable debug signing key on first run
+        if: steps.signing-key-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p "$(dirname "$WORDQUEST_DEBUG_KEYSTORE")"
+          keytool -genkeypair -noprompt \
+            -keystore "$WORDQUEST_DEBUG_KEYSTORE" \
+            -storepass android \
+            -alias androiddebugkey \
+            -keypass android \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10950 \
+            -dname "CN=WordQuest Android Debug,O=WordQuest,C=CN"
+
+      - name: Verify stable debug signing key
+        run: |
+          test -s "$WORDQUEST_DEBUG_KEYSTORE"
+          keytool -list -keystore "$WORDQUEST_DEBUG_KEYSTORE" -storepass android -alias androiddebugkey >/dev/null
 
       - name: Pre-install SDK platform 36 (Capacitor 8 compileSdk)
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0" || true
@@ -68,10 +95,15 @@ jobs:
 
       - name: Name APK
         run: |
-          SAFE_REF="${GITHUB_REF_NAME//\//-}"
+          RELEASE_REF='${{ inputs.release_tag }}'
+          if [ -z "$RELEASE_REF" ]; then
+            RELEASE_REF="$GITHUB_REF_NAME"
+          fi
+          SAFE_REF="${RELEASE_REF//\//-}"
           APK_PATH="wordquest-${SAFE_REF}.apk"
           cp android/app/build/outputs/apk/debug/app-debug.apk "$APK_PATH"
           echo "APK_PATH=$APK_PATH" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=$RELEASE_REF" >> "$GITHUB_ENV"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -81,15 +113,15 @@ jobs:
           if-no-files-found: error
 
       - name: Publish GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') || inputs.release_tag != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$APK_PATH" --clobber
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$APK_PATH" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$APK_PATH" \
+            gh release create "$RELEASE_TAG" "$APK_PATH" \
               --verify-tag \
-              --title "考研词关 $GITHUB_REF_NAME" \
+              --title "考研词关 $RELEASE_TAG" \
               --generate-notes
           fi
