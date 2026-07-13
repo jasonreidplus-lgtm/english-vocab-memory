@@ -8,6 +8,7 @@ import { computeStats } from '../src/lib/stats';
 import { starsFor, xpFor, summarize, dueReviewIds, dayKey, computeLevelStates, nextEnterableGroup } from '../src/state/progress';
 import { splitEnSentences } from '../src/lib/text';
 import { reducer } from '../src/state/useProgress';
+import { pdfSaveInstructions, sanitizePdfDocumentName } from '../src/lib/nativePrint';
 
 let pass = 0;
 let fail = 0;
@@ -285,6 +286,20 @@ t('exam 与内置篇目 ID 严格对应，英语一逐句译文完整', () => {
 t('英语二每篇正好 3 个长难句拆解', () => {
   const english2 = passageData.filter((p) => p.exam === 'english2');
   assert.ok(english2.every((p) => p.sents.filter((s) => s.analysis).length === 3));
+});
+
+console.log('跨平台 PDF 保存:');
+t('导出标题会清理跨平台非法文件名字符', () => {
+  assert.equal(sanitizePdfDocumentName('  2026/错词:*?"<>|.pdf  '), '2026-错词');
+  assert.equal(sanitizePdfDocumentName('CON'), '_CON');
+  assert.equal(sanitizePdfDocumentName('...'), '考研词关');
+});
+t('电脑、Android、iPhone/iPad、移动浏览器均提示选择保存位置', () => {
+  for (const platform of ['desktop-web', 'android-native', 'ios-web', 'mobile-web']) {
+    const help = pdfSaveInstructions(platform);
+    assert.match(help, /PDF/);
+    assert.match(help, /选择|位置|文件夹/);
+  }
 });
 
 function baseProgress(over) {

@@ -47,4 +47,5 @@ android/app/build/outputs/apk/debug/app-debug.apk
 - **体积**：约 150MB，因为把全词库真人发音都内置了。若想要**小体积版**（不内置发音、首次联网后用 app 内「一键缓存发音」离线），告诉我，可改 Capacitor 配置排除 `audio/`。
 - **更新**：APK 是某次构建的快照，不会自动更新；改了内容后重新构建一个新 APK 安装即可。
 - **v1.2.0 阅读资料**：新增考研英语一 / 英语二双入口；英语二内置 2010—2026 共 68 篇阅读、逐句译文和每篇 3 个长难句拆解，全部离线可用。
+- **PDF 保存位置**：导出页先调整每页词数，再点「选择位置 / 打印 PDF」。Android APK 在系统打印页选择「保存为 PDF」，点保存图标后可选择设备文件夹和文件名；电脑在「另存为 PDF / Microsoft Print to PDF」中选择路径；iPhone/iPad 网页版在打印预览的分享菜单中选「存储到文件」。
 - 改动配置：[`capacitor.config.ts`](capacitor.config.ts)（包名 `com.wordquest.kaoyan`、应用名「考研词关」）。
