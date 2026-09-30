@@ -79,6 +79,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools # 旧 tools 包已移除；command-line tools 由此 action 自行安装。
 
       # GitHub runner 是临时机；保留同一把 debug key，避免每次 APK 签名变化而无法覆盖安装。
       # 每周两次定时运行会持续访问该缓存，降低因长期未使用被回收的风险。
@@ -165,4 +167,3 @@ jobs:
               --title "考研词关 $RELEASE_TAG" \
               --generate-notes
           fi
-
