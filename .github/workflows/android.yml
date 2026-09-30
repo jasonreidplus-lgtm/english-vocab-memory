@@ -14,7 +14,8 @@ on:
     branches: [main]
     tags: ['v*']
   schedule:
-    - cron: '17 3 * * 1,4'
+    # 等价改写以重新激活停用的 schedule；仍为每周一、四 03:17 UTC。
+    - cron: '17 3 * * MON,THU'
 
 permissions:
   contents: write
@@ -25,6 +26,32 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 定时构建本身不算仓库活动；独立保活，不依赖 APK 构建成功。
+  keepalive:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep scheduled workflows active after 30 days without commits
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          HEAD_SHA="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$DEFAULT_BRANCH" --jq '.object.sha')"
+          COMMIT_JSON="$(gh api "repos/$GITHUB_REPOSITORY/git/commits/$HEAD_SHA")"
+          LAST_ACTIVITY="$(date -d "$(jq -r '.committer.date' <<< "$COMMIT_JSON")" +%s)"
+          if (( $(date +%s) - LAST_ACTIVITY < 30 * 86400 )); then
+            echo "Default branch has recent activity; no keepalive commit needed."
+            exit 0
+          fi
+          TREE_SHA="$(jq -r '.tree.sha' <<< "$COMMIT_JSON")"
+          NEW_SHA="$(gh api --method POST "repos/$GITHUB_REPOSITORY/git/commits" \
+            -f message='chore(ci): keep scheduled workflows active' \
+            -f tree="$TREE_SHA" -f "parents[]=$HEAD_SHA" --jq '.sha')"
+          # 同一棵 tree 的空提交，不改代码/签名；非强制更新，避免覆盖并发推送。
+          # GITHUB_TOKEN 产生的 push 不会递归触发 Android / Pages 工作流。
+          gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/heads/$DEFAULT_BRANCH" \
+            -f sha="$NEW_SHA" -F force=false
+
   build:
     runs-on: ubuntu-latest
     env:
@@ -62,24 +89,37 @@ jobs:
           path: ${{ env.WORDQUEST_DEBUG_KEYSTORE }}
           key: wordquest-android-debug-keystore-v2
 
-      - name: Create stable debug signing key on first run
+      # v1.2.1 起不得重新生成私钥；仅从原密钥的持久备份恢复，缓存配置保持不变。
+      # 将原 debug.keystore 的 Base64 保存为同名 Actions repository secret。
+      - name: Restore original debug signing key if cache is missing
         if: steps.signing-key-cache.outputs.cache-hit != 'true'
+        env:
+          WORDQUEST_DEBUG_KEYSTORE_BASE64: ${{ secrets.WORDQUEST_DEBUG_KEYSTORE_BASE64 }}
         run: |
+          if [ -s "$WORDQUEST_DEBUG_KEYSTORE" ]; then
+            exit 0
+          fi
+          if [ -z "$WORDQUEST_DEBUG_KEYSTORE_BASE64" ]; then
+            echo "::error::Original v1.2.1 signing key is missing. Restore it as WORDQUEST_DEBUG_KEYSTORE_BASE64; refusing to generate a replacement key."
+            exit 1
+          fi
+          umask 077
           mkdir -p "$(dirname "$WORDQUEST_DEBUG_KEYSTORE")"
-          keytool -genkeypair -noprompt \
-            -keystore "$WORDQUEST_DEBUG_KEYSTORE" \
-            -storepass android \
-            -alias androiddebugkey \
-            -keypass android \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10950 \
-            -dname "CN=WordQuest Android Debug,O=WordQuest,C=CN"
+          printf '%s' "$WORDQUEST_DEBUG_KEYSTORE_BASE64" | base64 --decode > "$WORDQUEST_DEBUG_KEYSTORE"
 
       - name: Verify stable debug signing key
         run: |
           test -s "$WORDQUEST_DEBUG_KEYSTORE"
           keytool -list -keystore "$WORDQUEST_DEBUG_KEYSTORE" -storepass android -alias androiddebugkey >/dev/null
+          # 已发布的最终 v1.2.1 证书指纹，见「安卓APK打包说明.md」。
+          EXPECTED_SHA256='D7160E22EB7BF7ECC1FE2C8BB53A97AE756C143EAEE2E89C78DF643AFA81BFBA'
+          ACTUAL_SHA256="$(keytool -exportcert -rfc -keystore "$WORDQUEST_DEBUG_KEYSTORE" \
+            -storepass android -alias androiddebugkey \
+            | openssl x509 -noout -fingerprint -sha256 | cut -d= -f2 | tr -d ':' | tr '[:lower:]' '[:upper:]')"
+          if [ "$ACTUAL_SHA256" != "$EXPECTED_SHA256" ]; then
+            echo "::error::Debug signing certificate does not match the original v1.2.1 certificate; refusing to build or publish."
+            exit 1
+          fi
 
       - name: Pre-install SDK platform 36 (Capacitor 8 compileSdk)
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0" || true
@@ -125,3 +165,4 @@ jobs:
               --title "考研词关 $RELEASE_TAG" \
               --generate-notes
           fi
+
